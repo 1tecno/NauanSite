@@ -57,7 +57,7 @@ nav a:hover::after {
   margin-left: 1rem;
   cursor: pointer;
   border-radius: 5px;
-  transition: background 0.3s;
+  transition: background 0.3s, color 0.3s, text-shadow 0.3s;
 }
 
 #modo-btn:hover {
@@ -104,6 +104,12 @@ body.dark-mode .materia {
 
 body.dark-mode header {
   background-image: linear-gradient(to right, #0f0f3c, #2a2a72);
+  /* efeito neon */
+  text-shadow:
+    0 0 5px #4b6cb7,
+    0 0 10px #4b6cb7,
+    0 0 20px #4b6cb7,
+    0 0 40px #9aafff;
 }
 
 body.dark-mode nav a::after {
@@ -113,10 +119,31 @@ body.dark-mode nav a::after {
 body.dark-mode #modo-btn {
   border-color: #9aafff;
   color: #9aafff;
+  text-shadow:
+    0 0 5px #9aafff,
+    0 0 10px #9aafff,
+    0 0 15px #9aafff;
+  animation: neonPulse 2.5s infinite ease-in-out;
 }
 
 body.dark-mode #modo-btn:hover {
   background: rgba(154,175,255,0.2);
+}
+
+/* animação neon para botão modo escuro */
+@keyframes neonPulse {
+  0%, 100% {
+    text-shadow:
+      0 0 5px #9aafff,
+      0 0 10px #9aafff,
+      0 0 15px #9aafff;
+  }
+  50% {
+    text-shadow:
+      0 0 10px #c0d4ff,
+      0 0 20px #c0d4ff,
+      0 0 30px #c0d4ff;
+  }
 }
 
 /* Responsividade */
@@ -131,7 +158,9 @@ body.dark-mode #modo-btn:hover {
     margin-top: 0.5rem;
   }
 }
-#mensagem-especial {
+
+/* Estilo para a mensagem diária */
+#mensagem-diaria {
   background: rgba(0, 0, 0, 0.7); /* fundo escuro com transparência */
   color: #fff;
   padding: 15px 20px;
@@ -142,7 +171,7 @@ body.dark-mode #modo-btn:hover {
   text-align: center;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   animation: aparecer 1s ease-out;
-  backdrop-filter: blur(8px); /* para efeito de vidro */
+  backdrop-filter: blur(8px); /* efeito vidro */
 }
 
 @keyframes aparecer {
@@ -155,6 +184,7 @@ body.dark-mode #modo-btn:hover {
     transform: translateY(0);
   }
 }
+
 .mensagem-data {
   background-color: #ffe58a;
   color: #333;
