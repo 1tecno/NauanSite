@@ -3,13 +3,10 @@ const modoBtn = document.getElementById("modo-btn");
 const temas = ["light", "dark", "neon"]; // ordem dos temas
 let temaAtual = 0; // índice do tema ativo
 
-// Mensagens diárias (mantém igual, pode ajustar se quiser que apareça no neon também)
 const mensagensDiarias = {
   "01-01": "🎆 Feliz Ano Novo! Que seu ano comece com muita energia!",
   // ... demais mensagens
 };
-
-// Funções mensagemGenerica, pegarMensagemDoDia, mostrarMensagemDiaria, removerMensagemDiaria mantêm iguais
 
 function mensagemGenerica() {
   const mensagensGen = [
@@ -70,19 +67,17 @@ function removerMensagemDiaria() {
   }
 }
 
-// Atualiza texto do botão conforme tema ativo
 function atualizarTextoBotao() {
   const tema = temas[temaAtual];
   if (tema === "light") {
     modoBtn.textContent = "🌙 Modo Escuro";
   } else if (tema === "dark") {
-    modoBtn.textContent = "🎆 Modo Neon";
+    modoBtn.textContent = "🎆 Modo Neon Vermelho";
   } else if (tema === "neon") {
     modoBtn.textContent = "☀️ Modo Claro";
   }
 }
 
-// Aplica o tema ao body
 function aplicarTema(tema) {
   document.body.classList.remove("dark-mode", "neon-mode");
   if (tema === "dark") {
@@ -92,32 +87,28 @@ function aplicarTema(tema) {
   }
 }
 
-// Alterna o tema
 function toggleTema() {
   temaAtual = (temaAtual + 1) % temas.length;
   const tema = temas[temaAtual];
   aplicarTema(tema);
 
-  // Mostra mensagem só no modo escuro, por exemplo (pode alterar se quiser)
+  // Mensagem diária só no modo escuro, se quiser incluir no neon, adicione aqui
   if (tema === "dark") {
     mostrarMensagemDiaria();
   } else {
     removerMensagemDiaria();
   }
 
-  // Salva preferência
   localStorage.setItem("modo", tema);
   atualizarTextoBotao();
 }
 
-// Evento botão
 modoBtn.addEventListener("click", toggleTema);
 
-// Ao carregar a página, carrega o tema salvo
 window.addEventListener("load", () => {
   const modoSalvo = localStorage.getItem("modo") || "light";
   temaAtual = temas.indexOf(modoSalvo);
-  if (temaAtual === -1) temaAtual = 0; // fallback para light
+  if (temaAtual === -1) temaAtual = 0;
 
   aplicarTema(temas[temaAtual]);
   if (temas[temaAtual] === "dark") {
