@@ -200,3 +200,56 @@ body.dark-mode #modo-btn:hover {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+/* ===== MODO NEON VERMELHO ===== */
+body.neon-mode {
+  background-color: #0a0a0a;
+  color: #ff4b4b;
+}
+
+body.neon-mode .materia {
+  background: #1a1a1a;
+  color: #ff4b4b;
+  border-left-color: #ff4b4b;
+  box-shadow: 0 0 10px rgba(255, 75, 75, 0.4);
+}
+
+body.neon-mode header {
+  background-image: linear-gradient(to right, #330000, #990000);
+  text-shadow:
+    0 0 5px #ff4b4b,
+    0 0 15px #ff4b4b,
+    0 0 30px #ff4b4b;
+}
+
+body.neon-mode nav a::after {
+  background: #ff4b4b;
+}
+
+body.neon-mode #modo-btn {
+  border-color: #ff4b4b;
+  color: #ff4b4b;
+  text-shadow:
+    0 0 5px #ff4b4b,
+    0 0 10px #ff4b4b,
+    0 0 15px #ff4b4b;
+  animation: neonRedPulse 2.5s infinite ease-in-out;
+}
+
+body.neon-mode #modo-btn:hover {
+  background: rgba(255, 75, 75, 0.15);
+}
+
+@keyframes neonRedPulse {
+  0%, 100% {
+    text-shadow:
+      0 0 5px #ff4b4b,
+      0 0 10px #ff4b4b,
+      0 0 15px #ff4b4b;
+  }
+  50% {
+    text-shadow:
+      0 0 10px #ff9999,
+      0 0 20px #ff9999,
+      0 0 30px #ff9999;
+  }
+}
