@@ -35,6 +35,30 @@
       color: #ccc;
     }
 
+    /* Modo neon ativado */
+    body.neon-mode {
+      background-color: #0f0f1f;
+      color: #39ff14; /* verde neon */
+    }
+    body.neon-mode header,
+    body.neon-mode footer {
+      background-color: #051005;
+      color: #39ff14;
+      text-shadow:
+        0 0 5px #39ff14,
+        0 0 10px #39ff14,
+        0 0 20px #39ff14,
+        0 0 40px #0f0;
+    }
+    body.neon-mode a {
+      color: #39ff14;
+      text-shadow:
+        0 0 5px #39ff14,
+        0 0 10px #39ff14,
+        0 0 20px #39ff14,
+        0 0 40px #0f0;
+    }
+    
     /* Botão do modo */
     button#modo-btn {
       cursor: pointer;
@@ -50,13 +74,33 @@
       background-color: #444;
       color: #eee;
     }
+
+    body.neon-mode button#modo-btn {
+      background-color: transparent;
+      border: 2px solid #39ff14;
+      color: #39ff14;
+      box-shadow:
+        0 0 5px #39ff14,
+        0 0 10px #39ff14,
+        0 0 20px #39ff14;
+      transition: all 0.3s ease;
+    }
+
+    body.neon-mode button#modo-btn:hover {
+      box-shadow:
+        0 0 10px #39ff14,
+        0 0 20px #39ff14,
+        0 0 40px #39ff14;
+      background-color: #39ff14;
+      color: #0f0f1f;
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>Portal Técnico Escolar</h1>
     <nav>
-      <button id="modo-btn" aria-label="Alternar modo claro e escuro">🌙 Modo Escuro</button>
+      <button id="modo-btn" aria-label="Alternar modo claro, escuro e neon">🌙 Modo Escuro</button>
     </nav>
   </header>
 
@@ -130,11 +174,30 @@
 
   <script>
     const modoBtn = document.getElementById("modo-btn");
-    modoBtn.addEventListener("click", () => {
-      document.body.classList.toggle("dark-mode");
+    // Estados: 0 = claro, 1 = escuro, 2 = neon
+    let estadoModo = 0;
 
-      const darkModeAtivo = document.body.classList.contains("dark-mode");
-      modoBtn.textContent = darkModeAtivo ? "☀️ Modo Claro" : "🌙 Modo Escuro";
+    modoBtn.addEventListener("click", () => {
+      estadoModo = (estadoModo + 1) % 3;
+
+      document.body.classList.remove("dark-mode", "neon-mode");
+
+      switch(estadoModo) {
+        case 0:
+          // Modo claro
+          modoBtn.textContent = "🌙 Modo Escuro";
+          break;
+        case 1:
+          // Modo escuro
+          document.body.classList.add("dark-mode");
+          modoBtn.textContent = "💡 Modo Neon";
+          break;
+        case 2:
+          // Modo neon
+          document.body.classList.add("neon-mode");
+          modoBtn.textContent = "☀️ Modo Claro";
+          break;
+      }
     });
   </script>
 </body>
