@@ -85,10 +85,11 @@ main {
 }
 
 footer {
-  background-color: #222;
-  color: black;
+  background-color: #eee; /* fundo claro para o modo claro */
+  color: #222; /* texto escuro para contraste */
   text-align: center;
   padding: 1rem;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 /* ===== MODO ESCURO ===== */
