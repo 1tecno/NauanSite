@@ -1,88 +1,27 @@
-/* Modo claro - padrão */
-body {
-  background-color: #fff;
-  color: #222;
-  font-family: Arial, sans-serif;
-  transition: background-color 0.3s, color 0.3s;
-  margin: 0;
-  padding: 0 20px;
-}
-
-header, footer {
-  background-color: #eee;
-  padding: 15px 20px;
-  text-align: center;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-/* Modo escuro ativado */
-body.dark-mode {
-  background-color: #121212;
-  color: #ddd;
-}
-
-body.dark-mode header,
-body.dark-mode footer {
-  background-color: #222;
-  color: #ccc;
-}
-
-/* Modo neon ativado */
-body.neon-mode {
-  background-color: #0f0f1f;
-  color: #39ff14; /* verde neon */
-}
-body.neon-mode header,
-body.neon-mode footer {
-  background-color: #051005;
-  color: #39ff14;
-  text-shadow:
-    0 0 5px #39ff14,
-    0 0 10px #39ff14,
-    0 0 20px #39ff14,
-    0 0 40px #0f0;
-}
-body.neon-mode a {
-  color: #39ff14;
-  text-shadow:
-    0 0 5px #39ff14,
-    0 0 10px #39ff14,
-    0 0 20px #39ff14,
-    0 0 40px #0f0;
-}
-
-/* Botão do modo */
-button#modo-btn {
-  cursor: pointer;
-  font-size: 1em;
-  padding: 8px 15px;
-  border: none;
-  background-color: #ccc;
-  border-radius: 5px;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-body.dark-mode button#modo-btn {
-  background-color: #444;
-  color: #eee;
-}
-
-body.neon-mode button#modo-btn {
-  background-color: transparent;
-  border: 2px solid #39ff14;
-  color: #39ff14;
-  box-shadow:
-    0 0 5px #39ff14,
-    0 0 10px #39ff14,
-    0 0 20px #39ff14;
-  transition: all 0.3s ease;
-}
-
-body.neon-mode button#modo-btn:hover {
-  box-shadow:
-    0 0 10px #39ff14,
-    0 0 20px #39ff14,
-    0 0 40px #39ff14;
-  background-color: #39ff14;
-  color: #0f0f1f;
-}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sobre CSS</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Sobre CSS</h1>
+    <nav>
+      <a href="index.html" aria-label="Voltar para a página inicial">← Voltar</a>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <h2>O que é CSS?</h2>
+      <p>CSS (Cascading Style Sheets) é uma linguagem usada para descrever a apresentação de documentos HTML.</p>
+      <p>Com CSS, você pode controlar cores, fontes, espaçamentos, layout e muito mais.</p>
+    </section>
+  </main>
+  <footer>
+    <p>© 2025 - Portal Técnico Escolar</p>
+  </footer>
+</body>
+</html>
