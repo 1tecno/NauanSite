@@ -46,6 +46,9 @@
       </div>
 
       <div class="materia" id="htmlcss">
+        <section id="botao-css">
+  <button id="btn-sobre-css" aria-label="Acessar página sobre CSS">Sobre CSS</button>
+</section>
         <h3>HTML e CSS</h3>
         <p>Conteúdo em breve...</p>
       </div>
@@ -110,5 +113,11 @@
       }
     });
   </script>
+  <script>
+  document.getElementById("btn-sobre-css").addEventListener("click", () => {
+    window.location.href = "sobre-css.html";
+  });
+</script>
+
 </body>
 </html>
