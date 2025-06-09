@@ -137,9 +137,7 @@
 
       <div class="materia" id="htmlcss">
         <h3>HTML e CSS</h3>
-        <p>Conteúdo em breve...
-        voue screver agora
-        </p>
+        <p>Conteúdo em breve...</p>
       </div>
 
       <div class="materia" id="sistemas">
@@ -161,13 +159,9 @@
        <h3>Gestão de Tempo</h3>
        <p>Conteúdo em breve...</p>
      </div>
-      
     </section>
-    <section id="botao-css">
-  <button id="btn-sobre-css" aria-label="Acessar página sobre CSS">Sobre CSS</button>
-</section>
 
-    <section id="creditos">
+    <section id="créditos">
       <h2>Créditos</h2>
       <p>Site criado por Nauan Loures, 2025.</p>
       <p>Instagram: <a href="https://instagram.com/nauanloures" target="_blank" rel="noopener noreferrer">nauanloures</a></p>
@@ -177,40 +171,5 @@
   <footer>
     <p>© 2025 - Portal Técnico Escolar</p>
   </footer>
-
-  <script>
-    const modoBtn = document.getElementById("modo-btn");
-    // Estados: 0 = claro, 1 = escuro, 2 = neon
-    let estadoModo = 0;
-
-    modoBtn.addEventListener("click", () => {
-      estadoModo = (estadoModo + 1) % 3;
-
-      document.body.classList.remove("dark-mode", "neon-mode");
-
-      switch(estadoModo) {
-        case 0:
-          // Modo claro
-          modoBtn.textContent = "🌙 Modo Escuro";
-          break;
-        case 1:
-          // Modo escuro
-          document.body.classList.add("dark-mode");
-          modoBtn.textContent = "💡 Modo Neon";
-          break;
-        case 2:
-          // Modo neon
-          document.body.classList.add("neon-mode");
-          modoBtn.textContent = "☀️ Modo Claro";
-          break;
-      }
-    });
-  </script>
-  <script>
-  document.getElementById("btn-sobre-css").addEventListener("click", () => {
-    window.location.href = "sobre-css.html";
-  });
-</script>
-
 </body>
 </html>
