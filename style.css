@@ -1,10 +1,10 @@
-/* ===== ESTILO BASE - inspirado no arquitetura.html (modo escuro) ===== */
+/* ===== CSS BASE SIMPLIFICADO - estilo escuro sem modo claro/neon ===== */
+
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #121212;
   color: #eee;
-  transition: background 0.3s, color 0.3s;
 }
 
 header {
@@ -17,9 +17,7 @@ header {
   z-index: 1000;
   text-shadow:
     0 0 5px #4b6cb7,
-    0 0 10px #4b6cb7,
-    0 0 20px #4b6cb7,
-    0 0 40px #9aafff;
+    0 0 10px #4b6cb7;
 }
 
 nav ul {
@@ -35,8 +33,8 @@ nav a {
   color: #9aafff;
   text-decoration: none;
   font-weight: 600;
-  position: relative;
   font-size: 1.1rem;
+  position: relative;
   transition: color 0.3s;
 }
 
@@ -68,22 +66,13 @@ nav a:hover::after {
   border-radius: 6px;
   font-weight: 700;
   font-size: 1rem;
-  text-shadow:
-    0 0 5px #9aafff,
-    0 0 10px #9aafff,
-    0 0 15px #9aafff;
-  animation: neonPulse 2.5s infinite ease-in-out;
-  transition: background 0.3s, color 0.3s;
   margin-left: 1rem;
+  transition: background 0.3s, color 0.3s;
 }
 
 #modo-btn:hover {
   background: rgba(154, 175, 255, 0.25);
   color: #c0d4ff;
-  text-shadow:
-    0 0 10px #c0d4ff,
-    0 0 20px #c0d4ff,
-    0 0 30px #c0d4ff;
 }
 
 main {
@@ -119,22 +108,6 @@ footer {
     0 0 5px #4b6cb7;
   font-weight: 500;
   margin-top: 3rem;
-}
-
-/* ANIMAÇÃO NEON */
-@keyframes neonPulse {
-  0%, 100% {
-    text-shadow:
-      0 0 5px #9aafff,
-      0 0 10px #9aafff,
-      0 0 15px #9aafff;
-  }
-  50% {
-    text-shadow:
-      0 0 10px #c0d4ff,
-      0 0 20px #c0d4ff,
-      0 0 30px #c0d4ff;
-  }
 }
 
 /* RESPONSIVIDADE */
