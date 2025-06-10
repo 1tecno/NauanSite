@@ -6,44 +6,66 @@
   <title>Arquitetura de Computadores</title>
   <link rel="stylesheet" href="style.css"> <!-- Opcional: mesmo estilo do site principal -->
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      color: #222;
-      margin: 0;
-      padding: 20px;
-    }
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 
-    header {
-      background-color: #333;
-      color: #fff;
-      padding: 15px;
-      text-align: center;
-    }
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    color: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+  }
 
-    main {
-      max-width: 800px;
-      margin: auto;
-    }
+  header {
+    background-color: #111;
+    color: #00ffff;
+    padding: 25px;
+    text-align: center;
+    font-size: 2em;
+    box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3);
+  }
 
-    h1 {
-      color: #444;
-    }
+  main {
+    max-width: 800px;
+    margin: auto;
+    background-color: #1e1e1e;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+    margin-top: 30px;
+  }
 
-    a.voltar {
-      display: inline-block;
-      margin-top: 30px;
-      padding: 10px 20px;
-      background-color: #555;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-    }
+  h1, h2 {
+    color: #00ffff;
+  }
 
-    a.voltar:hover {
-      background-color: #333;
-    }
-  </style>
+  ul li::before {
+    content: "✓ ";
+    color: #00ffff;
+    font-weight: bold;
+  }
+
+  a.voltar {
+    display: inline-block;
+    margin-top: 40px;
+    padding: 12px 24px;
+    background-color: #00ffff;
+    color: #111;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: background-color 0.3s ease, transform 0.2s;
+    font-weight: bold;
+  }
+
+  a.voltar:hover {
+    background-color: #00cccc;
+    transform: scale(1.05);
+  }
+
+  p, ul {
+    line-height: 1.8;
+  }
+</style>
 </head>
 <body>
 
@@ -55,20 +77,20 @@
     <h2>O que é?</h2>
     <p>Arquitetura de computadores é o estudo da estrutura e do funcionamento interno de sistemas computacionais. Inclui a análise da CPU, memória, dispositivos de entrada e saída, barramentos e mais.</p>
 
-    <h2>Conteúdo que você vai aprender:</h2>
-    <ul>
-      <li>Unidade Central de Processamento (CPU)</li>
-      <li>Memória RAM e ROM</li>
-      <li>Dispositivos de entrada e saída</li>
-      <li>Sistema binário e representação de dados</li>
-      <li>Barramentos e ciclos de instrução</li>
-    </ul>
-
-    <h2>Exemplo prático:</h2>
-    <p>Você verá como os bits trafegam entre os componentes, como a memória é acessada e como o processador executa uma instrução passo a passo.</p>
-
     <a href="index.html" class="voltar">⬅ Voltar ao portal</a>
   </main>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const main = document.querySelector("main");
+    main.style.opacity = 0;
+    main.style.transform = "translateY(40px)";
+    setTimeout(() => {
+      main.style.transition = "all 0.6s ease";
+      main.style.opacity = 1;
+      main.style.transform = "translateY(0)";
+    }, 200);
+  });
+</script>
 
 </body>
 </html>
