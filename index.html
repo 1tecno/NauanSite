@@ -2,99 +2,13 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Portal Técnico Escolar</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #ffffff;
-      background: linear-gradient(-45deg, #3a1c71, #ff005e, #00c3ff, #2af598, #ffb347, #ffcc70);
-      background-size: 400% 400%;
-      animation: aurora 30s ease infinite;
-      overflow-x: hidden;
-    }
-
-    @keyframes aurora {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    header, footer {
-      background-color: rgba(0, 0, 0, 0.4);
-      text-align: center;
-      padding: 20px;
-      backdrop-filter: blur(10px);
-    }
-
-    header h1, footer p {
-      margin: 0;
-    }
-
-    main {
-      padding: 30px;
-    }
-
-    section {
-      margin-bottom: 40px;
-      padding: 20px;
-      background-color: rgba(255, 255, 255, 0.05);
-      border-radius: 15px;
-      box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(8px);
-    }
-
-    h2, h3 {
-      color: #ffffff;
-      text-shadow: 0 0 5px #ffffffaa;
-    }
-
-    a {
-      color: #ffd700;
-      text-decoration: none;
-    }
-
-    .materia {
-      margin-top: 20px;
-      margin-bottom: 20px;
-      padding: 20px;
-      border-radius: 15px;
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-      background-color: rgba(255, 255, 255, 0.05);
-      transition: transform 0.3s ease;
-    }
-
-    .materia:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
-    }
-
-    .btn-aprender {
-      padding: 12px 25px;
-      font-size: 1em;
-      background: rgba(255, 255, 255, 0.08);
-      color: #ffffff;
-      border: 2px solid #ffffff55;
-      border-radius: 12px;
-      cursor: pointer;
-      backdrop-filter: blur(4px);
-      transition: all 0.4s ease;
-      margin-top: 10px;
-    }
-
-    .btn-aprender:hover {
-      background: #ffffff;
-      color: #000000;
-      box-shadow: 0 0 15px #ffffffaa;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header>
-    <h1>Portal Técnico Escolar</h1>
+    Portal Técnico Escolar
   </header>
 
   <main>
@@ -155,16 +69,16 @@
     <section id="creditos">
       <h2>Créditos</h2>
       <p>Site criado por Nauan Loures, 2025.</p>
-      <p>Instagram: <a href="https://instagram.com/nauanloures" target="_blank" rel="noopener noreferrer">@nauanloures</a></p>
+      <p>Instagram: <a href="https://instagram.com/nauanloures" target="_blank" rel="noopener noreferrer">nauanloures</a></p>
     </section>
   </main>
 
   <footer>
-    <p>© 2025 - Portal Técnico Escolar</p>
+    © 2025 - Portal Técnico Escolar
   </footer>
 
   <script>
-    // Botões "Aprender!" redirecionam
+    // Botão "Aprender!"
     document.querySelectorAll('.btn-aprender').forEach(botao => {
       botao.addEventListener('click', () => {
         const pagina = botao.getAttribute('data-pagina');
