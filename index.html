@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Portal Técnico Escolar</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@300;500;700&display=swap');
 
     * {
       margin: 0;
@@ -26,12 +26,6 @@
       transition: background 1s ease;
     }
 
-    @keyframes aurora {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
     header {
       background-color: rgba(0, 0, 0, 0.5);
       color: #00ffff;
@@ -42,8 +36,9 @@
       box-shadow: 0 0 20px #00ffff80;
       backdrop-filter: blur(6px);
       animation: fadeDown 1s ease forwards;
+      font-family: 'Orbitron', sans-serif; /* <<< Aqui está a mudança */
     }
-
+    
     main {
       max-width: 900px;
       margin: 30px auto;
