@@ -200,5 +200,18 @@
       }
     });
   </script>
+  <script>
+  // Seleciona todos os botões "Aprender!"
+  document.querySelectorAll('.btn-aprender').forEach(botao => {
+    botao.addEventListener('click', () => {
+      const pagina = botao.getAttribute('data-pagina');
+      if (pagina) {
+        window.location.href = pagina; // Redireciona para a página indicada
+      } else {
+        alert('Página não definida para esta matéria.');
+      }
+    });
+  });
+</script>
 </body>
 </html>
