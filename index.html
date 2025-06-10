@@ -10,9 +10,9 @@
       padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #ffffff;
-      background: linear-gradient(120deg, #3a1c71, #d76d77, #ffaf7b);
-      background-size: 600% 600%;
-      animation: aurora 20s ease infinite;
+      background: linear-gradient(-45deg, #3a1c71, #ff005e, #00c3ff, #2af598, #ffb347, #ffcc70);
+      background-size: 400% 400%;
+      animation: aurora 30s ease infinite;
       overflow-x: hidden;
     }
 
@@ -35,15 +35,15 @@
 
     main {
       padding: 30px;
-      backdrop-filter: blur(5px);
     }
 
     section {
       margin-bottom: 40px;
       padding: 20px;
       background-color: rgba(255, 255, 255, 0.05);
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
     }
 
     h2, h3 {
@@ -57,23 +57,38 @@
     }
 
     .materia {
-      margin-top: 15px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      padding: 20px;
+      border-radius: 15px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      background-color: rgba(255, 255, 255, 0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .materia:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
     }
 
     .btn-aprender {
-      padding: 10px 20px;
+      padding: 12px 25px;
       font-size: 1em;
-      background-color: #ffffff22;
-      color: #fff;
-      border: 2px solid #fff;
-      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      border: 2px solid #ffffff55;
+      border-radius: 12px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      backdrop-filter: blur(4px);
+      transition: all 0.4s ease;
+      margin-top: 10px;
     }
 
     .btn-aprender:hover {
-      background-color: #fff;
-      color: #000;
+      background: #ffffff;
+      color: #000000;
+      box-shadow: 0 0 15px #ffffffaa;
     }
   </style>
 </head>
