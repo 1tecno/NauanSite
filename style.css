@@ -1,124 +1,75 @@
-/* ===== CSS BASE SIMPLIFICADO - estilo escuro sem modo claro/neon ===== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 
 body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+  color: #f9f9f9;
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #121212;
-  color: #eee;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 header {
-  background-image: linear-gradient(to right, #0f0f3c, #2a2a72);
-  color: #eee;
-  padding: 1rem 0;
+  background-color: #111;
+  color: #00ffff;
+  padding: 25px;
   text-align: center;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  text-shadow:
-    0 0 5px #4b6cb7,
-    0 0 10px #4b6cb7;
-}
-
-nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-}
-
-nav a {
-  color: #9aafff;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1.1rem;
-  position: relative;
-  transition: color 0.3s;
-}
-
-nav a::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 2px;
-  background: #9aafff;
-  bottom: -5px;
-  left: 0;
-  transition: width 0.3s;
-}
-
-nav a:hover {
-  color: #c0d4ff;
-}
-
-nav a:hover::after {
-  width: 100%;
-}
-
-#modo-btn {
-  background: none;
-  border: 2px solid #9aafff;
-  color: #9aafff;
-  padding: 0.4rem 1rem;
-  cursor: pointer;
-  border-radius: 6px;
-  font-weight: 700;
-  font-size: 1rem;
-  margin-left: 1rem;
-  transition: background 0.3s, color 0.3s;
-}
-
-#modo-btn:hover {
-  background: rgba(154, 175, 255, 0.25);
-  color: #c0d4ff;
+  font-size: 2em;
+  box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3);
+  flex-shrink: 0;
 }
 
 main {
-  max-width: 900px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  max-width: 800px;
+  margin: 30px auto 0;
+  background-color: #1e1e1e;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+  flex-grow: 1;
 }
 
-.materia {
-  background: #1e1e1e;
-  border-left: 6px solid #9aafff;
-  padding: 1rem 1.5rem;
-  margin-bottom: 1.5rem;
-  border-radius: 8px;
-  box-shadow:
-    0 2px 8px rgba(74, 108, 183, 0.6);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  color: #ddd;
+h1, h2 {
+  color: #00ffff;
+  margin-top: 0;
 }
 
-.materia:hover {
-  transform: translateY(-5px);
-  box-shadow:
-    0 6px 20px rgba(74, 108, 183, 0.9);
+ul li::before {
+  content: "✓ ";
+  color: #00ffff;
+  font-weight: bold;
 }
 
-footer {
-  text-align: center;
-  padding: 1rem;
-  color: #9aafff;
-  background: #0f0f3c;
-  text-shadow:
-    0 0 5px #4b6cb7;
-  font-weight: 500;
-  margin-top: 3rem;
+a.voltar {
+  display: inline-block;
+  margin-top: 40px;
+  padding: 12px 24px;
+  background-color: #00ffff;
+  color: #111;
+  text-decoration: none;
+  border-radius: 30px;
+  transition: background-color 0.3s ease, transform 0.2s;
+  font-weight: bold;
 }
 
-/* RESPONSIVIDADE */
+a.voltar:hover {
+  background-color: #00cccc;
+  transform: scale(1.05);
+}
+
+p, ul {
+  line-height: 1.8;
+}
+
+/* Responsividade simples */
 @media (max-width: 600px) {
-  nav ul {
-    flex-direction: column;
-    gap: 1rem;
+  body {
+    padding: 15px;
   }
 
-  #modo-btn {
-    margin-left: 0;
-    margin-top: 1rem;
+  main {
+    padding: 20px;
   }
 }
