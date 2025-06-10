@@ -1,23 +1,46 @@
-/* ===== ESTILO GERAL ===== */
+/* ===== ESTILO GERAL - MODO ESCURO FIXO ===== */
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #f4f4f4;
-  color: #222;
+  background: #121212;
+  color: #eee;
+  /* Fundo animado: gradiente sutil que muda lentamente */
+  background: linear-gradient(-45deg, #1e1e2f, #121212, #1a1a2e, #121212);
+  background-size: 400% 400%;
+  animation: backgroundGradient 15s ease infinite;
   transition: background 0.3s, color 0.3s;
+  min-height: 100vh;
 }
 
+@keyframes backgroundGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Header com efeito neon azulado */
 header {
-  background-color: #4b6cb7;
-  background-image: linear-gradient(to right, #182848, #4b6cb7);
-  color: white;
+  background-image: linear-gradient(to right, #0f0f3c, #2a2a72);
+  color: #9aafff;
   padding: 1rem;
   text-align: center;
   position: sticky;
   top: 0;
   z-index: 1000;
+  text-shadow:
+    0 0 5px #4b6cb7,
+    0 0 10px #4b6cb7,
+    0 0 20px #4b6cb7,
+    0 0 40px #9aafff;
 }
 
+/* Menu de navegação */
 nav ul {
   list-style: none;
   padding: 0;
@@ -28,10 +51,11 @@ nav ul {
 }
 
 nav a {
-  color: white;
+  color: #9aafff;
   text-decoration: none;
   font-weight: bold;
   position: relative;
+  transition: color 0.3s;
 }
 
 nav a::after {
@@ -39,99 +63,42 @@ nav a::after {
   position: absolute;
   width: 0;
   height: 2px;
-  background: white;
+  background: #9aafff;
   bottom: -4px;
   left: 0;
   transition: width 0.3s;
+}
+
+nav a:hover {
+  color: #c0d4ff;
 }
 
 nav a:hover::after {
   width: 100%;
 }
 
+/* Botão modo (ainda pode remover se não usar modo claro) */
 #modo-btn {
   background: none;
-  border: 2px solid white;
-  color: rgb(0, 0, 0);
+  border: 2px solid #9aafff;
+  color: #9aafff;
   padding: 0.5rem 1rem;
   margin-left: 1rem;
   cursor: pointer;
   border-radius: 5px;
-  transition: background 0.3s, color 0.3s, text-shadow 0.3s;
-}
-
-#modo-btn:hover {
-  background: rgba(255,255,255,0.2);
-}
-
-main {
-  padding: 2rem;
-  max-width: 1000px;
-  margin: auto;
-}
-
-.materia {
-  background: #ffffff;
-  margin-bottom: 1rem;
-  padding: 1rem;
-  border-left: 6px solid #4b6cb7;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
-}
-
-.materia:hover {
-  transform: translateY(-3px);
-}
-
-footer {
-  background-color: #eee; /* fundo claro para o modo claro */
-  color: #222; /* texto escuro para contraste */
-  text-align: center;
-  padding: 1rem;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-/* ===== MODO ESCURO ===== */
-body.dark-mode {
-  background-color: #121212;
-  color: #eee;
-}
-
-body.dark-mode .materia {
-  background: #1e1e1e;
-  border-left-color: #9aafff;
-}
-
-body.dark-mode header {
-  background-image: linear-gradient(to right, #0f0f3c, #2a2a72);
-  /* efeito neon */
-  text-shadow:
-    0 0 5px #4b6cb7,
-    0 0 10px #4b6cb7,
-    0 0 20px #4b6cb7,
-    0 0 40px #9aafff;
-}
-
-body.dark-mode nav a::after {
-  background: #9aafff;
-}
-
-body.dark-mode #modo-btn {
-  border-color: #9aafff;
-  color: #9aafff;
   text-shadow:
     0 0 5px #9aafff,
     0 0 10px #9aafff,
     0 0 15px #9aafff;
   animation: neonPulse 2.5s infinite ease-in-out;
+  transition: background 0.3s, color 0.3s, text-shadow 0.3s;
 }
 
-body.dark-mode #modo-btn:hover {
+#modo-btn:hover {
   background: rgba(154,175,255,0.2);
 }
 
-/* animação neon para botão modo escuro */
+/* animação neon para botão */
 @keyframes neonPulse {
   0%, 100% {
     text-shadow:
@@ -147,6 +114,38 @@ body.dark-mode #modo-btn:hover {
   }
 }
 
+/* Área principal */
+main {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* Cards das matérias */
+.materia {
+  background: #1e1e1e;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-left: 6px solid #9aafff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(154, 175, 255, 0.4);
+  transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.materia:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(154, 175, 255, 0.7);
+}
+
+/* Rodapé */
+footer {
+  background-color: #1a1a1a;
+  color: #9aafff;
+  text-align: center;
+  padding: 1rem;
+  box-shadow: inset 0 1px 5px rgba(154, 175, 255, 0.2);
+}
+
 /* Responsividade */
 @media (max-width: 600px) {
   nav ul {
@@ -160,19 +159,19 @@ body.dark-mode #modo-btn:hover {
   }
 }
 
-/* Estilo para a mensagem diária */
+/* Mensagem diária */
 #mensagem-diaria {
-  background: rgba(0, 0, 0, 0.7); /* fundo escuro com transparência */
-  color: #fff;
+  background: rgba(25, 25, 25, 0.85);
+  color: #c0d4ff;
   padding: 15px 20px;
   margin: 20px auto;
   max-width: 600px;
   border-radius: 12px;
   font-size: 1.3em;
   text-align: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(154, 175, 255, 0.4);
   animation: aparecer 1s ease-out;
-  backdrop-filter: blur(8px); /* efeito vidro */
+  backdrop-filter: blur(8px);
 }
 
 @keyframes aparecer {
@@ -187,70 +186,17 @@ body.dark-mode #modo-btn:hover {
 }
 
 .mensagem-data {
-  background-color: #ffe58a;
-  color: #333;
+  background-color: #9aafff;
+  color: #121212;
   padding: 1em;
   text-align: center;
   font-size: 1.2em;
   font-weight: bold;
-  border-bottom: 2px solid #f0c000;
+  border-bottom: 2px solid #6e81c7;
   animation: destaque 2s ease-in-out;
 }
 
 @keyframes destaque {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
-}
-/* ===== MODO NEON VERMELHO ===== */
-body.neon-mode {
-  background-color: #0a0a0a;
-  color: #ff4b4b;
-}
-
-body.neon-mode .materia {
-  background: #1a1a1a;
-  color: #ff4b4b;
-  border-left-color: #ff4b4b;
-  box-shadow: 0 0 10px rgba(255, 75, 75, 0.4);
-}
-
-body.neon-mode header {
-  background-image: linear-gradient(to right, #330000, #990000);
-  text-shadow:
-    0 0 5px #ff4b4b,
-    0 0 15px #ff4b4b,
-    0 0 30px #ff4b4b;
-}
-
-body.neon-mode nav a::after {
-  background: #ff4b4b;
-}
-
-body.neon-mode #modo-btn {
-  border-color: #ff4b4b;
-  color: #ff4b4b;
-  text-shadow:
-    0 0 5px #ff4b4b,
-    0 0 10px #ff4b4b,
-    0 0 15px #ff4b4b;
-  animation: neonRedPulse 2.5s infinite ease-in-out;
-}
-
-body.neon-mode #modo-btn:hover {
-  background: rgba(255, 75, 75, 0.15);
-}
-
-@keyframes neonRedPulse {
-  0%, 100% {
-    text-shadow:
-      0 0 5px #ff4b4b,
-      0 0 10px #ff4b4b,
-      0 0 15px #ff4b4b;
-  }
-  50% {
-    text-shadow:
-      0 0 10px #ff9999,
-      0 0 20px #ff9999,
-      0 0 30px #ff9999;
-  }
 }
