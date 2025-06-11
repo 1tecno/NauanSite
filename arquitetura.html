@@ -73,24 +73,75 @@
     <h1>Arquitetura de Computadores</h1>
   </header>
 
-  <main>
+ <main>
+  <button id="prevBtn" aria-label="Anterior" style="float:left; background:#00ffff22; border:none; border-radius:8px; color:#00ffff; font-weight:bold; padding:8px 16px; cursor:pointer;">⬅</button>
+
+  <div id="conteudo" style="margin: 0 60px;">
     <h2>O que é?</h2>
     <p>Arquitetura de computadores é o estudo da estrutura e do funcionamento interno de sistemas computacionais. Inclui a análise da CPU, memória, dispositivos de entrada e saída, barramentos e mais.</p>
+  </div>
 
-    <a href="index.html" class="voltar">⬅ Voltar ao portal</a>
-  </main>
-  <script>
+  <button id="nextBtn" aria-label="Próximo" style="float:right; background:#00ffff22; border:none; border-radius:8px; color:#00ffff; font-weight:bold; padding:8px 16px; cursor:pointer;">➡</button>
+
+  <div style="clear: both;"></div>
+
+  <a href="index.html" class="voltar">⬅ Voltar ao portal</a>
+</main>
+
   document.addEventListener("DOMContentLoaded", () => {
-    const main = document.querySelector("main");
-    main.style.opacity = 0;
-    main.style.transform = "translateY(40px)";
-    setTimeout(() => {
-      main.style.transition = "all 0.6s ease";
-      main.style.opacity = 1;
-      main.style.transform = "translateY(0)";
-    }, 200);
+  const conteudo = document.getElementById("conteudo");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+
+  // Conteúdos para navegar - você pode editar/adicionar aqui
+  const conteudos = [
+    {
+      titulo: "O que é?",
+      texto: "Arquitetura de computadores é o estudo da estrutura e do funcionamento interno de sistemas computacionais. Inclui a análise da CPU, memória, dispositivos de entrada e saída, barramentos e mais."
+    },
+    {
+      titulo: "Componentes principais",
+      texto: "Os componentes principais de um computador incluem a Unidade Central de Processamento (CPU), a memória principal (RAM), dispositivos de entrada/saída, armazenamento e barramentos que conectam tudo."
+    },
+    {
+      titulo: "Funções da CPU",
+      texto: "A CPU é responsável por interpretar e executar instruções, realizar cálculos e controlar o fluxo de dados entre os demais componentes."
+    },
+    {
+      titulo: "Memória",
+      texto: "A memória armazena temporariamente os dados e programas em execução para acesso rápido pela CPU."
+    }
+  ];
+
+  let indiceAtual = 0;
+
+  function atualizarConteudo() {
+    const item = conteudos[indiceAtual];
+    conteudo.innerHTML = `<h2>${item.titulo}</h2><p>${item.texto}</p>`;
+  }
+
+  prevBtn.addEventListener("click", () => {
+    indiceAtual = (indiceAtual - 1 + conteudos.length) % conteudos.length;
+    atualizarConteudo();
   });
-</script>
+
+  nextBtn.addEventListener("click", () => {
+    indiceAtual = (indiceAtual + 1) % conteudos.length;
+    atualizarConteudo();
+  });
+
+  // animação inicial (igual antes)
+  const main = document.querySelector("main");
+  main.style.opacity = 0;
+  main.style.transform = "translateY(40px)";
+  setTimeout(() => {
+    main.style.transition = "all 0.6s ease";
+    main.style.opacity = 1;
+    main.style.transform = "translateY(0)";
+  }, 200);
+
+  atualizarConteudo();
+});
 
 </body>
 </html>
