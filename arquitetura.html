@@ -4,114 +4,129 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Arquitetura de Computadores</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+ <style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: #f9f9f9;
-      margin: 0;
-      padding: 20px;
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    color: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+  }
+
+  header {
+    background-color: #111;
+    color: #00ffff;
+    padding: 25px;
+    text-align: center;
+    font-size: 2em;
+    box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3);
+  }
+
+  main {
+    max-width: 800px;
+    margin: auto;
+    background-color: #1e1e1e;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+    margin-top: 30px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  h1, h2 {
+    color: #00ffff;
+  }
+
+  h2 {
+    text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+    animation: neon 1.5s ease-in-out infinite alternate;
+  }
+
+  @keyframes neon {
+    from {
+      text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
     }
-
-    header {
-      background-color: #111;
-      color: #00ffff;
-      padding: 20px;
-      text-align: center;
-      font-size: 1.8em;
-      box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3);
-      user-select: none;
+    to {
+      text-shadow: 0 0 20px #00ffff, 0 0 30px #00ffff;
     }
+  }
 
-    main {
-      max-width: 800px;
-      margin: 30px auto 0;
-      position: relative;
+  ul li::before {
+    content: "✓ ";
+    color: #00ffff;
+    font-weight: bold;
+  }
+
+  a.voltar {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #00ffff;
+    color: #000;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: background-color 0.3s ease, transform 0.2s;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+
+  a.voltar:hover {
+    background-color: #00cccc;
+    transform: scale(1.05);
+  }
+
+  .seta {
+    padding: 10px 20px;
+    background-color: #00ffff;
+    color: #000;
+    border: none;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+  }
+
+  .seta:hover {
+    background-color: #00cccc;
+    transform: scale(1.05);
+  }
+
+  .navegacao {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    border: none !important;
+  }
+
+  .fade {
+    animation: fadeIn 0.6s ease;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
     }
-
-    /* Quadrado do conteúdo */
-    #content-box {
-      background-color: #1e1e1e;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-      transition: opacity 0.5s ease, transform 0.5s ease;
+    to {
       opacity: 1;
       transform: translateY(0);
     }
+  }
 
-    /* Estilo do título dentro do conteúdo */
-    #content-box h2 {
-      color: #00ffff;
-      margin-top: 0;
+  @media (max-width: 600px) {
+    header {
+      font-size: 1.5em;
     }
 
-    /* Botões no rodapé */
-    .navegacao {
-      margin-top: 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
+    .seta, a.voltar {
+      padding: 8px 16px;
+      font-size: 0.9em;
     }
-
-    .navegacao a.voltar,
-    .navegacao button {
-      background-color: #00ffff;
-      color: #000;
-      border: none;
-      border-radius: 30px;
-      padding: 10px 20px;
-      font-weight: bold;
-      cursor: pointer;
-      user-select: none;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-    }
-
-    .navegacao a.voltar:hover,
-    .navegacao button:hover {
-      background-color: #00cccc;
-      transform: scale(1.05);
-    }
-
-    /* Botões setas pequenos */
-    .navegacao button {
-      padding: 10px 16px;
-      font-size: 1.4em;
-      line-height: 1;
-      width: 48px;
-      height: 48px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    /* Ocultar botão voltar no primeiro slide */
-    .navegacao button#voltar {
-      display: none;
-    }
-
-    /* Responsividade */
-    @media (max-width: 600px) {
-      header {
-        font-size: 1.4em;
-      }
-      .navegacao a.voltar,
-      .navegacao button {
-        padding: 8px 14px;
-        font-size: 1.2em;
-        width: 40px;
-        height: 40px;
-      }
-      #content-box {
-        padding: 20px;
-      }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
 
@@ -136,72 +151,63 @@
     </div>
   </main>
 
-  <script>
-    const slides = [
-      {
-        title: "O que é?",
-        content: `<p>Arquitetura de computadores é o estudo da estrutura e do funcionamento interno de sistemas computacionais. Inclui a análise da CPU, memória, dispositivos de entrada e saída, barramentos e mais.</p>`
-      },
-      {
-        title: "Componentes Principais",
-        content: `<ul>
-          <li>Unidade Central de Processamento (CPU)</li>
-          <li>Memória (RAM, ROM)</li>
-          <li>Dispositivos de Entrada e Saída</li>
-          <li>Sistemas de Barramento</li>
-        </ul>`
-      },
-      {
-        title: "Tipos de Arquitetura",
-        content: `<p>Existem vários tipos de arquitetura de computadores como Von Neumann, Harvard, RISC e CISC. Cada uma com características específicas em termos de desempenho e estrutura.</p>`
-      }
+ <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const main = document.querySelector("main");
+    
+    // Animação de entrada inicial
+    main.style.opacity = 0;
+    main.style.transform = "translateY(40px)";
+    setTimeout(() => {
+      main.style.transition = "all 0.6s ease";
+      main.style.opacity = 1;
+      main.style.transform = "translateY(0)";
+    }, 200);
+
+    const setaAvancar = document.querySelector(".seta.avancar");
+    const setaVoltar = document.querySelector(".seta.voltar");
+
+    const conteudos = [
+      `<h2>Introdução à Arquitetura</h2><p>Este é o conteúdo da primeira página.</p>`,
+      `<h2>Componentes Básicos</h2><p>Este é o conteúdo da segunda página.</p>`,
+      `<h2>Memória e Processamento</h2><p>Este é o conteúdo da terceira página.</p>`
     ];
 
-    let currentSlide = 0;
+    let paginaAtual = 0;
 
-    const contentBox = document.getElementById('content-box');
-    const slideTitle = document.getElementById('slide-title');
-    const slideContent = document.getElementById('slide-content');
-    const btnVoltar = document.getElementById('voltar');
-    const btnAvancar = document.getElementById('avancar');
+    function trocarConteudo(novaPagina) {
+      if (novaPagina < 0 || novaPagina >= conteudos.length) return;
 
-    function updateButtons() {
-      btnVoltar.style.display = currentSlide === 0 ? 'none' : 'inline-block';
-      btnAvancar.style.display = currentSlide === slides.length -1 ? 'none' : 'inline-block';
-    }
-
-    function changeSlide(newIndex) {
-      if (newIndex < 0 || newIndex >= slides.length || newIndex === currentSlide) return;
-
-      // Animação saída (fade out)
-      contentBox.style.opacity = '0';
-      contentBox.style.transform = 'translateY(40px)';
+      main.style.opacity = 1;
+      main.style.transition = "opacity 0.3s ease";
+      main.style.opacity = 0;
 
       setTimeout(() => {
-        // Trocar conteúdo
-        slideTitle.textContent = slides[newIndex].title;
-        slideContent.innerHTML = slides[newIndex].content;
+        main.innerHTML = conteudos[novaPagina] + main.querySelector(".navegacao").outerHTML;
 
-        // Animação entrada (fade in)
-        contentBox.style.opacity = '1';
-        contentBox.style.transform = 'translateY(0)';
+        paginaAtual = novaPagina;
 
-        currentSlide = newIndex;
-        updateButtons();
-      }, 500);
+        // Reaplicar animação de entrada
+        setTimeout(() => {
+          main.style.transition = "opacity 0.3s ease";
+          main.style.opacity = 1;
+        }, 50);
+      }, 300);
     }
 
-    btnVoltar.addEventListener('click', () => {
-      changeSlide(currentSlide - 1);
-    });
+    if (setaAvancar) {
+      setaAvancar.addEventListener("click", () => {
+        trocarConteudo(paginaAtual + 1);
+      });
+    }
 
-    btnAvancar.addEventListener('click', () => {
-      changeSlide(currentSlide + 1);
-    });
-
-    // Inicializa botões e conteúdo
-    updateButtons();
-  </script>
+    if (setaVoltar) {
+      setaVoltar.addEventListener("click", () => {
+        trocarConteudo(paginaAtual - 1);
+      });
+    }
+  });
+</script>
 
 </body>
 </html>
