@@ -4,88 +4,102 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Arquitetura de Computadores</title>
- <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 
-  body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-    color: #f9f9f9;
-    margin: 0;
-    padding: 20px;
-  }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
 
-  header {
-    background-color: #111;
-    color: #00ffff;
-    padding: 20px;
-    text-align: center;
-    font-size: 1.8em;
-    box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3);
-  }
-
-  main {
-    max-width: 800px;
-    margin: auto;
-    background-color: #1e1e1e;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-    margin-top: 30px;
-    position: relative;
-  }
-
-  .slide {
-    display: none;
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 0.6s ease;
-  }
-
-  .slide.active {
-    display: block;
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  h2 {
-    color: #00ffff;
-  }
-
-  .buttons {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 30px;
-  }
-
-  .buttons a, .buttons button {
-    padding: 10px 20px;
-    background-color: #00ffff; /* mesmo fundo */
-    color: #000;               /* seta preta */
-    border: none;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: 0.3s ease;
-    cursor: pointer;
-  }
-
-  .buttons a:hover, .buttons button:hover {
-    background-color: #00cccc;
-    transform: scale(1.05);
-  }
-
-  @media (max-width: 600px) {
     header {
-      font-size: 1.4em;
+      background-color: #111;
+      color: #00ffff;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.6em;
+      box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3);
     }
-    .buttons a, .buttons button {
-      padding: 8px 16px;
-      font-size: 0.85em;
+
+    main {
+      max-width: 800px;
+      margin: auto;
+      background-color: #1e1e1e;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+      margin-top: 30px;
+      position: relative;
     }
-  }
-</style>
+
+    .slide {
+      display: none;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.6s ease;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    .fade-in {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    .fade-out {
+      opacity: 0 !important;
+      transform: translateY(40px) !important;
+    }
+
+    h2 {
+      color: #00ffff;
+    }
+
+    ul li::before {
+      content: "✓ ";
+      color: #00ffff;
+      font-weight: bold;
+    }
+
+    .navegacao {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    .voltar, .seta {
+      padding: 10px 20px;
+      background-color: #00ffff;
+      color: #000;
+      border: none;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s ease;
+      cursor: pointer;
+    }
+
+    .voltar:hover, .seta:hover {
+      background-color: #00cccc;
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 600px) {
+      header {
+        font-size: 1.2em;
+      }
+      .voltar, .seta {
+        padding: 8px 16px;
+        font-size: 0.85em;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -94,12 +108,13 @@
   </header>
 
   <main>
-    <section class="active">
+    <!-- SLIDES -->
+    <section class="slide active fade-in">
       <h2>O que é?</h2>
       <p>Arquitetura de computadores é o estudo da estrutura e do funcionamento interno de sistemas computacionais. Inclui a análise da CPU, memória, dispositivos de entrada e saída, barramentos e mais.</p>
     </section>
 
-    <section>
+    <section class="slide">
       <h2>Componentes Principais</h2>
       <ul>
         <li>Unidade Central de Processamento (CPU)</li>
@@ -109,61 +124,58 @@
       </ul>
     </section>
 
-    <section>
+    <section class="slide">
       <h2>Tipos de Arquitetura</h2>
       <p>Existem vários tipos de arquitetura de computadores como Von Neumann, Harvard, RISC e CISC. Cada uma com características específicas em termos de desempenho e estrutura.</p>
     </section>
 
+    <!-- NAVEGAÇÃO -->
     <div class="navegacao">
       <a href="index.html" class="voltar">⬅ Portal</a>
       <div>
-        <button class="seta" id="voltar" style="display: none;">⬅</button>
-        <button class="seta" id="avancar">➡</button>
+        <button class="seta" id="prevBtn" style="display: none;">⬅</button>
+        <button class="seta" id="nextBtn">➡</button>
       </div>
     </div>
   </main>
 
+  <!-- SCRIPT -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const sections = document.querySelectorAll("main section");
-      const btnAvancar = document.getElementById("avancar");
-      const btnVoltar = document.getElementById("voltar");
-      let index = 0;
+      const slides = document.querySelectorAll(".slide");
+      let currentSlide = 0;
 
-      function mostrarSecao(i) {
-        sections.forEach((sec, idx) => {
-          sec.classList.remove("active");
-          if (idx === i) sec.classList.add("active");
-        });
+      function showSlide(index) {
+        if (index < 0 || index >= slides.length) return;
 
-        // Mostrar ou ocultar botões conforme o índice
-        btnVoltar.style.display = i === 0 ? "none" : "inline-block";
-        btnAvancar.style.display = i === sections.length - 1 ? "none" : "inline-block";
+        slides[currentSlide].classList.remove("fade-in");
+        slides[currentSlide].classList.add("fade-out");
+
+        setTimeout(() => {
+          slides[currentSlide].classList.remove("active", "fade-out");
+
+          slides[index].classList.add("active", "fade-in");
+          currentSlide = index;
+          updateButtons();
+        }, 300);
       }
 
-      btnAvancar.addEventListener("click", () => {
-        if (index < sections.length - 1) {
-          index++;
-          mostrarSecao(index);
-        }
+      function updateButtons() {
+        document.getElementById("prevBtn").style.display = currentSlide === 0 ? "none" : "inline-block";
+        document.getElementById("nextBtn").style.display = currentSlide === slides.length - 1 ? "none" : "inline-block";
+      }
+
+      document.getElementById("prevBtn").addEventListener("click", () => {
+        showSlide(currentSlide - 1);
       });
 
-      btnVoltar.addEventListener("click", () => {
-        if (index > 0) {
-          index--;
-          mostrarSecao(index);
-        }
+      document.getElementById("nextBtn").addEventListener("click", () => {
+        showSlide(currentSlide + 1);
       });
 
-      // Animação de entrada do main
-      const main = document.querySelector("main");
-      main.style.opacity = 0;
-      main.style.transform = "translateY(40px)";
-      setTimeout(() => {
-        main.style.transition = "all 0.6s ease";
-        main.style.opacity = 1;
-        main.style.transform = "translateY(0)";
-      }, 200);
+      // Mostra o primeiro slide já com animação
+      slides[currentSlide].classList.add("active", "fade-in");
+      updateButtons();
     });
   </script>
 
