@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Arquitetura de Computadores</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
@@ -20,83 +20,95 @@
       color: #00ffff;
       padding: 20px;
       text-align: center;
-      font-size: 1.6em;
+      font-size: 1.8em;
       box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3);
+      user-select: none;
     }
 
     main {
       max-width: 800px;
-      margin: auto;
+      margin: 30px auto 0;
+      position: relative;
+    }
+
+    /* Quadrado do conteúdo */
+    #content-box {
       background-color: #1e1e1e;
       padding: 30px;
       border-radius: 12px;
       box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-      margin-top: 30px;
-      position: relative;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    .slide {
-      display: none;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.6s ease;
-    }
-
-    .slide.active {
-      display: block;
-    }
-
-    .fade-in {
-      opacity: 1 !important;
-      transform: translateY(0) !important;
-    }
-
-    .fade-out {
-      opacity: 0 !important;
-      transform: translateY(40px) !important;
-    }
-
-    h2 {
+    /* Estilo do título dentro do conteúdo */
+    #content-box h2 {
       color: #00ffff;
+      margin-top: 0;
     }
 
-    ul li::before {
-      content: "✓ ";
-      color: #00ffff;
-      font-weight: bold;
-    }
-
+    /* Botões no rodapé */
     .navegacao {
+      margin-top: 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 30px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    .voltar, .seta {
-      padding: 10px 20px;
+    .navegacao a.voltar,
+    .navegacao button {
       background-color: #00ffff;
       color: #000;
       border: none;
       border-radius: 30px;
-      text-decoration: none;
+      padding: 10px 20px;
       font-weight: bold;
-      transition: 0.3s ease;
       cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
-    .voltar:hover, .seta:hover {
+    .navegacao a.voltar:hover,
+    .navegacao button:hover {
       background-color: #00cccc;
       transform: scale(1.05);
     }
 
+    /* Botões setas pequenos */
+    .navegacao button {
+      padding: 10px 16px;
+      font-size: 1.4em;
+      line-height: 1;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Ocultar botão voltar no primeiro slide */
+    .navegacao button#voltar {
+      display: none;
+    }
+
+    /* Responsividade */
     @media (max-width: 600px) {
       header {
-        font-size: 1.2em;
+        font-size: 1.4em;
       }
-      .voltar, .seta {
-        padding: 8px 16px;
-        font-size: 0.85em;
+      .navegacao a.voltar,
+      .navegacao button {
+        padding: 8px 14px;
+        font-size: 1.2em;
+        width: 40px;
+        height: 40px;
+      }
+      #content-box {
+        padding: 20px;
       }
     }
   </style>
@@ -108,75 +120,87 @@
   </header>
 
   <main>
-    <!-- SLIDES -->
-    <section class="slide active fade-in">
-      <h2>O que é?</h2>
-      <p>Arquitetura de computadores é o estudo da estrutura e do funcionamento interno de sistemas computacionais. Inclui a análise da CPU, memória, dispositivos de entrada e saída, barramentos e mais.</p>
-    </section>
+    <div id="content-box">
+      <h2 id="slide-title">O que é?</h2>
+      <div id="slide-content">
+        <p>Arquitetura de computadores é o estudo da estrutura e do funcionamento interno de sistemas computacionais. Inclui a análise da CPU, memória, dispositivos de entrada e saída, barramentos e mais.</p>
+      </div>
+    </div>
 
-    <section class="slide">
-      <h2>Componentes Principais</h2>
-      <ul>
-        <li>Unidade Central de Processamento (CPU)</li>
-        <li>Memória (RAM, ROM)</li>
-        <li>Dispositivos de Entrada e Saída</li>
-        <li>Sistemas de Barramento</li>
-      </ul>
-    </section>
-
-    <section class="slide">
-      <h2>Tipos de Arquitetura</h2>
-      <p>Existem vários tipos de arquitetura de computadores como Von Neumann, Harvard, RISC e CISC. Cada uma com características específicas em termos de desempenho e estrutura.</p>
-    </section>
-
-    <!-- NAVEGAÇÃO -->
     <div class="navegacao">
       <a href="index.html" class="voltar">⬅ Portal</a>
       <div>
-        <button class="seta" id="prevBtn" style="display: none;">⬅</button>
-        <button class="seta" id="nextBtn">➡</button>
+        <button id="voltar">⬅</button>
+        <button id="avancar">➡</button>
       </div>
     </div>
   </main>
 
-  <!-- SCRIPT -->
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const slides = document.querySelectorAll(".slide");
-      let currentSlide = 0;
-
-      function showSlide(index) {
-        if (index < 0 || index >= slides.length) return;
-
-        slides[currentSlide].classList.remove("fade-in");
-        slides[currentSlide].classList.add("fade-out");
-
-        setTimeout(() => {
-          slides[currentSlide].classList.remove("active", "fade-out");
-
-          slides[index].classList.add("active", "fade-in");
-          currentSlide = index;
-          updateButtons();
-        }, 300);
+    const slides = [
+      {
+        title: "O que é?",
+        content: `<p>Arquitetura de computadores é o estudo da estrutura e do funcionamento interno de sistemas computacionais. Inclui a análise da CPU, memória, dispositivos de entrada e saída, barramentos e mais.</p>`
+      },
+      {
+        title: "Componentes Principais",
+        content: `<ul>
+          <li>Unidade Central de Processamento (CPU)</li>
+          <li>Memória (RAM, ROM)</li>
+          <li>Dispositivos de Entrada e Saída</li>
+          <li>Sistemas de Barramento</li>
+        </ul>`
+      },
+      {
+        title: "Tipos de Arquitetura",
+        content: `<p>Existem vários tipos de arquitetura de computadores como Von Neumann, Harvard, RISC e CISC. Cada uma com características específicas em termos de desempenho e estrutura.</p>`
       }
+    ];
 
-      function updateButtons() {
-        document.getElementById("prevBtn").style.display = currentSlide === 0 ? "none" : "inline-block";
-        document.getElementById("nextBtn").style.display = currentSlide === slides.length - 1 ? "none" : "inline-block";
-      }
+    let currentSlide = 0;
 
-      document.getElementById("prevBtn").addEventListener("click", () => {
-        showSlide(currentSlide - 1);
-      });
+    const contentBox = document.getElementById('content-box');
+    const slideTitle = document.getElementById('slide-title');
+    const slideContent = document.getElementById('slide-content');
+    const btnVoltar = document.getElementById('voltar');
+    const btnAvancar = document.getElementById('avancar');
 
-      document.getElementById("nextBtn").addEventListener("click", () => {
-        showSlide(currentSlide + 1);
-      });
+    function updateButtons() {
+      btnVoltar.style.display = currentSlide === 0 ? 'none' : 'inline-block';
+      btnAvancar.style.display = currentSlide === slides.length -1 ? 'none' : 'inline-block';
+    }
 
-      // Mostra o primeiro slide já com animação
-      slides[currentSlide].classList.add("active", "fade-in");
-      updateButtons();
+    function changeSlide(newIndex) {
+      if (newIndex < 0 || newIndex >= slides.length || newIndex === currentSlide) return;
+
+      // Animação saída (fade out)
+      contentBox.style.opacity = '0';
+      contentBox.style.transform = 'translateY(40px)';
+
+      setTimeout(() => {
+        // Trocar conteúdo
+        slideTitle.textContent = slides[newIndex].title;
+        slideContent.innerHTML = slides[newIndex].content;
+
+        // Animação entrada (fade in)
+        contentBox.style.opacity = '1';
+        contentBox.style.transform = 'translateY(0)';
+
+        currentSlide = newIndex;
+        updateButtons();
+      }, 500);
+    }
+
+    btnVoltar.addEventListener('click', () => {
+      changeSlide(currentSlide - 1);
     });
+
+    btnAvancar.addEventListener('click', () => {
+      changeSlide(currentSlide + 1);
+    });
+
+    // Inicializa botões e conteúdo
+    updateButtons();
   </script>
 
 </body>
