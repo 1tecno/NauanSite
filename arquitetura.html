@@ -77,35 +77,38 @@
     transform: scale(1.05);
   }
 
-  .seta {
-    padding: 10px 20px;
-    background-color: #00ffff;
-    color: #000;
-    border: none;
-    border-radius: 30px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s;
-  }
+ .seta {
+  background-color: #00ffff; /* fundo ciano */
+  color: #000;               /* cor preta */
+  border: none;
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
 
-  .seta:hover {
-    background-color: #00cccc;
-    transform: scale(1.05);
-  }
+.seta:hover {
+  transform: scale(1.1);     /* aumenta 10% */
+  background-color: #00cccc; /* tom mais escuro do ciano no hover */
+}
 
-  .seta:active {
-    background-color: #009999;
-    transform: scale(0.95);
-    transition: transform 0.1s ease;
-  }
+.seta:active {
+  transform: scale(0.95);    /* pequena redução ao clicar */
+}
 
-  .navegacao {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 30px;
-    border: none !important;
-  }
+/* Container que envolve as setas, para ficar dentro do quadrado, alinhadas nas extremidades */
+.navegacao {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  width: 100%; /* para ocupar a largura do main */
+  box-sizing: border-box;
+}
 
   .fade {
     animation: fadeIn 0.6s ease;
