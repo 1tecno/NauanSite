@@ -5,101 +5,185 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Arquitetura de Computadores</title>
   <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 
-  body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-    color: #f9f9f9;
-    margin: 0;
-    padding: 20px;
-  }
+    * {
+      box-sizing: border-box;
+    }
 
-  header {
-    background-color: #111;
-    color: #00ffff;
-    padding: 25px;
-    text-align: center;
-    font-size: 2em;
-    box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3);
-  }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
 
-  main {
-    max-width: 800px;
-    margin: auto;
-    background-color: #1e1e1e;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-    margin-top: 30px;
-  }
+    header {
+      background-color: #111;
+      color: #00ffff;
+      padding: 25px;
+      text-align: center;
+      font-size: 2em;
+      box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3);
+    }
 
-  h1, h2 {
-    color: #00ffff;
-  }
+    header h1 {
+      text-shadow: 0 0 4px #00ffff, 0 0 8px #00ffff;
+      animation: neon-pulse 2s ease-in-out infinite alternate;
+    }
 
-  ul li::before {
-    content: "✓ ";
-    color: #00ffff;
-    font-weight: bold;
-  }
+    @keyframes neon-pulse {
+      from {
+        text-shadow: 0 0 4px #00ffff, 0 0 8px #00ffff;
+      }
+      to {
+        text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+      }
+    }
 
-  a.voltar {
-    display: inline-block;
-    margin-top: 40px;
-    padding: 12px 24px;
-    background-color: #00ffff;
-    color: #111;
-    text-decoration: none;
-    border-radius: 30px;
-    transition: background-color 0.3s ease, transform 0.2s;
-    font-weight: bold;
-  }
+    main {
+      max-width: 800px;
+      margin: 30px auto 0;
+      padding: 30px;
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+      transition: opacity 0.5s ease;
+      position: relative;
+    }
 
-  a.voltar:hover {
-    background-color: #00cccc;
-    transform: scale(1.05);
-  }
+    .content-box {
+      animation: fadeIn 0.6s ease;
+    }
 
-  p, ul {
-    line-height: 1.8;
-  }
-</style>
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      color: #00ffff;
+      margin-top: 0;
+    }
+
+    p {
+      line-height: 1.8;
+    }
+
+    ul li::before {
+      content: "✓ ";
+      color: #00ffff;
+      font-weight: bold;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      background-color: #00ffff;
+      color: #000;
+      text-decoration: none;
+      border-radius: 30px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+      background-color: #00cccc;
+    }
+
+    .navegacao {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        font-size: 1.5em;
+      }
+
+      .btn {
+        padding: 8px 16px;
+        font-size: 0.9em;
+      }
+    }
+  </style>
 </head>
 <body>
-
   <header>
     <h1>Arquitetura de Computadores</h1>
   </header>
 
-  <main>
-    <div id="content-box">
-      <h2 id="slide-title">O que é?</h2>
-      <div id="slide-content">
-        <p>Arquitetura de computadores é o estudo da estrutura e do funcionamento interno de sistemas computacionais. Inclui a análise da CPU, memória, dispositivos de entrada e saída, barramentos e mais.</p>
-      </div>
+  <main id="main-content">
+    <div class="content-box" id="slide-container">
+      <!-- Conteúdo do slide será inserido aqui via JS -->
     </div>
-
     <div class="navegacao">
-      <a href="index.html" class="voltar">⬅ Portal</a>
-      <div>
-        <button id="voltar">⬅</button>
-        <button id="avancar">➡</button>
+      <a href="index.html" class="btn">⬅ Portal</a>
+      <div class="btn-group">
+        <button class="btn" id="btn-voltar" style="display: none;">⬅</button>
+        <button class="btn" id="btn-avancar">➡</button>
       </div>
     </div>
   </main>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const main = document.querySelector("main");
-    main.style.opacity = 0;
-    main.style.transform = "translateY(40px)";
-    setTimeout(() => {
-      main.style.transition = "all 0.6s ease";
-      main.style.opacity = 1;
-      main.style.transform = "translateY(0)";
-    }, 200);
-  });
-</script>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("slide-container");
+      const main = document.getElementById("main-content");
+      const btnAvancar = document.getElementById("btn-avancar");
+      const btnVoltar = document.getElementById("btn-voltar");
+
+      const slides = [
+        `<h2>O que é?</h2><p>Arquitetura de computadores é o estudo da estrutura e do funcionamento interno de sistemas computacionais. Inclui a análise da CPU, memória, dispositivos de entrada e saída, barramentos e mais.</p>`,
+        `<h2>Componentes Básicos</h2><p>Os principais componentes são: Unidade Central de Processamento (CPU), memória RAM, dispositivos de entrada/saída e os barramentos que interligam todos eles.</p>`,
+        `<h2>Memória e Processamento</h2><p>A memória armazena dados temporários e permanentes, enquanto o processador realiza cálculos e executa instruções do sistema e dos programas.</p>`
+      ];
+
+      let index = 0;
+
+      function atualizarSlide() {
+        main.style.opacity = 0;
+        setTimeout(() => {
+          container.innerHTML = `<div class="content-box fade">${slides[index]}</div>`;
+          main.style.opacity = 1;
+          btnVoltar.style.display = index === 0 ? "none" : "inline-block";
+          btnAvancar.style.display = index === slides.length - 1 ? "none" : "inline-block";
+        }, 300);
+      }
+
+      btnAvancar.addEventListener("click", () => {
+        if (index < slides.length - 1) {
+          index++;
+          atualizarSlide();
+        }
+      });
+
+      btnVoltar.addEventListener("click", () => {
+        if (index > 0) {
+          index--;
+          atualizarSlide();
+        }
+      });
+
+      // Carrega o primeiro slide ao entrar
+      atualizarSlide();
+    });
+  </script>
 </body>
 </html>
