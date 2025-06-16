@@ -4,9 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gestão de Tempo</title>
-  <link rel="stylesheet" href="style.css" />
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       font-family: 'Poppins', sans-serif;
@@ -23,39 +26,55 @@
       text-align: center;
       font-size: 2em;
       box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3);
-      position: sticky;
-      top: 0;
-      z-index: 10;
     }
 
-    main {
-      max-width: 800px;
-      margin: 30px auto;
-      background-color: #1e1e1e;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-      position: relative;
-      overflow: hidden;
-    }
-
-    h1, h2 {
-      color: #00ffff;
-      margin: 0 0 15px 0;
-    }
-
-    h2 {
+    header h1 {
       text-shadow: 0 0 4px #00ffff, 0 0 8px #00ffff;
-      animation: neon 1.5s ease-in-out infinite alternate;
+      animation: neon-pulse 2s ease-in-out infinite alternate;
     }
 
-    @keyframes neon {
+    @keyframes neon-pulse {
       from {
         text-shadow: 0 0 4px #00ffff, 0 0 8px #00ffff;
       }
       to {
-        text-shadow: 0 0 10px #00ffff, 0 0 15px #00ffff;
+        text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
       }
+    }
+
+    main {
+      max-width: 800px;
+      margin: 30px auto 0;
+      padding: 30px;
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+      transition: opacity 0.5s ease;
+      position: relative;
+    }
+
+    .content-box {
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      color: #00ffff;
+      margin-top: 0;
+    }
+
+    p {
+      line-height: 1.8;
     }
 
     ul li::before {
@@ -64,68 +83,33 @@
       font-weight: bold;
     }
 
-    a.voltar {
-      display: inline-block;
+    .btn {
       padding: 10px 20px;
       background-color: #00ffff;
       color: #000;
       text-decoration: none;
       border-radius: 30px;
-      transition: background-color 0.3s ease, transform 0.2s;
-      font-weight: bold;
-      margin-right: 10px;
-    }
-
-    a.voltar:hover {
-      background-color: #00cccc;
-      transform: scale(1.05);
-    }
-
-    .seta {
-      background-color: #00ffff;
-      color: #000;
       border: none;
-      border-radius: 30px;
-      padding: 10px 20px;
       font-weight: bold;
       cursor: pointer;
       transition: transform 0.2s ease, background-color 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      user-select: none;
     }
 
-    .seta:hover {
+    .btn:hover {
       transform: scale(1.1);
       background-color: #00cccc;
-    }
-
-    .seta:active {
-      transform: scale(0.95);
     }
 
     .navegacao {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       margin-top: 30px;
-      width: 100%;
-      box-sizing: border-box;
     }
 
-    #content-box {
-      opacity: 1;
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-
-    .fade-out {
-      opacity: 0 !important;
-      transform: translateY(30px) !important;
-    }
-
-    .fade-in {
-      opacity: 1 !important;
-      transform: translateY(0) !important;
+    .btn-group {
+      display: flex;
+      gap: 10px;
     }
 
     @media (max-width: 600px) {
@@ -133,7 +117,7 @@
         font-size: 1.5em;
       }
 
-      .seta, a.voltar {
+      .btn {
         padding: 8px 16px;
         font-size: 0.9em;
       }
@@ -145,112 +129,64 @@
     <h1>Gestão de Tempo</h1>
   </header>
 
-  <main>
-    <div id="content-box">
-      <h2 id="slide-title">O que é?</h2>
-      <div id="slide-content">
-        <p>Gestão de tempo é a habilidade de organizar e priorizar tarefas para otimizar o uso das horas disponíveis. Envolve planejamento, disciplina e eficiência para evitar desperdícios e aumentar a produtividade. Técnicas como a definição de metas, listas de afazeres e a delegação de atividades ajudam a manter o foco. Uma boa gestão reduz o estresse e melhora a qualidade de vida.</p>
-      </div>
+  <main id="main-content">
+    <div class="content-box" id="slide-container">
+      <!-- Conteúdo do slide será inserido aqui via JS -->
     </div>
-
     <div class="navegacao">
-      <a href="index.html" class="voltar">⬅ Voltar ao portal</a>
-      <div>
-        <button id="voltar" class="seta" style="display:none;">⬅</button>
-        <button id="avancar" class="seta">➡</button>
+      <a href="index.html" class="btn">⬅ Portal</a>
+      <div class="btn-group">
+        <button class="btn" id="btn-voltar" style="display: none;">⬅</button>
+        <button class="btn" id="btn-avancar">➡</button>
       </div>
     </div>
   </main>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const tituloMateria = document.querySelector("header h1");
-      const contentBox = document.getElementById("content-box");
-      const slideTitle = document.getElementById("slide-title");
-      const slideContent = document.getElementById("slide-content");
-      const btnVoltar = document.getElementById("voltar");
-      const btnAvancar = document.getElementById("avancar");
+      const container = document.getElementById("slide-container");
+      const main = document.getElementById("main-content");
+      const btnAvancar = document.getElementById("btn-avancar");
+      const btnVoltar = document.getElementById("btn-voltar");
 
-      const conteudos = [
-        {
-          titulo: "O que é?",
-          conteudo: `<p>Gestão de tempo é a habilidade de organizar e priorizar tarefas para otimizar o uso das horas disponíveis. Envolve planejamento, disciplina e eficiência para evitar desperdícios e aumentar a produtividade. Técnicas como a definição de metas, listas de afazeres e a delegação de atividades ajudam a manter o foco. Uma boa gestão reduz o estresse e melhora a qualidade de vida.</p>`
-        },
-        {
-          titulo: "Técnicas Principais",
-          conteudo: `<p>Algumas técnicas importantes incluem:</p>
-          <ul>
-            <li>Definição clara de metas e prioridades.</li>
-            <li>Uso de listas de tarefas e agendas.</li>
-            <li>Delegação de responsabilidades.</li>
-            <li>Evitar procrastinação e distrações.</li>
-          </ul>`
-        },
-        {
-          titulo: "Benefícios",
-          conteudo: `<p>Gerenciar o tempo corretamente traz benefícios como:</p>
-          <ul>
-            <li>Aumento da produtividade.</li>
-            <li>Redução do estresse.</li>
-            <li>Melhoria no equilíbrio entre vida pessoal e profissional.</li>
-            <li>Maior sensação de controle e realização.</li>
-          </ul>`
-        },
-        {
-          titulo: "Dicas Finais",
-          conteudo: `<p>Para uma gestão eficiente do tempo, é recomendado:</p>
-          <ul>
-            <li>Planejar o dia na noite anterior.</li>
-            <li>Fazer pausas regulares para descansar.</li>
-            <li>Evitar multitarefa exagerada.</li>
-            <li>Revisar e ajustar metas periodicamente.</li>
-          </ul>`
-        }
+      const slides = [
+        `<h2>O que é?</h2><p>Gestão de tempo é a habilidade de organizar e priorizar tarefas para otimizar o uso das horas disponíveis. Envolve planejamento, disciplina e eficiência para evitar desperdícios e aumentar a produtividade. Técnicas como a definição de metas, listas de afazeres e a delegação de atividades ajudam a manter o foco. Uma boa gestão reduz o estresse e melhora a qualidade de vida.</p>`,
+        `<h2>Por que a Gestão de Tempo é importante?</h2><p>A gestão de tempo é essencial para aumentar a produtividade, pois permite que você organize melhor suas tarefas e cumpra prazos com eficiência. Ela também ajuda a reduzir o estresse, já que evita o acúmulo de tarefas de última hora. Além disso, melhora o foco, favorece a disciplina e previne a procrastinação. Saber gerenciar o tempo também contribui para o alcance de metas de curto e longo prazo e proporciona equilíbrio entre vida pessoal, estudos e trabalho.</p>`,
+        `<h2>Técnicas populares de Gestão de Tempo</h2><p>Existem várias técnicas que ajudam a organizar o tempo de forma mais eficaz. A Matriz de Eisenhower, por exemplo, separa tarefas entre urgentes e importantes. A Técnica Pomodoro divide o tempo em blocos de 25 minutos de foco seguidos por 5 minutos de pausa. A Regra 80/20 (Pareto) sugere que 80% dos resultados vêm de 20% dos esforços. O Time Blocking consiste em reservar blocos de horários no dia para atividades específicas. Já a To-Do List é a famosa lista de tarefas do dia, que ajuda a manter o controle sobre o que precisa ser feito.</p>`,
+        `<h2>Hábitos que ajudam na boa gestão do tempo</h2><p>Criar uma rotina diária é um dos hábitos mais eficazes para gerenciar bem o tempo. Também é muito útil usar uma agenda, seja ela física ou digital, e planejar o dia na noite anterior. Evitar fazer várias tarefas ao mesmo tempo melhora o rendimento e ajuda a manter o foco. Outro hábito essencial é estabelecer metas claras e objetivas, tanto para o curto quanto para o longo prazo. Aprender a organizar seu ambiente e eliminar distrações também são atitudes que favorecem a produtividade.</p>`,
+        `<h2>Erros comuns na Gestão de Tempo</h2><p>Alguns dos erros mais comuns na gestão de tempo incluem dizer “sim” para tudo e todos, não saber definir prioridades e adiar tarefas importantes, o que gera procrastinação. O uso excessivo de redes sociais e distrações digitais também consome tempo valioso. Outro erro frequente é tentar fazer tudo ao mesmo tempo (multitarefas), o que prejudica a qualidade e aumenta o cansaço. Não saber dizer “não” pode levar ao acúmulo de compromissos desnecessários e à perda de foco.</p>`,
+        `<h2>Ferramentas úteis para a Gestão de Tempo</h2><p>Existem diversas ferramentas que podem ajudar a organizar melhor as tarefas. O Google Agenda permite agendar compromissos e lembretes com facilidade. O Notion é um organizador completo que une notas, tarefas e calendários. O Trello funciona como um quadro com cartões de tarefas, ideal para quem prefere organização visual. O Todoist é uma lista de tarefas digital prática e intuitiva. Para quem precisa melhorar o foco, o aplicativo Forest incentiva o uso consciente do tempo ao plantar uma árvore virtual sempre que você evita distrações.</p>`,
+        `<h2>Relação entre Gestão de Tempo e Qualidade de Vida</h2><p>Uma boa gestão do tempo tem impacto direto na qualidade de vida. Pessoas que se organizam bem tendem a dormir melhor, ter mais tempo para o lazer, se sentem mais realizadas e menos estressadas. Evitam a sobrecarga mental, equilibram estudos, trabalho e vida pessoal com mais tranquilidade e conseguem aproveitar melhor cada momento. Ter controle do tempo traz uma sensação de autonomia e aumenta a satisfação com a rotina.</p>`
       ];
 
-      let paginaAtual = 0;
+      let index = 0;
 
-      function atualizarBotoes() {
-        btnVoltar.style.display = paginaAtual > 0 ? "inline-flex" : "none";
-        btnAvancar.style.display = paginaAtual < conteudos.length - 1 ? "inline-flex" : "none";
-      }
-
-      function atualizarConteudo(novaPagina) {
-        if (novaPagina < 0 || novaPagina >= conteudos.length) return;
-
-        // Anima fade out
-        contentBox.classList.add("fade-out");
-
+      function atualizarSlide() {
+        main.style.opacity = 0;
         setTimeout(() => {
-          paginaAtual = novaPagina;
-
-          if (paginaAtual === 0) {
-            // No primeiro slide oculta o contentBox inteiro para mostrar só o título no header
-            contentBox.style.display = "none";
-          } else {
-            contentBox.style.display = "block";
-            slideTitle.textContent = conteudos[paginaAtual].titulo;
-            slideContent.innerHTML = conteudos[paginaAtual].conteudo;
-          }
-
-          // fade in
-          contentBox.classList.remove("fade-out");
-          contentBox.classList.add("fade-in");
-
-          atualizarBotoes();
-        }, 500);
+          container.innerHTML = `<div class="content-box fade">${slides[index]}</div>`;
+          main.style.opacity = 1;
+          btnVoltar.style.display = index === 0 ? "none" : "inline-block";
+          btnAvancar.style.display = index === slides.length - 1 ? "none" : "inline-block";
+        }, 300);
       }
 
       btnAvancar.addEventListener("click", () => {
-        atualizarConteudo(paginaAtual + 1);
+        if (index < slides.length - 1) {
+          index++;
+          atualizarSlide();
+        }
       });
 
       btnVoltar.addEventListener("click", () => {
-        atualizarConteudo(paginaAtual - 1);
+        if (index > 0) {
+          index--;
+          atualizarSlide();
+        }
       });
 
-      // Inicializa a navegação
-      atualizarConteudo(paginaAtual);
+      // Carrega o primeiro slide ao entrar
+      atualizarSlide();
     });
   </script>
 </body>
