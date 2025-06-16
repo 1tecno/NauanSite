@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Arquitetura de Computadores</title>
- <style>
+<style>
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 
   body {
@@ -24,7 +24,7 @@
     box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3);
   }
 
-  main {
+  #content-area {
     max-width: 800px;
     margin: auto;
     background-color: #1e1e1e;
@@ -32,8 +32,14 @@
     border-radius: 12px;
     box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
     margin-top: 30px;
-    position: relative;
-    overflow: hidden;
+    opacity: 0;
+    transform: scale(0.98);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  #content-area.visible {
+    opacity: 1;
+    transform: scale(1);
   }
 
   h1, h2 {
@@ -41,88 +47,50 @@
   }
 
   h2 {
-    text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
-    animation: neon 1.5s ease-in-out infinite alternate;
+    text-shadow: 0 0 3px #00ffff, 0 0 6px #00ffff; /* NEON MAIS SUAVE */
+    animation: neon 2s ease-in-out infinite alternate;
   }
 
   @keyframes neon {
     from {
-      text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+      text-shadow: 0 0 3px #00ffff, 0 0 6px #00ffff;
     }
     to {
-      text-shadow: 0 0 20px #00ffff, 0 0 30px #00ffff;
+      text-shadow: 0 0 8px #00ffff, 0 0 12px #00ffff;
     }
   }
 
-  ul li::before {
-    content: "✓ ";
-    color: #00ffff;
-    font-weight: bold;
-  }
-
-  a.voltar {
+  a.voltar, .seta {
     display: inline-block;
     padding: 10px 20px;
     background-color: #00ffff;
     color: #000;
     text-decoration: none;
+    border: none;
     border-radius: 30px;
-    transition: background-color 0.3s ease, transform 0.2s;
     font-weight: bold;
-    margin-right: 10px;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+    cursor: pointer;
+    margin: 5px;
   }
 
-  a.voltar:hover {
+  a.voltar:hover, .seta:hover {
+    transform: scale(1.1);
     background-color: #00cccc;
-    transform: scale(1.05);
   }
 
- .seta {
-  background-color: #00ffff; /* fundo ciano */
-  color: #000;               /* cor preta */
-  border: none;
-  border-radius: 30px;
-  padding: 10px 20px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  user-select: none;
-}
-
-.seta:hover {
-  transform: scale(1.1);     /* aumenta 10% */
-  background-color: #00cccc; /* tom mais escuro do ciano no hover */
-}
-
-.seta:active {
-  transform: scale(0.95);    /* pequena redução ao clicar */
-}
-
-/* Container que envolve as setas, para ficar dentro do quadrado, alinhadas nas extremidades */
-.navegacao {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 30px;
-  width: 100%; /* para ocupar a largura do main */
-  box-sizing: border-box;
-}
-
-  .fade {
-    animation: fadeIn 0.6s ease;
+  .seta:active {
+    transform: scale(0.95);
   }
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  .navegacao {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   @media (max-width: 600px) {
@@ -130,7 +98,7 @@
       font-size: 1.5em;
     }
 
-    .seta, a.voltar {
+    a.voltar, .seta {
       padding: 8px 16px;
       font-size: 0.9em;
     }
@@ -159,62 +127,52 @@
       </div>
     </div>
   </main>
-
- <script>
+<script>
   document.addEventListener("DOMContentLoaded", () => {
-    const main = document.querySelector("main");
-    
-    // Animação de entrada inicial
-    main.style.opacity = 0;
-    main.style.transform = "translateY(40px)";
-    setTimeout(() => {
-      main.style.transition = "all 0.6s ease";
-      main.style.opacity = 1;
-      main.style.transform = "translateY(0)";
-    }, 200);
+    const contentArea = document.getElementById("content-area");
+    const btnAvancar = document.getElementById("avancar");
+    const btnVoltar = document.getElementById("voltar");
 
-    const setaAvancar = document.querySelector(".seta.avancar");
-    const setaVoltar = document.querySelector(".seta.voltar");
-
-    const conteudos = [
-      `<h2>Introdução à Arquitetura</h2><p>Este é o conteúdo da primeira página.</p>`,
-      `<h2>Componentes Básicos</h2><p>Este é o conteúdo da segunda página.</p>`,
-      `<h2>Memória e Processamento</h2><p>Este é o conteúdo da terceira página.</p>`
+    const slides = [
+      `<h2>O que é?</h2><p>Arquitetura de computadores é o estudo da estrutura e do funcionamento interno de sistemas computacionais. Inclui a análise da CPU, memória, dispositivos de entrada e saída, barramentos e mais.</p>`,
+      `<h2>Componentes Básicos</h2><p>Conheça os elementos fundamentais como a Unidade Lógica e Aritmética (ULA), registradores e a unidade de controle.</p>`,
+      `<h2>Memória e Processamento</h2><p>Explicação sobre RAM, ROM, cache, memória secundária e o papel do processador.</p>`
     ];
 
-    let paginaAtual = 0;
+    let indiceAtual = 0;
 
-    function trocarConteudo(novaPagina) {
-      if (novaPagina < 0 || novaPagina >= conteudos.length) return;
-
-      main.style.opacity = 1;
-      main.style.transition = "opacity 0.3s ease";
-      main.style.opacity = 0;
+    function mostrarSlide(indice) {
+      // Apaga suavemente
+      contentArea.classList.remove("visible");
 
       setTimeout(() => {
-        main.innerHTML = conteudos[novaPagina] + main.querySelector(".navegacao").outerHTML;
+        contentArea.innerHTML = slides[indice];
+        contentArea.classList.add("visible");
 
-        paginaAtual = novaPagina;
-
-        // Reaplicar animação de entrada
-        setTimeout(() => {
-          main.style.transition = "opacity 0.3s ease";
-          main.style.opacity = 1;
-        }, 50);
+        // Mostrar/esconder setas conforme o slide
+        btnVoltar.style.display = indice === 0 ? "none" : "inline-block";
+        btnAvancar.style.display = indice === slides.length - 1 ? "none" : "inline-block";
       }, 300);
     }
 
-    if (setaAvancar) {
-      setaAvancar.addEventListener("click", () => {
-        trocarConteudo(paginaAtual + 1);
-      });
-    }
+    btnAvancar.addEventListener("click", () => {
+      if (indiceAtual < slides.length - 1) {
+        indiceAtual++;
+        mostrarSlide(indiceAtual);
+      }
+    });
 
-    if (setaVoltar) {
-      setaVoltar.addEventListener("click", () => {
-        trocarConteudo(paginaAtual - 1);
-      });
-    }
+    btnVoltar.addEventListener("click", () => {
+      if (indiceAtual > 0) {
+        indiceAtual--;
+        mostrarSlide(indiceAtual);
+      }
+    });
+
+    // Inicia o primeiro slide com atraso
+    setTimeout(() => {
+      mostrarSlide(indiceAtual);
+    }, 300);
   });
 </script>
 
