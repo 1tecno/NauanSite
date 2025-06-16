@@ -90,50 +90,14 @@
   </main>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const contentArea = document.getElementById("content-area");
-    const btnAvancar = document.getElementById("avancar");
-    const btnVoltar = document.getElementById("voltar");
-
-    const slides = [
-      `<h2>O que é?</h2><p>Arquitetura de computadores é o estudo da estrutura e do funcionamento interno de sistemas computacionais. Inclui a análise da CPU, memória, dispositivos de entrada e saída, barramentos e mais.</p>`,
-      `<h2>Componentes Básicos</h2><p>Conheça os elementos fundamentais como a Unidade Lógica e Aritmética (ULA), registradores e a unidade de controle.</p>`,
-      `<h2>Memória e Processamento</h2><p>Explicação sobre RAM, ROM, cache, memória secundária e o papel do processador.</p>`
-    ];
-
-    let indiceAtual = 0;
-
-    function mostrarSlide(indice) {
-      // Apaga suavemente
-      contentArea.classList.remove("visible");
-
-      setTimeout(() => {
-        contentArea.innerHTML = slides[indice];
-        contentArea.classList.add("visible");
-
-        // Mostrar/esconder setas conforme o slide
-        btnVoltar.style.display = indice === 0 ? "none" : "inline-block";
-        btnAvancar.style.display = indice === slides.length - 1 ? "none" : "inline-block";
-      }, 300);
-    }
-
-    btnAvancar.addEventListener("click", () => {
-      if (indiceAtual < slides.length - 1) {
-        indiceAtual++;
-        mostrarSlide(indiceAtual);
-      }
-    });
-
-    btnVoltar.addEventListener("click", () => {
-      if (indiceAtual > 0) {
-        indiceAtual--;
-        mostrarSlide(indiceAtual);
-      }
-    });
-
-    // Inicia o primeiro slide com atraso
+    const main = document.querySelector("main");
+    main.style.opacity = 0;
+    main.style.transform = "translateY(40px)";
     setTimeout(() => {
-      mostrarSlide(indiceAtual);
-    }, 300);
+      main.style.transition = "all 0.6s ease";
+      main.style.opacity = 1;
+      main.style.transform = "translateY(0)";
+    }, 200);
   });
 </script>
 
