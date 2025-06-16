@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gestão de Tempo</title>
-  
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 
@@ -23,20 +22,23 @@
       text-align: center;
       font-size: 2em;
       box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3);
+      opacity: 0;
+      transition: opacity 1s ease;
     }
 
     main {
       max-width: 800px;
-      margin: 30px auto 0 auto;
+      margin: auto;
       background-color: #1e1e1e;
       padding: 30px;
       border-radius: 12px;
       box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+      margin-top: 30px;
       position: relative;
       overflow: hidden;
       opacity: 0;
       transform: translateY(40px);
-      transition: all 0.6s ease;
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
     h1, h2 {
@@ -81,8 +83,8 @@
     }
 
     .seta {
-      background-color: #00ffff;
-      color: #000;
+      background-color: #00ffff; /* fundo ciano */
+      color: #000;               /* cor preta */
       border: none;
       border-radius: 30px;
       padding: 10px 20px;
@@ -96,41 +98,38 @@
     }
 
     .seta:hover {
-      transform: scale(1.1);
-      background-color: #00cccc;
+      transform: scale(1.1);     /* aumenta 10% */
+      background-color: #00cccc; /* tom mais escuro do ciano no hover */
     }
 
     .seta:active {
-      transform: scale(0.95);
+      transform: scale(0.95);    /* pequena redução ao clicar */
     }
 
+    /* Container que envolve as setas, para ficar dentro do quadrado, alinhadas nas extremidades */
     .navegacao {
       display: flex;
       justify-content: space-between;
       margin-top: 30px;
-      width: 100%;
+      width: 100%; /* para ocupar a largura do main */
       box-sizing: border-box;
     }
 
-    .fade {
-      animation: fadeIn 0.6s ease;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
+    /* Controle do content-box para transição suave */
     #content-box {
       opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      visibility: hidden;
       transform: translateY(30px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      transition: opacity 0.5s ease, max-height 0.5s ease, transform 0.5s ease, visibility 0.5s;
+    }
+
+    #content-box.visible {
+      opacity: 1;
+      max-height: 1000px; /* valor alto o suficiente para o conteúdo */
+      visibility: visible;
+      transform: translateY(0);
     }
 
     @media (max-width: 600px) {
@@ -148,10 +147,10 @@
 <body>
 
   <header>
-    <h1 id="titulo-materia">Gestão de Tempo</h1>
+    <h1>Gestão de Tempo</h1>
   </header>
 
-  <main id="main-content">
+  <main>
     <div id="content-box">
       <h2 id="slide-title">O que é?</h2>
       <div id="slide-content">
@@ -170,8 +169,8 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const main = document.getElementById("main-content");
-      const tituloMateria = document.getElementById("titulo-materia");
+      const main = document.querySelector("main");
+      const tituloMateria = document.querySelector("header h1");
       const contentBox = document.getElementById("content-box");
       const slideTitle = document.getElementById("slide-title");
       const slideContent = document.getElementById("slide-content");
@@ -185,60 +184,64 @@
           conteudo: `<p>Gestão de tempo é a habilidade de organizar e priorizar tarefas para otimizar o uso das horas disponíveis. Envolve planejamento, disciplina e eficiência para evitar desperdícios e aumentar a produtividade. Técnicas como a definição de metas, listas de afazeres e a delegação de atividades ajudam a manter o foco. Uma boa gestão reduz o estresse e melhora a qualidade de vida.</p>`
         },
         {
-          titulo: "Técnicas de Gestão",
-          conteudo: `<p>Existem várias técnicas, como a Técnica Pomodoro, que consiste em trabalhar focado por 25 minutos e depois fazer uma pausa curta; a matriz de Eisenhower para priorização de tarefas; e o uso de agendas e aplicativos para organização diária.</p>`
+          titulo: "Importância da Gestão",
+          conteudo: `<p>Uma boa gestão do tempo permite que você alcance objetivos com mais eficiência, reduz o estresse e melhora a qualidade de vida, promovendo equilíbrio entre trabalho, estudo e lazer.</p>`
         },
         {
-          titulo: "Benefícios",
-          conteudo: `<p>Uma boa gestão de tempo aumenta a produtividade, reduz a procrastinação, diminui o estresse, melhora a qualidade do trabalho e deixa mais tempo livre para lazer e descanso.</p>`
-        },
-        {
-          titulo: "Dicas Práticas",
+          titulo: "Técnicas Principais",
           conteudo: `<ul>
-            <li>Faça uma lista diária de tarefas;</li>
-            <li>Estabeleça prioridades;</li>
-            <li>Evite multitarefas;</li>
-            <li>Reserve tempo para pausas;</li>
-            <li>Use ferramentas digitais para ajudar.</li>
+            <li>Definição de metas claras</li>
+            <li>Uso de listas de tarefas</li>
+            <li>Priorização das atividades</li>
+            <li>Delegação quando possível</li>
+            <li>Controle do tempo gasto em cada tarefa</li>
           </ul>`
+        },
+        {
+          titulo: "Ferramentas para Gestão",
+          conteudo: `<p>Existem várias ferramentas digitais que ajudam na gestão de tempo, como aplicativos de calendário, timers Pomodoro e listas de tarefas integradas com notificações.</p>`
+        },
+        {
+          titulo: "Benefícios Pessoais",
+          conteudo: `<p>Melhor produtividade, menos procrastinação, maior clareza mental e mais tempo livre para lazer e família são alguns dos benefícios da gestão eficiente do tempo.</p>`
         }
       ];
 
       let paginaAtual = 0;
 
-      function fadeOut(element, callback) {
-        element.style.transition = "opacity 0.4s ease";
-        element.style.opacity = 0;
-        element.style.transform = "translateY(30px)";
-        setTimeout(() => {
-          if (callback) callback();
-        }, 400);
-      }
-
-      function fadeIn(element) {
-        element.style.transition = "opacity 0.6s ease, transform 0.6s ease";
-        element.style.opacity = 1;
-        element.style.transform = "translateY(0)";
-      }
-
       function atualizarConteudo(novaPagina) {
         if (novaPagina < 0 || novaPagina >= conteudos.length) return;
 
-        fadeOut(contentBox, () => {
+        // Remove a classe visible para animar sumiço
+        contentBox.classList.remove("visible");
+
+        setTimeout(() => {
           paginaAtual = novaPagina;
 
-          slideTitle.textContent = conteudos[paginaAtual].titulo;
-          slideContent.innerHTML = conteudos[paginaAtual].conteudo;
+          if (paginaAtual === 0) {
+            // No slide 0 esconde o contentBox (mas sem display:none)
+            slideTitle.textContent = conteudos[0].titulo;
+            slideContent.innerHTML = conteudos[0].conteudo;
+            contentBox.classList.add("visible");
+          } else {
+            slideTitle.textContent = conteudos[paginaAtual].titulo;
+            slideContent.innerHTML = conteudos[paginaAtual].conteudo;
+            contentBox.classList.add("visible");
+          }
 
-          fadeIn(contentBox);
           atualizarBotoes();
-        });
+        }, 500);
       }
 
       function atualizarBotoes() {
+        // Avançar aparece em todos, exceto no último
         btnAvancar.style.display = paginaAtual < conteudos.length - 1 ? "inline-flex" : "none";
+        // Voltar aparece só se não estiver no primeiro
         btnVoltar.style.display = paginaAtual > 0 ? "inline-flex" : "none";
       }
+
+      // Inicialização
+      atualizarConteudo(paginaAtual);
 
       btnAvancar.addEventListener("click", () => {
         atualizarConteudo(paginaAtual + 1);
@@ -248,18 +251,13 @@
         atualizarConteudo(paginaAtual - 1);
       });
 
-      // Inicializa os botões e conteúdo
-      atualizarConteudo(paginaAtual);
-
-      // Animação do main e título da matéria
+      // Animação inicial do main e título da matéria
       setTimeout(() => {
         main.style.opacity = 1;
         main.style.transform = "translateY(0)";
-        tituloMateria.style.transition = "opacity 1s ease";
         tituloMateria.style.opacity = 1;
       }, 200);
     });
   </script>
-
 </body>
 </html>
