@@ -138,17 +138,50 @@
     <a href="index.html" class="voltar">⬅ Voltar ao portal</a>
   </main>
   <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const main = document.querySelector("main");
-    main.style.opacity = 0;
-    main.style.transform = "translateY(40px)";
-    setTimeout(() => {
-      main.style.transition = "all 0.6s ease";
-      main.style.opacity = 1;
-      main.style.transform = "translateY(0)";
-    }, 200);
-  });
-</script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("slide-container");
+      const main = document.getElementById("main-content");
+      const btnAvancar = document.getElementById("btn-avancar");
+      const btnVoltar = document.getElementById("btn-voltar");
+
+      const slides = [
+        `<h2>O que é?</h2><p style="text-align: justify;">POO com Java é a aplicação dos conceitos da Programação Orientada a Objetos usando a linguagem Java. Ela organiza o código em classes e objetos, facilitando o reaproveitamento e a manutenção. Os pilares principais são herança, encapsulamento, polimorfismo e abstração.</p>`,
+        `<h2>Para que serve POO em Java?</h2><p style="text-align: justify;">POO serve para criar programas que simulam situações do mundo real através de objetos interativos. Isso ajuda a construir sistemas flexíveis, reutilizáveis e fáceis de manter. Ao usar POO, é possível dividir o problema em partes menores e gerenciáveis. Também facilita a colaboração em projetos grandes.</p>`,
+        `<h2>Importância da POO em Java</h2><p style="text-align: justify;">A POO é importante porque melhora a clareza, organização e reutilização do código, o que reduz erros e aumenta a eficiência do desenvolvimento. Ela promove o encapsulamento, herança e polimorfismo, conceitos que ajudam a construir sistemas robustos e adaptáveis. Muitos frameworks e bibliotecas Java utilizam POO como base. Por isso, é essencial para programadores Java.</p>`,
+        `<h2>Utilidade da POO para nós</h2><p style="text-align: justify;">Aprender POO em Java nos prepara para desenvolver softwares profissionais e complexos, usados em diversas áreas como jogos, apps e sistemas empresariais. Com POO, conseguimos criar programas mais limpos, fáceis de entender e modificar. Isso abre portas para melhores oportunidades no mercado de trabalho. Além disso, facilita o trabalho em equipe e o uso de tecnologias modernas.</p>`,
+        `<h2>O que é Software?</h2><p style="text-align: justify;"> Software é um conjunto de programas, dados e instruções que permitem o funcionamento de computadores e dispositivos eletrônicos. Ele controla o hardware e realiza tarefas específicas para o usuário, como editar textos, navegar na internet ou jogar. Sem software, o hardware seria inútil, pois não teria como executar ações. Existem softwares de sistema, aplicativos e utilitários, cada um com funções distintas.</p>`
+      ];
+
+      let index = 0;
+
+      function atualizarSlide() {
+        main.style.opacity = 0;
+        setTimeout(() => {
+          container.innerHTML = `<div class="content-box fade">${slides[index]}</div>`;
+          main.style.opacity = 1;
+          btnVoltar.style.display = index === 0 ? "none" : "inline-block";
+          btnAvancar.style.display = index === slides.length - 1 ? "none" : "inline-block";
+        }, 300);
+      }
+
+      btnAvancar.addEventListener("click", () => {
+        if (index < slides.length - 1) {
+          index++;
+          atualizarSlide();
+        }
+      });
+
+      btnVoltar.addEventListener("click", () => {
+        if (index > 0) {
+          index--;
+          atualizarSlide();
+        }
+      });
+
+      // Carrega o primeiro slide ao entrar
+      atualizarSlide();
+    });
+  </script>
 
 </body>
 </html>
