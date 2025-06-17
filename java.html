@@ -131,11 +131,17 @@
     <h1>POO com Java</h1>
   </header>
 
-  <main>
-    <h2>O que é?</h2>
-    <p>POO com Java é a aplicação dos conceitos da Programação Orientada a Objetos usando a linguagem Java. Ela organiza o código em classes e objetos, facilitando o reaproveitamento e a manutenção. Os pilares principais são herança, encapsulamento, polimorfismo e abstração.</p>
-
-    <a href="index.html" class="voltar">⬅ Voltar ao portal</a>
+   <main id="main-content">
+    <div class="content-box" id="slide-container">
+      <!-- Conteúdo do slide será inserido aqui via JS -->
+    </div>
+    <div class="navegacao">
+      <a href="index.html" class="btn">⬅ Portal</a>
+      <div class="btn-group">
+        <button class="btn" id="btn-voltar" style="display: none;">⬅</button>
+        <button class="btn" id="btn-avancar">➡</button>
+      </div>
+    </div>
   </main>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
