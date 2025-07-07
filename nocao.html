@@ -131,24 +131,63 @@
     <h1>Noção de Robótica</h1>
   </header>
 
-  <main>
-    <h2>O que é?</h2>
-    <p>Noção de robótica refere-se ao conhecimento básico sobre sistemas mecânicos e eletrônicos capazes de executar tarefas de forma autônoma ou assistida. Engloba sensores, atuadores, programação e inteligência artificial. A robótica está presente em diversas áreas, como indústria, medicina e exploração espacial, tornando processos mais eficientes e seguros.</p>
-
-    <a href="index.html" class="voltar">⬅ Voltar ao portal</a>
+  <main id="main-content">
+    <div class="content-box" id="slide-container">
+      <!-- Conteúdo do slide será inserido aqui via JS -->
+    </div>
+    <div class="navegacao">
+      <a href="index.html" class="btn">⬅ Portal</a>
+      <div class="btn-group">
+        <button class="btn" id="btn-voltar" style="display: none;">⬅</button>
+        <button class="btn" id="btn-avancar">➡</button>
+      </div>
+    </div>
   </main>
   <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const main = document.querySelector("main");
-    main.style.opacity = 0;
-    main.style.transform = "translateY(40px)";
-    setTimeout(() => {
-      main.style.transition = "all 0.6s ease";
-      main.style.opacity = 1;
-      main.style.transform = "translateY(0)";
-    }, 200);
-  });
-</script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("slide-container");
+      const main = document.getElementById("main-content");
+      const btnAvancar = document.getElementById("btn-avancar");
+      const btnVoltar = document.getElementById("btn-voltar");
+
+      const slides = [
+        `<h2>O que é?</h2><p style="text-align: justify;">Noção de robótica refere-se ao entendimento básico sobre a criação, funcionamento e aplicação de robôs, que são máquinas programadas para realizar tarefas automáticas, muitas vezes repetitivas ou perigosas para os seres humanos. Ela envolve conhecimentos de mecânica, eletrônica e programação para que esses dispositivos possam executar movimentos e ações de forma autônoma ou controlada.</p>`,
+        `<h2>Importância</h2><p style="text-align: justify;">A importância da robótica está no fato de que ela vem transformando diversos setores da indústria, da medicina, da agricultura e até do cotidiano das pessoas, tornando processos mais rápidos, precisos e seguros. Com o avanço da tecnologia, a robótica está cada vez mais presente na automação de tarefas, na fabricação de produtos e na exploração de ambientes onde a presença humana é limitada ou arriscada.</p>`,
+        `<h2>Utilidade</h2><p style="text-align: justify;">A utilidade da robótica é ampla, pois os robôs podem ser usados para montagem de carros, cirurgias assistidas, limpeza de espaços perigosos, exploração espacial, entre muitas outras aplicações. Eles ajudam a aumentar a produtividade, reduzir erros, melhorar a qualidade e garantir a segurança em diferentes processos.</p>`,
+        `<h2>Função</h2><p style="text-align: justify;">A função da noção de robótica é fornecer uma base para que as pessoas possam entender como esses sistemas funcionam e como programá-los para realizar diferentes atividades. Isso inclui a compreensão dos sensores, atuadores, controle e a lógica que permite que o robô tome decisões.</p>`,
+        `<h2>Por que aprender?</h2><p style="text-align: justify;">Aprender noção de robótica é fundamental para quem deseja atuar em áreas tecnológicas e inovadoras, pois a robótica é uma das áreas que mais cresce e tem grande impacto no futuro do trabalho e da indústria. Além disso, desenvolve o raciocínio lógico, a criatividade e habilidades multidisciplinares que são valorizadas em diversos campos profissionais.</p>`
+      ];
+
+      let index = 0;
+
+      function atualizarSlide() {
+        main.style.opacity = 0;
+        setTimeout(() => {
+          container.innerHTML = `<div class="content-box fade">${slides[index]}</div>`;
+          main.style.opacity = 1;
+          btnVoltar.style.display = index === 0 ? "none" : "inline-block";
+          btnAvancar.style.display = index === slides.length - 1 ? "none" : "inline-block";
+        }, 300);
+      }
+
+      btnAvancar.addEventListener("click", () => {
+        if (index < slides.length - 1) {
+          index++;
+          atualizarSlide();
+        }
+      });
+
+      btnVoltar.addEventListener("click", () => {
+        if (index > 0) {
+          index--;
+          atualizarSlide();
+        }
+      });
+
+      // Carrega o primeiro slide ao entrar
+      atualizarSlide();
+    });
+  </script>
 
 </body>
 </html>
