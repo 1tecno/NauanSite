@@ -143,18 +143,52 @@
       </div>
     </div>
   </main>
-  <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const main = document.querySelector("main");
-    main.style.opacity = 0;
-    main.style.transform = "translateY(40px)";
-    setTimeout(() => {
-      main.style.transition = "all 0.6s ease";
-      main.style.opacity = 1;
-      main.style.transform = "translateY(0)";
-    }, 200);
-  });
-</script>
+   <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("slide-container");
+      const main = document.getElementById("main-content");
+      const btnAvancar = document.getElementById("btn-avancar");
+      const btnVoltar = document.getElementById("btn-voltar");
+
+      const slides = [
+        `<h2>O que é?</h2><p style="text-align: justify;">HTML (HyperText Markup Language) é a linguagem usada para criar a estrutura básica das páginas web, organizando textos, imagens e links. CSS (Cascading Style Sheets) é a linguagem que define o estilo visual dessas páginas, como cores, fontes, espaçamentos e layouts. Juntas, HTML e CSS formam a base para construir sites atraentes e funcionais na internet.</p>`,
+        `<h2>Importância do HTML e CSS</h2><p style="text-align: justify;">HTML e CSS são as bases da criação de sites e aplicações web. Sem eles, não existiria internet como a conhecemos. Todo site, de redes sociais a lojas online, depende dessas duas linguagens para mostrar conteúdo e aparência.</p>`,
+        `<h2>Utilidade</h2><p style="text-align: justify;">HTML é usado para organizar o conteúdo de uma página: textos, imagens, links, listas, formulários, vídeos etc.
+CSS serve para personalizar o visual desse conteúdo: cores, tamanhos, posições, animações, responsividade (funcionar bem em celulares, tablets, PCs).</p>`,
+       `<h2>Função</h2><p style="text-align: justify;">A função do HTML é estruturar o conteúdo de forma organizada usando marcas (tags), enquanto a função do CSS é transformar essa estrutura simples em algo visualmente agradável, com estilo, cores e harmonia. HTML é como os blocos de construção de um prédio, e o CSS é a pintura, a decoração e os acabamentos desse prédio.</p>`,
+       `<h2>Por que aprender?</h2><p style="text-align: justify;">Aprender HTML e CSS é importante porque são linguagens simples, ideais para iniciantes, e servem como base para outras tecnologias da web. Elas também são úteis em áreas como design, marketing e ensino, além de serem valorizadas no mercado de trabalho por abrirem oportunidades em tecnologia e comunicação.</p>`
+      ];
+
+      let index = 0;
+
+      function atualizarSlide() {
+        main.style.opacity = 0;
+        setTimeout(() => {
+          container.innerHTML = `<div class="content-box fade">${slides[index]}</div>`;
+          main.style.opacity = 1;
+          btnVoltar.style.display = index === 0 ? "none" : "inline-block";
+          btnAvancar.style.display = index === slides.length - 1 ? "none" : "inline-block";
+        }, 300);
+      }
+
+      btnAvancar.addEventListener("click", () => {
+        if (index < slides.length - 1) {
+          index++;
+          atualizarSlide();
+        }
+      });
+
+      btnVoltar.addEventListener("click", () => {
+        if (index > 0) {
+          index--;
+          atualizarSlide();
+        }
+      });
+
+      // Carrega o primeiro slide ao entrar
+      atualizarSlide();
+    });
+  </script>
 
 </body>
 </html>
