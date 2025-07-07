@@ -143,19 +143,51 @@
       </div>
     </div>
   </main>
-  <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const main = document.querySelector("main");
-    main.style.opacity = 0;
-    main.style.transform = "translateY(40px)";
-    setTimeout(() => {
-      main.style.transition = "all 0.6s ease";
-      main.style.opacity = 1;
-      main.style.transform = "translateY(0)";
-    }, 200);
-  });
-</script>
+   <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("slide-container");
+      const main = document.getElementById("main-content");
+      const btnAvancar = document.getElementById("btn-avancar");
+      const btnVoltar = document.getElementById("btn-voltar");
 
+      const slides = [
+        `<h2>O que é?</h2><p style="text-align: justify;">Lógica de programação é o conjunto de princípios e regras que orientam a criação de algoritmos para resolver problemas de forma ordenada e eficiente. Ela permite que o programador pense passo a passo sobre como uma tarefa deve ser executada pelo computador, usando estruturas como sequências, decisões e repetições.</p>`,
+        `<h2>Importância</h2><p style="text-align: justify;">A importância da lógica de programação está no fato de que ela é a base para aprender qualquer linguagem de programação, pois independentemente da linguagem usada, os conceitos de lógica permanecem os mesmos. Sem uma boa lógica, é difícil criar códigos corretos, eficientes e fáceis de entender.</p>`,
+        `<h2>Utilidade</h2><p style="text-align: justify;">A utilidade da lógica de programação é enorme, pois ela serve para desenvolver soluções para os mais diversos problemas, desde simples cálculos até sistemas complexos de inteligência artificial. Ela ajuda a organizar o raciocínio e facilita a resolução de problemas técnicos no dia a dia.</p>`,
+        `<h2>Função</h2><p style="text-align: justify;">A função da lógica de programação é estruturar o pensamento do programador para que ele consiga planejar como o programa deve funcionar, antecipar possíveis erros e otimizar o desempenho do código. Isso envolve entender como usar variáveis, operadores, estruturas condicionais, laços de repetição e funções.</p>`,
+        `<h2>Por que aprender?</h2><p style="text-align: justify;">Aprender lógica de programação é fundamental para quem quer trabalhar com tecnologia, pois é o primeiro passo para dominar linguagens de programação e desenvolver softwares, sites, jogos e aplicativos. Além disso, essa habilidade desenvolve o pensamento crítico e a capacidade de resolver problemas, competências valorizadas em diversas áreas profissionais.</p>`
+      ];
+
+      let index = 0;
+
+      function atualizarSlide() {
+        main.style.opacity = 0;
+        setTimeout(() => {
+          container.innerHTML = `<div class="content-box fade">${slides[index]}</div>`;
+          main.style.opacity = 1;
+          btnVoltar.style.display = index === 0 ? "none" : "inline-block";
+          btnAvancar.style.display = index === slides.length - 1 ? "none" : "inline-block";
+        }, 300);
+      }
+
+      btnAvancar.addEventListener("click", () => {
+        if (index < slides.length - 1) {
+          index++;
+          atualizarSlide();
+        }
+      });
+
+      btnVoltar.addEventListener("click", () => {
+        if (index > 0) {
+          index--;
+          atualizarSlide();
+        }
+      });
+
+      // Carrega o primeiro slide ao entrar
+      atualizarSlide();
+    });
+  </script>
 </body>
 </html>
 
