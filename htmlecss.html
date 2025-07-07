@@ -131,13 +131,21 @@
     <h1>HTML e CSS</h1>
   </header>
 
-  <main>
+  <main id="main-content">
+    <div class="content-box" id="slide-container">
+      <!-- Conteúdo do slide será inserido aqui via JS -->
+    </div>
+    <div class="navegacao">
+      <a href="index.html" class="btn">⬅ Portal</a>
+      <div class="btn-group">
+        <button class="btn" id="btn-voltar" style="display: none;">⬅</button>
+        <button class="btn" id="btn-avancar">➡</button>
+      </div>
+    </div>
     <h2>O que é?</h2>
     <p>HTML (HyperText Markup Language) é a linguagem usada para criar a estrutura básica das páginas web, organizando textos, imagens e links.
 CSS (Cascading Style Sheets) é a linguagem que define o estilo visual dessas páginas, como cores, fontes, espaçamentos e layouts.
 Juntas, HTML e CSS formam a base para construir sites atraentes e funcionais na internet.</p>
-
-    <a href="index.html" class="voltar">⬅ Voltar ao portal</a>
   </main>
   <script>
   document.addEventListener("DOMContentLoaded", () => {
