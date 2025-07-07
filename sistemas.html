@@ -144,17 +144,50 @@
     </div>
   </main>
   <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const main = document.querySelector("main");
-    main.style.opacity = 0;
-    main.style.transform = "translateY(40px)";
-    setTimeout(() => {
-      main.style.transition = "all 0.6s ease";
-      main.style.opacity = 1;
-      main.style.transform = "translateY(0)";
-    }, 200);
-  });
-</script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("slide-container");
+      const main = document.getElementById("main-content");
+      const btnAvancar = document.getElementById("btn-avancar");
+      const btnVoltar = document.getElementById("btn-voltar");
+
+      const slides = [
+        `<h2>O que é?</h2><p style="text-align: justify;">Sistemas operacionais são softwares que gerenciam os recursos de um computador e permitem a interação entre o usuário e o hardware. Eles controlam processos, memória e dispositivos, garantindo o funcionamento eficiente do sistema. Exemplos incluem Windows, Linux e macOS. Sem um sistema operacional, um computador seria apenas um conjunto de componentes sem coordenação.</p>`,
+        `<h2>importância</h2><p style="text-align: justify;">Os principais componentes são: Unidade Central de Processamento (CPU), memória RAM, dispositivos de entrada/saída e os barramentos que interligam todos eles.</p>`,
+        `<h2></h2><p style="text-align: justify;">A memória armazena dados temporários e permanentes, enquanto o processador realiza cálculos e executa instruções do sistema e dos programas.</p>`
+        `<h2></h2><p style="text-align: justify;">
+        `<h2></h2><p style="text-align: justify;">
+      ];
+
+      let index = 0;
+
+      function atualizarSlide() {
+        main.style.opacity = 0;
+        setTimeout(() => {
+          container.innerHTML = `<div class="content-box fade">${slides[index]}</div>`;
+          main.style.opacity = 1;
+          btnVoltar.style.display = index === 0 ? "none" : "inline-block";
+          btnAvancar.style.display = index === slides.length - 1 ? "none" : "inline-block";
+        }, 300);
+      }
+
+      btnAvancar.addEventListener("click", () => {
+        if (index < slides.length - 1) {
+          index++;
+          atualizarSlide();
+        }
+      });
+
+      btnVoltar.addEventListener("click", () => {
+        if (index > 0) {
+          index--;
+          atualizarSlide();
+        }
+      });
+
+      // Carrega o primeiro slide ao entrar
+      atualizarSlide();
+    });
+  </script>
 
 </body>
 </html>
