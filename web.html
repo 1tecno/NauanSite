@@ -131,11 +131,17 @@
     <h1>Programação Web</h1>
   </header>
 
-  <main>
-    <h2>O que é?</h2>
-    <p>Programação Web é o desenvolvimento de sites e aplicações que funcionam na internet. Envolve linguagens como HTML, CSS e JavaScript para criar a estrutura, o visual e a interatividade das páginas. Também pode incluir programação de servidores e bancos de dados.</p>
-
-    <a href="index.html" class="voltar">⬅ Voltar ao portal</a>
+ <main id="main-content">
+    <div class="content-box" id="slide-container">
+      <!-- Conteúdo do slide será inserido aqui via JS -->
+    </div>
+    <div class="navegacao">
+      <a href="index.html" class="btn">⬅ Portal</a>
+      <div class="btn-group">
+        <button class="btn" id="btn-voltar" style="display: none;">⬅</button>
+        <button class="btn" id="btn-avancar">➡</button>
+      </div>
+    </div>
   </main>
   <script>
   document.addEventListener("DOMContentLoaded", () => {
