@@ -131,11 +131,17 @@
     <h1>Lógica de Programação</h1>
   </header>
 
-  <main>
-    <h2>O que é?</h2>
-    <p>Lógica de programação é o conjunto de conceitos e técnicas usadas para criar algoritmos eficientes. Envolve sequências de instruções, estruturas condicionais e repetitivas para resolver problemas computacionais. Dominar a lógica de programação é essencial para o desenvolvimento de software, garantindo código organizado e funcional.</p>
-
-    <a href="index.html" class="voltar">⬅ Voltar ao portal</a>
+   <main id="main-content">
+    <div class="content-box" id="slide-container">
+      <!-- Conteúdo do slide será inserido aqui via JS -->
+    </div>
+    <div class="navegacao">
+      <a href="index.html" class="btn">⬅ Portal</a>
+      <div class="btn-group">
+        <button class="btn" id="btn-voltar" style="display: none;">⬅</button>
+        <button class="btn" id="btn-avancar">➡</button>
+      </div>
+    </div>
   </main>
   <script>
   document.addEventListener("DOMContentLoaded", () => {
