@@ -161,6 +161,7 @@
       align-items: center;
       z-index: 1000;
       padding: 20px;
+      flex-direction: column;
     }
 
     #modal-bimestres.active {
@@ -184,6 +185,9 @@
       color: #00ffff;
       font-weight: 600;
       user-select: none;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
     }
 
     #modal-content h2 {
@@ -197,7 +201,6 @@
       border: none;
       border-radius: 40px;
       padding: 14px 28px;
-      margin: 10px 0;
       width: 100%;
       font-size: 1.1em;
       color: #111;
@@ -206,6 +209,9 @@
       box-shadow: 0 0 15px #00ffae88;
       transition: all 0.3s ease;
       user-select: none;
+      opacity: 0;
+      transform: translateY(15px);
+      animation-fill-mode: forwards;
     }
 
     #modal-content button:hover {
@@ -218,6 +224,9 @@
       color: #000;
       margin-top: 30px;
       box-shadow: 0 0 20px #00ffffee;
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
     }
 
     #modal-content button#btn-voltar-portal:hover {
@@ -268,51 +277,49 @@
       <p>Este site foi criado para apresentar as principais matérias estudadas no curso técnico da nossa escola de forma moderna e interativa.</p>
     </section>
 
-    <!-- Dentro da seção <section id="conteudo">, substitua pelo seguinte conteúdo: -->
+    <section id="conteudo">
+      <h2>Matérias Técnicas</h2>
 
-<section id="conteudo">
-  <h2>Matérias Técnicas</h2>
+      <div class="materia">
+        <h3>Arquitetura de Computadores</h3>
+        <button class="btn-aprender" data-pagina="arquitetura">Aprender!</button>
+      </div>
 
-  <div class="materia">
-    <h3>Arquitetura de Computadores</h3>
-    <button class="btn-aprender" data-pagina="arquitetura">Aprender!</button>
-  </div>
+      <div class="materia">
+        <h3>Programação Web</h3>
+        <button class="btn-aprender" data-pagina="web">Aprender!</button>
+      </div>
 
-  <div class="materia">
-    <h3>Programação Web</h3>
-    <button class="btn-aprender" data-pagina="web">Aprender!</button>
-  </div>
+      <div class="materia">
+        <h3>POO com Java</h3>
+        <button class="btn-aprender" data-pagina="java">Aprender!</button>
+      </div>
 
-  <div class="materia">
-    <h3>POO com Java</h3>
-    <button class="btn-aprender" data-pagina="java">Aprender!</button>
-  </div>
+      <div class="materia">
+        <h3>HTML e CSS</h3>
+        <button class="btn-aprender" data-pagina="htmlecss">Aprender!</button>
+      </div>
 
-  <div class="materia">
-    <h3>HTML e CSS</h3>
-    <button class="btn-aprender" data-pagina="htmlecss">Aprender!</button>
-  </div>
+      <div class="materia">
+        <h3>Sistemas Operacionais</h3>
+        <button class="btn-aprender" data-pagina="sistemas">Aprender!</button>
+      </div>
 
-  <div class="materia">
-    <h3>Sistemas Operacionais</h3>
-    <button class="btn-aprender" data-pagina="sistemas">Aprender!</button>
-  </div>
+      <div class="materia">
+        <h3>Lógica de Programação</h3>
+        <button class="btn-aprender" data-pagina="logica">Aprender!</button>
+      </div>
 
-  <div class="materia">
-    <h3>Lógica de Programação</h3>
-    <button class="btn-aprender" data-pagina="logica">Aprender!</button>
-  </div>
+      <div class="materia">
+        <h3>Noção de Robótica</h3>
+        <button class="btn-aprender" data-pagina="nocao">Aprender!</button>
+      </div>
 
-  <div class="materia">
-    <h3>Noção de Robótica</h3>
-    <button class="btn-aprender" data-pagina="nocao">Aprender!</button>
-  </div>
-
-  <div class="materia">
-    <h3>Gestão de Tempo</h3>
-    <button class="btn-aprender" data-pagina="gestao">Aprender!</button>
-  </div>
-</section>
+      <div class="materia">
+        <h3>Gestão de Tempo</h3>
+        <button class="btn-aprender" data-pagina="gestao">Aprender!</button>
+      </div>
+    </section>
 
     <section id="creditos">
       <h2>Créditos</h2>
@@ -326,9 +333,9 @@
   </footer>
 
   <!-- Modal de Bimestres -->
-  <div id="modal-bimestres">
+  <div id="modal-bimestres" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div id="modal-content">
-      <h2>Escolha o Bimestre</h2>
+      <h2 id="modal-title">Escolha o Bimestre</h2>
       <button data-bimestre="1">1º Bimestre</button>
       <button data-bimestre="2">2º Bimestre</button>
       <button data-bimestre="3">3º Bimestre</button>
@@ -342,16 +349,34 @@
     const bimestreButtons = modal.querySelectorAll("[data-bimestre]");
     let materiaSelecionada = "";
 
+    // Função para animar os botões sequencialmente com delay de 2.5s
+    function animateButtonsSequentially(buttons, delay = 2500) {
+      buttons.forEach((btn, index) => {
+        btn.style.opacity = '0';
+        btn.style.transform = 'translateY(15px)';
+        btn.style.animation = 'none';
+        setTimeout(() => {
+          btn.style.animation = `fadeInUp 0.6s forwards`;
+          btn.style.animationDelay = `${index * delay}ms`;
+        }, 10);
+      });
+    }
+
     document.querySelectorAll('.btn-aprender').forEach(botao => {
       botao.addEventListener('click', () => {
         materiaSelecionada = botao.getAttribute('data-pagina');
         modal.classList.add("active");
+        modal.setAttribute("aria-hidden", "false");
+
+        // Animar os botões de bimestre ao abrir o modal
+        animateButtonsSequentially(bimestreButtons);
       });
     });
 
     bimestreButtons.forEach(btn => {
       btn.addEventListener("click", () => {
         const bimestre = btn.getAttribute("data-bimestre");
+        if (!materiaSelecionada) return;
         const destino = `${materiaSelecionada}${bimestre}.html`;
         window.location.href = destino;
       });
@@ -359,7 +384,25 @@
 
     document.getElementById("btn-voltar-portal").addEventListener("click", () => {
       modal.classList.remove("active");
+      modal.setAttribute("aria-hidden", "true");
     });
+
+    // Keyframes para fadeInUp animado
+    const styleSheet = document.createElement("style");
+    styleSheet.type = "text/css";
+    styleSheet.innerText = `
+      @keyframes fadeInUp {
+        0% {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    `;
+    document.head.appendChild(styleSheet);
   </script>
 </body>
 </html>
