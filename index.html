@@ -224,9 +224,9 @@
       color: #000;
       margin-top: 30px;
       box-shadow: 0 0 20px #00ffffee;
-      opacity: 1 !important;
-      transform: none !important;
-      animation: none !important;
+      opacity: 0;
+      transform: translateY(15px);
+      animation-fill-mode: forwards;
     }
 
     #modal-content button#btn-voltar-portal:hover {
@@ -347,10 +347,11 @@
   <script>
     const modal = document.getElementById("modal-bimestres");
     const bimestreButtons = modal.querySelectorAll("[data-bimestre]");
+    const btnVoltar = document.getElementById("btn-voltar-portal");
     let materiaSelecionada = "";
 
-    // Função para animar os botões sequencialmente com delay de 2.5s
-    function animateButtonsSequentially(buttons, delay = 2500) {
+    // Função para animar os botões sequencialmente com delay de 1.7s
+    function animateButtonsSequentially(buttons, delay = 1700) {
       buttons.forEach((btn, index) => {
         btn.style.opacity = '0';
         btn.style.transform = 'translateY(15px)';
@@ -368,8 +369,9 @@
         modal.classList.add("active");
         modal.setAttribute("aria-hidden", "false");
 
-        // Animar os botões de bimestre ao abrir o modal
-        animateButtonsSequentially(bimestreButtons);
+        // Inclui botão "Voltar" na animação
+        const allButtons = [...bimestreButtons, btnVoltar];
+        animateButtonsSequentially(allButtons, 1700);
       });
     });
 
@@ -382,7 +384,7 @@
       });
     });
 
-    document.getElementById("btn-voltar-portal").addEventListener("click", () => {
+    btnVoltar.addEventListener("click", () => {
       modal.classList.remove("active");
       modal.setAttribute("aria-hidden", "true");
     });
