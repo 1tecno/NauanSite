@@ -36,9 +36,9 @@
       box-shadow: 0 0 20px #00ffff80;
       backdrop-filter: blur(6px);
       animation: fadeDown 1s ease forwards;
-      font-family: 'Orbitron', sans-serif; /* <<< Aqui está a mudança */
+      font-family: 'Orbitron', sans-serif;
     }
-    
+
     main {
       max-width: 900px;
       margin: 30px auto;
@@ -64,7 +64,6 @@
       to { text-shadow: 0 0 20px #00ffe0; }
     }
 
-    /* Card Matéria */
     .materia {
       background: rgba(15, 32, 39, 0.8);
       border-radius: 12px;
@@ -90,7 +89,6 @@
       font-style: italic;
     }
 
-    /* Botão estilizado */
     button.btn-aprender {
       background: linear-gradient(45deg, #00ffff, #00ffae);
       border: none;
@@ -144,7 +142,71 @@
       100% { transform: translateY(0); opacity: 1; }
     }
 
-    /* Responsivo */
+    /* Modal dos bimestres */
+    #modal-bimestres {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 10, 10, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(4px);
+      z-index: 999;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .bimestre-box {
+      background-color: #111;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 0 25px #00ffffaa;
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      animation: fadeUp 0.6s ease;
+    }
+
+    .bimestre-box h2 {
+      color: #00ffff;
+      margin-bottom: 20px;
+    }
+
+    .botoes-bimestres {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .botoes-bimestres button,
+    .voltar-portal {
+      background: linear-gradient(45deg, #00ffff, #00ffae);
+      color: #000;
+      border: none;
+      border-radius: 30px;
+      padding: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1em;
+      transition: transform 0.2s ease, background-color 0.3s ease;
+    }
+
+    .botoes-bimestres button:hover,
+    .voltar-portal:hover {
+      transform: scale(1.05);
+      background-color: #00dddd;
+    }
+
+    .voltar-portal {
+      margin-top: 10px;
+    }
+
     @media (max-width: 600px) {
       main {
         padding: 20px;
@@ -209,7 +271,7 @@
 
       <div class="materia" id="sistemas">
         <h3>Sistemas Operacionais</h3>
-         <button class="btn-aprender" data-pagina="sistemas.html">Aprender!</button>
+        <button class="btn-aprender" data-pagina="sistemas.html">Aprender!</button>
       </div>
 
       <div class="materia" id="logica">
@@ -226,6 +288,11 @@
         <h3>Gestão de Tempo</h3>
         <button class="btn-aprender" data-pagina="gestao.html">Aprender!</button>
       </div>
+
+      <div class="materia" id="bimestres">
+        <h3>Conteúdos por Bimestre</h3>
+        <button class="btn-aprender">Aprender!</button>
+      </div>
     </section>
 
     <section id="creditos">
@@ -233,6 +300,20 @@
       <p>Site criado por Nauan Loures, 2025.</p>
       <p>Instagram: <a href="https://instagram.com/nauanloures" target="_blank" rel="noopener noreferrer">nauanloures</a></p>
     </section>
+
+    <!-- Janela dos Bimestres -->
+    <div id="modal-bimestres" class="hidden">
+      <div class="bimestre-box">
+        <h2>Selecione o Bimestre</h2>
+        <div class="botoes-bimestres">
+          <button onclick="abrirPagina('bimestre1.html')">1º Bimestre</button>
+          <button onclick="abrirPagina('bimestre2.html')">2º Bimestre</button>
+          <button onclick="abrirPagina('bimestre3.html')">3º Bimestre</button>
+          <button onclick="abrirPagina('bimestre4.html')">4º Bimestre</button>
+        </div>
+        <button class="voltar-portal" onclick="fecharBimestres()">⬅ Voltar ao Portal</button>
+      </div>
+    </div>
   </main>
 
   <footer>
@@ -240,14 +321,21 @@
   </footer>
 
   <script>
-    // Botão "Aprender!"
+    function abrirPagina(pagina) {
+      window.location.href = pagina;
+    }
+
+    function fecharBimestres() {
+      document.getElementById("modal-bimestres").classList.add("hidden");
+    }
+
     document.querySelectorAll('.btn-aprender').forEach(botao => {
       botao.addEventListener('click', () => {
         const pagina = botao.getAttribute('data-pagina');
         if (pagina) {
           window.location.href = pagina;
         } else {
-          alert('Página não definida para esta matéria.');
+          document.getElementById("modal-bimestres").classList.remove("hidden");
         }
       });
     });
