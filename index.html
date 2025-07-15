@@ -351,7 +351,7 @@
     let materiaSelecionada = "";
 
     // Função para animar os botões sequencialmente com delay de 1.7s
-    function animateButtonsSequentially(buttons, delay = 1700) {
+    function animateButtonsSequentially(buttons, delay = 1200) {
       buttons.forEach((btn, index) => {
         btn.style.opacity = '0';
         btn.style.transform = 'translateY(15px)';
@@ -371,7 +371,7 @@
 
         // Inclui botão "Voltar" na animação
         const allButtons = [...bimestreButtons, btnVoltar];
-        animateButtonsSequentially(allButtons, 1700);
+        animateButtonsSequentially(allButtons, 1200);
       });
     });
 
