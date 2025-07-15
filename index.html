@@ -26,12 +26,6 @@
       transition: background 1s ease;
     }
 
-    @keyframes aurora {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
     header {
       background-color: rgba(0, 0, 0, 0.5);
       color: #00ffff;
@@ -44,7 +38,7 @@
       animation: fadeDown 1s ease forwards;
       font-family: 'Orbitron', sans-serif;
     }
-
+    
     main {
       max-width: 900px;
       margin: 30px auto;
@@ -115,46 +109,6 @@
       box-shadow: 0 0 25px #00ffffcc;
     }
 
-    .bimestres-container {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0, 0, 0, 0.8);
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 0 20px #00ffff80;
-      display: none;
-      flex-direction: column;
-      gap: 20px;
-      align-items: center;
-      z-index: 10;
-      animation: fadeIn 0.6s ease forwards;
-    }
-
-    .bimestre-btn {
-      padding: 12px 30px;
-      background-color: #00ffff;
-      color: #000;
-      border: none;
-      border-radius: 30px;
-      font-weight: bold;
-      font-size: 1em;
-      cursor: pointer;
-      transition: transform 0.3s ease, background-color 0.3s ease;
-      opacity: 0;
-    }
-
-    .bimestre-btn:hover {
-      transform: scale(1.1);
-      background-color: #00cccc;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
     section#creditos {
       text-align: center;
       color: #00ffffcc;
@@ -180,17 +134,101 @@
     }
 
     @keyframes fadeDown {
-      from { transform: translateY(-20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+      0% { transform: translateY(-20px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
     }
 
     @keyframes fadeUp {
-      from { transform: translateY(40px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+      0% { transform: translateY(40px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes aurora {
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+
+    /* Modal de Bimestres */
+    #modal-bimestres {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(4px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    #modal-bimestres.active {
+      display: flex;
+      animation: fadeInModal 0.4s ease forwards;
+    }
+
+    @keyframes fadeInModal {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    #modal-content {
+      background: rgba(0, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 30px 40px;
+      box-shadow: 0 0 40px #00ffffbb;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      color: #00ffff;
+      font-weight: 600;
+      user-select: none;
+    }
+
+    #modal-content h2 {
+      margin-bottom: 25px;
+      text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    #modal-content button {
+      background: linear-gradient(45deg, #00ffff, #00ffae);
+      border: none;
+      border-radius: 40px;
+      padding: 14px 28px;
+      margin: 10px 0;
+      width: 100%;
+      font-size: 1.1em;
+      color: #111;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 0 15px #00ffae88;
+      transition: all 0.3s ease;
+      user-select: none;
+    }
+
+    #modal-content button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px #00ffffcc;
+    }
+
+    #modal-content button#btn-voltar-portal {
+      background: #00ffff;
+      color: #000;
+      margin-top: 30px;
+      box-shadow: 0 0 20px #00ffffee;
+    }
+
+    #modal-content button#btn-voltar-portal:hover {
+      background: #00cccc;
+      box-shadow: 0 0 30px #00cccccc;
     }
 
     @media (max-width: 600px) {
-      main { padding: 20px; }
+      main {
+        padding: 20px;
+      }
 
       .materia {
         flex-direction: column;
@@ -206,6 +244,10 @@
 
       h1, h2 {
         font-size: 1.5em;
+      }
+
+      #modal-content button {
+        font-size: 1em;
       }
     }
   </style>
@@ -226,92 +268,97 @@
       <p>Este site foi criado para apresentar as principais matérias estudadas no curso técnico da nossa escola de forma moderna e interativa.</p>
     </section>
 
-    <section id="conteudo">
-      <h2>Matérias Técnicas</h2>
+    <!-- Dentro da seção <section id="conteudo">, substitua pelo seguinte conteúdo: -->
 
-      <div class="materia" id="arquitetura">
-        <h3>Arquitetura de Computadores</h3>
-        <button class="btn-aprender" data-pagina="arquitetura.html">Aprender!</button>
-      </div>
+<section id="conteudo">
+  <h2>Matérias Técnicas</h2>
 
-      <div class="materia" id="web">
-        <h3>Programação Web</h3>
-        <button class="btn-aprender" data-pagina="web.html">Aprender!</button>
-      </div>
+  <div class="materia">
+    <h3>Arquitetura de Computadores</h3>
+    <button class="btn-aprender" data-pagina="arquitetura">Aprender!</button>
+  </div>
 
-      <div class="materia" id="java">
-        <h3>POO com Java</h3>
-        <button class="btn-aprender" data-pagina="java.html">Aprender!</button>
-      </div>
+  <div class="materia">
+    <h3>Programação Web</h3>
+    <button class="btn-aprender" data-pagina="web">Aprender!</button>
+  </div>
 
-      <div class="materia" id="htmlcss">
-        <h3>HTML e CSS</h3>
-        <button class="btn-aprender" data-pagina="htmlecss.html">Aprender!</button>
-      </div>
+  <div class="materia">
+    <h3>POO com Java</h3>
+    <button class="btn-aprender" data-pagina="java">Aprender!</button>
+  </div>
 
-      <div class="materia" id="sistemas">
-        <h3>Sistemas Operacionais</h3>
-        <button class="btn-aprender" data-pagina="sistemas.html">Aprender!</button>
-      </div>
+  <div class="materia">
+    <h3>HTML e CSS</h3>
+    <button class="btn-aprender" data-pagina="htmlecss">Aprender!</button>
+  </div>
 
-      <div class="materia" id="logica">
-        <h3>Lógica de Programação</h3>
-        <button class="btn-aprender" data-pagina="logica.html">Aprender!</button>
-      </div>
+  <div class="materia">
+    <h3>Sistemas Operacionais</h3>
+    <button class="btn-aprender" data-pagina="sistemas">Aprender!</button>
+  </div>
 
-      <div class="materia" id="robotica">
-        <h3>Noção de Robótica</h3>
-        <button class="btn-aprender" data-pagina="nocao.html">Aprender!</button>
-      </div>
+  <div class="materia">
+    <h3>Lógica de Programação</h3>
+    <button class="btn-aprender" data-pagina="logica">Aprender!</button>
+  </div>
 
-      <div class="materia" id="gestao">
-        <h3>Gestão de Tempo</h3>
-        <button class="btn-aprender" data-pagina="gestao.html">Aprender!</button>
-      </div>
-    </section>
+  <div class="materia">
+    <h3>Noção de Robótica</h3>
+    <button class="btn-aprender" data-pagina="nocao">Aprender!</button>
+  </div>
+
+  <div class="materia">
+    <h3>Gestão de Tempo</h3>
+    <button class="btn-aprender" data-pagina="gestao">Aprender!</button>
+  </div>
+</section>
 
     <section id="creditos">
       <h2>Créditos</h2>
       <p>Site criado por Nauan Loures, 2025.</p>
       <p>Instagram: <a href="https://instagram.com/nauanloures" target="_blank">nauanloures</a></p>
     </section>
-
-    <div class="bimestres-container" id="bimestres">
-      <button class="bimestre-btn" data-bimestre="1">1º Bimestre</button>
-      <button class="bimestre-btn" data-bimestre="2">2º Bimestre</button>
-      <button class="bimestre-btn" data-bimestre="3">3º Bimestre</button>
-      <button class="bimestre-btn" data-bimestre="4">4º Bimestre</button>
-      <button class="bimestre-btn" onclick="location.reload()">⬅ Portal</button>
-    </div>
   </main>
 
   <footer>
     © 2025 - Portal Técnico Escolar
   </footer>
 
+  <!-- Modal de Bimestres -->
+  <div id="modal-bimestres">
+    <div id="modal-content">
+      <h2>Escolha o Bimestre</h2>
+      <button data-bimestre="1">1º Bimestre</button>
+      <button data-bimestre="2">2º Bimestre</button>
+      <button data-bimestre="3">3º Bimestre</button>
+      <button data-bimestre="4">4º Bimestre</button>
+      <button id="btn-voltar-portal">⬅ Voltar</button>
+    </div>
+  </div>
+
   <script>
+    const modal = document.getElementById("modal-bimestres");
+    const bimestreButtons = modal.querySelectorAll("[data-bimestre]");
+    let materiaSelecionada = "";
+
     document.querySelectorAll('.btn-aprender').forEach(botao => {
       botao.addEventListener('click', () => {
-        const pagina = botao.getAttribute('data-pagina');
-        const bimestres = document.getElementById('bimestres');
-        bimestres.style.display = 'flex';
-
-        // Anima os botões em sequência
-        const botoes = bimestres.querySelectorAll('.bimestre-btn');
-        botoes.forEach((btn, i) => {
-          setTimeout(() => {
-            btn.style.opacity = 1;
-          }, 200 * i);
-        });
-
-        // Quando clicar em um bimestre, ir para a matéria
-        botoes.forEach(btn => {
-          const b = btn.dataset.bimestre;
-          if (b) {
-            btn.onclick = () => window.location.href = pagina;
-          }
-        });
+        materiaSelecionada = botao.getAttribute('data-pagina');
+        modal.classList.add("active");
       });
+    });
+
+    bimestreButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const bimestre = btn.getAttribute("data-bimestre");
+        const destino = `${materiaSelecionada}${bimestre}.html`;
+        window.location.href = destino;
+      });
+    });
+
+    document.getElementById("btn-voltar-portal").addEventListener("click", () => {
+      modal.classList.remove("active");
     });
   </script>
 </body>
