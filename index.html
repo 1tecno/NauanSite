@@ -38,7 +38,7 @@
       animation: fadeDown 1s ease forwards;
       font-family: 'Orbitron', sans-serif;
     }
-
+    
     main {
       max-width: 900px;
       margin: 30px auto;
@@ -51,6 +51,7 @@
       display: flex;
       flex-direction: column;
       gap: 30px;
+      position: relative;
     }
 
     h1, h2 {
@@ -142,69 +143,86 @@
       100% { transform: translateY(0); opacity: 1; }
     }
 
-    /* Modal dos bimestres */
+    @keyframes aurora {
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+
+    /* Modal de Bimestres */
     #modal-bimestres {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(10, 10, 10, 0.8);
-      display: flex;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(4px);
+      display: none;
       justify-content: center;
       align-items: center;
-      backdrop-filter: blur(4px);
-      z-index: 999;
+      z-index: 1000;
+      padding: 20px;
     }
 
-    .hidden {
-      display: none;
-    }
-
-    .bimestre-box {
-      background-color: #111;
-      border-radius: 16px;
-      padding: 30px;
-      box-shadow: 0 0 25px #00ffffaa;
-      text-align: center;
-      max-width: 400px;
-      width: 90%;
-      animation: fadeUp 0.6s ease;
-    }
-
-    .bimestre-box h2 {
-      color: #00ffff;
-      margin-bottom: 20px;
-    }
-
-    .botoes-bimestres {
+    #modal-bimestres.active {
       display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 20px;
+      animation: fadeInModal 0.4s ease forwards;
     }
 
-    .botoes-bimestres button,
-    .voltar-portal {
+    @keyframes fadeInModal {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    #modal-content {
+      background: rgba(0, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 30px 40px;
+      box-shadow: 0 0 40px #00ffffbb;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      color: #00ffff;
+      font-weight: 600;
+      user-select: none;
+    }
+
+    #modal-content h2 {
+      margin-bottom: 25px;
+      text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    #modal-content button {
       background: linear-gradient(45deg, #00ffff, #00ffae);
-      color: #000;
       border: none;
-      border-radius: 30px;
-      padding: 12px;
-      font-weight: bold;
+      border-radius: 40px;
+      padding: 14px 28px;
+      margin: 10px 0;
+      width: 100%;
+      font-size: 1.1em;
+      color: #111;
+      font-weight: 700;
       cursor: pointer;
-      font-size: 1em;
-      transition: transform 0.2s ease, background-color 0.3s ease;
+      box-shadow: 0 0 15px #00ffae88;
+      transition: all 0.3s ease;
+      user-select: none;
     }
 
-    .botoes-bimestres button:hover,
-    .voltar-portal:hover {
+    #modal-content button:hover {
       transform: scale(1.05);
-      background-color: #00dddd;
+      box-shadow: 0 0 30px #00ffffcc;
     }
 
-    .voltar-portal {
-      margin-top: 10px;
+    #modal-content button#btn-voltar-portal {
+      background: #00ffff;
+      color: #000;
+      margin-top: 30px;
+      box-shadow: 0 0 20px #00ffffee;
+    }
+
+    #modal-content button#btn-voltar-portal:hover {
+      background: #00cccc;
+      box-shadow: 0 0 30px #00cccccc;
     }
 
     @media (max-width: 600px) {
@@ -226,6 +244,10 @@
 
       h1, h2 {
         font-size: 1.5em;
+      }
+
+      #modal-content button {
+        font-size: 1em;
       }
     }
   </style>
@@ -249,95 +271,69 @@
     <section id="conteudo">
       <h2>Matérias Técnicas</h2>
 
-      <div class="materia" id="arquitetura">
-        <h3>Arquitetura de Computadores</h3>
-        <button class="btn-aprender" data-pagina="arquitetura.html">Aprender!</button>
-      </div>
-
-      <div class="materia" id="web">
-        <h3>Programação Web</h3>
-        <button class="btn-aprender" data-pagina="web.html">Aprender!</button>
-      </div>
-
-      <div class="materia" id="java">
+      <div class="materia">
         <h3>POO com Java</h3>
-        <button class="btn-aprender" data-pagina="java.html">Aprender!</button>
+        <button class="btn-aprender" data-pagina="java">Aprender!</button>
       </div>
 
-      <div class="materia" id="htmlcss">
-        <h3>HTML e CSS</h3>
-        <button class="btn-aprender" data-pagina="htmlecss.html">Aprender!</button>
-      </div>
-
-      <div class="materia" id="sistemas">
-        <h3>Sistemas Operacionais</h3>
-        <button class="btn-aprender" data-pagina="sistemas.html">Aprender!</button>
-      </div>
-
-      <div class="materia" id="logica">
-        <h3>Lógica de Programação</h3>
-        <button class="btn-aprender" data-pagina="logica.html">Aprender!</button>
-      </div>
-
-      <div class="materia" id="robotica">
-        <h3>Noção de Robótica</h3>
-        <button class="btn-aprender" data-pagina="nocao.html">Aprender!</button>
-      </div>
-
-      <div class="materia" id="gestao">
+      <div class="materia">
         <h3>Gestão de Tempo</h3>
-        <button class="btn-aprender" data-pagina="gestao.html">Aprender!</button>
+        <button class="btn-aprender" data-pagina="gestao">Aprender!</button>
       </div>
 
-      <div class="materia" id="bimestres">
-        <h3>Conteúdos por Bimestre</h3>
-        <button class="btn-aprender">Aprender!</button>
+      <div class="materia">
+        <h3>Lógica de Programação</h3>
+        <button class="btn-aprender" data-pagina="logica">Aprender!</button>
       </div>
+
+      <!-- Adicione mais matérias aqui -->
     </section>
 
     <section id="creditos">
       <h2>Créditos</h2>
       <p>Site criado por Nauan Loures, 2025.</p>
-      <p>Instagram: <a href="https://instagram.com/nauanloures" target="_blank" rel="noopener noreferrer">nauanloures</a></p>
+      <p>Instagram: <a href="https://instagram.com/nauanloures" target="_blank">nauanloures</a></p>
     </section>
-
-    <!-- Janela dos Bimestres -->
-    <div id="modal-bimestres" class="hidden">
-      <div class="bimestre-box">
-        <h2>Selecione o Bimestre</h2>
-        <div class="botoes-bimestres">
-          <button onclick="abrirPagina('bimestre1.html')">1º Bimestre</button>
-          <button onclick="abrirPagina('bimestre2.html')">2º Bimestre</button>
-          <button onclick="abrirPagina('bimestre3.html')">3º Bimestre</button>
-          <button onclick="abrirPagina('bimestre4.html')">4º Bimestre</button>
-        </div>
-        <button class="voltar-portal" onclick="fecharBimestres()">⬅ Voltar ao Portal</button>
-      </div>
-    </div>
   </main>
 
   <footer>
     © 2025 - Portal Técnico Escolar
   </footer>
 
-  <script>
-    function abrirPagina(pagina) {
-      window.location.href = pagina;
-    }
+  <!-- Modal de Bimestres -->
+  <div id="modal-bimestres">
+    <div id="modal-content">
+      <h2>Escolha o Bimestre</h2>
+      <button data-bimestre="1">1º Bimestre</button>
+      <button data-bimestre="2">2º Bimestre</button>
+      <button data-bimestre="3">3º Bimestre</button>
+      <button data-bimestre="4">4º Bimestre</button>
+      <button id="btn-voltar-portal">⬅ Voltar</button>
+    </div>
+  </div>
 
-    function fecharBimestres() {
-      document.getElementById("modal-bimestres").classList.add("hidden");
-    }
+  <script>
+    const modal = document.getElementById("modal-bimestres");
+    const bimestreButtons = modal.querySelectorAll("[data-bimestre]");
+    let materiaSelecionada = "";
 
     document.querySelectorAll('.btn-aprender').forEach(botao => {
       botao.addEventListener('click', () => {
-        const pagina = botao.getAttribute('data-pagina');
-        if (pagina) {
-          window.location.href = pagina;
-        } else {
-          document.getElementById("modal-bimestres").classList.remove("hidden");
-        }
+        materiaSelecionada = botao.getAttribute('data-pagina');
+        modal.classList.add("active");
       });
+    });
+
+    bimestreButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const bimestre = btn.getAttribute("data-bimestre");
+        const destino = `${materiaSelecionada}${bimestre}.html`;
+        window.location.href = destino;
+      });
+    });
+
+    document.getElementById("btn-voltar-portal").addEventListener("click", () => {
+      modal.classList.remove("active");
     });
   </script>
 </body>
