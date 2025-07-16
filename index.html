@@ -197,43 +197,32 @@
     }
 
     #modal-content button {
-  background: #001f3f; /* azul escuro */
-  color: #00ffff;      /* ciano */
-  border: none;
-  border-radius: 40px;
-  padding: 14px 28px;
-  width: 100%;
-  font-size: 1.1em;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 0 15px #00ffff88;
-  transition: all 0.3s ease;
-  user-select: none;
-  opacity: 0;
-  transform: translateY(15px);
-  animation-fill-mode: forwards;
-}
+      background: linear-gradient(45deg, #00ffff, #00ffae);
+      color: #111;
+      border: none;
+      border-radius: 40px;
+      padding: 14px 28px;
+      width: 100%;
+      font-size: 1.1em;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 0 15px #00ffae88;
+      transition: all 0.3s ease;
+      user-select: none;
+      opacity: 0;
+      transform: translateY(15px);
+      animation-fill-mode: forwards;
+    }
 
-#modal-content button:hover {
-  background: #003366; /* azul escuro mais claro no hover */
-  box-shadow: 0 0 30px #00ffffcc;
-  transform: scale(1.05);
-}
+    #modal-content button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(45deg, #00cccc, #00ffaa);
+      box-shadow: 0 0 30px #00cccccc;
+    }
 
-#modal-content button#btn-voltar-portal {
-  background: #001f3f;
-  color: #00ffff;
-  margin-top: 30px;
-  box-shadow: 0 0 20px #00ffffee;
-  opacity: 0;
-  transform: translateY(15px);
-  animation-fill-mode: forwards;
-}
-
-#modal-content button#btn-voltar-portal:hover {
-  background: #003366;
-  box-shadow: 0 0 30px #00cccccc;
-}
+    #modal-content button#btn-voltar-portal {
+      margin-top: 30px;
+    }
 
     @media (max-width: 600px) {
       main {
@@ -286,40 +275,7 @@
         <button class="btn-aprender" data-pagina="arquitetura">Aprender!</button>
       </div>
 
-      <div class="materia">
-        <h3>Programação Web</h3>
-        <button class="btn-aprender" data-pagina="web">Aprender!</button>
-      </div>
-
-      <div class="materia">
-        <h3>POO com Java</h3>
-        <button class="btn-aprender" data-pagina="java">Aprender!</button>
-      </div>
-
-      <div class="materia">
-        <h3>HTML e CSS</h3>
-        <button class="btn-aprender" data-pagina="htmlecss">Aprender!</button>
-      </div>
-
-      <div class="materia">
-        <h3>Sistemas Operacionais</h3>
-        <button class="btn-aprender" data-pagina="sistemas">Aprender!</button>
-      </div>
-
-      <div class="materia">
-        <h3>Lógica de Programação</h3>
-        <button class="btn-aprender" data-pagina="logica">Aprender!</button>
-      </div>
-
-      <div class="materia">
-        <h3>Noção de Robótica</h3>
-        <button class="btn-aprender" data-pagina="nocao">Aprender!</button>
-      </div>
-
-      <div class="materia">
-        <h3>Gestão de Tempo</h3>
-        <button class="btn-aprender" data-pagina="gestao">Aprender!</button>
-      </div>
+      <!-- Adicione mais matérias aqui... -->
     </section>
 
     <section id="creditos">
@@ -351,7 +307,6 @@
     const btnVoltar = document.getElementById("btn-voltar-portal");
     let materiaSelecionada = "";
 
-    // Função para animar os botões sequencialmente com delay de 1.7s
     function animateButtonsSequentially(buttons, delay = 700) {
       buttons.forEach((btn, index) => {
         btn.style.opacity = '0';
@@ -370,7 +325,6 @@
         modal.classList.add("active");
         modal.setAttribute("aria-hidden", "false");
 
-        // Inclui botão "Voltar" na animação
         const allButtons = [...bimestreButtons, btnVoltar];
         animateButtonsSequentially(allButtons, 700);
       });
@@ -390,7 +344,6 @@
       modal.setAttribute("aria-hidden", "true");
     });
 
-    // Keyframes para fadeInUp animado
     const styleSheet = document.createElement("style");
     styleSheet.type = "text/css";
     styleSheet.innerText = `
