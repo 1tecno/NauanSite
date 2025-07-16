@@ -38,7 +38,7 @@
       animation: fadeDown 1s ease forwards;
       font-family: 'Orbitron', sans-serif;
     }
-    
+
     main {
       max-width: 900px;
       margin: 30px auto;
@@ -216,12 +216,14 @@
 
     #modal-content button:hover {
       transform: scale(1.05);
-      background: linear-gradient(45deg, #00cccc, #00ffaa);
-      box-shadow: 0 0 30px #00cccccc;
+      box-shadow: 0 0 30px #00ffffcc;
     }
 
     #modal-content button#btn-voltar-portal {
       margin-top: 30px;
+      background: linear-gradient(45deg, #00ffff, #00ffae);
+      color: #111;
+      box-shadow: 0 0 20px #00ffffee;
     }
 
     @media (max-width: 600px) {
@@ -262,26 +264,23 @@
       <p>Este é o portal interativo das matérias do curso técnico.</p>
     </section>
 
-    <section id="sobre">
-      <h2>Sobre o Projeto</h2>
-      <p>Este site foi criado para apresentar as principais matérias estudadas no curso técnico da nossa escola de forma moderna e interativa.</p>
-    </section>
-
     <section id="conteudo">
       <h2>Matérias Técnicas</h2>
 
-      <div class="materia">
-        <h3>Arquitetura de Computadores</h3>
-        <button class="btn-aprender" data-pagina="arquitetura">Aprender!</button>
-      </div>
-
-      <!-- Adicione mais matérias aqui... -->
+      <div class="materia"><h3>Arquitetura de Computadores</h3><button class="btn-aprender" data-pagina="arquitetura">Aprender!</button></div>
+      <div class="materia"><h3>Programação Web</h3><button class="btn-aprender" data-pagina="web">Aprender!</button></div>
+      <div class="materia"><h3>POO com Java</h3><button class="btn-aprender" data-pagina="java">Aprender!</button></div>
+      <div class="materia"><h3>HTML e CSS</h3><button class="btn-aprender" data-pagina="htmlecss">Aprender!</button></div>
+      <div class="materia"><h3>Sistemas Operacionais</h3><button class="btn-aprender" data-pagina="sistemas">Aprender!</button></div>
+      <div class="materia"><h3>Lógica de Programação</h3><button class="btn-aprender" data-pagina="logica">Aprender!</button></div>
+      <div class="materia"><h3>Noção de Robótica</h3><button class="btn-aprender" data-pagina="nocao">Aprender!</button></div>
+      <div class="materia"><h3>Gestão de Tempo</h3><button class="btn-aprender" data-pagina="gestao">Aprender!</button></div>
     </section>
 
     <section id="creditos">
       <h2>Créditos</h2>
       <p>Site criado por Nauan Loures, 2025.</p>
-      <p>Instagram: <a href="https://instagram.com/nauanloures" target="_blank">nauanloures</a></p>
+      <p>Instagram: <a href="https://instagram.com/nauanloures" target="_blank">@nauanloures</a></p>
     </section>
   </main>
 
@@ -289,10 +288,10 @@
     © 2025 - Portal Técnico Escolar
   </footer>
 
-  <!-- Modal de Bimestres -->
-  <div id="modal-bimestres" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <!-- Modal -->
+  <div id="modal-bimestres" aria-hidden="true">
     <div id="modal-content">
-      <h2 id="modal-title">Escolha o Bimestre</h2>
+      <h2>Escolha o Bimestre</h2>
       <button data-bimestre="1">1º Bimestre</button>
       <button data-bimestre="2">2º Bimestre</button>
       <button data-bimestre="3">3º Bimestre</button>
@@ -324,9 +323,7 @@
         materiaSelecionada = botao.getAttribute('data-pagina');
         modal.classList.add("active");
         modal.setAttribute("aria-hidden", "false");
-
-        const allButtons = [...bimestreButtons, btnVoltar];
-        animateButtonsSequentially(allButtons, 700);
+        animateButtonsSequentially([...bimestreButtons, btnVoltar], 700);
       });
     });
 
@@ -348,14 +345,8 @@
     styleSheet.type = "text/css";
     styleSheet.innerText = `
       @keyframes fadeInUp {
-        0% {
-          opacity: 0;
-          transform: translateY(15px);
-        }
-        100% {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        0% { opacity: 0; transform: translateY(15px); }
+        100% { opacity: 1; transform: translateY(0); }
       }
     `;
     document.head.appendChild(styleSheet);
