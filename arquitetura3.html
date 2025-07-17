@@ -1,1 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Arquitetura de Computadores - Portal Técnico Escolar</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    header {
+      background-color: #111;
+      color: #00ffff;
+      padding: 25px;
+      text-align: center;
+      font-size: 2em;
+      box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3);
+    }
+
+    header h1 {
+      text-shadow: 0 0 4px #00ffff, 0 0 8px #00ffff;
+      animation: neon-pulse 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes neon-pulse {
+      from {
+        text-shadow: 0 0 4px #00ffff, 0 0 8px #00ffff;
+      }
+      to {
+        text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+      }
+    }
+
+    main {
+      max-width: 800px;
+      margin: 30px auto 0;
+      padding: 30px;
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+      transition: opacity 0.5s ease;
+      position: relative;
+    }
+
+    .content-box {
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      color: #00ffff;
+      margin-top: 0;
+    }
+
+    p {
+      line-height: 1.8;
+      text-align: justify;
+    }
+
+    ul li::before {
+      content: "✓ ";
+      color: #00ffff;
+      font-weight: bold;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      background-color: #00ffff;
+      color: #000;
+      text-decoration: none;
+      border-radius: 30px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+      background-color: #00cccc;
+    }
+    @media (max-width: 600px) {
+      header {
+        font-size: 1.5em;
+      }
+
+      header h1 {
+        font-size: 1.2em;
+      }
+
+      .btn {
+        padding: 8px 16px;
+        font-size: 0.9em;
+      }
+    }
+    .navegacao {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Arquitetura de Computadores</h1>
+  </header>
+
+  <main id="main-content">
+    <div class="content-box" id="slide-container">
+      <!-- Conteúdo do slide será inserido aqui via JS -->
+    </div>
+    <div class="navegacao">
+      <a href="index.html" class="btn">⬅ Portal</a>
+      <div class="btn-group">
+        <button class="btn" id="btn-voltar" style="display: none;">⬅</button>
+        <button class="btn" id="btn-avancar">➡</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("slide-container");
+      const main = document.getElementById("main-content");
+      const btnAvancar = document.getElementById("btn-avancar");
+      const btnVoltar = document.getElementById("btn-voltar");
+
+      const slides = [
+        `<h2>Aula 1</h2><p style="text-align: justify;">Guia de Aprendizagem em Conjunto com os Alunos
+        A aprendizagem em conjunto é uma metodologia que valoriza o papel ativo dos alunos no processo de ensino. Nesse modelo, o professor deixa de ser apenas o transmissor de conteúdo e passa a ser um mediador, enquanto os alunos se tornam protagonistas da própria aprendizagem, trocando experiências, resolvendo problemas em grupo e construindo conhecimento de forma colaborativa.</p>`,
+        `<h2>Aula 2</h2><p style="text-align: justify;">Consultoria e Aquisição de Computadores
+A consultoria em informática voltada para a aquisição de computadores é um serviço especializado que auxilia pessoas, empresas e instituições a tomarem decisões mais acertadas na hora de comprar equipamentos de tecnologia. Ela tem como principal objetivo garantir que o cliente adquira computadores que atendam exatamente às suas necessidades, evitando gastos desnecessários e escolhas inadequadas.</p>`,
+        `<h2>Aula 3</h2><p style="text-align: justify;">Consultoria e Aquisição de Celulares
+        Comparamos 4 celulares dos alunos da sala no site https://www.tudocelular.com/compare e concluímos que:
+        Hardware: 1° iPhone 14 2° Poco X6 Pro 5G 3° Redmi Note 14 4° Redmi 12S
+        Tela: 1° iPhone 14 2° Poco X6 Pro 5G 3° Redmi 12S 4° Redmi Note 14
+        Câmera: 1° Redmi Note 14 2° Poco X6 Pro 5G 3° iPhone 14 4° Redmi 12S
+        Desempenho: 1° iPhone 14 2° Poco X6 Pro 5G 3° Redmi Note 14 4° Redmi 12S</p>`,
+        `<h2>Aula 4</h2><p style="text-align: justify;"></p>`,
+        `<h2>Aula 5</h2><p style="text-align: justify;"></p>`
+      ];
+
+      let index = 0;
+
+      function atualizarSlide() {
+        main.style.opacity = 0;
+        setTimeout(() => {
+          container.innerHTML = `<div class="content-box fade">${slides[index]}</div>`;
+          main.style.opacity = 1;
+          btnVoltar.style.display = index === 0 ? "none" : "inline-block";
+          btnAvancar.style.display = index === slides.length - 1 ? "none" : "inline-block";
+        }, 300);
+      }
+
+      btnAvancar.addEventListener("click", () => {
+        if (index < slides.length - 1) {
+          index++;
+          atualizarSlide();
+        }
+      });
+
+      btnVoltar.addEventListener("click", () => {
+        if (index > 0) {
+          index--;
+          atualizarSlide();
+        }
+      });
+
+      // Carrega o primeiro slide ao entrar
+      atualizarSlide();
+    });
+  </script>
+</body>
+</html>
 
