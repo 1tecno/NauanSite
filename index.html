@@ -15,7 +15,7 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(-45deg, #1b003f, #22004f, #52008a, #176eab);
+  background: linear-gradient(-45deg, #0f2027, #2c5364, #1a2a6c, #0f2027);
   background-size: 400% 400%;
   animation: aurora 20s ease infinite;
   color: #f0f0f0;
@@ -27,13 +27,13 @@ body {
 }
 
 header {
-  background-color: rgba(25, 0, 70, 0.7);
-  color: #d27eff;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #00ffff;
   padding: 25px;
   text-align: center;
   font-size: 2em;
   border-radius: 12px;
-  box-shadow: 0 0 25px #d27effcc;
+  box-shadow: 0 0 20px #00ffff80;
   backdrop-filter: blur(6px);
   animation: fadeDown 1s ease forwards;
   font-family: 'Orbitron', sans-serif;
@@ -42,11 +42,11 @@ header {
 main {
   max-width: 900px;
   margin: 30px auto;
-  background-color: rgba(15, 10, 30, 0.85);
+  background-color: rgba(0, 0, 0, 0.4);
   padding: 30px;
   border-radius: 16px;
-  box-shadow: 0 0 40px #9933ffcc;
-  backdrop-filter: blur(6px);
+  box-shadow: 0 0 30px #00ffff20;
+  backdrop-filter: blur(4px);
   animation: fadeUp 1s ease forwards;
   display: flex;
   flex-direction: column;
@@ -55,21 +55,21 @@ main {
 }
 
 h1, h2 {
-  color: #b08aff;
+  color: #00ffe0;
   margin-bottom: 15px;
   animation: glow 2s ease-in-out infinite alternate;
 }
 
 @keyframes glow {
-  from { text-shadow: 0 0 5px #b08aff; }
-  to { text-shadow: 0 0 25px #b08aff; }
+  from { text-shadow: 0 0 5px #00ffe0; }
+  to { text-shadow: 0 0 20px #00ffe0; }
 }
 
 .materia {
-  background: rgba(50, 15, 70, 0.9);
+  background: rgba(15, 32, 39, 0.8);
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 0 20px #9a33ffbb;
+  box-shadow: 0 0 15px #00ffff88;
   transition: box-shadow 0.3s ease;
   display: flex;
   justify-content: space-between;
@@ -77,29 +77,29 @@ h1, h2 {
 }
 
 .materia:hover {
-  box-shadow: 0 0 40px #b58fffcc;
+  box-shadow: 0 0 30px #00ffffcc;
 }
 
 .materia h3 {
-  color: #d7a9ff;
+  color: #00ffff;
   font-weight: 600;
   font-size: 17.1px;
 }
 
 .materia p {
-  color: #ccc;
+  color: #aaa;
   font-style: italic;
 }
 
 button.btn-aprender {
-  background: linear-gradient(45deg, #9933ff, #84d4ff);
+  background: linear-gradient(45deg, #00ffff, #00ffae);
   border: none;
   border-radius: 40px;
   padding: 12px 28px;
   color: #111;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 0 20px #9933ffcc;
+  box-shadow: 0 0 15px #00ffae88;
   transition: all 0.3s ease;
   font-size: 1em;
   user-select: none;
@@ -107,17 +107,17 @@ button.btn-aprender {
 
 button.btn-aprender:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 40px #84d4ffcc;
+  box-shadow: 0 0 25px #00ffffcc;
 }
 
 section#creditos {
   text-align: center;
-  color: #b08affcc;
+  color: #00ffffcc;
   font-size: 0.9em;
 }
 
 section#creditos a {
-  color: #d27eff;
+  color: #00ffff;
   text-decoration: none;
   font-weight: 600;
 }
@@ -129,7 +129,7 @@ section#creditos a:hover {
 footer {
   text-align: center;
   margin-top: 40px;
-  color: #b08affaa;
+  color: #00ffffaa;
   font-size: 0.9em;
   user-select: none;
 }
@@ -176,14 +176,14 @@ footer {
 }
 
 #modal-content {
-  background: rgba(75, 15, 120, 0.7);
+  background: rgba(0, 255, 255, 0.1);
   border-radius: 20px;
   padding: 30px 40px;
-  box-shadow: 0 0 50px #9933ffcc;
+  box-shadow: 0 0 40px #00ffffbb;
   max-width: 400px;
   width: 100%;
   text-align: center;
-  color: #d7a9ff;
+  color: #00ffff;
   font-weight: 600;
   user-select: none;
   display: flex;
@@ -193,36 +193,36 @@ footer {
 
 #modal-content h2 {
   margin-bottom: 25px;
-  text-shadow: 0 0 15px #b08aff, 0 0 30px #b08aff;
+  text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
   animation: glow 2s ease-in-out infinite alternate;
 }
 
 #modal-content button {
-  background: linear-gradient(45deg, #9933ff, #84d4ff);
-  color: #f0e9ff;
+  background: linear-gradient(45deg, #00ffff, #00ffae);
+  color: #111;
   border: none;
-  border-radius: 30px;
+  border-radius: 40px;
   padding: 14px 28px;
   width: 100%;
   font-size: 1.1em;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 0 25px #9933ffcc;
+  box-shadow: 0 0 15px #00ffae88;
   transition: all 0.3s ease;
   user-select: none;
   margin-bottom: 10px;
 }
 
 #modal-content button:hover {
-  box-shadow: 0 0 40px #84d4ffcc;
   transform: scale(1.05);
+  box-shadow: 0 0 30px #00ffffcc;
 }
 
 #modal-content button#btn-voltar-portal {
   margin-top: 15px;
-  background: linear-gradient(45deg, #ea4c89, #9933ff);
-  box-shadow: 0 0 35px #ea4c89cc;
-  color: #fff;
+  background: linear-gradient(45deg, #00ffff, #00ffae);
+  box-shadow: 0 0 20px #00ffffee;
+  color: #111;
 }
 
 /* Frases fixas Semana do Estudante */
@@ -230,42 +230,59 @@ footer {
   position: fixed;
   top: 120px;
   right: 20px;
-  width: 300px;
+  width: 320px;
   max-height: 70vh;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
   z-index: 3000;
   user-select: none;
   font-family: 'Poppins', sans-serif;
-  background: rgba(30, 20, 55, 0.8);
-  padding: 15px 10px;
-  border-radius: 20px;
-  box-shadow: 0 0 30px #9933ffcc;
 }
 
-/* Cada quadro de mensagem */
+/* Cada quadro de mensagem com frase e fundo lateral */
 #frases-semana-estudante .quadro-frase {
-  background: linear-gradient(135deg, #6f2dbd, #64b5f6, #e75480, #7fc9ff);
-  background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
-  border-radius: 16px;
-  padding: 15px 20px;
-  color: white;
+  background: rgba(0, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 15px 15px 15px 100px;
+  position: relative;
+  color: #00ffff;
   font-weight: 600;
   font-size: 0.95em;
-  box-shadow: 0 0 15px #a176ffbb;
-  user-select: text;
   line-height: 1.3em;
-  text-align: center;
-  min-height: 60px;
+  box-shadow: 0 0 15px #00ffff88;
+  user-select: text;
   display: flex;
   align-items: center;
-  justify-content: center;
+  min-height: 60px;
+  overflow: hidden;
 }
 
-/* Animação de gradiente para os quadros */
+/* Background lateral colorido ao lado da frase */
+#frases-semana-estudante .quadro-frase::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 80px;
+  height: 100%;
+  border-radius: 14px 0 0 14px;
+  background: linear-gradient(135deg, #6f2dbd, #64b5f6, #e75480, #7fc9ff);
+  background-size: 400% 400%;
+  animation: gradientShift 20s ease infinite;
+  box-shadow: 0 0 25px #00ffffaa;
+  z-index: 1;
+}
+
+/* O texto da frase fica acima do background lateral */
+#frases-semana-estudante .quadro-frase span {
+  position: relative;
+  z-index: 2;
+  padding-right: 10px;
+}
+
+/* Animação de gradiente para os fundos laterais */
 @keyframes gradientShift {
   0% {background-position:0% 50%;}
   50% {background-position:100% 50%;}
@@ -309,10 +326,16 @@ footer {
   }
 
   #frases-semana-estudante .quadro-frase {
-    background: linear-gradient(135deg, #6f2dbd, #64b5f6, #e75480, #7fc9ff);
-    box-shadow: 0 0 10px #a176ffbb;
+    padding-left: 15px;
+    background: rgba(0, 255, 255, 0.08);
+    box-shadow: none;
+  }
+
+  #frases-semana-estudante .quadro-frase::before {
+    display: none;
   }
 }
+
   </style>
 </head>
 <body class="semana-estudante">
@@ -346,13 +369,13 @@ footer {
     </section>
 
     <!-- Frases fixas da Semana do Estudante -->
-    <div id="frases-semana-estudante" aria-label="Frases da Semana do Estudante">
-      <div class="frase-card">Feliz Semana do Estudante! Aproveite cada momento.</div>
-      <div class="frase-card">Estudar é construir seu futuro, bora focar!</div>
-      <div class="frase-card">Conhecimento é a melhor ferramenta para mudar o mundo.</div>
-      <div class="frase-card">Semana do Estudante: dedicação com leveza e alegria.</div>
-      <div class="frase-card">Aproveite essa semana para aprender algo novo todos os dias.</div>
-    </div>
+   <div id="frases-semana-estudante" aria-label="Frases da Semana do Estudante">
+  <div class="quadro-frase"><span>Feliz Semana do Estudante! Aproveite seu aprendizado.</span></div>
+  <div class="quadro-frase"><span>Estudar é o caminho para um futuro brilhante.</span></div>
+  <div class="quadro-frase"><span>Dedique-se hoje, conquiste amanhã.</span></div>
+  <div class="quadro-frase"><span>Conhecimento é poder, celebre essa semana!</span></div>
+  <div class="quadro-frase"><span>Seu esforço faz a diferença, continue firme!</span></div>
+</div>
   </main>
 
   <footer>
