@@ -13,113 +13,121 @@
       box-sizing: border-box;
     }
 
-    body {
+    /* ==================== SEMANA DO ESTUDANTE - Cores mistas ==================== */
+    body.semana-estudante {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(-45deg, #0f2027, #2c5364, #1a2a6c, #0f2027);
+      background: linear-gradient(-45deg, #2c003e, #001f4d, #3a0f5f, #0d4f8b);
       background-size: 400% 400%;
-      animation: aurora 20s ease infinite;
-      color: #f0f0f0;
+      animation: aurora 15s ease infinite;
+      color: #f0e9ff;
       padding: 20px;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      transition: background 1s ease;
-      position: relative;
+      transition: background 0.5s ease;
     }
 
-    header {
-      background-color: rgba(0, 0, 0, 0.5);
-      color: #00ffff;
+    body.semana-estudante header {
+      background-color: rgba(20, 20, 40, 0.85);
+      color: #ea4c89; /* rosa neon */
       padding: 25px;
       text-align: center;
       font-size: 2em;
       border-radius: 12px;
-      box-shadow: 0 0 20px #00ffff80;
+      box-shadow: 0 0 30px #ea4c89;
       backdrop-filter: blur(6px);
       animation: fadeDown 1s ease forwards;
       font-family: 'Orbitron', sans-serif;
     }
 
-    main {
+    body.semana-estudante main {
       max-width: 900px;
       margin: 30px auto;
-      background-color: rgba(0, 0, 0, 0.4);
+      background-color: rgba(15, 15, 30, 0.9);
       padding: 30px;
       border-radius: 16px;
-      box-shadow: 0 0 30px #00ffff20;
+      box-shadow: 0 0 40px #ea4c89cc;
       backdrop-filter: blur(4px);
       animation: fadeUp 1s ease forwards;
       display: flex;
       flex-direction: column;
       gap: 30px;
       position: relative;
-      z-index: 1;
     }
 
-    h1, h2 {
-      color: #00ffe0;
+    body.semana-estudante h1,
+    body.semana-estudante h2 {
+      color: #84d4ff; /* azul claro neon */
       margin-bottom: 15px;
-      animation: glow 2s ease-in-out infinite alternate;
+      animation: glowMixed 2.5s ease-in-out infinite alternate;
     }
 
-    @keyframes glow {
-      from { text-shadow: 0 0 5px #00ffe0; }
-      to { text-shadow: 0 0 20px #00ffe0; }
+    @keyframes glowMixed {
+      0% {
+        text-shadow:
+          0 0 10px #ea4c89,
+          0 0 20px #84d4ff,
+          0 0 30px #9933ff;
+      }
+      100% {
+        text-shadow:
+          0 0 30px #ea4c89,
+          0 0 40px #84d4ff,
+          0 0 50px #9933ff;
+      }
     }
 
-    .materia {
-      background: rgba(15, 32, 39, 0.8);
+    body.semana-estudante .materia {
+      background: rgba(30, 15, 45, 0.8);
       border-radius: 12px;
       padding: 20px;
-      box-shadow: 0 0 15px #00ffff88;
+      box-shadow: 0 0 20px #ea4c89cc;
       transition: box-shadow 0.3s ease;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .materia:hover {
-      box-shadow: 0 0 30px #00ffffcc;
+    body.semana-estudante .materia:hover {
+      box-shadow: 0 0 60px #84d4ffcc;
     }
 
-    .materia h3 {
-      color: #00ffff;
-      font-weight: 600;
-      font-size: 17.1px;
+    body.semana-estudante .materia h3 {
+      color: #ea4c89;
+      font-weight: 700;
+      font-size: 1.1em;
+      text-shadow:
+        0 0 5px #ea4c89,
+        0 0 10px #9933ff;
     }
 
-    .materia p {
-      color: #aaa;
-      font-style: italic;
-    }
-
-    button.btn-aprender {
-      background: linear-gradient(45deg, #00ffff, #00ffae);
+    body.semana-estudante button.btn-aprender {
+      background: linear-gradient(45deg, #ea4c89, #84d4ff);
       border: none;
       border-radius: 40px;
       padding: 12px 28px;
       color: #111;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 0 15px #00ffae88;
+      box-shadow: 0 0 20px #ea4c89cc;
       transition: all 0.3s ease;
       font-size: 1em;
       user-select: none;
     }
 
-    button.btn-aprender:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px #00ffffcc;
+    body.semana-estudante button.btn-aprender:hover {
+      box-shadow: 0 0 50px #84d4ffcc;
+      transform: scale(1.1);
     }
 
     section#creditos {
       text-align: center;
-      color: #00ffffcc;
+      color: #ea4c89cc;
       font-size: 0.9em;
     }
 
     section#creditos a {
-      color: #00ffff;
+      color: #ea4c89;
       text-decoration: none;
       font-weight: 600;
     }
@@ -131,7 +139,7 @@
     footer {
       text-align: center;
       margin-top: 40px;
-      color: #00ffffaa;
+      color: #ea4c89aa;
       font-size: 0.9em;
       user-select: none;
     }
@@ -152,202 +160,64 @@
       100%{background-position:0% 50%}
     }
 
-    /* Modal de Bimestres */
-    #modal-bimestres {
+    /* Quadro fixo lateral - vários cards */
+    #frases-semana-estudante {
       position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: rgba(0,0,0,0.75);
-      backdrop-filter: blur(4px);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      padding: 20px;
-      flex-direction: column;
-    }
-
-    #modal-bimestres.active {
+      top: 120px;
+      right: 20px;
+      width: 280px;
       display: flex;
-      animation: fadeInModal 0.4s ease forwards;
+      flex-direction: column;
+      gap: 20px;
+      z-index: 3000;
+      user-select: none;
+      font-family: 'Poppins', sans-serif;
     }
 
-    @keyframes fadeInModal {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
-
-    #modal-content {
-      background: rgba(0, 255, 255, 0.1);
-      border-radius: 20px;
-      padding: 30px 40px;
-      box-shadow: 0 0 40px #00ffffbb;
-      max-width: 400px;
-      width: 100%;
-      text-align: center;
-      color: #00ffff;
+    #frases-semana-estudante .frase-card {
+      background: rgba(50, 15, 70, 0.8);
+      border: 2px solid transparent;
+      border-image: linear-gradient(45deg, #ea4c89, #9933ff, #84d4ff) 1;
+      border-radius: 16px;
+      padding: 18px 20px;
+      color: #f0e9ff;
       font-weight: 600;
-      user-select: none;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
+      font-size: 0.95em;
+      box-shadow:
+        0 0 10px #ea4c89aa,
+        0 0 15px #9933ffaa;
+      text-align: center;
+      transition: box-shadow 0.3s ease;
     }
 
-    #modal-content h2 {
-      margin-bottom: 25px;
-      text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
-      animation: glow 2s ease-in-out infinite alternate;
+    #frases-semana-estudante .frase-card:hover {
+      box-shadow:
+        0 0 25px #ea4c89ff,
+        0 0 35px #9933ffff,
+        0 0 40px #84d4ffff;
     }
 
-    #modal-content button {
-      background: linear-gradient(45deg, #00ffff, #00ffae);
-      color: #111;
-      border: none;
-      border-radius: 40px;
-      padding: 14px 28px;
-      width: 100%;
-      font-size: 1.1em;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 0 15px #00ffae88;
-      transition: all 0.3s ease;
-      user-select: none;
-      opacity: 0;
-      transform: translateY(15px);
-      animation-fill-mode: forwards;
-    }
-
-    #modal-content button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 30px #00ffffcc;
-    }
-
-    #modal-content button#btn-voltar-portal {
-      margin-top: 30px;
-      background: linear-gradient(45deg, #00ffff, #00ffae);
-      color: #111;
-      box-shadow: 0 0 20px #00ffffee;
-    }
-
-    @media (max-width: 600px) {
-      main {
-        padding: 20px;
-      }
-
-      .materia {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-      }
-
-      button.btn-aprender {
+    /* Mobile responsiveness */
+    @media (max-width: 900px) {
+      #frases-semana-estudante {
+        position: static;
         width: 100%;
-        padding: 14px 0;
-        font-size: 1.1em;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 30px;
       }
 
-      h1, h2 {
-        font-size: 1.5em;
-      }
-
-      #modal-content button {
-        font-size: 1em;
+      #frases-semana-estudante .frase-card {
+        flex: 1 1 45%;
+        font-size: 0.9em;
+        padding: 14px 16px;
       }
     }
-
-    /* ==================== SEMANA DO ESTUDANTE - Cores neutras ==================== */
-body.semana-estudante {
-  background: linear-gradient(-45deg, #2c3e50, #34495e, #16a085, #2980b9);
-  background-size: 400% 400%;
-  animation: aurora 10s ease infinite;
-  color: #e0f7fa;
-  transition: background 0.5s ease;
-}
-
-body.semana-estudante header {
-  color: #1de9b6; /* verde água neon */
-  box-shadow: 0 0 30px #1de9b6;
-  background-color: rgba(20, 30, 40, 0.8);
-}
-
-body.semana-estudante main {
-  background-color: rgba(15, 30, 40, 0.85);
-  box-shadow: 0 0 40px #1de9b6cc;
-}
-
-body.semana-estudante h1,
-body.semana-estudante h2 {
-  color: #00e5ff; /* azul neon claro */
-  animation: glowBlueGreen 2s ease-in-out infinite alternate;
-}
-
-@keyframes glowBlueGreen {
-  from { text-shadow: 0 0 10px #00e5ff, 0 0 20px #1de9b6; }
-  to { text-shadow: 0 0 30px #00e5ff, 0 0 40px #1de9b6; }
-}
-
-body.semana-estudante .materia {
-  box-shadow: 0 0 20px #1de9b6cc;
-  background: rgba(20, 40, 50, 0.8);
-  transition: box-shadow 0.3s ease;
-}
-
-body.semana-estudante .materia:hover {
-  box-shadow: 0 0 50px #00e5ffcc;
-}
-
-body.semana-estudante .materia h3 {
-  color: #00e5ff;
-}
-
-body.semana-estudante button.btn-aprender {
-  background: linear-gradient(45deg, #00e5ff, #1de9b6);
-  box-shadow: 0 0 20px #00e5ffcc;
-  color: #111;
-}
-
-body.semana-estudante button.btn-aprender:hover {
-  box-shadow: 0 0 40px #1de9b6cc;
-  transform: scale(1.1);
-}
-
-/* Caixa lateral de frases */
-#frases-semana-estudante {
-  position: fixed;
-  top: 120px;
-  right: 20px;
-  width: 260px;
-  background: rgba(20, 30, 40, 0.9);
-  border-radius: 16px;
-  box-shadow: 0 0 30px #00e5ffcc;
-  color: #a0e7f7;
-  font-weight: 600;
-  padding: 20px;
-  font-size: 1em;
-  line-height: 1.4em;
-  z-index: 2000;
-  user-select: none;
-  font-family: 'Poppins', sans-serif;
-  animation: glowBlueGreen 3s ease-in-out infinite alternate;
-}
-
-@media (max-width: 700px) {
-  #frases-semana-estudante {
-    position: static;
-    width: 100%;
-    margin-bottom: 20px;
-    box-shadow: none;
-    border-radius: 12px;
-    animation: none;
-  }
-
-  main {
-    margin-right: 0 !important;
-  }
-}
   </style>
 </head>
-<body>
+<body class="semana-estudante">
   <header>
     Portal Técnico Escolar
   </header>
@@ -376,19 +246,20 @@ body.semana-estudante button.btn-aprender:hover {
       <p>Site criado por Nauan Loures, 2025.</p>
       <p>Instagram: <a href="https://instagram.com/nauanloures" target="_blank">@nauanloures</a></p>
     </section>
+
+    <!-- Frases fixas da Semana do Estudante -->
+    <div id="frases-semana-estudante" aria-label="Frases da Semana do Estudante">
+      <div class="frase-card">Feliz Semana do Estudante! Aproveite cada momento.</div>
+      <div class="frase-card">Estudar é construir seu futuro, bora focar!</div>
+      <div class="frase-card">Conhecimento é a melhor ferramenta para mudar o mundo.</div>
+      <div class="frase-card">Semana do Estudante: dedicação com leveza e alegria.</div>
+      <div class="frase-card">Aproveite essa semana para aprender algo novo todos os dias.</div>
+    </div>
   </main>
 
   <footer>
     © 2025 - Portal Técnico Escolar
   </footer>
-
-  <div id="frases-semana-estudante" style="display:none;">
-    <p>📚 <strong>Feliz Semana do Estudante!</strong></p>
-    <p>🎓 Aproveite para aprender e crescer!</p>
-    <p>🚀 Seu futuro começa agora.</p>
-    <p>💡 Conhecimento é poder!</p>
-    <p>🔥 Dê o seu melhor esta semana!</p>
-  </div>
 
   <!-- Modal -->
   <div id="modal-bimestres" aria-hidden="true">
@@ -403,7 +274,6 @@ body.semana-estudante button.btn-aprender:hover {
   </div>
 
   <script>
-    // Script modal bimestres (igual seu código original)
     const modal = document.getElementById("modal-bimestres");
     const bimestreButtons = modal.querySelectorAll("[data-bimestre]");
     const btnVoltar = document.getElementById("btn-voltar-portal");
@@ -444,7 +314,6 @@ body.semana-estudante button.btn-aprender:hover {
       modal.setAttribute("aria-hidden", "true");
     });
 
-    // Animação fadeInUp para botões modal
     const styleSheet = document.createElement("style");
     styleSheet.type = "text/css";
     styleSheet.innerText = `
@@ -454,26 +323,6 @@ body.semana-estudante button.btn-aprender:hover {
       }
     `;
     document.head.appendChild(styleSheet);
-
-    // === Código para ativar tema Semana do Estudante entre 11 e 15 agosto ===
-    function ativarSemanaEstudante() {
-      const hoje = new Date();
-      const ano = hoje.getFullYear();
-      // 11 e 15 de agosto (mes é 0-based: 7 = agosto)
-      const inicio = new Date(ano, 7, 11, 0, 0, 0);
-      const fim = new Date(ano, 7, 15, 23, 59, 59);
-
-      if (hoje >= inicio && hoje <= fim) {
-        document.body.classList.add("semana-estudante");
-        document.getElementById("frases-semana-estudante").style.display = "block";
-        // Ajusta margin-right do main para dar espaço às frases na lateral em telas grandes
-        if(window.innerWidth > 700) {
-          document.querySelector("main").style.marginRight = "280px";
-        }
-      }
-    }
-
-    ativarSemanaEstudante();
   </script>
 </body>
 </html>
