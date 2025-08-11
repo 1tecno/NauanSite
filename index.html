@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Portal Técnico Escolar</title>
   <style>
-   @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@300;500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@300;500;700&display=swap');
 
 * {
   margin: 0;
@@ -13,39 +13,40 @@
   box-sizing: border-box;
 }
 
-body {
+/* ==================== SEMANA DO ESTUDANTE - Cores mistas ==================== */
+body.semana-estudante {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(-45deg, #0f2027, #2c5364, #1a2a6c, #0f2027);
+  background: linear-gradient(-45deg, #2c003e, #001f4d, #3a0f5f, #0d4f8b);
   background-size: 400% 400%;
-  animation: aurora 20s ease infinite;
-  color: #f0f0f0;
+  animation: aurora 15s ease infinite;
+  color: #f0e9ff;
   padding: 20px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  transition: background 1s ease;
+  transition: background 0.5s ease;
 }
 
-header {
-  background-color: rgba(0, 0, 0, 0.5);
-  color: #00ffff;
+body.semana-estudante header {
+  background-color: rgba(20, 20, 40, 0.85);
+  color: #ea4c89; /* rosa neon */
   padding: 25px;
   text-align: center;
   font-size: 2em;
   border-radius: 12px;
-  box-shadow: 0 0 20px #00ffff80;
+  box-shadow: 0 0 30px #ea4c89;
   backdrop-filter: blur(6px);
   animation: fadeDown 1s ease forwards;
   font-family: 'Orbitron', sans-serif;
 }
 
-main {
+body.semana-estudante main {
   max-width: 900px;
   margin: 30px auto;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(15, 15, 30, 0.9);
   padding: 30px;
   border-radius: 16px;
-  box-shadow: 0 0 30px #00ffff20;
+  box-shadow: 0 0 40px #ea4c89cc;
   backdrop-filter: blur(4px);
   animation: fadeUp 1s ease forwards;
   display: flex;
@@ -54,70 +55,79 @@ main {
   position: relative;
 }
 
-h1, h2 {
-  color: #00ffe0;
+body.semana-estudante h1,
+body.semana-estudante h2 {
+  color: #84d4ff; /* azul claro neon */
   margin-bottom: 15px;
-  animation: glow 2s ease-in-out infinite alternate;
+  animation: glowMixed 2.5s ease-in-out infinite alternate;
 }
 
-@keyframes glow {
-  from { text-shadow: 0 0 5px #00ffe0; }
-  to { text-shadow: 0 0 20px #00ffe0; }
+@keyframes glowMixed {
+  0% {
+    text-shadow:
+      0 0 10px #ea4c89,
+      0 0 20px #84d4ff,
+      0 0 30px #9933ff;
+  }
+  100% {
+    text-shadow:
+      0 0 30px #ea4c89,
+      0 0 40px #84d4ff,
+      0 0 50px #9933ff;
+  }
 }
 
-.materia {
-  background: rgba(15, 32, 39, 0.8);
+body.semana-estudante .materia {
+  background: rgba(30, 15, 45, 0.8);
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 0 15px #00ffff88;
+  box-shadow: 0 0 20px #ea4c89cc;
   transition: box-shadow 0.3s ease;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.materia:hover {
-  box-shadow: 0 0 30px #00ffffcc;
+body.semana-estudante .materia:hover {
+  box-shadow: 0 0 60px #84d4ffcc;
 }
 
-.materia h3 {
-  color: #00ffff;
-  font-weight: 600;
-  font-size: 17.1px;
+body.semana-estudante .materia h3 {
+  color: #ea4c89;
+  font-weight: 700;
+  font-size: 1.1em;
+  text-shadow:
+    0 0 5px #ea4c89,
+    0 0 10px #9933ff;
 }
 
-.materia p {
-  color: #aaa;
-  font-style: italic;
-}
-
-button.btn-aprender {
-  background: linear-gradient(45deg, #00ffff, #00ffae);
+body.semana-estudante button.btn-aprender {
+  background: linear-gradient(45deg, #ea4c89, #84d4ff);
   border: none;
   border-radius: 40px;
   padding: 12px 28px;
   color: #111;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 0 15px #00ffae88;
+  box-shadow: 0 0 20px #ea4c89cc;
   transition: all 0.3s ease;
   font-size: 1em;
   user-select: none;
 }
 
-button.btn-aprender:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 25px #00ffffcc;
+body.semana-estudante button.btn-aprender:hover {
+  box-shadow: 0 0 50px #84d4ffcc;
+  transform: scale(1.1);
 }
 
 section#creditos {
   text-align: center;
-  color: #00ffffcc;
+  color: #ea4c89cc;
   font-size: 0.9em;
 }
 
 section#creditos a {
-  color: #00ffff;
+  color: #ea4c89;
   text-decoration: none;
   font-weight: 600;
 }
@@ -129,7 +139,7 @@ section#creditos a:hover {
 footer {
   text-align: center;
   margin-top: 40px;
-  color: #00ffffaa;
+  color: #ea4c89aa;
   font-size: 0.9em;
   user-select: none;
 }
@@ -150,192 +160,62 @@ footer {
   100%{background-position:0% 50%}
 }
 
-/* Modal de Bimestres */
-#modal-bimestres {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  background: rgba(0,0,0,0.75);
-  backdrop-filter: blur(4px);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  padding: 20px;
-  flex-direction: column;
-}
-
-#modal-bimestres.active {
-  display: flex;
-  animation: fadeInModal 0.4s ease forwards;
-}
-
-@keyframes fadeInModal {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
-
-#modal-content {
-  background: rgba(0, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: 30px 40px;
-  box-shadow: 0 0 40px #00ffffbb;
-  max-width: 400px;
-  width: 100%;
-  text-align: center;
-  color: #00ffff;
-  font-weight: 600;
-  user-select: none;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-#modal-content h2 {
-  margin-bottom: 25px;
-  text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
-  animation: glow 2s ease-in-out infinite alternate;
-}
-
-#modal-content button {
-  background: linear-gradient(45deg, #00ffff, #00ffae);
-  color: #111;
-  border: none;
-  border-radius: 40px;
-  padding: 14px 28px;
-  width: 100%;
-  font-size: 1.1em;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 0 15px #00ffae88;
-  transition: all 0.3s ease;
-  user-select: none;
-  margin-bottom: 10px;
-}
-
-#modal-content button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 30px #00ffffcc;
-}
-
-#modal-content button#btn-voltar-portal {
-  margin-top: 15px;
-  background: linear-gradient(45deg, #00ffff, #00ffae);
-  box-shadow: 0 0 20px #00ffffee;
-  color: #111;
-}
-
-/* Frases fixas Semana do Estudante */
+/* Quadro fixo lateral - vários cards */
 #frases-semana-estudante {
   position: fixed;
   top: 120px;
   right: 20px;
-  width: 320px;
-  max-height: 70vh;
-  overflow-y: auto;
+  width: 280px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 20px;
   z-index: 3000;
   user-select: none;
   font-family: 'Poppins', sans-serif;
 }
 
-/* Cada quadro de mensagem com frase e fundo lateral */
-#frases-semana-estudante .quadro-frase {
-  background: rgba(0, 255, 255, 0.12);
-  border-radius: 14px;
-  padding: 15px 15px 15px 100px;
-  position: relative;
-  color: #00ffff;
+#frases-semana-estudante .frase-card {
+  background: rgba(50, 15, 70, 0.8);
+  border: 2px solid transparent;
+  border-image: linear-gradient(45deg, #ea4c89, #9933ff, #84d4ff) 1;
+  border-radius: 16px;
+  padding: 18px 20px;
+  color: #f0e9ff;
   font-weight: 600;
   font-size: 0.95em;
-  line-height: 1.3em;
-  box-shadow: 0 0 15px #00ffff88;
-  user-select: text;
-  display: flex;
-  align-items: center;
-  min-height: 60px;
-  overflow: hidden;
+  box-shadow:
+    0 0 10px #ea4c89aa,
+    0 0 15px #9933ffaa;
+  text-align: center;
+  transition: box-shadow 0.3s ease;
+  user-select: none;
 }
 
-/* Background lateral colorido ao lado da frase */
-#frases-semana-estudante .quadro-frase::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 80px;
-  height: 100%;
-  border-radius: 14px 0 0 14px;
-  background: linear-gradient(135deg, #6f2dbd, #64b5f6, #e75480, #7fc9ff);
-  background-size: 400% 400%;
-  animation: gradientShift 20s ease infinite;
-  box-shadow: 0 0 25px #00ffffaa;
-  z-index: 1;
+#frases-semana-estudante .frase-card:hover {
+  box-shadow:
+    0 0 25px #ea4c89ff,
+    0 0 35px #9933ffff,
+    0 0 40px #84d4ffff;
 }
 
-/* O texto da frase fica acima do background lateral */
-#frases-semana-estudante .quadro-frase span {
-  position: relative;
-  z-index: 2;
-  padding-right: 10px;
-}
-
-/* Animação de gradiente para os fundos laterais */
-@keyframes gradientShift {
-  0% {background-position:0% 50%;}
-  50% {background-position:100% 50%;}
-  100% {background-position:0% 50%;}
-}
-
-@media (max-width: 600px) {
-  main {
-    padding: 20px;
-  }
-
-  .materia {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  button.btn-aprender {
-    width: 100%;
-    padding: 14px 0;
-    font-size: 1.1em;
-  }
-
-  h1, h2 {
-    font-size: 1.5em;
-  }
-
-  #modal-content button {
-    font-size: 1em;
-  }
-
-  /* Ajuste para frases na versão mobile */
+/* Responsivo */
+@media (max-width: 900px) {
   #frases-semana-estudante {
     position: static;
-    width: auto;
-    max-height: none;
-    padding: 10px 0;
-    background: transparent;
-    box-shadow: none;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
     margin-bottom: 30px;
   }
 
-  #frases-semana-estudante .quadro-frase {
-    padding-left: 15px;
-    background: rgba(0, 255, 255, 0.08);
-    box-shadow: none;
-  }
-
-  #frases-semana-estudante .quadro-frase::before {
-    display: none;
+  #frases-semana-estudante .frase-card {
+    flex: 1 1 45%;
+    font-size: 0.9em;
+    padding: 14px 16px;
   }
 }
-
   </style>
 </head>
 <body class="semana-estudante">
