@@ -24,45 +24,7 @@
       display: flex;
       flex-direction: column;
       transition: background 1s ease;
-    }
-
-    /* Estilo especial para semana do estudante */
-    body.dia-estudante {
-      background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-      animation: none;
-      color: #222;
-    }
-    body.dia-estudante header {
-      background-color: #ff6f91;
-      color: white;
-      box-shadow: 0 0 25px #ff6f91aa;
-    }
-    body.dia-estudante main {
-      background-color: #fff0f3;
-      color: #222;
-      box-shadow: 0 0 25px #ff6f91aa;
-    }
-    body.dia-estudante .materia {
-      background: #ffd6dc;
-      box-shadow: 0 0 15px #ff6f91aa;
-    }
-    body.dia-estudante .materia:hover {
-      box-shadow: 0 0 30px #ff4a72cc;
-    }
-    body.dia-estudante .materia h3 {
-      color: #b60030;
-    }
-    body.dia-estudante button.btn-aprender {
-      background: linear-gradient(45deg, #ff4a72, #ff6f91);
-      color: white;
-      box-shadow: 0 0 20px #ff6f91cc;
-    }
-    body.dia-estudante button.btn-aprender:hover {
-      box-shadow: 0 0 30px #ff4a72cc;
-    }
-    body.dia-estudante section#creditos,
-    body.dia-estudante footer {
-      color: #b60030cc;
+      position: relative;
     }
 
     header {
@@ -91,6 +53,7 @@
       flex-direction: column;
       gap: 30px;
       position: relative;
+      z-index: 1;
     }
 
     h1, h2 {
@@ -291,6 +254,97 @@
         font-size: 1em;
       }
     }
+
+    /* ==================== SEMANA DO ESTUDANTE - Cores neutras ==================== */
+body.semana-estudante {
+  background: linear-gradient(-45deg, #2c3e50, #34495e, #16a085, #2980b9);
+  background-size: 400% 400%;
+  animation: aurora 10s ease infinite;
+  color: #e0f7fa;
+  transition: background 0.5s ease;
+}
+
+body.semana-estudante header {
+  color: #1de9b6; /* verde água neon */
+  box-shadow: 0 0 30px #1de9b6;
+  background-color: rgba(20, 30, 40, 0.8);
+}
+
+body.semana-estudante main {
+  background-color: rgba(15, 30, 40, 0.85);
+  box-shadow: 0 0 40px #1de9b6cc;
+}
+
+body.semana-estudante h1,
+body.semana-estudante h2 {
+  color: #00e5ff; /* azul neon claro */
+  animation: glowBlueGreen 2s ease-in-out infinite alternate;
+}
+
+@keyframes glowBlueGreen {
+  from { text-shadow: 0 0 10px #00e5ff, 0 0 20px #1de9b6; }
+  to { text-shadow: 0 0 30px #00e5ff, 0 0 40px #1de9b6; }
+}
+
+body.semana-estudante .materia {
+  box-shadow: 0 0 20px #1de9b6cc;
+  background: rgba(20, 40, 50, 0.8);
+  transition: box-shadow 0.3s ease;
+}
+
+body.semana-estudante .materia:hover {
+  box-shadow: 0 0 50px #00e5ffcc;
+}
+
+body.semana-estudante .materia h3 {
+  color: #00e5ff;
+}
+
+body.semana-estudante button.btn-aprender {
+  background: linear-gradient(45deg, #00e5ff, #1de9b6);
+  box-shadow: 0 0 20px #00e5ffcc;
+  color: #111;
+}
+
+body.semana-estudante button.btn-aprender:hover {
+  box-shadow: 0 0 40px #1de9b6cc;
+  transform: scale(1.1);
+}
+
+/* Caixa lateral de frases */
+#frases-semana-estudante {
+  position: fixed;
+  top: 120px;
+  right: 20px;
+  width: 260px;
+  background: rgba(20, 30, 40, 0.9);
+  border-radius: 16px;
+  box-shadow: 0 0 30px #00e5ffcc;
+  color: #a0e7f7;
+  font-weight: 600;
+  padding: 20px;
+  font-size: 1em;
+  line-height: 1.4em;
+  z-index: 2000;
+  user-select: none;
+  font-family: 'Poppins', sans-serif;
+  animation: glowBlueGreen 3s ease-in-out infinite alternate;
+}
+
+@media (max-width: 700px) {
+  #frases-semana-estudante {
+    position: static;
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: none;
+    border-radius: 12px;
+    animation: none;
+  }
+
+  main {
+    margin-right: 0 !important;
+  }
+}
   </style>
 </head>
 <body>
@@ -328,6 +382,14 @@
     © 2025 - Portal Técnico Escolar
   </footer>
 
+  <div id="frases-semana-estudante" style="display:none;">
+    <p>📚 <strong>Feliz Semana do Estudante!</strong></p>
+    <p>🎓 Aproveite para aprender e crescer!</p>
+    <p>🚀 Seu futuro começa agora.</p>
+    <p>💡 Conhecimento é poder!</p>
+    <p>🔥 Dê o seu melhor esta semana!</p>
+  </div>
+
   <!-- Modal -->
   <div id="modal-bimestres" aria-hidden="true">
     <div id="modal-content">
@@ -341,19 +403,7 @@
   </div>
 
   <script>
-    function ativarSemanaEstudante() {
-      const hoje = new Date();
-      const dia = hoje.getDate();
-      const mes = hoje.getMonth() + 1; // Janeiro = 0, então somamos 1
-
-      // Se for agosto (mês 8) e o dia entre 11 e 15, ativa o estilo
-      if (mes === 8 && dia >= 11 && dia <= 15) {
-        document.body.classList.add('dia-estudante');
-      }
-    }
-
-    ativarSemanaEstudante();
-
+    // Script modal bimestres (igual seu código original)
     const modal = document.getElementById("modal-bimestres");
     const bimestreButtons = modal.querySelectorAll("[data-bimestre]");
     const btnVoltar = document.getElementById("btn-voltar-portal");
@@ -394,6 +444,7 @@
       modal.setAttribute("aria-hidden", "true");
     });
 
+    // Animação fadeInUp para botões modal
     const styleSheet = document.createElement("style");
     styleSheet.type = "text/css";
     styleSheet.innerText = `
@@ -403,7 +454,26 @@
       }
     `;
     document.head.appendChild(styleSheet);
+
+    // === Código para ativar tema Semana do Estudante entre 11 e 15 agosto ===
+    function ativarSemanaEstudante() {
+      const hoje = new Date();
+      const ano = hoje.getFullYear();
+      // 11 e 15 de agosto (mes é 0-based: 7 = agosto)
+      const inicio = new Date(ano, 7, 11, 0, 0, 0);
+      const fim = new Date(ano, 7, 15, 23, 59, 59);
+
+      if (hoje >= inicio && hoje <= fim) {
+        document.body.classList.add("semana-estudante");
+        document.getElementById("frases-semana-estudante").style.display = "block";
+        // Ajusta margin-right do main para dar espaço às frases na lateral em telas grandes
+        if(window.innerWidth > 700) {
+          document.querySelector("main").style.marginRight = "280px";
+        }
+      }
+    }
+
+    ativarSemanaEstudante();
   </script>
 </body>
 </html>
-
