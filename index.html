@@ -313,8 +313,8 @@
         btn.style.transform = 'translateY(15px)';
         btn.style.animation = 'none';
         setTimeout(() => {
-          btn.style.animation = `fadeInUp 0.6s forwards`;
-          btn.style.animationDelay = `${index * delay}ms`;
+          btn.style.animation = fadeInUp 0.6s forwards;
+          btn.style.animationDelay = ${index * delay}ms;
         }, 10);
       });
     }
@@ -332,7 +332,7 @@
       btn.addEventListener("click", () => {
         const bimestre = btn.getAttribute("data-bimestre");
         if (!materiaSelecionada) return;
-        const destino = `${materiaSelecionada}${bimestre}.html`;
+        const destino = ${materiaSelecionada}${bimestre}.html;
         window.location.href = destino;
       });
     });
@@ -344,12 +344,12 @@
 
     const styleSheet = document.createElement("style");
     styleSheet.type = "text/css";
-    styleSheet.innerText = `
+    styleSheet.innerText = 
       @keyframes fadeInUp {
         0% { opacity: 0; transform: translateY(15px); }
         100% { opacity: 1; transform: translateY(0); }
       }
-    `;
+    ;
     document.head.appendChild(styleSheet);
   </script>
 </body>
