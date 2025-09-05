@@ -302,55 +302,55 @@
   </div>
 
   <script>
-    const modal = document.getElementById("modal-bimestres");
-    const bimestreButtons = modal.querySelectorAll("[data-bimestre]");
-    const btnVoltar = document.getElementById("btn-voltar-portal");
-    let materiaSelecionada = "";
+  const modal = document.getElementById("modal-bimestres");
+  const bimestreButtons = modal.querySelectorAll("[data-bimestre]");
+  const btnVoltar = document.getElementById("btn-voltar-portal");
+  let materiaSelecionada = "";
 
-    function animateButtonsSequentially(buttons, delay = 700) {
-      buttons.forEach((btn, index) => {
-        btn.style.opacity = '0';
-        btn.style.transform = 'translateY(15px)';
-        btn.style.animation = 'none';
-        setTimeout(() => {
-          btn.style.animation = fadeInUp 0.6s forwards;
-          btn.style.animationDelay = ${index * delay}ms;
-        }, 10);
-      });
+  function animateButtonsSequentially(buttons, delay = 700) {
+    buttons.forEach((btn, index) => {
+      btn.style.opacity = '0';
+      btn.style.transform = 'translateY(15px)';
+      btn.style.animation = 'none';
+      setTimeout(() => {
+        btn.style.animation = "fadeInUp 0.6s forwards";
+        btn.style.animationDelay = `${index * delay}ms`;
+      }, 10);
+    });
+  }
+
+  document.querySelectorAll('.btn-aprender').forEach(botao => {
+    botao.addEventListener('click', () => {
+      materiaSelecionada = botao.getAttribute('data-pagina');
+      modal.classList.add("active");
+      modal.setAttribute("aria-hidden", "false");
+      animateButtonsSequentially([...bimestreButtons, btnVoltar], 700);
+    });
+  });
+
+  bimestreButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const bimestre = btn.getAttribute("data-bimestre");
+      if (!materiaSelecionada) return;
+      const destino = `${materiaSelecionada}${bimestre}.html`;
+      window.location.href = destino;
+    });
+  });
+
+  btnVoltar.addEventListener("click", () => {
+    modal.classList.remove("active");
+    modal.setAttribute("aria-hidden", "true");
+  });
+
+  const styleSheet = document.createElement("style");
+  styleSheet.type = "text/css";
+  styleSheet.innerText = `
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(15px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
-
-    document.querySelectorAll('.btn-aprender').forEach(botao => {
-      botao.addEventListener('click', () => {
-        materiaSelecionada = botao.getAttribute('data-pagina');
-        modal.classList.add("active");
-        modal.setAttribute("aria-hidden", "false");
-        animateButtonsSequentially([...bimestreButtons, btnVoltar], 700);
-      });
-    });
-
-    bimestreButtons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        const bimestre = btn.getAttribute("data-bimestre");
-        if (!materiaSelecionada) return;
-        const destino = ${materiaSelecionada}${bimestre}.html;
-        window.location.href = destino;
-      });
-    });
-
-    btnVoltar.addEventListener("click", () => {
-      modal.classList.remove("active");
-      modal.setAttribute("aria-hidden", "true");
-    });
-
-    const styleSheet = document.createElement("style");
-    styleSheet.type = "text/css";
-    styleSheet.innerText = 
-      @keyframes fadeInUp {
-        0% { opacity: 0; transform: translateY(15px); }
-        100% { opacity: 1; transform: translateY(0); }
-      }
-    ;
-    document.head.appendChild(styleSheet);
-  </script>
+  `;
+  document.head.appendChild(styleSheet);
+</script>
 </body>
 </html>
