@@ -7,55 +7,53 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@300;500;700&display=swap');
 
-* { margin:0; padding:0; box-sizing:border-box; }
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(-45deg,#0f2027,#2c5364,#1a2a6c,#0f2027);
-  background-size: 400% 400%;
-  animation: aurora 20s ease infinite;
+  font-family:'Poppins',sans-serif;
+  background:#0f2027;
   color:#f0f0f0;
   padding:20px;
   min-height:100vh;
   display:flex;
   flex-direction:column;
-  transition: background 1s ease;
+  overflow:hidden;
+  position:relative;
 }
 
-@keyframes aurora {
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
+canvas#bgCanvas{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  z-index:-1;
 }
 
-header {
-  background-color: rgba(0,0,0,0.5);
+header{
+  background:rgba(0,0,0,0.5);
   padding:25px;
   text-align:center;
   border-radius:12px;
-  box-shadow:0 0 30px #00ffff80, 0 0 60px #ff00ff80 inset;
+  box-shadow:0 0 30px #00ffff80,0 0 60px #ff00ff80 inset;
   backdrop-filter: blur(8px);
-  position: relative;
-  overflow: hidden;
 }
 
-#titulo-portal {
+#titulo-portal{
   color:#00ffff;
-  font-family: 'Orbitron', sans-serif;
+  font-family:'Orbitron',sans-serif;
   font-size:2em;
-  text-shadow: 0 0 10px #00ffff,0 0 20px #00ffff, 0 0 30px #ff00ff;
+  text-shadow:0 0 10px #00ffff,0 0 20px #00ffff,0 0 30px #ff00ff;
   animation: glow 2s ease-in-out infinite alternate;
 }
 
-@keyframes glow {
-  from { text-shadow: 0 0 5px #00ffe0, 0 0 10px #ff00ff; }
-  to { text-shadow: 0 0 25px #00ffe0, 0 0 35px #ff00ff; }
+@keyframes glow{
+  from{text-shadow:0 0 5px #00ffe0,0 0 10px #ff00ff;}
+  to{text-shadow:0 0 25px #00ffe0,0 0 35px #ff00ff;}
 }
 
-main {
+main{
   max-width:900px;
   margin:30px auto;
-  background-color: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.5);
   padding:30px;
   border-radius:16px;
   box-shadow:0 0 40px #00ffff40;
@@ -66,9 +64,9 @@ main {
   position: relative;
 }
 
-h2 { color:#00ffe0; margin-bottom:15px; animation: glow 2s ease-in-out infinite alternate; }
+h2{color:#00ffe0;margin-bottom:15px;animation:glow 2s ease-in-out infinite alternate;}
 
-.materia {
+.materia{
   background: rgba(15,32,39,0.85);
   border-radius:12px;
   padding:20px;
@@ -79,13 +77,16 @@ h2 { color:#00ffe0; margin-bottom:15px; animation: glow 2s ease-in-out infinite 
   align-items:center;
 }
 
-.materia:hover { transform: scale(1.03); box-shadow:0 0 50px #00ffffcc,0 0 50px #ff00ffcc inset; }
+.materia:hover{
+  transform: scale(1.03);
+  box-shadow:0 0 50px #00ffffcc,0 0 50px #ff00ffcc inset;
+}
 
-.materia h3 { color:#00ffff; font-weight:600; font-size:17.1px; }
-.materia p { color:#aaa; font-style:italic; }
+.materia h3{color:#00ffff;font-weight:600;font-size:17.1px;}
+.materia p{color:#aaa;font-style:italic;}
 
-button.btn-aprender {
-  background: linear-gradient(45deg,#00ffff,#ff00ff);
+button.btn-aprender{
+  background:linear-gradient(45deg,#00ffff,#ff00ff);
   border:none;
   border-radius:40px;
   padding:12px 28px;
@@ -93,28 +94,28 @@ button.btn-aprender {
   font-weight:700;
   cursor:pointer;
   box-shadow:0 0 20px #00ffae88,0 0 10px #ff00ff66 inset;
-  transition: all 0.3s ease;
+  transition:all 0.3s ease;
   font-size:1em;
   user-select:none;
 }
 
-button.btn-aprender:hover { transform:scale(1.08); box-shadow:0 0 40px #00ffffcc,0 0 20px #ff00ffcc inset; }
+button.btn-aprender:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 40px #00ffffcc,0 0 20px #ff00ffcc inset;
+}
 
-section#creditos { text-align:center; color:#00ffffcc; font-size:0.9em; }
-section#creditos a { color:#00ffff; text-decoration:none; font-weight:600; }
-section#creditos a:hover { text-decoration:underline; }
+section#creditos{text-align:center;color:#00ffffcc;font-size:0.9em;}
+section#creditos a{color:#00ffff;text-decoration:none;font-weight:600;}
+section#creditos a:hover{text-decoration:underline;}
 
-footer { text-align:center; margin-top:40px; color:#00ffffaa; font-size:0.9em; user-select:none; }
+footer{text-align:center;margin-top:40px;color:#00ffffaa;font-size:0.9em;user-select:none;}
 
 /* Modal futurista */
-#modal-bimestres {
-  position:fixed; top:0; left:0;
-  width:100vw; height:100vh;
+#modal-bimestres{
+  position:fixed;top:0;left:0;width:100vw;height:100vh;
   background:rgba(0,0,0,0.85);
   backdrop-filter: blur(6px);
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  display:flex;justify-content:center;align-items:center;
   z-index:1000;
   padding:20px;
   flex-direction:column;
@@ -124,29 +125,24 @@ footer { text-align:center; margin-top:40px; color:#00ffffaa; font-size:0.9em; u
   pointer-events:none;
 }
 
-#modal-bimestres.active {
+#modal-bimestres.active{
   opacity:1;
   transform:scale(1);
   pointer-events:auto;
 }
 
-#modal-content {
+#modal-content{
   background: rgba(0,255,255,0.05);
   border-radius: 20px;
   padding:30px 40px;
   box-shadow:0 0 50px #00ffffbb,0 0 50px #ff00ff88 inset;
-  max-width:400px;
-  width:100%;
-  text-align:center;
-  color:#00ffff;
-  font-weight:600;
-  display:flex;
-  flex-direction:column;
-  gap:15px;
+  max-width:400px;width:100%;
+  text-align:center;color:#00ffff;font-weight:600;
+  display:flex;flex-direction:column;gap:15px;
   animation: floatModal 3s ease-in-out infinite;
 }
 
-#modal-content button {
+#modal-content button{
   background: linear-gradient(45deg,#00ffff,#ff00ff);
   color:#111;
   border:none;
@@ -164,17 +160,25 @@ footer { text-align:center; margin-top:40px; color:#00ffffaa; font-size:0.9em; u
   animation-fill-mode:forwards;
 }
 
-#modal-content button:hover { transform:scale(1.05); box-shadow:0 0 50px #00ffffcc,0 0 25px #ff00ffcc inset; }
+#modal-content button:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 50px #00ffffcc,0 0 25px #ff00ffcc inset;
+}
 
-#modal-content button#btn-voltar-portal { margin-top:30px; }
+#modal-content button#btn-voltar-portal{margin-top:30px;}
 
-@keyframes floatModal {
+@keyframes floatModal{
   0%{transform:translateY(0px);}
   50%{transform:translateY(-10px);}
   100%{transform:translateY(0px);}
 }
 
-@media (max-width:600px){
+@keyframes fadeInUp{
+  0%{opacity:0;transform:translateY(15px);}
+  100%{opacity:1;transform:translateY(0);}
+}
+
+@media(max-width:600px){
   main{padding:20px;}
   .materia{flex-direction:column;align-items:flex-start;gap:10px;}
   button.btn-aprender{width:100%;padding:14px 0;font-size:1.1em;}
@@ -185,7 +189,9 @@ footer { text-align:center; margin-top:40px; color:#00ffffaa; font-size:0.9em; u
 </head>
 <body>
 
-<header id="header-typing">
+<canvas id="bgCanvas"></canvas>
+
+<header>
   <h1 id="titulo-portal"></h1>
 </header>
 
@@ -214,9 +220,7 @@ footer { text-align:center; margin-top:40px; color:#00ffffaa; font-size:0.9em; u
   </section>
 </main>
 
-<footer>
-  © 2025 - Portal Técnico Escolar
-</footer>
+<footer>© 2025 - Portal Técnico Escolar</footer>
 
 <!-- Modal -->
 <div id="modal-bimestres" aria-hidden="true">
@@ -231,64 +235,112 @@ footer { text-align:center; margin-top:40px; color:#00ffffaa; font-size:0.9em; u
 </div>
 
 <script>
-  // Digitação header
-  const textoTitulo="Portal Técnico Escolar";
-  const tituloElement=document.getElementById("titulo-portal");
-  let indexTitulo=0;
-  function digitarTexto(){
-    if(indexTitulo<textoTitulo.length){
-      tituloElement.textContent+=textoTitulo.charAt(indexTitulo);
-      indexTitulo++;
-      setTimeout(digitarTexto,120);
-    }
+// Header typing effect
+const textoTitulo="Portal Técnico Escolar";
+const tituloElement=document.getElementById("titulo-portal");
+let indexTitulo=0;
+function digitarTexto(){
+  if(indexTitulo<textoTitulo.length){
+    tituloElement.textContent+=textoTitulo.charAt(indexTitulo);
+    indexTitulo++;
+    setTimeout(digitarTexto,120);
   }
-  window.addEventListener("load",digitarTexto);
+}
+window.addEventListener("load",digitarTexto);
 
-  // Modal e navegação
-  const modal=document.getElementById("modal-bimestres");
-  const bimestreButtons=modal.querySelectorAll("[data-bimestre]");
-  const btnVoltar=document.getElementById("btn-voltar-portal");
-  let materiaSelecionada="";
+// Modal logic
+const modal=document.getElementById("modal-bimestres");
+const bimestreButtons=modal.querySelectorAll("[data-bimestre]");
+const btnVoltar=document.getElementById("btn-voltar-portal");
+let materiaSelecionada="";
+function animateButtonsSequentially(buttons,delay=150){
+  buttons.forEach((btn,index)=>{
+    btn.style.opacity='0';
+    btn.style.transform='translateY(15px)';
+    btn.style.animation='none';
+    setTimeout(()=>{
+      btn.style.animation=`fadeInUp 0.6s forwards`;
+      btn.style.animationDelay=`${index*delay}ms`;
+    },10);
+  });
+}
+document.querySelectorAll('.btn-aprender').forEach(botao=>{
+  botao.addEventListener('click',()=>{
+    materiaSelecionada=botao.getAttribute('data-pagina');
+    modal.classList.add("active");
+    modal.setAttribute("aria-hidden","false");
+    animateButtonsSequentially([...bimestreButtons,btnVoltar],150);
+  });
+});
+bimestreButtons.forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    const bimestre=btn.getAttribute("data-bimestre");
+    if(!materiaSelecionada) return;
+    const destino=`${materiaSelecionada}${bimestre}.html`;
+    window.location.href=destino;
+  });
+});
+btnVoltar.addEventListener("click",()=>{
+  modal.classList.remove("active");
+  modal.setAttribute("aria-hidden","true");
+});
 
-  function animateButtonsSequentially(buttons,delay=150){
-    buttons.forEach((btn,index)=>{
-      btn.style.opacity='0';
-      btn.style.transform='translateY(15px)';
-      btn.style.animation='none';
-      setTimeout(()=>{
-        btn.style.animation=`fadeInUp 0.6s forwards`;
-        btn.style.animationDelay=`${index*delay}ms`;
-      },10);
-    });
+// fadeInUp keyframes
+const styleSheet=document.createElement("style");
+styleSheet.type="text/css";
+styleSheet.innerText=`@keyframes fadeInUp{0%{opacity:0;transform:translateY(15px);}100%{opacity:1;transform:translateY(0);}}`;
+document.head.appendChild(styleSheet);
+
+// Partículas neon
+const canvas=document.getElementById("bgCanvas");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+class Particle{
+  constructor(){
+    this.x=Math.random()*canvas.width;
+    this.y=Math.random()*canvas.height;
+    this.size=Math.random()*3+1;
+    this.speedX=Math.random()*1-0.5;
+    this.speedY=Math.random()*1-0.5;
+    this.color=Math.random()>0.5?"#00ffff":"#ff00ff";
   }
+  update(){
+    this.x+=this.speedX;
+    this.y+=this.speedY;
+    if(this.x>canvas.width)this.x=0;
+    if(this.x<0)this.x=canvas.width;
+    if(this.y>canvas.height)this.y=0;
+    if(this.y<0)this.y=canvas.height;
+  }
+  draw(){
+    ctx.fillStyle=this.color;
+    ctx.shadowColor=this.color;
+    ctx.shadowBlur=10;
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+    ctx.fill();
+  }
+}
 
-  document.querySelectorAll('.btn-aprender').forEach(botao=>{
-    botao.addEventListener('click',()=>{
-      materiaSelecionada=botao.getAttribute('data-pagina');
-      modal.classList.add("active");
-      modal.setAttribute("aria-hidden","false");
-      animateButtonsSequentially([...bimestreButtons,btnVoltar],150);
-    });
+let particlesArray=[];
+for(let i=0;i<150;i++){particlesArray.push(new Particle());}
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particlesArray.forEach(p=>{
+    p.update();
+    p.draw();
   });
+  requestAnimationFrame(animate);
+}
+animate();
 
-  bimestreButtons.forEach(btn=>{
-    btn.addEventListener("click",()=>{
-      const bimestre=btn.getAttribute("data-bimestre");
-      if(!materiaSelecionada) return;
-      const destino=`${materiaSelecionada}${bimestre}.html`;
-      window.location.href=destino;
-    });
-  });
-
-  btnVoltar.addEventListener("click",()=>{
-    modal.classList.remove("active");
-    modal.setAttribute("aria-hidden","true");
-  });
-
-  const styleSheet=document.createElement("style");
-  styleSheet.type="text/css";
-  styleSheet.innerText=`@keyframes fadeInUp{0%{opacity:0;transform:translateY(15px);}100%{opacity:1;transform:translateY(0);}}`;
-  document.head.appendChild(styleSheet);
+window.addEventListener('resize',()=>{
+  canvas.width=window.innerWidth;
+  canvas.height=window.innerHeight;
+});
 </script>
 </body>
 </html>
