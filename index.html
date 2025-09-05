@@ -1,288 +1,294 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Portal Técnico Escolar</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@300;500;700&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal Técnico Escolar</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@300;500;700&display=swap');
 
-    * { margin:0; padding:0; box-sizing:border-box; }
+* { margin:0; padding:0; box-sizing:border-box; }
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(-45deg, #0f2027, #2c5364, #1a2a6c, #0f2027);
-      background-size: 400% 400%;
-      animation: aurora 20s ease infinite;
-      color: #f0f0f0;
-      padding: 20px;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      transition: background 1s ease;
-    }
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(-45deg,#0f2027,#2c5364,#1a2a6c,#0f2027);
+  background-size: 400% 400%;
+  animation: aurora 20s ease infinite;
+  color:#f0f0f0;
+  padding:20px;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  transition: background 1s ease;
+}
 
-    @keyframes aurora {
-      0%{background-position:0% 50%}
-      50%{background-position:100% 50%}
-      100%{background-position:0% 50%}
-    }
+@keyframes aurora {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
 
-    header {
-      background-color: rgba(0,0,0,0.5);
-      padding: 25px;
-      text-align: center;
-      border-radius: 12px;
-      box-shadow: 0 0 20px #00ffff80;
-      backdrop-filter: blur(6px);
-    }
+header {
+  background-color: rgba(0,0,0,0.5);
+  padding:25px;
+  text-align:center;
+  border-radius:12px;
+  box-shadow:0 0 30px #00ffff80, 0 0 60px #ff00ff80 inset;
+  backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+}
 
-    #titulo-portal {
-      color: #00ffff;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2em;
-      text-shadow: 0 0 10px #00ffff,0 0 20px #00ffff;
-      animation: glow 2s ease-in-out infinite alternate;
-    }
+#titulo-portal {
+  color:#00ffff;
+  font-family: 'Orbitron', sans-serif;
+  font-size:2em;
+  text-shadow: 0 0 10px #00ffff,0 0 20px #00ffff, 0 0 30px #ff00ff;
+  animation: glow 2s ease-in-out infinite alternate;
+}
 
-    @keyframes glow {
-      from { text-shadow: 0 0 5px #00ffe0; }
-      to { text-shadow: 0 0 20px #00ffe0; }
-    }
+@keyframes glow {
+  from { text-shadow: 0 0 5px #00ffe0, 0 0 10px #ff00ff; }
+  to { text-shadow: 0 0 25px #00ffe0, 0 0 35px #ff00ff; }
+}
 
-    main {
-      max-width: 900px;
-      margin: 30px auto;
-      background-color: rgba(0,0,0,0.4);
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 0 30px #00ffff20;
-      backdrop-filter: blur(4px);
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-      position: relative;
-    }
+main {
+  max-width:900px;
+  margin:30px auto;
+  background-color: rgba(0,0,0,0.5);
+  padding:30px;
+  border-radius:16px;
+  box-shadow:0 0 40px #00ffff40;
+  backdrop-filter: blur(6px);
+  display:flex;
+  flex-direction:column;
+  gap:30px;
+  position: relative;
+}
 
-    h2 { color:#00ffe0; margin-bottom:15px; animation: glow 2s ease-in-out infinite alternate; }
+h2 { color:#00ffe0; margin-bottom:15px; animation: glow 2s ease-in-out infinite alternate; }
 
-    .materia {
-      background: rgba(15,32,39,0.8);
-      border-radius:12px;
-      padding:20px;
-      box-shadow:0 0 15px #00ffff88;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-    }
+.materia {
+  background: rgba(15,32,39,0.85);
+  border-radius:12px;
+  padding:20px;
+  box-shadow:0 0 20px #00ffff88,0 0 40px #ff00ff55 inset;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
 
-    .materia:hover { transform: scale(1.02); box-shadow:0 0 30px #00ffffcc; }
+.materia:hover { transform: scale(1.03); box-shadow:0 0 50px #00ffffcc,0 0 50px #ff00ffcc inset; }
 
-    .materia h3 { color:#00ffff; font-weight:600; font-size:17.1px; }
-    .materia p { color:#aaa; font-style:italic; }
+.materia h3 { color:#00ffff; font-weight:600; font-size:17.1px; }
+.materia p { color:#aaa; font-style:italic; }
 
-    button.btn-aprender {
-      background: linear-gradient(45deg,#00ffff,#00ffae);
-      border:none;
-      border-radius:40px;
-      padding:12px 28px;
-      color:#111;
-      font-weight:700;
-      cursor:pointer;
-      box-shadow:0 0 15px #00ffae88;
-      transition: all 0.3s ease;
-      font-size:1em;
-      user-select:none;
-    }
+button.btn-aprender {
+  background: linear-gradient(45deg,#00ffff,#ff00ff);
+  border:none;
+  border-radius:40px;
+  padding:12px 28px;
+  color:#111;
+  font-weight:700;
+  cursor:pointer;
+  box-shadow:0 0 20px #00ffae88,0 0 10px #ff00ff66 inset;
+  transition: all 0.3s ease;
+  font-size:1em;
+  user-select:none;
+}
 
-    button.btn-aprender:hover { transform:scale(1.08); box-shadow:0 0 25px #00ffffcc; }
+button.btn-aprender:hover { transform:scale(1.08); box-shadow:0 0 40px #00ffffcc,0 0 20px #ff00ffcc inset; }
 
-    section#creditos { text-align:center; color:#00ffffcc; font-size:0.9em; }
-    section#creditos a { color:#00ffff; text-decoration:none; font-weight:600; }
-    section#creditos a:hover { text-decoration:underline; }
+section#creditos { text-align:center; color:#00ffffcc; font-size:0.9em; }
+section#creditos a { color:#00ffff; text-decoration:none; font-weight:600; }
+section#creditos a:hover { text-decoration:underline; }
 
-    footer { text-align:center; margin-top:40px; color:#00ffffaa; font-size:0.9em; user-select:none; }
+footer { text-align:center; margin-top:40px; color:#00ffffaa; font-size:0.9em; user-select:none; }
 
-    @keyframes fadeDown { 0%{transform:translateY(-20px);opacity:0;} 100%{transform:translateY(0);opacity:1;} }
-    @keyframes fadeUp { 0%{transform:translateY(40px);opacity:0;} 100%{transform:translateY(0);opacity:1;} }
+/* Modal futurista */
+#modal-bimestres {
+  position:fixed; top:0; left:0;
+  width:100vw; height:100vh;
+  background:rgba(0,0,0,0.85);
+  backdrop-filter: blur(6px);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:1000;
+  padding:20px;
+  flex-direction:column;
+  opacity:0;
+  transform:scale(0.9);
+  transition: all 0.4s ease;
+  pointer-events:none;
+}
 
-    /* Modal */
-    #modal-bimestres {
-      position:fixed;
-      top:0; left:0;
-      width:100vw; height:100vh;
-      background:rgba(0,0,0,0.75);
-      backdrop-filter: blur(4px);
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      z-index:1000;
-      padding:20px;
-      flex-direction:column;
-      opacity:0;
-      transform:scale(0.9);
-      transition: all 0.4s ease;
-      pointer-events:none;
-    }
+#modal-bimestres.active {
+  opacity:1;
+  transform:scale(1);
+  pointer-events:auto;
+}
 
-    #modal-bimestres.active {
-      opacity:1;
-      transform:scale(1);
-      pointer-events:auto;
-    }
+#modal-content {
+  background: rgba(0,255,255,0.05);
+  border-radius: 20px;
+  padding:30px 40px;
+  box-shadow:0 0 50px #00ffffbb,0 0 50px #ff00ff88 inset;
+  max-width:400px;
+  width:100%;
+  text-align:center;
+  color:#00ffff;
+  font-weight:600;
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+  animation: floatModal 3s ease-in-out infinite;
+}
 
-    #modal-content {
-      background: rgba(0,255,255,0.1);
-      border-radius: 20px;
-      padding:30px 40px;
-      box-shadow:0 0 40px #00ffffbb;
-      max-width:400px;
-      width:100%;
-      text-align:center;
-      color:#00ffff;
-      font-weight:600;
-      display:flex;
-      flex-direction:column;
-      gap:15px;
-    }
+#modal-content button {
+  background: linear-gradient(45deg,#00ffff,#ff00ff);
+  color:#111;
+  border:none;
+  border-radius:40px;
+  padding:14px 28px;
+  width:100%;
+  font-size:1.1em;
+  font-weight:700;
+  cursor:pointer;
+  box-shadow:0 0 25px #00ffae88,0 0 15px #ff00ff66 inset;
+  transition:all 0.3s ease;
+  user-select:none;
+  opacity:0;
+  transform:translateY(15px);
+  animation-fill-mode:forwards;
+}
 
-    #modal-content button {
-      background: linear-gradient(45deg,#00ffff,#00ffae);
-      color:#111;
-      border:none;
-      border-radius:40px;
-      padding:14px 28px;
-      width:100%;
-      font-size:1.1em;
-      font-weight:700;
-      cursor:pointer;
-      box-shadow:0 0 15px #00ffae88;
-      transition:all 0.3s ease;
-      user-select:none;
-      opacity:0;
-      transform:translateY(15px);
-      animation-fill-mode:forwards;
-    }
+#modal-content button:hover { transform:scale(1.05); box-shadow:0 0 50px #00ffffcc,0 0 25px #ff00ffcc inset; }
 
-    #modal-content button:hover { transform:scale(1.05); box-shadow:0 0 30px #00ffffcc; }
+#modal-content button#btn-voltar-portal { margin-top:30px; }
 
-    #modal-content button#btn-voltar-portal { margin-top:30px; box-shadow:0 0 20px #00ffffee; }
+@keyframes floatModal {
+  0%{transform:translateY(0px);}
+  50%{transform:translateY(-10px);}
+  100%{transform:translateY(0px);}
+}
 
-    @media (max-width:600px){
-      main{padding:20px;}
-      .materia{flex-direction:column;align-items:flex-start;gap:10px;}
-      button.btn-aprender{width:100%;padding:14px 0;font-size:1.1em;}
-      h1,h2{font-size:1.5em;}
-      #modal-content button{font-size:1em;}
-    }
-  </style>
+@media (max-width:600px){
+  main{padding:20px;}
+  .materia{flex-direction:column;align-items:flex-start;gap:10px;}
+  button.btn-aprender{width:100%;padding:14px 0;font-size:1.1em;}
+  h1,h2{font-size:1.5em;}
+  #modal-content button{font-size:1em;}
+}
+</style>
 </head>
 <body>
-  <header id="header-typing">
-    <h1 id="titulo-portal"></h1>
-  </header>
 
-  <main>
-    <section id="inicio">
-      <h2>Bem-vindo!</h2>
-      <p>Este é o portal interativo das matérias do curso técnico.</p>
-    </section>
+<header id="header-typing">
+  <h1 id="titulo-portal"></h1>
+</header>
 
-    <section id="conteudo">
-      <h2>Matérias Técnicas</h2>
-      <div class="materia"><h3>Arquitetura de Computadores</h3><button class="btn-aprender" data-pagina="arquitetura">Aprender!</button></div>
-      <div class="materia"><h3>Programação Web</h3><button class="btn-aprender" data-pagina="web">Aprender!</button></div>
-      <div class="materia"><h3>POO com Java</h3><button class="btn-aprender" data-pagina="java">Aprender!</button></div>
-      <div class="materia"><h3>HTML e CSS</h3><button class="btn-aprender" data-pagina="htmlecss">Aprender!</button></div>
-      <div class="materia"><h3>Sistemas Operacionais</h3><button class="btn-aprender" data-pagina="sistemas">Aprender!</button></div>
-      <div class="materia"><h3>Lógica de Programação</h3><button class="btn-aprender" data-pagina="logica">Aprender!</button></div>
-      <div class="materia"><h3>Noção de Robótica</h3><button class="btn-aprender" data-pagina="nocao">Aprender!</button></div>
-      <div class="materia"><h3>Gestão de Tempo</h3><button class="btn-aprender" data-pagina="gestao">Aprender!</button></div>
-    </section>
+<main>
+  <section id="inicio">
+    <h2>Bem-vindo!</h2>
+    <p>Este é o portal interativo das matérias do curso técnico.</p>
+  </section>
 
-    <section id="creditos">
-      <h2>Créditos</h2>
-      <p>Site criado por Nauan Loures, 2025.</p>
-      <p>Instagram: <a href="https://instagram.com/nauanloures" target="_blank">@nauanloures</a></p>
-    </section>
-  </main>
+  <section id="conteudo">
+    <h2>Matérias Técnicas</h2>
+    <div class="materia"><h3>Arquitetura de Computadores</h3><button class="btn-aprender" data-pagina="arquitetura">Aprender!</button></div>
+    <div class="materia"><h3>Programação Web</h3><button class="btn-aprender" data-pagina="web">Aprender!</button></div>
+    <div class="materia"><h3>POO com Java</h3><button class="btn-aprender" data-pagina="java">Aprender!</button></div>
+    <div class="materia"><h3>HTML e CSS</h3><button class="btn-aprender" data-pagina="htmlecss">Aprender!</button></div>
+    <div class="materia"><h3>Sistemas Operacionais</h3><button class="btn-aprender" data-pagina="sistemas">Aprender!</button></div>
+    <div class="materia"><h3>Lógica de Programação</h3><button class="btn-aprender" data-pagina="logica">Aprender!</button></div>
+    <div class="materia"><h3>Noção de Robótica</h3><button class="btn-aprender" data-pagina="nocao">Aprender!</button></div>
+    <div class="materia"><h3>Gestão de Tempo</h3><button class="btn-aprender" data-pagina="gestao">Aprender!</button></div>
+  </section>
 
-  <footer>
-    © 2025 - Portal Técnico Escolar
-  </footer>
+  <section id="creditos">
+    <h2>Créditos</h2>
+    <p>Site criado por Nauan Loures, 2025.</p>
+    <p>Instagram: <a href="https://instagram.com/nauanloures" target="_blank">@nauanloures</a></p>
+  </section>
+</main>
 
-  <!-- Modal -->
-  <div id="modal-bimestres" aria-hidden="true">
-    <div id="modal-content">
-      <h2>Escolha o Bimestre</h2>
-      <button data-bimestre="1">1º Bimestre</button>
-      <button data-bimestre="2">2º Bimestre</button>
-      <button data-bimestre="3">3º Bimestre</button>
-      <button data-bimestre="4">4º Bimestre</button>
-      <button id="btn-voltar-portal">⬅ Voltar</button>
-    </div>
+<footer>
+  © 2025 - Portal Técnico Escolar
+</footer>
+
+<!-- Modal -->
+<div id="modal-bimestres" aria-hidden="true">
+  <div id="modal-content">
+    <h2>Escolha o Bimestre</h2>
+    <button data-bimestre="1">1º Bimestre</button>
+    <button data-bimestre="2">2º Bimestre</button>
+    <button data-bimestre="3">3º Bimestre</button>
+    <button data-bimestre="4">4º Bimestre</button>
+    <button id="btn-voltar-portal">⬅ Voltar</button>
   </div>
+</div>
 
-  <script>
-    // Efeito digitação header
-    const textoTitulo = "Portal Técnico Escolar";
-    const tituloElement = document.getElementById("titulo-portal");
-    let indexTitulo = 0;
-    function digitarTexto() {
-      if(indexTitulo < textoTitulo.length){
-        tituloElement.textContent += textoTitulo.charAt(indexTitulo);
-        indexTitulo++;
-        setTimeout(digitarTexto,120);
-      }
+<script>
+  // Digitação header
+  const textoTitulo="Portal Técnico Escolar";
+  const tituloElement=document.getElementById("titulo-portal");
+  let indexTitulo=0;
+  function digitarTexto(){
+    if(indexTitulo<textoTitulo.length){
+      tituloElement.textContent+=textoTitulo.charAt(indexTitulo);
+      indexTitulo++;
+      setTimeout(digitarTexto,120);
     }
-    window.addEventListener("load", digitarTexto);
+  }
+  window.addEventListener("load",digitarTexto);
 
-    // Modal e navegação
-    const modal = document.getElementById("modal-bimestres");
-    const bimestreButtons = modal.querySelectorAll("[data-bimestre]");
-    const btnVoltar = document.getElementById("btn-voltar-portal");
-    let materiaSelecionada = "";
+  // Modal e navegação
+  const modal=document.getElementById("modal-bimestres");
+  const bimestreButtons=modal.querySelectorAll("[data-bimestre]");
+  const btnVoltar=document.getElementById("btn-voltar-portal");
+  let materiaSelecionada="";
 
-    function animateButtonsSequentially(buttons, delay = 150){
-      buttons.forEach((btn,index)=>{
-        btn.style.opacity='0';
-        btn.style.transform='translateY(15px)';
-        btn.style.animation='none';
-        setTimeout(()=>{
-          btn.style.animation=`fadeInUp 0.6s forwards`;
-          btn.style.animationDelay=`${index*delay}ms`;
-        },10);
-      });
-    }
-
-    document.querySelectorAll('.btn-aprender').forEach(botao=>{
-      botao.addEventListener('click',()=>{
-        materiaSelecionada=botao.getAttribute('data-pagina');
-        modal.classList.add("active");
-        modal.setAttribute("aria-hidden","false");
-        animateButtonsSequentially([...bimestreButtons,btnVoltar],150);
-      });
+  function animateButtonsSequentially(buttons,delay=150){
+    buttons.forEach((btn,index)=>{
+      btn.style.opacity='0';
+      btn.style.transform='translateY(15px)';
+      btn.style.animation='none';
+      setTimeout(()=>{
+        btn.style.animation=`fadeInUp 0.6s forwards`;
+        btn.style.animationDelay=`${index*delay}ms`;
+      },10);
     });
+  }
 
-    bimestreButtons.forEach(btn=>{
-      btn.addEventListener("click",()=>{
-        const bimestre=btn.getAttribute("data-bimestre");
-        if(!materiaSelecionada) return;
-        const destino=`${materiaSelecionada}${bimestre}.html`;
-        window.location.href=destino;
-      });
+  document.querySelectorAll('.btn-aprender').forEach(botao=>{
+    botao.addEventListener('click',()=>{
+      materiaSelecionada=botao.getAttribute('data-pagina');
+      modal.classList.add("active");
+      modal.setAttribute("aria-hidden","false");
+      animateButtonsSequentially([...bimestreButtons,btnVoltar],150);
     });
+  });
 
-    btnVoltar.addEventListener("click",()=>{
-      modal.classList.remove("active");
-      modal.setAttribute("aria-hidden","true");
+  bimestreButtons.forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      const bimestre=btn.getAttribute("data-bimestre");
+      if(!materiaSelecionada) return;
+      const destino=`${materiaSelecionada}${bimestre}.html`;
+      window.location.href=destino;
     });
+  });
 
-    const styleSheet=document.createElement("style");
-    styleSheet.type="text/css";
-    styleSheet.innerText=`@keyframes fadeInUp{0%{opacity:0;transform:translateY(15px);}100%{opacity:1;transform:translateY(0);}}`;
-    document.head.appendChild(styleSheet);
-  </script>
+  btnVoltar.addEventListener("click",()=>{
+    modal.classList.remove("active");
+    modal.setAttribute("aria-hidden","true");
+  });
+
+  const styleSheet=document.createElement("style");
+  styleSheet.type="text/css";
+  styleSheet.innerText=`@keyframes fadeInUp{0%{opacity:0;transform:translateY(15px);}100%{opacity:1;transform:translateY(0);}}`;
+  document.head.appendChild(styleSheet);
+</script>
 </body>
 </html>
