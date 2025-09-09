@@ -2,129 +2,222 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login - Técnico Escolar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login - Portal Técnico Escolar</title>
   <style>
-    body {
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@300;500;700&display=swap');
+
+    * {
+      box-sizing: border-box;
       margin: 0;
+      padding: 0;
+    }
+
+    body {
       font-family: 'Poppins', sans-serif;
       background: #0f2027;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    .container {
-      background: rgba(0, 255, 255, 0.05);
-      padding: 40px;
-      border-radius: 16px;
-      box-shadow: 0 0 25px #00ffff88, 0 0 25px #00ffff33 inset;
-      backdrop-filter: blur(6px);
-      text-align: center;
-      width: 320px;
-    }
-
-    h1 {
       color: #00ffff;
-      font-weight: 700;
-      margin-bottom: 30px;
+      min-height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
     }
 
-    input {
+    canvas#bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+    }
+
+    .login-box {
+      background: rgba(0, 255, 255, 0.05);
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 40px #00ffff88;
       width: 100%;
-      padding: 12px;
-      margin-bottom: 16px;
-      border: none;
-      border-radius: 8px;
-      outline: none;
-      font-size: 1em;
+      max-width: 400px;
+      animation: fadeInFloat 1s ease forwards;
+      opacity: 0;
+      transform: translateY(20px);
     }
 
-    button {
+    @keyframes fadeInFloat {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .login-box h2 {
+      text-align: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      text-shadow: 0 0 10px #00ffff;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      background: #011f2d;
+      color: #00ffff;
+      font-size: 1em;
+      box-shadow: 0 0 10px #00ffff33 inset;
+      outline: none;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
       background: linear-gradient(45deg, #00ffff, #0077ff);
       color: #000;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      width: 100%;
       font-weight: bold;
+      font-size: 1em;
       cursor: pointer;
-      box-shadow: 0 0 15px #00ffffaa;
+      box-shadow: 0 0 20px #00ffff88;
       transition: 0.3s ease;
     }
 
-    button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px #00ffff;
+    .login-box button:hover {
+      box-shadow: 0 0 30px #00ffffcc;
+      transform: scale(1.03);
     }
 
-    p {
-      margin-top: 16px;
+    .switch-mode {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 0.9rem;
     }
 
-    a {
+    .switch-mode a {
       color: #00ffff;
-      cursor: pointer;
       text-decoration: underline;
+      cursor: pointer;
     }
+
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1 id="form-title">Login</h1>
-    <input type="text" id="username" placeholder="Usuário" required />
-    <input type="password" id="password" placeholder="Senha" required />
-    <button id="action-btn">Entrar</button>
-    <p id="toggle-text">
-      Não tem conta? <a id="toggle-link">Cadastre-se</a>
-    </p>
+
+<canvas id="bgCanvas"></canvas>
+
+<div class="login-box">
+  <h2>Portal Técnico Escolar</h2>
+  <input type="text" id="username" placeholder="Digite seu nome de usuário" />
+  <input type="password" id="password" placeholder="Digite sua senha" />
+  <button onclick="login()">Entrar</button>
+  <div class="switch-mode">
+    Não tem uma conta? <a onclick="toggleMode()">Cadastrar</a>
   </div>
+</div>
 
-  <script>
-    let isLogin = true;
+<script>
+  const canvas = document.getElementById("bgCanvas");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 
-    const title = document.getElementById('form-title');
-    const actionBtn = document.getElementById('action-btn');
-    const toggleText = document.getElementById('toggle-text');
-    const toggleLink = document.getElementById('toggle-link');
+  class Particle {
+    constructor() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.size = Math.random() * 3 + 1;
+      this.speedX = Math.random() * 1 - 0.5;
+      this.speedY = Math.random() * 1 - 0.5;
+      this.color = "#00ffff";
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.x > canvas.width) this.x = 0;
+      if (this.x < 0) this.x = canvas.width;
+      if (this.y > canvas.height) this.y = 0;
+      if (this.y < 0) this.y = canvas.height;
+    }
+    draw() {
+      ctx.fillStyle = this.color;
+      ctx.shadowColor = this.color;
+      ctx.shadowBlur = 10;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
 
-    toggleLink.addEventListener('click', () => {
-      isLogin = !isLogin;
-      title.textContent = isLogin ? 'Login' : 'Cadastro';
-      actionBtn.textContent = isLogin ? 'Entrar' : 'Cadastrar';
-      toggleText.innerHTML = isLogin
-        ? 'Não tem conta? <a id="toggle-link">Cadastre-se</a>'
-        : 'Já tem conta? <a id="toggle-link">Entrar</a>';
+  let particlesArray = [];
+  for (let i = 0; i < 100; i++) {
+    particlesArray.push(new Particle());
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particlesArray.forEach(p => {
+      p.update();
+      p.draw();
     });
+    requestAnimationFrame(animate);
+  }
+  animate();
 
-    actionBtn.addEventListener('click', () => {
-      const username = document.getElementById('username').value.trim();
-      const password = document.getElementById('password').value.trim();
+  window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
 
-      if (!username || !password) {
-        alert('Preencha todos os campos!');
-        return;
-      }
+  // Simples login com localStorage
+  function login() {
+    const user = document.getElementById("username").value.trim();
+    const pass = document.getElementById("password").value.trim();
 
-      if (isLogin) {
-        const storedPass = localStorage.getItem(`user_${username}`);
-        if (storedPass === password) {
-          localStorage.setItem('loggedUser', username);
-          window.location.href = 'portal.html';
-        } else {
-          alert('Usuário ou senha incorretos!');
-        }
-      } else {
-        localStorage.setItem(`user_${username}`, password);
-        alert('Cadastro realizado com sucesso!');
-        isLogin = true;
-        title.textContent = 'Login';
-        actionBtn.textContent = 'Entrar';
-      }
-    });
-  </script>
+    if (!user || !pass) {
+      alert("Preencha todos os campos.");
+      return;
+    }
+
+    const saved = JSON.parse(localStorage.getItem("usuarios")) || [];
+    const encontrado = saved.find(u => u.nome === user && u.senha === pass);
+
+    if (encontrado) {
+      localStorage.setItem("loggedUser", user);
+      window.location.href = "portal.html";
+    } else {
+      alert("Usuário ou senha inválidos.");
+    }
+  }
+
+  // Cadastro simples direto no mesmo formulário
+  function toggleMode() {
+    const user = document.getElementById("username").value.trim();
+    const pass = document.getElementById("password").value.trim();
+
+    if (!user || !pass) {
+      alert("Preencha nome e senha para cadastrar.");
+      return;
+    }
+
+    let saved = JSON.parse(localStorage.getItem("usuarios")) || [];
+    const existe = saved.find(u => u.nome === user);
+    if (existe) {
+      alert("Usuário já existe.");
+      return;
+    }
+
+    saved.push({ nome: user, senha: pass });
+    localStorage.setItem("usuarios", JSON.stringify(saved));
+    alert("Cadastro realizado com sucesso! Agora é só logar.");
+  }
+</script>
+
 </body>
 </html>
