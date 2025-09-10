@@ -26,15 +26,29 @@ canvas#bgCanvas { position: fixed; top:0; left:0; width:100vw; height:100vh; z-i
 
 .login-box h2 { text-align:center; font-family:'Orbitron', sans-serif; font-size:1.8rem; margin-bottom:25px; text-shadow:0 0 10px #00ffff; }
 
-.password-wrapper { position: relative; width: 100%; margin-bottom:20px; }
+.password-wrapper { position: relative; width: 100%; margin-bottom:14px; }
 .password-wrapper input { width:100%; padding:14px; border-radius:12px; padding-right:40px; border:none; background:#011f2d; color:#00ffff; outline:none; }
+
 .toggle-square {
   position:absolute; right:10px; top:50%; transform:translateY(-50%);
   width:20px; height:20px; border:2px solid #00ffff; border-radius:4px; cursor:pointer; background:transparent; transition:0.3s;
 }
 .toggle-square.active { background:#00ffff; }
 
-.login-box input, .login-box button { font-size:1em; }
+.login-box input[type="text"], 
+.login-box input[type="password"] {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  margin-bottom: 14px; /* diminuir espaço entre senha e confirmar senha */
+  background: #011f2d; /* fundo igual */
+  color: #00ffff;
+  font-size: 1em;
+  box-shadow: 0 0 10px #00ffff33 inset;
+  outline: none;
+}
+
 .login-box button {
   width:100%; padding:14px; border:none; border-radius:12px;
   background:linear-gradient(45deg,#00ffff,#0077ff); color:#000; font-weight:bold; cursor:pointer;
@@ -54,109 +68,56 @@ canvas#bgCanvas { position: fixed; top:0; left:0; width:100vw; height:100vh; z-i
   <h2>Cadastro - Portal Técnico Escolar</h2>
   <input type="text" id="nome" placeholder="Nome completo" />
   <input type="text" id="turma" placeholder="Turma" />
-  
   <div class="password-wrapper">
-    <input type="password" id="senha" placeholder="Senha" autocomplete="new-password" spellcheck="false" />
-    <div class="toggle-square" id="toggleSenha"></div>
+    <input type="password" id="senha" placeholder="Senha" />
+    <div class="toggle-square"></div>
   </div>
-
   <div class="password-wrapper">
-    <input type="password" id="confirmaSenha" placeholder="Confirmar senha" autocomplete="new-password" spellcheck="false" />
-    <div class="toggle-square" id="toggleConfirma"></div>
+    <input type="password" id="confirmaSenha" placeholder="Confirmar senha" />
+    <div class="toggle-square"></div>
   </div>
-
-  <button id="btnCadastro">Cadastrar</button>
+  <button onclick="cadastrar()">Cadastrar</button>
   <div class="switch-mode">Já tem uma conta? <a href="index.html">Entrar</a></div>
 </div>
 
-<script type="module">
-  // ----- FUNDO COM PARTÍCULAS -----
-  const canvas = document.getElementById("bgCanvas");
-  const ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+<script>
+// Fundo partículas
+const canvas = document.getElementById("bgCanvas");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+class Particle { constructor(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.size=Math.random()*3+1;this.speedX=Math.random()*1-0.5;this.speedY=Math.random()*1-0.5;this.color="#00ffff";}
+update(){this.x+=this.speedX;this.y+=this.speedY;if(this.x>canvas.width)this.x=0;if(this.x<0)this.x=canvas.width;if(this.y>canvas.height)this.y=0;if(this.y<0)this.y=canvas.height;}
+draw(){ctx.fillStyle=this.color;ctx.shadowColor=this.color;ctx.shadowBlur=10;ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill();}}
+let particlesArray=[];for(let i=0;i<100;i++)particlesArray.push(new Particle());
+function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);particlesArray.forEach(p=>{p.update();p.draw();});requestAnimationFrame(animate);}
+animate();
+window.addEventListener("resize",()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
 
-  class Particle {
-    constructor() {
-      this.x = Math.random() * canvas.width;
-      this.y = Math.random() * canvas.height;
-      this.size = Math.random() * 3 + 1;
-      this.speedX = Math.random() * 1 - 0.5;
-      this.speedY = Math.random() * 1 - 0.5;
-      this.color = "#00ffff";
-    }
-    update() {
-      this.x += this.speedX;
-      this.y += this.speedY;
-      if (this.x > canvas.width) this.x = 0;
-      if (this.x < 0) this.x = canvas.width;
-      if (this.y > canvas.height) this.y = 0;
-      if (this.y < 0) this.y = canvas.height;
-    }
-    draw() {
-      ctx.fillStyle = this.color;
-      ctx.shadowColor = this.color;
-      ctx.shadowBlur = 10;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  }
-
-  let particlesArray = [];
-  for (let i = 0; i < 100; i++) particlesArray.push(new Particle());
-
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particlesArray.forEach(p => { p.update(); p.draw(); });
-    requestAnimationFrame(animate);
-  }
-  animate();
-  window.addEventListener("resize", () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
-
-  // ----- Toggle para mostrar/esconder senha -----
-  const toggleSenha = document.getElementById('toggleSenha');
-  const toggleConfirma = document.getElementById('toggleConfirma');
-  const senhaInput = document.getElementById('senha');
-  const confirmaInput = document.getElementById('confirmaSenha');
-
-  toggleSenha.addEventListener('click', () => {
-    senhaInput.type = senhaInput.type === 'password' ? 'text' : 'password';
-    toggleSenha.classList.toggle('active');
+// Toggle senha
+document.querySelectorAll('.toggle-square').forEach((square,i)=>{
+  const input = document.querySelectorAll('.password-wrapper input')[i];
+  square.addEventListener('click', ()=>{
+    input.type = input.type==='password'?'text':'password';
+    square.classList.toggle('active');
   });
+});
 
-  toggleConfirma.addEventListener('click', () => {
-    confirmaInput.type = confirmaInput.type === 'password' ? 'text' : 'password';
-    toggleConfirma.classList.toggle('active');
-  });
-
-  // ----- Cadastro local -----
-  function cadastrarLocal(nome, turma, senha) {
-    let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-    if (usuarios.find(u => u.nome === nome)) { alert("Usuário já existe."); return false; }
-    usuarios.push({ nome, turma, senha });
-    localStorage.setItem("usuarios", JSON.stringify(usuarios));
-    localStorage.setItem("lastCadastro", JSON.stringify({ nome, senha }));
-    return true;
-  }
-
-  // ----- Evento de cadastro -----
-  const btnCadastro = document.getElementById("btnCadastro");
-  btnCadastro.addEventListener("click", () => {
-    const nome = document.getElementById("nome").value.trim();
-    const turma = document.getElementById("turma").value.trim();
-    const senha = senhaInput.value.trim();
-    const confirmaSenha = confirmaInput.value.trim();
-
-    if (!nome || !turma || !senha || !confirmaSenha) { alert("Preencha todos os campos."); return; }
-    if (senha !== confirmaSenha) { alert("As senhas não conferem."); return; }
-
-    if (cadastrarLocal(nome, turma, senha)) {
-      alert("Cadastro realizado com sucesso!");
-      window.location.href = "index.html";
-    }
-  });
+// Cadastro local
+function cadastrar(){
+  const nome=document.getElementById('nome').value.trim();
+  const turma=document.getElementById('turma').value.trim();
+  const senha=document.getElementById('senha').value.trim();
+  const confirmaSenha=document.getElementById('confirmaSenha').value.trim();
+  if(!nome || !turma || !senha || !confirmaSenha){alert('Preencha todos os campos.'); return;}
+  if(senha!==confirmaSenha){alert('As senhas não conferem.'); return;}
+  let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+  if(usuarios.find(u=>u.nome===nome)){alert('Usuário já existe.'); return;}
+  usuarios.push({nome,turma,senha});
+  localStorage.setItem('usuarios',JSON.stringify(usuarios));
+  localStorage.setItem('lastCadastro',JSON.stringify({nome,senha}));
+  alert('Cadastro realizado com sucesso!');
+  window.location.href='index.html';
+}
 </script>
-
 </body>
 </html>
