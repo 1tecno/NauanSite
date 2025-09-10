@@ -28,13 +28,26 @@ canvas#bgCanvas { position: fixed; top:0; left:0; width:100vw; height:100vh; z-i
 
 .password-wrapper { position: relative; width: 100%; margin-bottom:20px; }
 .password-wrapper input { width:100%; padding:14px; border-radius:12px; padding-right:40px; border:none; background:#011f2d; color:#00ffff; outline:none; }
+
 .toggle-square {
   position:absolute; right:10px; top:50%; transform:translateY(-50%);
   width:20px; height:20px; border:2px solid #00ffff; border-radius:4px; cursor:pointer; background:transparent; transition:0.3s;
 }
 .toggle-square.active { background:#00ffff; }
 
-.login-box input, .login-box button { font-size:1em; }
+.login-box input[type="text"], .login-box input[type="password"] {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  margin-bottom: 20px;
+  background: #011f2d; /* fundo igual da senha */
+  color: #00ffff;
+  font-size: 1em;
+  box-shadow: 0 0 10px #00ffff33 inset;
+  outline: none;
+}
+
 .login-box button {
   width:100%; padding:14px; border:none; border-radius:12px;
   background:linear-gradient(45deg,#00ffff,#0077ff); color:#000; font-weight:bold; cursor:pointer;
@@ -57,95 +70,49 @@ canvas#bgCanvas { position: fixed; top:0; left:0; width:100vw; height:100vh; z-i
     <input type="password" id="password" placeholder="Digite sua senha" />
     <div class="toggle-square"></div>
   </div>
-  <button id="btnLogin">Entrar</button>
+  <button onclick="login()">Entrar</button>
   <div class="switch-mode">
     Não tem uma conta? <a href="cadastro.html">Cadastrar</a>
   </div>
 </div>
 
 <script>
-  // ----- FUNDO COM PARTÍCULAS -----
-  const canvas = document.getElementById("bgCanvas");
-  const ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+const canvas = document.getElementById("bgCanvas");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth; canvas.height = window.innerHeight;
 
-  class Particle {
-    constructor() {
-      this.x = Math.random() * canvas.width;
-      this.y = Math.random() * canvas.height;
-      this.size = Math.random() * 3 + 1;
-      this.speedX = Math.random() * 1 - 0.5;
-      this.speedY = Math.random() * 1 - 0.5;
-      this.color = "#00ffff";
-    }
-    update() {
-      this.x += this.speedX;
-      this.y += this.speedY;
-      if (this.x > canvas.width) this.x = 0;
-      if (this.x < 0) this.x = canvas.width;
-      if (this.y > canvas.height) this.y = 0;
-      if (this.y < 0) this.y = canvas.height;
-    }
-    draw() {
-      ctx.fillStyle = this.color;
-      ctx.shadowColor = this.color;
-      ctx.shadowBlur = 10;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  }
+class Particle {
+  constructor(){this.x=Math.random()*canvas.width; this.y=Math.random()*canvas.height; this.size=Math.random()*3+1; this.speedX=Math.random()*1-0.5; this.speedY=Math.random()*1-0.5; this.color="#00ffff";}
+  update(){this.x+=this.speedX; this.y+=this.speedY; if(this.x>canvas.width)this.x=0;if(this.x<0)this.x=canvas.width;if(this.y>canvas.height)this.y=0;if(this.y<0)this.y=canvas.height;}
+  draw(){ctx.fillStyle=this.color; ctx.shadowColor=this.color; ctx.shadowBlur=10; ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill();}
+}
+let particlesArray=[];for(let i=0;i<100;i++)particlesArray.push(new Particle());
+function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);particlesArray.forEach(p=>{p.update();p.draw();});requestAnimationFrame(animate);}
+animate();
+window.addEventListener("resize",()=>{canvas.width=window.innerWidth; canvas.height=window.innerHeight;});
 
-  let particlesArray = [];
-  for (let i = 0; i < 100; i++) particlesArray.push(new Particle());
+// Toggle mostrar senha
+const toggleSquare = document.querySelector('.toggle-square');
+const senhaInput = document.getElementById('password');
+toggleSquare.addEventListener('click', ()=>{
+  senhaInput.type = senhaInput.type==='password'?'text':'password';
+  toggleSquare.classList.toggle('active');
+});
 
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particlesArray.forEach(p => { p.update(); p.draw(); });
-    requestAnimationFrame(animate);
-  }
-  animate();
-  window.addEventListener("resize", () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  });
+// Login local
+function login() {
+  const user = document.getElementById("username").value.trim();
+  const pass = document.getElementById("password").value.trim();
+  if (!user || !pass) { alert("Preencha todos os campos."); return; }
+  const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+  const encontrado = usuarios.find(u => u.nome===user && u.senha===pass);
+  if (encontrado) { localStorage.setItem("loggedUser", JSON.stringify(encontrado)); window.location.href="portal.html"; }
+  else { alert("Usuário ou senha inválidos."); }
+}
 
-  // ----- Toggle para mostrar/esconder senha -----
-  const toggleSquare = document.querySelector('.toggle-square');
-  const senhaInput = document.getElementById('password');
-  toggleSquare.addEventListener('click', () => {
-    senhaInput.type = senhaInput.type === 'password' ? 'text' : 'password';
-    toggleSquare.classList.toggle('active');
-  });
-
-  // ----- Preencher automaticamente após cadastro -----
-  const lastCadastro = JSON.parse(localStorage.getItem("lastCadastro"));
-  if (lastCadastro) {
-    document.getElementById("username").value = lastCadastro.nome;
-    senhaInput.value = lastCadastro.senha;
-    localStorage.removeItem("lastCadastro");
-  }
-
-  // ----- LOGIN LOCAL -----
-  const btnLogin = document.getElementById("btnLogin");
-  btnLogin.addEventListener("click", () => {
-    const user = document.getElementById("username").value.trim();
-    const pass = senhaInput.value.trim();
-
-    if (!user || !pass) { alert("Preencha todos os campos."); return; }
-
-    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-    const encontrado = usuarios.find(u => u.nome === user && u.senha === pass);
-
-    if (encontrado) {
-      localStorage.setItem("loggedUser", JSON.stringify(encontrado));
-      window.location.href = "portal.html";
-    } else {
-      alert("Usuário ou senha inválidos.");
-    }
-  });
+// Preencher automaticamente após cadastro
+const lastCadastro = JSON.parse(localStorage.getItem("lastCadastro"));
+if(lastCadastro){document.getElementById("username").value = lastCadastro.nome; senhaInput.value = lastCadastro.senha; localStorage.removeItem("lastCadastro");}
 </script>
-
 </body>
 </html>
