@@ -52,65 +52,99 @@ canvas#bgCanvas { position: fixed; top:0; left:0; width:100vw; height:100vh; z-i
 
 <div class="login-box">
   <h2>Portal Técnico Escolar</h2>
-  <input type="email" id="email" placeholder="Email" />
+  <input type="text" id="username" placeholder="Digite seu nome de usuário" />
   <div class="password-wrapper">
-    <input type="password" id="senha" placeholder="Senha" />
+    <input type="password" id="password" placeholder="Digite sua senha" />
     <div class="toggle-square"></div>
   </div>
-  <button id="loginBtn">Entrar</button>
-  <button id="loginGoogleBtn" style="margin-top:10px;">Entrar com Google</button>
+  <button id="btnLogin">Entrar</button>
   <div class="switch-mode">
     Não tem uma conta? <a href="cadastro.html">Cadastrar</a>
   </div>
 </div>
 
-<script type="module">
-import { auth } from "./firebase-config.js";
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+<script>
+  // ----- FUNDO COM PARTÍCULAS -----
+  const canvas = document.getElementById("bgCanvas");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 
-// Fundo partículas
-const canvas = document.getElementById("bgCanvas");
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+  class Particle {
+    constructor() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.size = Math.random() * 3 + 1;
+      this.speedX = Math.random() * 1 - 0.5;
+      this.speedY = Math.random() * 1 - 0.5;
+      this.color = "#00ffff";
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.x > canvas.width) this.x = 0;
+      if (this.x < 0) this.x = canvas.width;
+      if (this.y > canvas.height) this.y = 0;
+      if (this.y < 0) this.y = canvas.height;
+    }
+    draw() {
+      ctx.fillStyle = this.color;
+      ctx.shadowColor = this.color;
+      ctx.shadowBlur = 10;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
 
-class Particle { constructor(){this.x=Math.random()*canvas.width;this.y=Math.random()*canvas.height;this.size=Math.random()*3+1;this.speedX=Math.random()*1-0.5;this.speedY=Math.random()*1-0.5;this.color="#00ffff";}
-update(){this.x+=this.speedX;this.y+=this.speedY;if(this.x>canvas.width)this.x=0;if(this.x<0)this.x=canvas.width;if(this.y>canvas.height)this.y=0;if(this.y<0)this.y=canvas.height;}
-draw(){ctx.fillStyle=this.color;ctx.shadowColor=this.color;ctx.shadowBlur=10;ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill();}}
-let particlesArray=[];for(let i=0;i<100;i++)particlesArray.push(new Particle());
-function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);particlesArray.forEach(p=>{p.update();p.draw();});requestAnimationFrame(animate);}
-animate();
-window.addEventListener("resize",()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
+  let particlesArray = [];
+  for (let i = 0; i < 100; i++) particlesArray.push(new Particle());
 
-// Toggle olho
-const toggleSquare = document.querySelector('.toggle-square');
-const senhaInput = document.getElementById('senha');
-toggleSquare.addEventListener('click', ()=>{
-  senhaInput.type = senhaInput.type==='password'?'text':'password';
-  toggleSquare.classList.toggle('active');
-});
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particlesArray.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animate);
+  }
+  animate();
+  window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
 
-// Login Email/Senha
-document.getElementById('loginBtn').addEventListener('click', ()=>{
-  const email = document.getElementById('email').value.trim();
-  const senha = senhaInput.value.trim();
-  if(!email || !senha){ alert("Preencha todos os campos."); return; }
-  signInWithEmailAndPassword(auth,email,senha)
-    .then(res=>{
-      localStorage.setItem('loggedUser', JSON.stringify({ email:res.user.email, nome:res.user.displayName||res.user.email }));
-      window.location.href="portal.html";
-    })
-    .catch(err=>alert("Erro: "+err.message));
-});
+  // ----- Toggle para mostrar/esconder senha -----
+  const toggleSquare = document.querySelector('.toggle-square');
+  const senhaInput = document.getElementById('password');
+  toggleSquare.addEventListener('click', () => {
+    senhaInput.type = senhaInput.type === 'password' ? 'text' : 'password';
+    toggleSquare.classList.toggle('active');
+  });
 
-// Login Google
-document.getElementById('loginGoogleBtn').addEventListener('click', async ()=>{
-  const provider = new GoogleAuthProvider();
-  try{
-    const result = await signInWithPopup(auth,provider);
-    localStorage.setItem('loggedUser', JSON.stringify({ email:result.user.email, nome:result.user.displayName }));
-    window.location.href="portal.html";
-  }catch(err){ alert("Erro: "+err.message); }
-});
+  // ----- Preencher automaticamente após cadastro -----
+  const lastCadastro = JSON.parse(localStorage.getItem("lastCadastro"));
+  if (lastCadastro) {
+    document.getElementById("username").value = lastCadastro.nome;
+    senhaInput.value = lastCadastro.senha;
+    localStorage.removeItem("lastCadastro");
+  }
+
+  // ----- LOGIN LOCAL -----
+  const btnLogin = document.getElementById("btnLogin");
+  btnLogin.addEventListener("click", () => {
+    const user = document.getElementById("username").value.trim();
+    const pass = senhaInput.value.trim();
+
+    if (!user || !pass) { alert("Preencha todos os campos."); return; }
+
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    const encontrado = usuarios.find(u => u.nome === user && u.senha === pass);
+
+    if (encontrado) {
+      localStorage.setItem("loggedUser", JSON.stringify(encontrado));
+      window.location.href = "portal.html";
+    } else {
+      alert("Usuário ou senha inválidos.");
+    }
+  });
 </script>
 
 </body>
