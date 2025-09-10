@@ -1,24 +1,90 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Portal Técnico Escolar</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@300;500;700&display=swap');
-  body { font-family:'Poppins',sans-serif; background:#0f2027; color:#cce7ff; margin:0; min-height:100vh; display:flex; flex-direction:column; }
-  header { background:#022c49; padding:15px 30px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 0 30px #00ffff88 inset; }
-  header h2 { font-family:'Orbitron',sans-serif; color:#00ffff; margin:0; font-weight:700; }
-  #logout-btn { background:#ff0055; border:none; padding:10px 22px; border-radius:12px; cursor:pointer; color:#fff; font-weight:700; box-shadow:0 0 15px #ff0055; transition:0.3s ease; }
-  #logout-btn:hover { box-shadow:0 0 25px #ff0077; transform:scale(1.05); }
-  main { flex-grow:1; padding:30px 40px; }
-  h1 { font-family:'Orbitron',sans-serif; font-weight:700; font-size:2.4rem; color:#00ffff; margin-bottom:20px; text-shadow:0 0 15px #00ffff; }
-  .materia-list { display:flex; flex-direction:column; gap:20px; max-width:700px; }
-  .materia-item { background: rgba(0,255,255,0.1); border-radius:16px; padding:20px 25px; box-shadow:0 0 30px #00ffff33 inset; cursor:pointer; transition:0.3s ease; }
-  .materia-item:hover { background: rgba(0,255,255,0.25); }
-  .materia-item h3 { margin:0; color:#00e6ff; font-weight:600; }
-  footer { text-align:center; padding:15px 20px; background:#022c49; color:#00ffff88; font-size:0.9rem; }
-  canvas#bgCanvas { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; }
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@300;500;700&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #0f2027; color: #cce7ff;
+  margin: 0; min-height: 100vh; overflow-x: hidden;
+  display: flex; flex-direction: column;
+}
+
+header {
+  background: #022c49; padding: 15px 30px;
+  display: flex; justify-content: space-between; align-items: center;
+  box-shadow: 0 0 30px #00ffff88 inset;
+}
+
+header h2 {
+  font-family: 'Orbitron', sans-serif;
+  color: #00ffff; margin: 0; font-weight: 700;
+}
+
+#logout-btn {
+  background: #ff0055; border: none; padding: 10px 22px;
+  border-radius: 12px; cursor: pointer; color: #fff;
+  font-weight: 700; box-shadow: 0 0 15px #ff0055; transition: 0.3s ease;
+}
+#logout-btn:hover { box-shadow: 0 0 25px #ff0077; transform: scale(1.05); }
+
+main { flex-grow: 1; padding: 30px 40px; }
+
+h1 {
+  font-family: 'Orbitron', sans-serif; font-weight: 700;
+  font-size: 2.4rem; color: #00ffff; margin-bottom: 20px;
+  text-shadow: 0 0 15px #00ffff;
+}
+
+.materia-list {
+  display: flex; flex-direction: column; gap: 20px; max-width: 700px;
+}
+
+.materia-item {
+  background: rgba(0, 255, 255, 0.1);
+  border-radius: 16px; padding: 20px 25px;
+  box-shadow: 0 0 30px #00ffff33 inset;
+  cursor: pointer; transition: 0.3s ease;
+}
+.materia-item:hover { background: rgba(0, 255, 255, 0.25); }
+
+.materia-item h3 { margin: 0; color: #00e6ff; font-weight: 600; }
+
+footer {
+  text-align: center; padding: 15px 20px;
+  background: #022c49; color: #00ffff88; font-size: 0.9rem;
+}
+
+canvas#bgCanvas {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+}
+
+#modal-bimestres {
+  position: fixed; top:0; left:0; width:100vw; height:100vh;
+  background: rgba(0,0,0,0.85); backdrop-filter: blur(5px);
+  display:none; align-items:center; justify-content:center; z-index:999;
+}
+#modal-bimestres.active { display:flex; }
+
+#modal-content {
+  background: rgba(0,255,255,0.05); padding:30px 40px;
+  border-radius:20px; box-shadow:0 0 50px #00ffffaa;
+  color:#00ffff; text-align:center;
+}
+#modal-content h2 { margin-bottom:20px; }
+#modal-content button {
+  display:block; width:100%; margin-top:10px; padding:12px;
+  border:none; border-radius:12px; font-weight:bold;
+  background:linear-gradient(45deg,#00ffff,#0077ff);
+  color:#000; cursor:pointer; box-shadow:0 0 15px #00ffff88;
+  transition:0.3s ease;
+}
+#modal-content button:hover { transform:scale(1.05); box-shadow:0 0 25px #00ffffcc; }
+
 </style>
 </head>
 <body>
@@ -44,51 +110,107 @@
   </section>
 </main>
 
-<footer>&copy; 2025 Técnico Escolar</footer>
+<footer>&copy; 2025 Técnico Escolar - Todos os direitos reservados.</footer>
 
-<script type="module">
-  import { auth } from "./firebase-config.js";
-  import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+<div id="modal-bimestres">
+  <div id="modal-content">
+    <h2>Escolha o Bimestre</h2>
+    <button data-bimestre="1">1º Bimestre</button>
+    <button data-bimestre="2">2º Bimestre</button>
+    <button data-bimestre="3">3º Bimestre</button>
+    <button data-bimestre="4">4º Bimestre</button>
+    <button onclick="fecharModal()">Cancelar</button>
+  </div>
+</div>
 
-  // Fundo de partículas
+<script>
+  // Verifica login
+  const loggedUser = JSON.parse(localStorage.getItem('loggedUser'));
+  const userNameSpan = document.getElementById('user-name');
+  if (!loggedUser) {
+    alert('Você precisa estar logado!');
+    window.location.href = 'index.html';
+  } else {
+    userNameSpan.textContent = `${loggedUser.nome} - Turma ${loggedUser.turma}`;
+  }
+
+  // Logout
+  document.getElementById('logout-btn').addEventListener('click', () => {
+    localStorage.removeItem('loggedUser');
+    window.location.href = 'index.html';
+  });
+
+  // Modal
+  const modal = document.getElementById('modal-bimestres');
+  let materiaSelecionada = '';
+  document.querySelectorAll('.materia-item').forEach(item => {
+    item.addEventListener('click', () => {
+      materiaSelecionada = item.getAttribute('data-materia');
+      modal.classList.add('active');
+    });
+  });
+
+  document.querySelectorAll('#modal-content button[data-bimestre]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const bimestre = btn.getAttribute('data-bimestre');
+      if (materiaSelecionada) {
+        const destino = `${materiaSelecionada}${bimestre}.html`;
+        window.location.href = destino;
+      }
+    });
+  });
+
+  function fecharModal() {
+    modal.classList.remove('active');
+    materiaSelecionada = '';
+  }
+
+  // Partículas no fundo
   const canvas = document.getElementById("bgCanvas");
   const ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
 
   class Particle {
     constructor() {
-      this.x=Math.random()*canvas.width;
-      this.y=Math.random()*canvas.height;
-      this.size=Math.random()*3+1;
-      this.speedX=Math.random()*1-0.5;
-      this.speedY=Math.random()*1-0.5;
-      this.color="#00ffff";
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.size = Math.random() * 3 + 1;
+      this.speedX = Math.random() * 1 - 0.5;
+      this.speedY = Math.random() * 1 - 0.5;
+      this.color = "#00ffff";
     }
-    update() { this.x+=this.speedX; this.y+=this.speedY; if(this.x>canvas.width)this.x=0; if(this.x<0)this.x=canvas.width; if(this.y>canvas.height)this.y=0; if(this.y<0)this.y=canvas.height; }
-    draw(){ ctx.fillStyle=this.color; ctx.shadowColor=this.color; ctx.shadowBlur=10; ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill(); }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.x > canvas.width) this.x = 0;
+      if (this.x < 0) this.x = canvas.width;
+      if (this.y > canvas.height) this.y = 0;
+      if (this.y < 0) this.y = canvas.height;
+    }
+    draw() {
+      ctx.fillStyle = this.color;
+      ctx.shadowColor = this.color;
+      ctx.shadowBlur = 10;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
   }
 
-  const particles = [];
-  for(let i=0;i<100;i++) particles.push(new Particle());
-  function animate(){ ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{p.update(); p.draw();}); requestAnimationFrame(animate); }
+  let particlesArray = [];
+  for (let i = 0; i < 100; i++) particlesArray.push(new Particle());
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particlesArray.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animate);
+  }
   animate();
-  window.addEventListener("resize",()=>{canvas.width=window.innerWidth; canvas.height=window.innerHeight;});
-
-  // Login Firebase
-  const userNameSpan = document.getElementById("user-name");
-  onAuthStateChanged(auth, user => {
-    if(user){
-      userNameSpan.textContent = user.email;
-    } else {
-      alert("Você precisa estar logado!");
-      window.location.href="index.html";
-    }
+  window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
   });
 
-  document.getElementById("logout-btn").addEventListener("click",()=>{
-    signOut(auth).then(()=>{ window.location.href="index.html"; });
-  });
 </script>
 
 </body>
