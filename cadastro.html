@@ -60,55 +60,104 @@
   <div class="switch-mode">Já tem uma conta? <a href="index.html">Entrar</a></div>
 </div>
 
-<script>
+<script type="module">
+  // ----- FUNDO COM PARTÍCULAS -----
   const canvas = document.getElementById("bgCanvas");
   const ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 
   class Particle {
     constructor() {
-      this.x=Math.random()*canvas.width; this.y=Math.random()*canvas.height;
-      this.size=Math.random()*3+1;
-      this.speedX=Math.random()*1-0.5; this.speedY=Math.random()*1-0.5;
-      this.color="#00ffff";
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.size = Math.random() * 3 + 1;
+      this.speedX = Math.random() * 1 - 0.5;
+      this.speedY = Math.random() * 1 - 0.5;
+      this.color = "#00ffff";
     }
-    update(){ this.x+=this.speedX; this.y+=this.speedY;
-      if(this.x>canvas.width) this.x=0;
-      if(this.x<0) this.x=canvas.width;
-      if(this.y>canvas.height) this.y=0;
-      if(this.y<0) this.y=canvas.height;
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.x > canvas.width) this.x = 0;
+      if (this.x < 0) this.x = canvas.width;
+      if (this.y > canvas.height) this.y = 0;
+      if (this.y < 0) this.y = canvas.height;
     }
-    draw(){ ctx.fillStyle=this.color; ctx.shadowColor=this.color; ctx.shadowBlur=10;
-      ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill();
+    draw() {
+      ctx.fillStyle = this.color;
+      ctx.shadowColor = this.color;
+      ctx.shadowBlur = 10;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
     }
   }
 
-  let particlesArray=[]; for(let i=0;i<100;i++) particlesArray.push(new Particle());
-  function animate(){ ctx.clearRect(0,0,canvas.width,canvas.height); particlesArray.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animate);}
+  let particlesArray = [];
+  for (let i = 0; i < 100; i++) particlesArray.push(new Particle());
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particlesArray.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animate);
+  }
   animate();
 
-  window.addEventListener("resize",()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
+  window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
 
-  function cadastrar(){
-    const nome = document.getElementById("nome").value.trim();
-    const turma = document.getElementById("turma").value.trim();
-    const senha = document.getElementById("senha").value.trim();
-    const confirmaSenha = document.getElementById("confirmaSenha").value.trim();
-
-    if(!nome||!turma||!senha||!confirmaSenha){ alert("Preencha todos os campos."); return; }
-    if(senha !== confirmaSenha){ alert("As senhas não conferem."); return; }
-
-    let usuarios = JSON.parse(localStorage.getItem("usuarios"))||[];
-    if(usuarios.find(u=>u.nome===nome)){ alert("Usuário já existe."); return; }
-
+  // ----- CADASTRO LOCAL -----
+  function cadastrarLocal(nome, turma, senha) {
+    let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    if (usuarios.find(u => u.nome === nome)) {
+      alert("Usuário já existe.");
+      return false;
+    }
     usuarios.push({ nome, turma, senha });
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
-
-    // salva temporariamente para login automático
     localStorage.setItem("lastCadastro", JSON.stringify({ nome, senha }));
-    alert("Cadastro realizado com sucesso!");
-    window.location.href="index.html";
+    return true;
   }
+
+  // ----- CADASTRO FIREBASE -----
+  import { auth } from "./firebase-config.js";
+  import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+  const btnCadastro = document.getElementById("btnCadastro");
+  btnCadastro.addEventListener("click", () => {
+    const nome = document.getElementById("nome")?.value.trim() || "";
+    const turma = document.getElementById("turma")?.value.trim() || "";
+    const email = document.getElementById("email")?.value.trim() || "";
+    const senha = document.getElementById("senha")?.value.trim() || "";
+    const confirmaSenha = document.getElementById("confirmaSenha")?.value.trim() || "";
+
+    // Validações
+    if (!nome && !email) { alert("Preencha todos os campos."); return; }
+    if (senha !== confirmaSenha) { alert("As senhas não conferem."); return; }
+
+    // Cadastro local
+    if (nome && turma) {
+      if (!cadastrarLocal(nome, turma, senha)) return;
+      alert("Cadastro local realizado com sucesso!");
+    }
+
+    // Cadastro Firebase
+    if (email) {
+      createUserWithEmailAndPassword(auth, email, senha)
+        .then(userCredential => {
+          alert("Cadastro Firebase feito com sucesso!");
+          window.location.href = "index.html";
+        })
+        .catch(error => {
+          alert("Erro Firebase: " + error.message);
+        });
+    } else {
+      window.location.href = "index.html";
+    }
+  });
 </script>
 
 </body>
