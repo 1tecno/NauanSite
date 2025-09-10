@@ -7,41 +7,30 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@300;500;700&display=swap');
     * { box-sizing: border-box; margin:0; padding:0; }
-
     body {
       font-family: 'Poppins', sans-serif;
       background: #0f2027; color:#00ffff;
       min-height:100vh; overflow:hidden;
       display:flex; align-items:center; justify-content:center; padding:20px; position:relative;
     }
-
     canvas#bgCanvas { position: fixed; top:0; left:0; width:100vw; height:100vh; z-index:-1; }
-
     .login-box {
       background: rgba(0,255,255,0.05); padding:40px 30px; border-radius:20px;
       box-shadow:0 0 40px #00ffff88; width:100%; max-width:400px;
       animation: fadeInFloat 1s ease forwards; opacity:0; transform:translateY(20px);
     }
-
     @keyframes fadeInFloat { to { opacity:1; transform:translateY(0); } }
-
     .login-box h2 { text-align:center; font-family:'Orbitron', sans-serif; font-size:1.8rem; margin-bottom:25px; text-shadow:0 0 10px #00ffff; }
-
     .login-box input {
       width:100%; padding:14px; border:none; margin-bottom:20px; border-radius:12px;
       background:#011f2d; color:#00ffff; font-size:1em; box-shadow:0 0 10px #00ffff33 inset; outline:none;
     }
-
-    .login-box input[type="password"] { autocomplete:new-password; spellcheck:false; }
-
     .login-box button {
       width:100%; padding:14px; border:none; border-radius:12px;
       background: linear-gradient(45deg,#00ffff,#0077ff); color:#000; font-weight:bold; font-size:1em;
       cursor:pointer; box-shadow:0 0 20px #00ffff88; transition:0.3s ease;
     }
-
     .login-box button:hover { box-shadow:0 0 30px #00ffffcc; transform:scale(1.03); }
-
     .switch-mode { text-align:center; margin-top:15px; font-size:0.9rem; }
     .switch-mode a { color:#00ffff; cursor:pointer; text-decoration:underline; }
   </style>
@@ -54,14 +43,15 @@
   <h2>Cadastro - Portal Técnico Escolar</h2>
   <input type="text" id="nome" placeholder="Nome completo" />
   <input type="text" id="turma" placeholder="Turma" />
+  <input type="email" id="email" placeholder="Email" />
   <input type="password" id="senha" placeholder="Senha" autocomplete="new-password" spellcheck="false" />
   <input type="password" id="confirmaSenha" placeholder="Confirmar senha" autocomplete="new-password" spellcheck="false" />
-  <button onclick="cadastrar()">Cadastrar</button>
+  <button type="button" id="btnCadastro">Cadastrar</button>
   <div class="switch-mode">Já tem uma conta? <a href="index.html">Entrar</a></div>
 </div>
 
 <script type="module">
-  // ----- FUNDO COM PARTÍCULAS -----
+  // ===== FUNDO COM PARTÍCULAS =====
   const canvas = document.getElementById("bgCanvas");
   const ctx = canvas.getContext("2d");
   canvas.width = window.innerWidth;
@@ -77,8 +67,7 @@
       this.color = "#00ffff";
     }
     update() {
-      this.x += this.speedX;
-      this.y += this.speedY;
+      this.x += this.speedX; this.y += this.speedY;
       if (this.x > canvas.width) this.x = 0;
       if (this.x < 0) this.x = canvas.width;
       if (this.y > canvas.height) this.y = 0;
@@ -109,54 +98,55 @@
     canvas.height = window.innerHeight;
   });
 
-  // ----- CADASTRO LOCAL -----
-  function cadastrarLocal(nome, turma, senha) {
+  // ===== CADASTRO LOCAL =====
+  function cadastrarLocal(nome, turma, senha, email="") {
     let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
     if (usuarios.find(u => u.nome === nome)) {
       alert("Usuário já existe.");
       return false;
     }
-    usuarios.push({ nome, turma, senha });
+    const newUser = { nome, turma, senha };
+    if (email) newUser.email = email;
+    usuarios.push(newUser);
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
-    localStorage.setItem("lastCadastro", JSON.stringify({ nome, senha }));
+    localStorage.setItem("loggedUser", JSON.stringify(newUser));
     return true;
   }
 
-  // ----- CADASTRO FIREBASE -----
+  // ===== CADASTRO FIREBASE =====
   import { auth } from "./firebase-config.js";
   import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
   const btnCadastro = document.getElementById("btnCadastro");
   btnCadastro.addEventListener("click", () => {
-    const nome = document.getElementById("nome")?.value.trim() || "";
-    const turma = document.getElementById("turma")?.value.trim() || "";
-    const email = document.getElementById("email")?.value.trim() || "";
-    const senha = document.getElementById("senha")?.value.trim() || "";
-    const confirmaSenha = document.getElementById("confirmaSenha")?.value.trim() || "";
+    const nome = document.getElementById("nome").value.trim();
+    const turma = document.getElementById("turma").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const senha = document.getElementById("senha").value.trim();
+    const confirmaSenha = document.getElementById("confirmaSenha").value.trim();
 
-    // Validações
-    if (!nome && !email) { alert("Preencha todos os campos."); return; }
-    if (senha !== confirmaSenha) { alert("As senhas não conferem."); return; }
+    if (!nome || !turma || !email || !senha || !confirmaSenha) {
+      alert("Preencha todos os campos.");
+      return;
+    }
+
+    if (senha !== confirmaSenha) {
+      alert("As senhas não conferem.");
+      return;
+    }
 
     // Cadastro local
-    if (nome && turma) {
-      if (!cadastrarLocal(nome, turma, senha)) return;
-      alert("Cadastro local realizado com sucesso!");
-    }
+    if (!cadastrarLocal(nome, turma, senha, email)) return;
 
     // Cadastro Firebase
-    if (email) {
-      createUserWithEmailAndPassword(auth, email, senha)
-        .then(userCredential => {
-          alert("Cadastro Firebase feito com sucesso!");
-          window.location.href = "index.html";
-        })
-        .catch(error => {
-          alert("Erro Firebase: " + error.message);
-        });
-    } else {
-      window.location.href = "index.html";
-    }
+    createUserWithEmailAndPassword(auth, email, senha)
+      .then(userCredential => {
+        alert("Cadastro realizado com sucesso!");
+        window.location.href = "portal.html";
+      })
+      .catch(error => {
+        alert("Erro Firebase: " + error.message);
+      });
   });
 </script>
 
