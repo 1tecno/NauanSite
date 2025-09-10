@@ -105,7 +105,6 @@
       text-decoration: underline;
       cursor: pointer;
     }
-
   </style>
 </head>
 <body>
@@ -113,12 +112,13 @@
 <canvas id="bgCanvas"></canvas>
 
 <div class="login-box">
-  <h2>Portal Técnico Escolar</h2>
+  <h2 id="form-title">Portal Técnico Escolar</h2>
   <input type="text" id="username" placeholder="Digite seu nome de usuário" />
   <input type="password" id="password" placeholder="Digite sua senha" />
-  <button onclick="login()">Entrar</button>
+  <button id="actionBtn" onclick="handleAction()">Entrar</button>
   <div class="switch-mode">
-    Não tem uma conta? <a onclick="toggleMode()">Cadastrar</a>
+    <span id="switchText">Não tem uma conta? </span>
+    <a onclick="toggleMode()">Cadastrar</a>
   </div>
 </div>
 
@@ -175,7 +175,19 @@
     canvas.height = window.innerHeight;
   });
 
-  // Simples login com localStorage
+  // =============================
+  // Lógica de Login / Cadastro
+  // =============================
+  let isLogin = true; // começa no modo login
+
+  function handleAction() {
+    if (isLogin) {
+      login();
+    } else {
+      cadastrar();
+    }
+  }
+
   function login() {
     const user = document.getElementById("username").value.trim();
     const pass = document.getElementById("password").value.trim();
@@ -190,24 +202,24 @@
 
     if (encontrado) {
       localStorage.setItem("loggedUser", user);
-      window.location.href = "portal.html";
+      window.location.href = "portal.html"; // redireciona após login
     } else {
       alert("Usuário ou senha inválidos.");
     }
   }
 
-  // Cadastro simples direto no mesmo formulário
-  function toggleMode() {
+  function cadastrar() {
     const user = document.getElementById("username").value.trim();
     const pass = document.getElementById("password").value.trim();
 
     if (!user || !pass) {
-      alert("Preencha nome e senha para cadastrar.");
+      alert("Preencha todos os campos.");
       return;
     }
 
     let saved = JSON.parse(localStorage.getItem("usuarios")) || [];
     const existe = saved.find(u => u.nome === user);
+
     if (existe) {
       alert("Usuário já existe.");
       return;
@@ -215,7 +227,20 @@
 
     saved.push({ nome: user, senha: pass });
     localStorage.setItem("usuarios", JSON.stringify(saved));
-    alert("Cadastro realizado com sucesso! Agora é só logar.");
+    alert("Cadastro realizado com sucesso! Agora faça login.");
+    toggleMode(); // volta pro modo login
+  }
+
+  function toggleMode() {
+    isLogin = !isLogin;
+    document.getElementById("form-title").innerText = isLogin ? "Login - Portal Técnico Escolar" : "Cadastro - Portal Técnico Escolar";
+    document.getElementById("actionBtn").innerText = isLogin ? "Entrar" : "Cadastrar";
+    document.getElementById("switchText").innerText = isLogin ? "Não tem uma conta? " : "Já tem uma conta? ";
+  }
+
+  // Se já estiver logado, pula direto pro portal
+  if (localStorage.getItem("loggedUser")) {
+    window.location.href = "portal.html";
   }
 </script>
 
