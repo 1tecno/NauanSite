@@ -59,6 +59,11 @@
       outline: none;
     }
 
+    .login-box input[type="password"] {
+      autocomplete: new-password;
+      spellcheck: false;
+    }
+
     .login-box button {
       width: 100%; padding: 14px;
       border: none; border-radius: 12px;
@@ -90,8 +95,8 @@
   <h2>Cadastro - Portal Técnico Escolar</h2>
   <input type="text" id="nome" placeholder="Nome completo" />
   <input type="text" id="turma" placeholder="Turma" />
-  <input type="password" id="senha" placeholder="Senha" />
-  <input type="password" id="confirmaSenha" placeholder="Confirmar senha" />
+  <input type="password" id="senha" placeholder="Senha" autocomplete="new-password" spellcheck="false" />
+  <input type="password" id="confirmaSenha" placeholder="Confirmar senha" autocomplete="new-password" spellcheck="false" />
   <button onclick="cadastrar()">Cadastrar</button>
   <div class="switch-mode">
     Já tem uma conta? <a href="index.html">Entrar</a>
@@ -141,7 +146,8 @@
   animate();
 
   window.addEventListener("resize", () => {
-    canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
   });
 
   // Função de cadastro
