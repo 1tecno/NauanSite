@@ -3,7 +3,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebas
 import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "SUA_API_KEY",
+  apiKey: "AIzaSyAhHGJ70vfrhRVH-OfBfA6rKKsSiNezEgg",
   authDomain: "portaltecnico-6d777.firebaseapp.com",
   projectId: "portaltecnico-6d777",
   storageBucket: "portaltecnico-6d777.appspot.com",
