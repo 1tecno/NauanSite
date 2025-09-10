@@ -1,45 +1,94 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Portal - Portal Técnico Escolar</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portal Técnico Escolar</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@300;500;700&display=swap');
-body{font-family:'Poppins',sans-serif;background:#0f2027;color:#00ffff;min-height:100vh;margin:0;padding:20px;}
-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;}
-header h2{font-family:'Orbitron',sans-serif;text-shadow:0 0 10px #00ffff;}
-header button{padding:10px 20px;border:none;border-radius:12px;background:linear-gradient(45deg,#00ffff,#0077ff);color:#000;font-weight:bold;cursor:pointer;box-shadow:0 0 20px #00ffff88;transition:0.3s;}
-header button:hover{box-shadow:0 0 30px #00ffffcc;transform:scale(1.03);}
-section{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;}
-.card{background:rgba(0,255,255,0.05);padding:20px;border-radius:12px;box-shadow:0 0 20px #00ffff44;}
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@300;500;700&display=swap');
+  body { font-family:'Poppins',sans-serif; background:#0f2027; color:#cce7ff; margin:0; min-height:100vh; display:flex; flex-direction:column; }
+  header { background:#022c49; padding:15px 30px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 0 30px #00ffff88 inset; }
+  header h2 { font-family:'Orbitron',sans-serif; color:#00ffff; margin:0; font-weight:700; }
+  #logout-btn { background:#ff0055; border:none; padding:10px 22px; border-radius:12px; cursor:pointer; color:#fff; font-weight:700; box-shadow:0 0 15px #ff0055; transition:0.3s ease; }
+  #logout-btn:hover { box-shadow:0 0 25px #ff0077; transform:scale(1.05); }
+  main { flex-grow:1; padding:30px 40px; }
+  h1 { font-family:'Orbitron',sans-serif; font-weight:700; font-size:2.4rem; color:#00ffff; margin-bottom:20px; text-shadow:0 0 15px #00ffff; }
+  .materia-list { display:flex; flex-direction:column; gap:20px; max-width:700px; }
+  .materia-item { background: rgba(0,255,255,0.1); border-radius:16px; padding:20px 25px; box-shadow:0 0 30px #00ffff33 inset; cursor:pointer; transition:0.3s ease; }
+  .materia-item:hover { background: rgba(0,255,255,0.25); }
+  .materia-item h3 { margin:0; color:#00e6ff; font-weight:600; }
+  footer { text-align:center; padding:15px 20px; background:#022c49; color:#00ffff88; font-size:0.9rem; }
+  canvas#bgCanvas { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; }
 </style>
 </head>
 <body>
 
+<canvas id="bgCanvas"></canvas>
+
 <header>
-  <h2 id="userName">Olá, Usuário!</h2>
-  <button id="logoutBtn">Sair</button>
+  <h2>Portal Técnico Escolar</h2>
+  <button id="logout-btn">Sair</button>
 </header>
 
-<section>
-  <div class="card">Matemática</div>
-  <div class="card">Lógica de Programação</div>
-  <div class="card">HTML / CSS</div>
-  <div class="card">Java / POO</div>
-  <div class="card">Sistemas Operacionais</div>
-  <div class="card">Arquitetura e Robótica</div>
-</section>
+<main>
+  <h1>Bem-vindo(a), <span id="user-name"></span>!</h1>
+  <section class="materia-list">
+    <div class="materia-item" data-materia="arquitetura"><h3>Arquitetura de Computadores</h3></div>
+    <div class="materia-item" data-materia="web"><h3>Programação Web</h3></div>
+    <div class="materia-item" data-materia="java"><h3>POO com Java</h3></div>
+    <div class="materia-item" data-materia="htmlecss"><h3>HTML e CSS</h3></div>
+    <div class="materia-item" data-materia="sistemas"><h3>Sistemas Operacionais</h3></div>
+    <div class="materia-item" data-materia="logica"><h3>Lógica de Programação</h3></div>
+    <div class="materia-item" data-materia="nocao"><h3>Noção de Robótica</h3></div>
+    <div class="materia-item" data-materia="gestao"><h3>Gestão de Tempo</h3></div>
+  </section>
+</main>
 
-<script>
-const user = JSON.parse(localStorage.getItem('loggedUser'));
-if(!user) { window.location.href='index.html'; }
-else { document.getElementById('userName').textContent = `Olá, ${user.nome}`; }
+<footer>&copy; 2025 Técnico Escolar</footer>
 
-document.getElementById('logoutBtn').addEventListener('click', ()=>{
-  localStorage.removeItem('loggedUser');
-  window.location.href='index.html';
-});
+<script type="module">
+  import { auth } from "./firebase-config.js";
+  import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+  // Fundo de partículas
+  const canvas = document.getElementById("bgCanvas");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  class Particle {
+    constructor() {
+      this.x=Math.random()*canvas.width;
+      this.y=Math.random()*canvas.height;
+      this.size=Math.random()*3+1;
+      this.speedX=Math.random()*1-0.5;
+      this.speedY=Math.random()*1-0.5;
+      this.color="#00ffff";
+    }
+    update() { this.x+=this.speedX; this.y+=this.speedY; if(this.x>canvas.width)this.x=0; if(this.x<0)this.x=canvas.width; if(this.y>canvas.height)this.y=0; if(this.y<0)this.y=canvas.height; }
+    draw(){ ctx.fillStyle=this.color; ctx.shadowColor=this.color; ctx.shadowBlur=10; ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill(); }
+  }
+
+  const particles = [];
+  for(let i=0;i<100;i++) particles.push(new Particle());
+  function animate(){ ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p=>{p.update(); p.draw();}); requestAnimationFrame(animate); }
+  animate();
+  window.addEventListener("resize",()=>{canvas.width=window.innerWidth; canvas.height=window.innerHeight;});
+
+  // Login Firebase
+  const userNameSpan = document.getElementById("user-name");
+  onAuthStateChanged(auth, user => {
+    if(user){
+      userNameSpan.textContent = user.email;
+    } else {
+      alert("Você precisa estar logado!");
+      window.location.href="index.html";
+    }
+  });
+
+  document.getElementById("logout-btn").addEventListener("click",()=>{
+    signOut(auth).then(()=>{ window.location.href="index.html"; });
+  });
 </script>
 
 </body>
