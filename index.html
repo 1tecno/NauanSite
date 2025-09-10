@@ -7,11 +7,7 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@300;500;700&display=swap');
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Poppins', sans-serif;
@@ -28,10 +24,8 @@
 
     canvas#bgCanvas {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
       z-index: -1;
     }
 
@@ -40,19 +34,12 @@
       padding: 40px 30px;
       border-radius: 20px;
       box-shadow: 0 0 40px #00ffff88;
-      width: 100%;
-      max-width: 400px;
+      width: 100%; max-width: 400px;
       animation: fadeInFloat 1s ease forwards;
-      opacity: 0;
-      transform: translateY(20px);
+      opacity: 0; transform: translateY(20px);
     }
 
-    @keyframes fadeInFloat {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+    @keyframes fadeInFloat { to { opacity: 1; transform: translateY(0); } }
 
     .login-box h2 {
       text-align: center;
@@ -63,29 +50,21 @@
     }
 
     .login-box input {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      margin-bottom: 20px;
+      width: 100%; padding: 14px;
+      border: none; margin-bottom: 20px;
       border-radius: 12px;
-      background: #011f2d;
-      color: #00ffff;
+      background: #011f2d; color: #00ffff;
       font-size: 1em;
       box-shadow: 0 0 10px #00ffff33 inset;
       outline: none;
     }
 
     .login-box button {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 12px;
+      width: 100%; padding: 14px;
+      border: none; border-radius: 12px;
       background: linear-gradient(45deg, #00ffff, #0077ff);
-      color: #000;
-      font-weight: bold;
-      font-size: 1em;
-      cursor: pointer;
-      box-shadow: 0 0 20px #00ffff88;
+      color: #000; font-weight: bold; font-size: 1em;
+      cursor: pointer; box-shadow: 0 0 20px #00ffff88;
       transition: 0.3s ease;
     }
 
@@ -100,11 +79,7 @@
       font-size: 0.9rem;
     }
 
-    .switch-mode a {
-      color: #00ffff;
-      text-decoration: underline;
-      cursor: pointer;
-    }
+    .switch-mode a { color: #00ffff; cursor: pointer; text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -112,21 +87,20 @@
 <canvas id="bgCanvas"></canvas>
 
 <div class="login-box">
-  <h2 id="form-title">Portal Técnico Escolar</h2>
-  <input type="text" id="username" placeholder="Digite seu nome de usuário" />
-  <input type="password" id="password" placeholder="Digite sua senha" />
-  <button id="actionBtn" onclick="handleAction()">Entrar</button>
+  <h2>Login - Portal Técnico Escolar</h2>
+  <input type="text" id="username" placeholder="Usuário ou Nome Completo" />
+  <input type="password" id="password" placeholder="Senha" />
+  <button onclick="login()">Entrar</button>
   <div class="switch-mode">
-    <span id="switchText">Não tem uma conta? </span>
-    <a onclick="toggleMode()">Cadastrar</a>
+    Não tem conta? <a href="cadastro.html">Cadastrar</a>
   </div>
 </div>
 
 <script>
+  // Fundo animado
   const canvas = document.getElementById("bgCanvas");
   const ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
 
   class Particle {
     constructor() {
@@ -138,8 +112,7 @@
       this.color = "#00ffff";
     }
     update() {
-      this.x += this.speedX;
-      this.y += this.speedY;
+      this.x += this.speedX; this.y += this.speedY;
       if (this.x > canvas.width) this.x = 0;
       if (this.x < 0) this.x = canvas.width;
       if (this.y > canvas.height) this.y = 0;
@@ -156,89 +129,35 @@
   }
 
   let particlesArray = [];
-  for (let i = 0; i < 100; i++) {
-    particlesArray.push(new Particle());
-  }
+  for (let i = 0; i < 100; i++) particlesArray.push(new Particle());
 
   function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particlesArray.forEach(p => {
-      p.update();
-      p.draw();
-    });
+    particlesArray.forEach(p => { p.update(); p.draw(); });
     requestAnimationFrame(animate);
   }
   animate();
 
   window.addEventListener("resize", () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth; canvas.height = window.innerHeight;
   });
 
-  // =============================
-  // Lógica de Login / Cadastro
-  // =============================
-  let isLogin = true; // começa no modo login
-
-  function handleAction() {
-    if (isLogin) {
-      login();
-    } else {
-      cadastrar();
-    }
-  }
-
+  // Login
   function login() {
     const user = document.getElementById("username").value.trim();
     const pass = document.getElementById("password").value.trim();
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
-    if (!user || !pass) {
-      alert("Preencha todos os campos.");
-      return;
-    }
-
-    const saved = JSON.parse(localStorage.getItem("usuarios")) || [];
-    const encontrado = saved.find(u => u.nome === user && u.senha === pass);
-
+    const encontrado = usuarios.find(u => (u.nome === user || u.usuario === user) && u.senha === pass);
     if (encontrado) {
-      localStorage.setItem("loggedUser", user);
-      window.location.href = "portal.html"; // redireciona após login
+      localStorage.setItem("loggedUser", JSON.stringify(encontrado));
+      window.location.href = "portal.html";
     } else {
       alert("Usuário ou senha inválidos.");
     }
   }
 
-  function cadastrar() {
-    const user = document.getElementById("username").value.trim();
-    const pass = document.getElementById("password").value.trim();
-
-    if (!user || !pass) {
-      alert("Preencha todos os campos.");
-      return;
-    }
-
-    let saved = JSON.parse(localStorage.getItem("usuarios")) || [];
-    const existe = saved.find(u => u.nome === user);
-
-    if (existe) {
-      alert("Usuário já existe.");
-      return;
-    }
-
-    saved.push({ nome: user, senha: pass });
-    localStorage.setItem("usuarios", JSON.stringify(saved));
-    alert("Cadastro realizado com sucesso! Agora faça login.");
-    toggleMode(); // volta pro modo login
-  }
-
-  function toggleMode() {
-    isLogin = !isLogin;
-    document.getElementById("form-title").innerText = isLogin ? "Login - Portal Técnico Escolar" : "Cadastro - Portal Técnico Escolar";
-    document.getElementById("actionBtn").innerText = isLogin ? "Entrar" : "Cadastrar";
-    document.getElementById("switchText").innerText = isLogin ? "Não tem uma conta? " : "Já tem uma conta? ";
-  }
-
-  // Se já estiver logado, pula direto pro portal
+  // Se já estiver logado, pula direto
   if (localStorage.getItem("loggedUser")) {
     window.location.href = "portal.html";
   }
