@@ -41,7 +41,7 @@ canvas#bgCanvas { position: fixed; top:0; left:0; width:100vw; height:100vh; z-i
   border-radius: 12px;
   border: none;
   margin-bottom: 20px;
-  background: #011f2d; /* fundo igual da senha */
+  background: #011f2d;
   color: #00ffff;
   font-size: 1em;
   box-shadow: 0 0 10px #00ffff33 inset;
@@ -58,6 +58,22 @@ canvas#bgCanvas { position: fixed; top:0; left:0; width:100vw; height:100vh; z-i
 .switch-mode { text-align:center; margin-top:15px; font-size:0.9rem; }
 .switch-mode a { color:#00ffff; cursor:pointer; text-decoration:underline; }
 </style>
+
+<!-- Firebase CDN -->
+<script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyAhHGJ70vfrhRVH-OfBfA6rKKsSiNezEgg",
+    authDomain: "portaltecnico-6d777.firebaseapp.com",
+    projectId: "portaltecnico-6d777",
+    storageBucket: "portaltecnico-6d777.appspot.com",
+    messagingSenderId: "1004571616226",
+    appId: "1:1004571616226:web:4a7076708c9515eea44fbb",
+    measurementId: "G-VHCLYGR2L0"
+  };
+  firebase.initializeApp(firebaseConfig);
+</script>
 </head>
 <body>
 
@@ -65,10 +81,10 @@ canvas#bgCanvas { position: fixed; top:0; left:0; width:100vw; height:100vh; z-i
 
 <div class="login-box">
   <h2>Portal Técnico Escolar</h2>
-  <input type="text" id="username" placeholder="Digite seu nome de usuário" />
+  <input type="text" id="username" placeholder="Digite seu email" />
   <div class="password-wrapper">
     <input type="password" id="password" placeholder="Digite sua senha" />
-    <div class="toggle-square"></div>
+    <div class="toggle-square" title="Mostrar/ocultar senha"></div>
   </div>
   <button onclick="login()">Entrar</button>
   <div class="switch-mode">
@@ -77,6 +93,7 @@ canvas#bgCanvas { position: fixed; top:0; left:0; width:100vw; height:100vh; z-i
 </div>
 
 <script>
+// Fundo com partículas
 const canvas = document.getElementById("bgCanvas");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth; canvas.height = window.innerHeight;
@@ -99,20 +116,38 @@ toggleSquare.addEventListener('click', ()=>{
   toggleSquare.classList.toggle('active');
 });
 
-// Login local
+// Login com Firebase Auth
 function login() {
-  const user = document.getElementById("username").value.trim();
+  const email = document.getElementById("username").value.trim();
   const pass = document.getElementById("password").value.trim();
-  if (!user || !pass) { alert("Preencha todos os campos."); return; }
-  const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-  const encontrado = usuarios.find(u => u.nome===user && u.senha===pass);
-  if (encontrado) { localStorage.setItem("loggedUser", JSON.stringify(encontrado)); window.location.href="portal.html"; }
-  else { alert("Usuário ou senha inválidos."); }
+
+  if (!email || !pass) { alert("Preencha todos os campos."); return; }
+
+  firebase.auth().signInWithEmailAndPassword(email, pass)
+    .then(() => {
+      window.location.href = "portal.html";
+    })
+    .catch(error => {
+      // Mensagens mais amigáveis
+      let msg = "Erro ao fazer login.";
+      if (error.code === "auth/invalid-email") msg = "Email inválido.";
+      else if (error.code === "auth/user-not-found") msg = "Usuário não encontrado.";
+      else if (error.code === "auth/wrong-password") msg = "Senha incorreta.";
+      else if (error.code === "auth/too-many-requests") msg = "Muitas tentativas. Tente novamente em alguns minutos.";
+      alert(msg);
+      console.error(error);
+    });
 }
 
-// Preencher automaticamente após cadastro
-const lastCadastro = JSON.parse(localStorage.getItem("lastCadastro"));
-if(lastCadastro){document.getElementById("username").value = lastCadastro.nome; senhaInput.value = lastCadastro.senha; localStorage.removeItem("lastCadastro");}
+// (Opcional) Preenchimento automático quando vier do cadastro antigo
+try {
+  const lastCadastro = JSON.parse(localStorage.getItem("lastCadastro"));
+  if(lastCadastro){
+    document.getElementById("username").value = lastCadastro.nome || "";
+    senhaInput.value = lastCadastro.senha || "";
+    localStorage.removeItem("lastCadastro");
+  }
+} catch(_) {}
 </script>
 </body>
 </html>
