@@ -41,8 +41,8 @@ canvas#bgCanvas { position: fixed; top:0; left:0; width:100vw; height:100vh; z-i
   padding: 14px;
   border-radius: 12px;
   border: none;
-  margin-bottom: 14px; /* diminuir espaço entre senha e confirmar senha */
-  background: #011f2d; /* fundo igual */
+  margin-bottom: 14px;
+  background: #011f2d;
   color: #00ffff;
   font-size: 1em;
   box-shadow: 0 0 10px #00ffff33 inset;
@@ -59,6 +59,22 @@ canvas#bgCanvas { position: fixed; top:0; left:0; width:100vw; height:100vh; z-i
 .switch-mode { text-align:center; margin-top:15px; font-size:0.9rem; }
 .switch-mode a { color:#00ffff; cursor:pointer; text-decoration:underline; }
 </style>
+
+<!-- Firebase CDN -->
+<script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyAhHGJ70vfrhRVH-OfBfA6rKKsSiNezEgg",
+    authDomain: "portaltecnico-6d777.firebaseapp.com",
+    projectId: "portaltecnico-6d777",
+    storageBucket: "portaltecnico-6d777.appspot.com",
+    messagingSenderId: "1004571616226",
+    appId: "1:1004571616226:web:4a7076708c9515eea44fbb",
+    measurementId: "G-VHCLYGR2L0"
+  };
+  firebase.initializeApp(firebaseConfig);
+</script>
 </head>
 <body>
 
@@ -66,8 +82,7 @@ canvas#bgCanvas { position: fixed; top:0; left:0; width:100vw; height:100vh; z-i
 
 <div class="login-box">
   <h2>Cadastro - Portal Técnico Escolar</h2>
-  <input type="text" id="nome" placeholder="Nome completo" />
-  <input type="text" id="turma" placeholder="Turma" />
+  <input type="text" id="email" placeholder="Email" />
   <div class="password-wrapper">
     <input type="password" id="senha" placeholder="Senha" />
     <div class="toggle-square"></div>
@@ -102,21 +117,34 @@ document.querySelectorAll('.toggle-square').forEach((square,i)=>{
   });
 });
 
-// Cadastro local
+// Cadastro com Firebase
 function cadastrar(){
-  const nome=document.getElementById('nome').value.trim();
-  const turma=document.getElementById('turma').value.trim();
-  const senha=document.getElementById('senha').value.trim();
-  const confirmaSenha=document.getElementById('confirmaSenha').value.trim();
-  if(!nome || !turma || !senha || !confirmaSenha){alert('Preencha todos os campos.'); return;}
-  if(senha!==confirmaSenha){alert('As senhas não conferem.'); return;}
-  let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-  if(usuarios.find(u=>u.nome===nome)){alert('Usuário já existe.'); return;}
-  usuarios.push({nome,turma,senha});
-  localStorage.setItem('usuarios',JSON.stringify(usuarios));
-  localStorage.setItem('lastCadastro',JSON.stringify({nome,senha}));
-  alert('Cadastro realizado com sucesso!');
-  window.location.href='index.html';
+  const email = document.getElementById('email').value.trim();
+  const senha = document.getElementById('senha').value.trim();
+  const confirmaSenha = document.getElementById('confirmaSenha').value.trim();
+
+  if(!email || !senha || !confirmaSenha){
+    alert('Preencha todos os campos.');
+    return;
+  }
+  if(senha !== confirmaSenha){
+    alert('As senhas não conferem.');
+    return;
+  }
+
+  firebase.auth().createUserWithEmailAndPassword(email, senha)
+    .then(() => {
+      alert('Cadastro realizado com sucesso!');
+      window.location.href = 'index.html';
+    })
+    .catch(error => {
+      let msg = "Erro ao cadastrar.";
+      if (error.code === "auth/email-already-in-use") msg = "Este email já está cadastrado.";
+      else if (error.code === "auth/invalid-email") msg = "Email inválido.";
+      else if (error.code === "auth/weak-password") msg = "A senha deve ter pelo menos 6 caracteres.";
+      alert(msg);
+      console.error(error);
+    });
 }
 </script>
 </body>
