@@ -84,8 +84,23 @@ canvas#bgCanvas {
   transition:0.3s ease;
 }
 #modal-content button:hover { transform:scale(1.05); box-shadow:0 0 25px #00ffffcc; }
-
 </style>
+
+<!-- Firebase CDN -->
+<script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyAhHGJ70vfrhRVH-OfBfA6rKKsSiNezEgg",
+    authDomain: "portaltecnico-6d777.firebaseapp.com",
+    projectId: "portaltecnico-6d777",
+    storageBucket: "portaltecnico-6d777.appspot.com",
+    messagingSenderId: "1004571616226",
+    appId: "1:1004571616226:web:4a7076708c9515eea44fbb",
+    measurementId: "G-VHCLYGR2L0"
+  };
+  firebase.initializeApp(firebaseConfig);
+</script>
 </head>
 <body>
 
@@ -124,93 +139,100 @@ canvas#bgCanvas {
 </div>
 
 <script>
-  // Verifica login
-  const loggedUser = JSON.parse(localStorage.getItem('loggedUser'));
-  const userNameSpan = document.getElementById('user-name');
-  if (!loggedUser) {
+// Verifica autenticação com Firebase
+firebase.auth().onAuthStateChanged(user => {
+  if (user) {
+    document.getElementById('user-name').textContent = user.email;
+  } else {
     alert('Você precisa estar logado!');
     window.location.href = 'index.html';
-  } else {
-    userNameSpan.textContent = `${loggedUser.nome} - Turma ${loggedUser.turma}`;
   }
+});
 
-  // Logout
-  document.getElementById('logout-btn').addEventListener('click', () => {
-    localStorage.removeItem('loggedUser');
+// Logout com Firebase
+document.getElementById('logout-btn').addEventListener('click', () => {
+  firebase.auth().signOut().then(() => {
     window.location.href = 'index.html';
   });
+});
 
-  // Modal
-  const modal = document.getElementById('modal-bimestres');
-  let materiaSelecionada = '';
-  document.querySelectorAll('.materia-item').forEach(item => {
-    item.addEventListener('click', () => {
-      materiaSelecionada = item.getAttribute('data-materia');
-      modal.classList.add('active');
-    });
+// Modal de bimestres
+const modal = document.getElementById('modal-bimestres');
+let materiaSelecionada = '';
+document.querySelectorAll('.materia-item').forEach(item => {
+  item.addEventListener('click', () => {
+    materiaSelecionada = item.getAttribute('data-materia');
+    modal.classList.add('active');
   });
+});
 
-  document.querySelectorAll('#modal-content button[data-bimestre]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const bimestre = btn.getAttribute('data-bimestre');
-      if (materiaSelecionada) {
-        const destino = `${materiaSelecionada}${bimestre}.html`;
-        window.location.href = destino;
-      }
-    });
+document.querySelectorAll('#modal-content button[data-bimestre]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const bimestre = btn.getAttribute('data-bimestre');
+    if (materiaSelecionada) {
+      const destino = `${materiaSelecionada}${bimestre}.html`;
+      window.location.href = destino;
+    }
   });
+});
 
-  function fecharModal() {
-    modal.classList.remove('active');
-    materiaSelecionada = '';
+function fecharModal() {
+  modal.classList.remove('active');
+  materiaSelecionada = '';
+}
+
+// Partículas no fundo
+const canvas = document.getElementById("bgCanvas");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+class Particle {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 3 + 1;
+    this.speedX = Math.random() * 1 - 0.5;
+    this.speedY = Math.random() * 1 - 0.5;
+    this.color = "#00ffff";
   }
-
-  // Partículas no fundo
-  const canvas = document.getElementById("bgCanvas");
-  const ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-
-  class Particle {
-    constructor() {
-      this.x = Math.random() * canvas.width;
-      this.y = Math.random() * canvas.height;
-      this.size = Math.random() * 3 + 1;
-      this.speedX = Math.random() * 1 - 0.5;
-      this.speedY = Math.random() * 1 - 0.5;
-      this.color = "#00ffff";
-    }
-    update() {
-      this.x += this.speedX;
-      this.y += this.speedY;
-      if (this.x > canvas.width) this.x = 0;
-      if (this.x < 0) this.x = canvas.width;
-      if (this.y > canvas.height) this.y = 0;
-      if (this.y < 0) this.y = canvas.height;
-    }
-    draw() {
-      ctx.fillStyle = this.color;
-      ctx.shadowColor = this.color;
-      ctx.shadowBlur = 10;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fill();
-    }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if (this.x > canvas.width) this.x = 0;
+    if (this.x < 0) this.x = canvas.width;
+    if (this.y > canvas.height) this.y = 0;
+    if (this.y < 0) this.y = canvas.height;
   }
-
-  let particlesArray = [];
-  for (let i = 0; i < 100; i++) particlesArray.push(new Particle());
-
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particlesArray.forEach(p => { p.update(); p.draw(); });
-    requestAnimationFrame(animate);
+  draw() {
+    ctx.fillStyle = this.color;
+    ctx.shadowColor = this.color;
+    ctx.shadowBlur = 10;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
   }
-  animate();
-  window.addEventListener("resize", () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+}
+
+let particlesArray = [];
+for (let i = 0; i < 100; i++) {
+  particlesArray.push(new Particle());
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particlesArray.forEach(p => {
+    p.update();
+    p.draw();
   });
+  requestAnimationFrame(animate);
+}
+animate();
 
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
 </script>
 
 </body>
