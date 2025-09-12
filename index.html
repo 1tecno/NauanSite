@@ -75,6 +75,11 @@ footer {
   font-size: 0.9rem;
 }
 
+footer a {
+  color: #00ffff;
+  text-decoration: underline;
+}
+
 canvas#bgCanvas {
   position: fixed;
   top: 0;
@@ -85,7 +90,7 @@ canvas#bgCanvas {
   background: transparent;
 }
 
-/* Modal dos bimestres */
+/* Modal Bimestres maior + animação fade-in/zoom */
 #modal-bimestres {
   position: fixed;
   top:0;
@@ -94,50 +99,53 @@ canvas#bgCanvas {
   height:100vh;
   background: rgba(0,0,0,0.85);
   backdrop-filter: blur(5px);
-  display:none;
+  display:flex;
   align-items:center;
   justify-content:center;
   z-index:999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
 }
-#modal-bimestres.active { display:flex; }
+
+#modal-bimestres.active {
+  opacity: 1;
+  pointer-events: all;
+}
 
 #modal-content {
   background: rgba(0,255,255,0.05);
-  padding:50px 60px; /* aumentado */
-  border-radius:25px;
+  padding:50px 60px;
+  border-radius:20px;
   box-shadow:0 0 50px #00ffffaa;
   color:#00ffff;
   text-align:center;
+  font-size: 1.3rem;
+  transform: scale(0.8);
+  transition: transform 0.4s ease;
 }
-#modal-content h2 { margin-bottom:25px; font-size: 1.8rem; }
 
-/* Animação sequencial fade-in nos botões */
+#modal-bimestres.active #modal-content {
+  transform: scale(1);
+}
+
+#modal-content h2 { margin-bottom:30px; font-size:2rem; }
 #modal-content button {
-  display: block;
-  width: 100%;
-  margin-top: 15px;
-  padding: 15px;
-  border: none;
-  border-radius: 12px;
-  font-weight: bold;
+  display:block;
+  width:100%;
+  margin-top:15px;
+  padding:15px;
+  border:none;
+  border-radius:12px;
+  font-weight:bold;
   font-size: 1.1rem;
-  background: linear-gradient(45deg, #00ffff, #0077ff);
-  color: #000;
-  cursor: pointer;
-  box-shadow: 0 0 15px #00ffff88;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  background:linear-gradient(45deg,#00ffff,#0077ff);
+  color:#000;
+  cursor:pointer;
+  box-shadow:0 0 15px #00ffff88;
+  transition:0.3s ease;
 }
-
-#modal-bimestres.active #modal-content button:nth-child(1) { transition-delay: 0s; opacity:1; transform:translateY(0); }
-#modal-bimestres.active #modal-content button:nth-child(2) { transition-delay: 0.3s; opacity:1; transform:translateY(0); }
-#modal-bimestres.active #modal-content button:nth-child(3) { transition-delay: 0.6s; opacity:1; transform:translateY(0); }
-#modal-bimestres.active #modal-content button:nth-child(4) { transition-delay: 0.9s; opacity:1; transform:translateY(0); }
-#modal-bimestres.active #modal-content button:nth-child(5) { transition-delay: 1.2s; opacity:1; transform:translateY(0); }
-
-#modal-content button:hover { transform: scale(1.05); box-shadow: 0 0 25px #00ffffcc; }
-
+#modal-content button:hover { transform:scale(1.05); box-shadow:0 0 25px #00ffffcc; }
 </style>
 </head>
 <body>
@@ -204,7 +212,7 @@ function fecharModal() {
   materiaSelecionada = '';
 }
 
-// Partículas simples no fundo
+// Partículas no fundo
 const canvas = document.getElementById("bgCanvas");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
