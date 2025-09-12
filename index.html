@@ -63,16 +63,9 @@ h1 {
   cursor: pointer;
   transition: 0.3s ease;
 }
+.materia-item:hover { background: rgba(0, 255, 255, 0.25); }
 
-.materia-item:hover {
-  background: rgba(0, 255, 255, 0.25);
-}
-
-.materia-item h3 {
-  margin: 0;
-  color: #00e6ff;
-  font-weight: 600;
-}
+.materia-item h3 { margin: 0; color: #00e6ff; font-weight: 600; }
 
 footer {
   text-align: center;
@@ -82,10 +75,23 @@ footer {
   font-size: 0.9rem;
 }
 
-/* Modal Bimestres */
+canvas#bgCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: transparent;
+}
+
+/* Modal Bimestres maior */
 #modal-bimestres {
   position: fixed;
-  top:0; left:0; width:100vw; height:100vh;
+  top:0;
+  left:0;
+  width:100vw;
+  height:100vh;
   background: rgba(0,0,0,0.85);
   backdrop-filter: blur(5px);
   display:none;
@@ -93,32 +99,18 @@ footer {
   justify-content:center;
   z-index:999;
 }
-
-#modal-bimestres.active {
-  display:flex;
-  animation: fadeInModal 0.5s ease forwards;
-}
-
-@keyframes fadeInModal {
-  0% { opacity:0; transform: scale(0.8); }
-  100% { opacity:1; transform: scale(1); }
-}
+#modal-bimestres.active { display:flex; }
 
 #modal-content {
   background: rgba(0,255,255,0.05);
-  padding:40px 50px;
+  padding:50px 60px;  /* maior que antes */
   border-radius:20px;
   box-shadow:0 0 50px #00ffffaa;
   color:#00ffff;
   text-align:center;
-  font-size: 1.3rem; /* aumenta as letras */
+  font-size: 1.3rem; /* letras maiores */
 }
-
-#modal-content h2 {
-  margin-bottom:30px;
-  font-size: 2rem;
-}
-
+#modal-content h2 { margin-bottom:30px; font-size:2rem; } /* título maior */
 #modal-content button {
   display:block;
   width:100%;
@@ -127,27 +119,26 @@ footer {
   border:none;
   border-radius:12px;
   font-weight:bold;
-  font-size: 1.1rem; /* aumenta as letras */
+  font-size: 1.1rem; /* aumenta letras dos botões */
   background:linear-gradient(45deg,#00ffff,#0077ff);
   color:#000;
   cursor:pointer;
   box-shadow:0 0 15px #00ffff88;
   transition:0.3s ease;
 }
-#modal-content button:hover {
-  transform:scale(1.05);
-  box-shadow:0 0 25px #00ffffcc;
-}
+#modal-content button:hover { transform:scale(1.05); box-shadow:0 0 25px #00ffffcc; }
 </style>
 </head>
 <body>
+
+<canvas id="bgCanvas"></canvas>
 
 <header>
   <h2>Portal Técnico Escolar</h2>
 </header>
 
 <main>
-  <h1>Bem-vindo(a)</h1>
+  <h1>Bem-vindo(a)</h1> <!-- Nome removido -->
   <section class="materia-list">
     <div class="materia-item" data-materia="arquitetura"><h3>Arquitetura de Computadores</h3></div>
     <div class="materia-item" data-materia="web"><h3>Programação Web</h3></div>
@@ -162,10 +153,10 @@ footer {
 
 <footer>
   &copy; 2025 Técnico Escolar - Todos os direitos reservados.<br>
-  Desenvolvido por Nauan Loures. Siga-me no Instagram também: <strong>@nauanloures</strong>
+  Desenvolvido por Nauan Loures.<br>
+  Siga-me no Instagram também: <a href="https://www.instagram.com/nauanloures" target="_blank" style="color:#00ffff; text-decoration:underline;">@nauanloures</a>
 </footer>
 
-<!-- Modal Bimestres -->
 <div id="modal-bimestres">
   <div id="modal-content">
     <h2>Escolha o Bimestre</h2>
@@ -173,14 +164,14 @@ footer {
     <button data-bimestre="2">2º Bimestre</button>
     <button data-bimestre="3">3º Bimestre</button>
     <button data-bimestre="4">4º Bimestre</button>
-    <button onclick="fecharModal()">Voltar</button>
+    <button onclick="fecharModal()">Cancelar</button>
   </div>
 </div>
 
 <script>
+// Modal de bimestres
 const modal = document.getElementById('modal-bimestres');
 let materiaSelecionada = '';
-
 document.querySelectorAll('.materia-item').forEach(item => {
   item.addEventListener('click', () => {
     materiaSelecionada = item.getAttribute('data-materia');
@@ -191,17 +182,70 @@ document.querySelectorAll('.materia-item').forEach(item => {
 document.querySelectorAll('#modal-content button[data-bimestre]').forEach(btn => {
   btn.addEventListener('click', () => {
     const bimestre = btn.getAttribute('data-bimestre');
-    if(materiaSelecionada){
+    if (materiaSelecionada) {
       const destino = `${materiaSelecionada}${bimestre}.html`;
       window.location.href = destino;
     }
   });
 });
 
-function fecharModal(){
+function fecharModal() {
   modal.classList.remove('active');
   materiaSelecionada = '';
 }
+
+// Partículas no fundo
+const canvas = document.getElementById("bgCanvas");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+class Particle {
+  constructor() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 3 + 1;
+    this.speedX = Math.random() * 1 - 0.5;
+    this.speedY = Math.random() * 1 - 0.5;
+    this.color = "#00ffff";
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if (this.x > canvas.width) this.x = 0;
+    if (this.x < 0) this.x = canvas.width;
+    if (this.y > canvas.height) this.y = 0;
+    if (this.y < 0) this.y = canvas.height;
+  }
+  draw() {
+    ctx.fillStyle = this.color;
+    ctx.shadowColor = this.color;
+    ctx.shadowBlur = 10;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+let particlesArray = [];
+for (let i = 0; i < 100; i++) {
+  particlesArray.push(new Particle());
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particlesArray.forEach(p => {
+    p.update();
+    p.draw();
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
 </script>
 
 </body>
