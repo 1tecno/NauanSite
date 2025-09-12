@@ -19,6 +19,17 @@ html, body {
   flex-direction: column;
 }
 
+/* Canvas partículas atrás de tudo */
+canvas#bgCanvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: #0f2027;
+  display: block;
+}
+
 header {
   background: #022c49;
   padding: 15px 30px;
@@ -81,14 +92,6 @@ footer {
   background: #022c49;
   color: #00ffff88;
   font-size: 0.9rem;
-}
-
-canvas#bgCanvas {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
 }
 
 #modal-bimestres {
@@ -165,9 +168,31 @@ canvas#bgCanvas {
 </div>
 
 <script>
-// Espera o DOM carregar
-window.addEventListener("DOMContentLoaded", () => {
+// Modal de bimestres
+const modal = document.getElementById('modal-bimestres');
+let materiaSelecionada = '';
+document.querySelectorAll('.materia-item').forEach(item => {
+  item.addEventListener('click', () => {
+    materiaSelecionada = item.getAttribute('data-materia');
+    modal.classList.add('active');
+  });
+});
+document.querySelectorAll('#modal-content button[data-bimestre]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const bimestre = btn.getAttribute('data-bimestre');
+    if (materiaSelecionada) {
+      const destino = `${materiaSelecionada}${bimestre}.html`;
+      window.location.href = destino;
+    }
+  });
+});
+function fecharModal() {
+  modal.classList.remove('active');
+  materiaSelecionada = '';
+}
 
+// Partículas
+window.addEventListener("load", () => {
   const canvas = document.getElementById("bgCanvas");
   const ctx = canvas.getContext("2d");
 
@@ -175,8 +200,8 @@ window.addEventListener("DOMContentLoaded", () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
   }
-  window.addEventListener("resize", resizeCanvas);
   resizeCanvas();
+  window.addEventListener("resize", resizeCanvas);
 
   class Particle {
     constructor() {
@@ -206,7 +231,7 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   let particlesArray = [];
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 120; i++) {
     particlesArray.push(new Particle());
   }
 
@@ -215,9 +240,7 @@ window.addEventListener("DOMContentLoaded", () => {
     particlesArray.forEach(p => { p.update(); p.draw(); });
     requestAnimationFrame(animate);
   }
-
   animate();
-
 });
 </script>
 
