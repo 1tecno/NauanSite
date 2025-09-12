@@ -22,12 +22,13 @@ html, body {
 /* Canvas partículas atrás de tudo */
 canvas#bgCanvas {
   position: fixed;
-  top: 0; left: 0;
+  top:0;
+  left:0;
   width: 100%;
   height: 100%;
   z-index: -1;
-  background: #0f2027;
   display: block;
+  background: transparent;
 }
 
 header {
@@ -191,7 +192,7 @@ function fecharModal() {
   materiaSelecionada = '';
 }
 
-// Partículas
+// Partículas interativas
 window.addEventListener("load", () => {
   const canvas = document.getElementById("bgCanvas");
   const ctx = canvas.getContext("2d");
@@ -215,6 +216,16 @@ window.addEventListener("load", () => {
     update() {
       this.x += this.speedX;
       this.y += this.speedY;
+
+      // interação com mouse
+      const dx = mouse.x - this.x;
+      const dy = mouse.y - this.y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if(dist < 100){
+        this.x -= dx * 0.02;
+        this.y -= dy * 0.02;
+      }
+
       if (this.x > canvas.width) this.x = 0;
       if (this.x < 0) this.x = canvas.width;
       if (this.y > canvas.height) this.y = 0;
@@ -231,13 +242,40 @@ window.addEventListener("load", () => {
   }
 
   let particlesArray = [];
-  for (let i = 0; i < 120; i++) {
+  const particlesCount = 150;
+  for (let i = 0; i < particlesCount; i++) {
     particlesArray.push(new Particle());
   }
 
+  // mouse
+  const mouse = { x: undefined, y: undefined };
+  window.addEventListener("mousemove", e => {
+    mouse.x = e.x;
+    mouse.y = e.y;
+  });
+
   function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particlesArray.forEach(p => { p.update(); p.draw(); });
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    // desenha linhas entre partículas próximas
+    for(let i=0; i<particlesArray.length; i++){
+      particlesArray[i].update();
+      particlesArray[i].draw();
+      for(let j=i+1; j<particlesArray.length; j++){
+        const dx = particlesArray[i].x - particlesArray[j].x;
+        const dy = particlesArray[i].y - particlesArray[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if(dist < 100){
+          ctx.beginPath();
+          ctx.strokeStyle = 'rgba(0,255,255,'+ (1 - dist/100) +')';
+          ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+          ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+          ctx.stroke();
+          ctx.closePath();
+        }
+      }
+    }
+
     requestAnimationFrame(animate);
   }
   animate();
