@@ -85,7 +85,7 @@ canvas#bgCanvas {
   background: transparent;
 }
 
-/* Modal Bimestres maior */
+/* Modal Bimestres maior + animação */
 #modal-bimestres {
   position: fixed;
   top:0;
@@ -98,19 +98,29 @@ canvas#bgCanvas {
   align-items:center;
   justify-content:center;
   z-index:999;
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
-#modal-bimestres.active { display:flex; }
+#modal-bimestres.active { 
+  display:flex; 
+  opacity: 1;
+}
 
 #modal-content {
   background: rgba(0,255,255,0.05);
-  padding:50px 60px;  /* maior que antes */
+  padding:50px 60px;
   border-radius:20px;
   box-shadow:0 0 50px #00ffffaa;
   color:#00ffff;
   text-align:center;
-  font-size: 1.3rem; /* letras maiores */
+  font-size: 1.3rem;
+  transform: scale(0.8);
+  transition: transform 0.4s ease;
 }
-#modal-content h2 { margin-bottom:30px; font-size:2rem; } /* título maior */
+#modal-bimestres.active #modal-content {
+  transform: scale(1);
+}
+#modal-content h2 { margin-bottom:30px; font-size:2rem; }
 #modal-content button {
   display:block;
   width:100%;
@@ -119,7 +129,7 @@ canvas#bgCanvas {
   border:none;
   border-radius:12px;
   font-weight:bold;
-  font-size: 1.1rem; /* aumenta letras dos botões */
+  font-size: 1.1rem;
   background:linear-gradient(45deg,#00ffff,#0077ff);
   color:#000;
   cursor:pointer;
@@ -138,7 +148,7 @@ canvas#bgCanvas {
 </header>
 
 <main>
-  <h1>Bem-vindo(a)</h1> <!-- Nome removido -->
+  <h1>Bem-vindo(a)</h1>
   <section class="materia-list">
     <div class="materia-item" data-materia="arquitetura"><h3>Arquitetura de Computadores</h3></div>
     <div class="materia-item" data-materia="web"><h3>Programação Web</h3></div>
@@ -153,8 +163,7 @@ canvas#bgCanvas {
 
 <footer>
   &copy; 2025 Técnico Escolar - Todos os direitos reservados.<br>
-  Desenvolvido por Nauan Loures.<br>
-  Siga-me no Instagram também: <a href="https://www.instagram.com/nauanloures" target="_blank" style="color:#00ffff; text-decoration:underline;">@nauanloures</a>
+  Desenvolvido por Nauan Loures | Siga-me no Instagram também: @nauanloures
 </footer>
 
 <div id="modal-bimestres">
