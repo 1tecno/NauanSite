@@ -9,133 +9,173 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: #0f2027;
+  background: #0f2027; 
   color: #cce7ff;
-  margin: 0;
-  min-height: 100vh;
+  margin: 0; 
+  min-height: 100vh; 
   overflow-x: hidden;
-  display: flex;
+  display: flex; 
   flex-direction: column;
+  animation: fadeIn 1s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
 }
 
 header {
-  background: #022c49;
+  background: #022c49; 
   padding: 15px 30px;
-  display: flex;
-  justify-content: space-between;
+  display: flex; 
+  justify-content: center; /* centralizado */
   align-items: center;
   box-shadow: 0 0 30px #00ffff88 inset;
 }
 
 header h2 {
   font-family: 'Orbitron', sans-serif;
-  color: #00ffff;
-  margin: 0;
+  color: #00ffff; 
+  margin: 0; 
   font-weight: 700;
 }
 
-main {
-  flex-grow: 1;
-  padding: 30px 40px;
+main { 
+  flex-grow: 1; 
+  padding: 30px 40px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h1 {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Orbitron', sans-serif; 
   font-weight: 700;
-  font-size: 2.4rem;
-  color: #00ffff;
+  font-size: 2.4rem; 
+  color: #00ffff; 
   margin-bottom: 20px;
   text-shadow: 0 0 15px #00ffff;
 }
 
 .materia-list {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  display: flex; 
+  flex-direction: column; 
+  gap: 20px; 
   max-width: 700px;
+  width: 100%;
 }
 
 .materia-item {
   background: rgba(0, 255, 255, 0.1);
-  border-radius: 16px;
+  border-radius: 16px; 
   padding: 20px 25px;
   box-shadow: 0 0 30px #00ffff33 inset;
-  cursor: pointer;
+  cursor: pointer; 
   transition: 0.3s ease;
+  text-align: center;
 }
 .materia-item:hover { background: rgba(0, 255, 255, 0.25); }
 
-.materia-item h3 { margin: 0; color: #00e6ff; font-weight: 600; }
+.materia-item h3 { 
+  margin: 0; 
+  color: #00e6ff; 
+  font-weight: 600; 
+  font-size: 1.2rem;
+}
 
 footer {
-  text-align: center;
+  text-align: center; 
   padding: 15px 20px;
-  background: #022c49;
-  color: #00ffff88;
-  font-size: 0.9rem;
+  background: #022c49; 
+  color: #00ffff88; 
+  font-size: 1rem;
 }
 
-canvas#bgCanvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  background: transparent;
+footer a {
+  color: #00ffff; 
+  text-decoration: underline;
 }
 
+/* Modal Bimestres */
 #modal-bimestres {
   position: fixed;
-  top:0;
-  left:0;
-  width:100vw;
-  height:100vh;
-  background: rgba(0,0,0,0.85);
-  backdrop-filter: blur(5px);
+  top:0; left:0;
+  width:100vw; height:100vh;
+  background: rgba(0,0,0,0.75);
   display:none;
   align-items:center;
   justify-content:center;
   z-index:999;
 }
+
 #modal-bimestres.active { display:flex; }
 
 #modal-content {
   background: rgba(0,255,255,0.05);
-  padding:30px 40px;
-  border-radius:20px;
-  box-shadow:0 0 50px #00ffffaa;
+  padding: 60px 80px; /* maior */
+  border-radius: 25px;
+  box-shadow: 0 0 60px #00ffffaa, 0 0 20px #00ffff55 inset;
   color:#00ffff;
   text-align:center;
+  animation: fadeInUp 0.5s ease;
+  max-width: 500px;
 }
-#modal-content h2 { margin-bottom:20px; }
+
+@keyframes fadeInUp {
+  from { transform: translateY(50px); opacity:0; }
+  to { transform: translateY(0); opacity:1; }
+}
+
+#modal-content h2 {
+  margin-bottom:40px;
+  font-size: 2.4rem; /* maior título */
+  text-shadow: 0 0 20px #00ffff, 0 0 30px #00ffff88;
+}
+
 #modal-content button {
-  display:block;
-  width:100%;
-  margin-top:10px;
-  padding:12px;
+  display:inline-block;
+  margin:15px 20px;
+  padding:20px 35px; /* botões maiores */
+  font-size:1.3rem; 
   border:none;
-  border-radius:12px;
+  border-radius:15px;
   font-weight:bold;
-  background:linear-gradient(45deg,#00ffff,#0077ff);
+  background: linear-gradient(45deg,#00ffff,#0077ff);
   color:#000;
   cursor:pointer;
-  box-shadow:0 0 15px #00ffff88;
-  transition:0.3s ease;
+  box-shadow:0 0 25px #00ffff88;
+  transition:0.3s ease, transform 0.2s ease;
 }
-#modal-content button:hover { transform:scale(1.05); box-shadow:0 0 25px #00ffffcc; }
+
+#modal-content button:hover {
+  transform: scale(1.1);
+  box-shadow:0 0 35px #00ffffcc;
+}
+
+#modal-content button.cancel-btn {
+  font-size:1.1rem; 
+  padding:18px 30px;
+  background: transparent;
+  color:#00ffff;
+  border:2px solid #00ffff;
+  box-shadow: 0 0 15px #00ffff66;
+}
+
+#modal-content button.cancel-btn:hover {
+  background:#00ffff;
+  color:#000;
+  transform: scale(1.05);
+}
 </style>
 </head>
 <body>
-
-<canvas id="bgCanvas"></canvas>
 
 <header>
   <h2>Portal Técnico Escolar</h2>
 </header>
 
 <main>
-  <h1>Bem-vindo(a)</h1> <!-- Nome removido -->
+  <h1>Bem-vindo(a)</h1>
   <section class="materia-list">
     <div class="materia-item" data-materia="arquitetura"><h3>Arquitetura de Computadores</h3></div>
     <div class="materia-item" data-materia="web"><h3>Programação Web</h3></div>
@@ -151,9 +191,10 @@ canvas#bgCanvas {
 <footer>
   &copy; 2025 Técnico Escolar - Todos os direitos reservados.<br>
   Desenvolvido por Nauan Loures.<br>
-  Siga-me no Instagram: <a href="https://www.instagram.com/nauanloures" target="_blank" style="color:#00ffff; text-decoration:underline;">@nauanloures</a>
+  Siga-me no Instagram também: <a href="https://www.instagram.com/nauanloures" target="_blank">@nauanloures</a>
 </footer>
-  
+
+<!-- Modal Bimestres -->
 <div id="modal-bimestres">
   <div id="modal-content">
     <h2>Escolha o Bimestre</h2>
@@ -161,7 +202,7 @@ canvas#bgCanvas {
     <button data-bimestre="2">2º Bimestre</button>
     <button data-bimestre="3">3º Bimestre</button>
     <button data-bimestre="4">4º Bimestre</button>
-    <button onclick="fecharModal()">Cancelar</button>
+    <button class="cancel-btn" onclick="fecharModal()">Cancelar</button>
   </div>
 </div>
 
@@ -190,59 +231,6 @@ function fecharModal() {
   modal.classList.remove('active');
   materiaSelecionada = '';
 }
-
-// Partículas no fundo
-const canvas = document.getElementById("bgCanvas");
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-class Particle {
-  constructor() {
-    this.x = Math.random() * canvas.width;
-    this.y = Math.random() * canvas.height;
-    this.size = Math.random() * 3 + 1;
-    this.speedX = Math.random() * 1 - 0.5;
-    this.speedY = Math.random() * 1 - 0.5;
-    this.color = "#00ffff";
-  }
-  update() {
-    this.x += this.speedX;
-    this.y += this.speedY;
-    if (this.x > canvas.width) this.x = 0;
-    if (this.x < 0) this.x = canvas.width;
-    if (this.y > canvas.height) this.y = 0;
-    if (this.y < 0) this.y = canvas.height;
-  }
-  draw() {
-    ctx.fillStyle = this.color;
-    ctx.shadowColor = this.color;
-    ctx.shadowBlur = 10;
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.fill();
-  }
-}
-
-let particlesArray = [];
-for (let i = 0; i < 100; i++) {
-  particlesArray.push(new Particle());
-}
-
-function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  particlesArray.forEach(p => {
-    p.update();
-    p.draw();
-  });
-  requestAnimationFrame(animate);
-}
-animate();
-
-window.addEventListener("resize", () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-});
 </script>
 
 </body>
