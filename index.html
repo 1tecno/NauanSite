@@ -9,75 +9,118 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: #0f2027; /* fundo escuro */
+  background: #0f2027;
   color: #cce7ff;
-  margin: 0; min-height: 100vh; overflow-x: hidden;
-  display: flex; flex-direction: column;
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 header {
-  background: #022c49; padding: 15px 30px;
-  display: flex; justify-content: space-between; align-items: center;
+  background: #022c49;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   box-shadow: 0 0 30px #00ffff88 inset;
 }
 
 header h2 {
   font-family: 'Orbitron', sans-serif;
-  color: #00ffff; margin: 0; font-weight: 700;
+  color: #00ffff;
+  margin: 0;
+  font-weight: 700;
 }
 
-main { flex-grow: 1; padding: 30px 40px; }
+main {
+  flex-grow: 1;
+  padding: 30px 40px;
+}
 
 h1 {
-  font-family: 'Orbitron', sans-serif; font-weight: 700;
-  font-size: 2.4rem; color: #00ffff; margin-bottom: 20px;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 2.4rem;
+  color: #00ffff;
+  margin-bottom: 20px;
   text-shadow: 0 0 15px #00ffff;
 }
 
 .materia-list {
-  display: flex; flex-direction: column; gap: 20px; max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 700px;
 }
 
 .materia-item {
   background: rgba(0, 255, 255, 0.1);
-  border-radius: 16px; padding: 20px 25px;
+  border-radius: 16px;
+  padding: 20px 25px;
   box-shadow: 0 0 30px #00ffff33 inset;
-  cursor: pointer; transition: 0.3s ease;
+  cursor: pointer;
+  transition: 0.3s ease;
 }
 .materia-item:hover { background: rgba(0, 255, 255, 0.25); }
 
 .materia-item h3 { margin: 0; color: #00e6ff; font-weight: 600; }
 
 footer {
-  text-align: center; padding: 15px 20px;
-  background: #022c49; color: #00ffff88; font-size: 0.9rem;
+  text-align: center;
+  padding: 15px 20px;
+  background: #022c49;
+  color: #00ffff88;
+  font-size: 0.9rem;
 }
 
-/* canvas para partículas */
 canvas#bgCanvas {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   z-index: -1;
-  background: transparent; /* fundo transparente */
+  background: transparent;
 }
 
 #modal-bimestres {
-  position: fixed; top:0; left:0; width:100vw; height:100vh;
-  background: rgba(0,0,0,0.85); backdrop-filter: blur(5px);
-  display:none; align-items:center; justify-content:center; z-index:999;
+  position: fixed;
+  top:0;
+  left:0;
+  width:100vw;
+  height:100vh;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(5px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
 }
 #modal-bimestres.active { display:flex; }
 
 #modal-content {
-  background: rgba(0,255,255,0.05); padding:30px 40px;
-  border-radius:20px; box-shadow:0 0 50px #00ffffaa;
-  color:#00ffff; text-align:center;
+  background: rgba(0,255,255,0.05);
+  padding:30px 40px;
+  border-radius:20px;
+  box-shadow:0 0 50px #00ffffaa;
+  color:#00ffff;
+  text-align:center;
 }
 #modal-content h2 { margin-bottom:20px; }
 #modal-content button {
-  display:block; width:100%; margin-top:10px; padding:12px;
-  border:none; border-radius:12px; font-weight:bold;
+  display:block;
+  width:100%;
+  margin-top:10px;
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  font-weight:bold;
   background:linear-gradient(45deg,#00ffff,#0077ff);
-  color:#000; cursor:pointer; box-shadow:0 0 15px #00ffff88;
+  color:#000;
+  cursor:pointer;
+  box-shadow:0 0 15px #00ffff88;
   transition:0.3s ease;
 }
 #modal-content button:hover { transform:scale(1.05); box-shadow:0 0 25px #00ffffcc; }
@@ -89,11 +132,10 @@ canvas#bgCanvas {
 
 <header>
   <h2>Portal Técnico Escolar</h2>
-  <!-- botão de sair removido -->
 </header>
 
 <main>
-  <h1>Bem-vindo(a) <span id="user-name"></span></h1>
+  <h1>Bem-vindo(a)</h1> <!-- Nome removido -->
   <section class="materia-list">
     <div class="materia-item" data-materia="arquitetura"><h3>Arquitetura de Computadores</h3></div>
     <div class="materia-item" data-materia="web"><h3>Programação Web</h3></div>
@@ -106,8 +148,12 @@ canvas#bgCanvas {
   </section>
 </main>
 
-<footer>&copy; 2025 Técnico Escolar - Todos os direitos reservados.</footer>
-
+<footer>
+  &copy; 2025 Técnico Escolar - Todos os direitos reservados.<br>
+  Desenvolvido por Nauan Loures.<br>
+  Siga-me no Instagram: <a href="https://www.instagram.com/nauanloures" target="_blank" style="color:#00ffff; text-decoration:underline;">@nauanloures</a>
+</footer>
+  
 <div id="modal-bimestres">
   <div id="modal-content">
     <h2>Escolha o Bimestre</h2>
@@ -197,9 +243,6 @@ window.addEventListener("resize", () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 });
-
-// Definir nome fictício (como antes, só exemplo)
-document.getElementById('user-name').textContent = "Usuário";
 </script>
 
 </body>
