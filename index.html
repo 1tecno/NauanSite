@@ -7,100 +7,127 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@300;500;700&display=swap');
 
-body {
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
   font-family: 'Poppins', sans-serif;
-  background: #0f2027; color: #cce7ff;
-  margin: 0; min-height: 100vh; overflow-x: hidden;
-  display: flex; flex-direction: column;
+  background: #0f2027;
+  color: #cce7ff;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 header {
-  background: #022c49; padding: 15px 30px;
-  display: flex; justify-content: space-between; align-items: center;
+  background: #022c49;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   box-shadow: 0 0 30px #00ffff88 inset;
 }
 
 header h2 {
   font-family: 'Orbitron', sans-serif;
-  color: #00ffff; margin: 0; font-weight: 700;
+  color: #00ffff;
+  margin: 0;
+  font-weight: 700;
 }
 
-#logout-btn {
-  background: #ff0055; border: none; padding: 10px 22px;
-  border-radius: 12px; cursor: pointer; color: #fff;
-  font-weight: 700; box-shadow: 0 0 15px #ff0055; transition: 0.3s ease;
+main {
+  flex-grow: 1;
+  padding: 30px 40px;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s forwards;
 }
-#logout-btn:hover { box-shadow: 0 0 25px #ff0077; transform: scale(1.05); }
 
-main { flex-grow: 1; padding: 30px 40px; }
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
+}
 
 h1 {
-  font-family: 'Orbitron', sans-serif; font-weight: 700;
-  font-size: 2.4rem; color: #00ffff; margin-bottom: 20px;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 2.4rem;
+  color: #00ffff;
+  margin-bottom: 20px;
   text-shadow: 0 0 15px #00ffff;
 }
 
 .materia-list {
-  display: flex; flex-direction: column; gap: 20px; max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 700px;
 }
 
 .materia-item {
   background: rgba(0, 255, 255, 0.1);
-  border-radius: 16px; padding: 20px 25px;
+  border-radius: 16px;
+  padding: 20px 25px;
   box-shadow: 0 0 30px #00ffff33 inset;
-  cursor: pointer; transition: 0.3s ease;
+  cursor: pointer;
+  transition: 0.3s ease;
 }
 .materia-item:hover { background: rgba(0, 255, 255, 0.25); }
 
 .materia-item h3 { margin: 0; color: #00e6ff; font-weight: 600; }
 
 footer {
-  text-align: center; padding: 15px 20px;
-  background: #022c49; color: #00ffff88; font-size: 0.9rem;
+  text-align: center;
+  padding: 15px 20px;
+  background: #022c49;
+  color: #00ffff88;
+  font-size: 0.9rem;
 }
 
 canvas#bgCanvas {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 
 #modal-bimestres {
-  position: fixed; top:0; left:0; width:100vw; height:100vh;
-  background: rgba(0,0,0,0.85); backdrop-filter: blur(5px);
-  display:none; align-items:center; justify-content:center; z-index:999;
+  position: fixed;
+  top:0; left:0; width:100vw; height:100vh;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(5px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
 }
 #modal-bimestres.active { display:flex; }
 
 #modal-content {
-  background: rgba(0,255,255,0.05); padding:30px 40px;
-  border-radius:20px; box-shadow:0 0 50px #00ffffaa;
-  color:#00ffff; text-align:center;
+  background: rgba(0,255,255,0.05);
+  padding:30px 40px;
+  border-radius:20px;
+  box-shadow:0 0 50px #00ffffaa;
+  color:#00ffff;
+  text-align:center;
 }
 #modal-content h2 { margin-bottom:20px; }
 #modal-content button {
-  display:block; width:100%; margin-top:10px; padding:12px;
-  border:none; border-radius:12px; font-weight:bold;
+  display:block;
+  width:100%;
+  margin-top:10px;
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  font-weight:bold;
   background:linear-gradient(45deg,#00ffff,#0077ff);
-  color:#000; cursor:pointer; box-shadow:0 0 15px #00ffff88;
+  color:#000;
+  cursor:pointer;
+  box-shadow:0 0 15px #00ffff88;
   transition:0.3s ease;
 }
 #modal-content button:hover { transform:scale(1.05); box-shadow:0 0 25px #00ffffcc; }
 </style>
-
-<!-- Firebase CDN -->
-<script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js"></script>
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyAhHGJ70vfrhRVH-OfBfA6rKKsSiNezEgg",
-    authDomain: "portaltecnico-6d777.firebaseapp.com",
-    projectId: "portaltecnico-6d777",
-    storageBucket: "portaltecnico-6d777.appspot.com",
-    messagingSenderId: "1004571616226",
-    appId: "1:1004571616226:web:4a7076708c9515eea44fbb",
-    measurementId: "G-VHCLYGR2L0"
-  };
-  firebase.initializeApp(firebaseConfig);
-</script>
 </head>
 <body>
 
@@ -108,11 +135,10 @@ canvas#bgCanvas {
 
 <header>
   <h2>Portal Técnico Escolar</h2>
-  <button id="logout-btn">Sair</button>
 </header>
 
 <main>
-  <h1>Bem-vindo(a), <span id="user-name"></span>!</h1>
+  <h1>Bem-vindo(a) <span id="user-name">Usuário</span></h1>
   <section class="materia-list">
     <div class="materia-item" data-materia="arquitetura"><h3>Arquitetura de Computadores</h3></div>
     <div class="materia-item" data-materia="web"><h3>Programação Web</h3></div>
@@ -139,23 +165,6 @@ canvas#bgCanvas {
 </div>
 
 <script>
-// Verifica autenticação com Firebase
-firebase.auth().onAuthStateChanged(user => {
-  if (user) {
-    document.getElementById('user-name').textContent = user.email;
-  } else {
-    alert('Você precisa estar logado!');
-    window.location.href = 'index.html';
-  }
-});
-
-// Logout com Firebase
-document.getElementById('logout-btn').addEventListener('click', () => {
-  firebase.auth().signOut().then(() => {
-    window.location.href = 'index.html';
-  });
-});
-
 // Modal de bimestres
 const modal = document.getElementById('modal-bimestres');
 let materiaSelecionada = '';
@@ -165,7 +174,6 @@ document.querySelectorAll('.materia-item').forEach(item => {
     modal.classList.add('active');
   });
 });
-
 document.querySelectorAll('#modal-content button[data-bimestre]').forEach(btn => {
   btn.addEventListener('click', () => {
     const bimestre = btn.getAttribute('data-bimestre');
@@ -175,7 +183,6 @@ document.querySelectorAll('#modal-content button[data-bimestre]').forEach(btn =>
     }
   });
 });
-
 function fecharModal() {
   modal.classList.remove('active');
   materiaSelecionada = '';
@@ -184,8 +191,13 @@ function fecharModal() {
 // Partículas no fundo
 const canvas = document.getElementById("bgCanvas");
 const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
 
 class Particle {
   constructor() {
@@ -215,24 +227,14 @@ class Particle {
 }
 
 let particlesArray = [];
-for (let i = 0; i < 100; i++) {
-  particlesArray.push(new Particle());
-}
+for (let i = 0; i < 100; i++) particlesArray.push(new Particle());
 
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  particlesArray.forEach(p => {
-    p.update();
-    p.draw();
-  });
+  particlesArray.forEach(p => { p.update(); p.draw(); });
   requestAnimationFrame(animate);
 }
 animate();
-
-window.addEventListener("resize", () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-});
 </script>
 
 </body>
