@@ -1,248 +1,207 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Portal Técnico Escolar</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@300;500;700&display=swap');
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Arquitetura de Computadores - Portal Técnico Escolar</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Orbitron:wght@500&display=swap');
 
-body {
-  font-family: 'Poppins', sans-serif;
-  background: #0f2027;
-  color: #cce7ff;
-  margin: 0;
-  min-height: 100vh;
-  overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
-}
+    * { box-sizing: border-box; }
 
-header {
-  background: #022c49;
-  padding: 15px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 0 30px #00ffff88 inset;
-}
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #cce7ff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-header h2 {
-  font-family: 'Orbitron', sans-serif;
-  color: #00ffff;
-  margin: 0;
-  font-weight: 700;
-}
+    header {
+      background-color: #022c49;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+    }
 
-main {
-  flex-grow: 1;
-  padding: 30px 40px;
-}
+    header h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 500;
+      font-size: 2em;
+      margin: 0;
+      color: #00ffff;
+      text-shadow: 0 0 6px #00ffff66, 0 0 12px #00ffff33;
+    }
 
-h1 {
-  font-family: 'Orbitron', sans-serif;
-  font-weight: 700;
-  font-size: 2.4rem;
-  color: #00ffff;
-  margin-bottom: 20px;
-  text-shadow: 0 0 15px #00ffff;
-}
+    main {
+      flex-grow: 1;
+      max-width: 850px;
+      margin: 30px auto;
+      padding: 25px 30px;
+      background: linear-gradient(to bottom, rgba(0,255,255,0.05), rgba(0,255,255,0.08));
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.15);
+      position: relative;
+    }
 
-.materia-list {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  max-width: 700px;
-}
+    .content-box {
+      animation: fadeIn 0.5s ease;
+    }
 
-.materia-item {
-  background: rgba(0, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 20px 25px;
-  box-shadow: 0 0 30px #00ffff33 inset;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-.materia-item:hover { background: rgba(0, 255, 255, 0.25); }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-.materia-item h3 { margin: 0; color: #00e6ff; font-weight: 600; }
+    h2 {
+      color: #00ffff;
+      margin-top: 0;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 500;
+      text-shadow: 0 0 5px #00ffff66;
+    }
 
-/* Footer futurista */
-footer {
-  text-align: center;
-  padding: 20px;
-  background: #011a2b;
-  color: #00ffffaa;
-  font-size: 1rem;
-  border-top: 1px solid #00ffff44;
-  text-shadow: 0 0 8px #00ffff55;
-}
-footer a {
-  color: #00ffff;
-  text-decoration: none;
-  font-weight: bold;
-}
-footer a:hover {
-  text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
-}
+    p, ul {
+      line-height: 1.7;
+      text-align: justify;
+      margin-bottom: 15px;
+    }
 
-canvas#bgCanvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  background: transparent;
-}
+    ul li::before {
+      content: "✓ ";
+      color: #00ffff;
+      font-weight: bold;
+    }
 
-/* Modal Bimestres */
-#modal-bimestres {
-  position: fixed;
-  top:0;
-  left:0;
-  width:100vw;
-  height:100vh;
-  background: rgba(0,0,0,0.85);
-  backdrop-filter: blur(5px);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:999;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-}
+    a {
+      color: #00ffff;
+      text-decoration: underline;
+    }
 
-#modal-bimestres.active {
-  opacity: 1;
-  pointer-events: all;
-}
+    .navegacao {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 25px;
+    }
 
-#modal-content {
-  background: rgba(0,255,255,0.05);
-  padding:50px 60px;
-  border-radius:20px;
-  box-shadow:0 0 50px #00ffffaa;
-  color:#00ffff;
-  text-align:center;
-  font-size: 1.3rem;
-  transform: scale(0.8);
-  transition: transform 0.4s ease;
-}
+    .btn-group {
+      display: flex;
+      gap: 10px;
+    }
 
-#modal-bimestres.active #modal-content {
-  transform: scale(1);
-}
+    .btn {
+      padding: 10px 20px;
+      background: linear-gradient(45deg, #00ffff, #0077ff);
+      color: #000;
+      font-weight: bold;
+      text-decoration: none;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 0 12px #00ffff66;
+      transition: 0.3s ease;
+    }
 
-#modal-content h2 { margin-bottom:30px; font-size:2rem; font-family:'Orbitron', sans-serif; }
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #00ffff88;
+    }
 
-#modal-content button {
-  display: block;
-  width: 100%;
-  margin-top: 15px;
-  padding: 15px;
-  border: none;
-  border-radius: 12px;
-  font-weight: bold;
-  font-size: 1.2rem;
-  font-family: 'Orbitron', sans-serif;
-  background: #00475a; /* ciano escuro elegante */
-  color: #66f0ff; /* cor suave e combinando */
-  cursor: pointer;
-  box-shadow: 0 0 15px #00ffff33;
-  transition: 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-  opacity: 0;
-  transform: translateY(20px);
-}
+    canvas#bgParticles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: transparent;
+    }
 
-#modal-content button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 25px #00ffffaa;
-}
-
-/* animação sequencial com delay */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-</style>
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.5em; }
+      .btn { padding: 8px 14px; font-size: 0.9em; }
+    }
+  </style>
 </head>
 <body>
 
-<canvas id="bgCanvas"></canvas>
+<canvas id="bgParticles"></canvas>
 
 <header>
-  <h2>Portal Técnico Escolar</h2>
+  <h1>Arquitetura de Computadores</h1>
 </header>
 
-<main>
-  <h1>Bem-vindo(a)</h1>
-  <section class="materia-list">
-    <div class="materia-item" data-materia="arquitetura"><h3>Arquitetura de Computadores</h3></div>
-    <div class="materia-item" data-materia="web"><h3>Programação Web</h3></div>
-    <div class="materia-item" data-materia="java"><h3>POO com Java</h3></div>
-    <div class="materia-item" data-materia="htmlecss"><h3>HTML e CSS</h3></div>
-    <div class="materia-item" data-materia="sistemas"><h3>Sistemas Operacionais</h3></div>
-    <div class="materia-item" data-materia="logica"><h3>Lógica de Programação</h3></div>
-    <div class="materia-item" data-materia="nocao"><h3>Noção de Robótica</h3></div>
-    <div class="materia-item" data-materia="gestao"><h3>Gestão de Tempo</h3></div>
-  </section>
+<main id="main-content">
+  <div class="content-box" id="slide-container">
+    <!-- Conteúdo dos slides será inserido aqui via JS -->
+  </div>
+
+  <div class="navegacao">
+    <a href="index.html" class="btn">⬅ Portal</a>
+    <div class="btn-group">
+      <button class="btn" id="btn-voltar" style="display: none;">⬅</button>
+      <button class="btn" id="btn-avancar">➡</button>
+    </div>
+  </div>
 </main>
 
-<footer>
-  &copy; 2025 Técnico Escolar - Todos os direitos reservados.<br>
-  Desenvolvido por Nauan Loures | Siga-me no Instagram também: <a href="https://www.instagram.com/nauanloures" target="_blank">@nauanloures</a>
-</footer>
-
-<div id="modal-bimestres">
-  <div id="modal-content">
-    <h2>Escolha o Bimestre</h2>
-    <button data-bimestre="1">1º Bimestre</button>
-    <button data-bimestre="2">2º Bimestre</button>
-    <button data-bimestre="3">3º Bimestre</button>
-    <button data-bimestre="4">4º Bimestre</button>
-    <button onclick="fecharModal()">Cancelar</button>
-  </div>
-</div>
-
 <script>
-// Modal de bimestres
-const modal = document.getElementById('modal-bimestres');
-let materiaSelecionada = '';
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.getElementById("slide-container");
+  const main = document.getElementById("main-content");
+  const btnAvancar = document.getElementById("btn-avancar");
+  const btnVoltar = document.getElementById("btn-voltar");
 
-document.querySelectorAll('.materia-item').forEach(item => {
-  item.addEventListener('click', () => {
-    materiaSelecionada = item.getAttribute('data-materia');
-    modal.classList.add('active');
+  const slides = [
+    // ----- Slides 1 a 11 (mantidos) -----
+    `<h2>Aula 1 - 10/07</h2><p><strong>Guia de Aprendizagem em Conjunto com os Alunos</strong> - Durante esta aula, foi desenvolvido, em conjunto com os alunos, o planejamento das aulas e dos temas que serão abordados ao longo do 3º bimestre...</p>`,
+    `<h2>Aula 2 - 15/07</h2><p><strong>Consultoria e Aquisição de Computadores</strong> - A consultoria em informática voltada para a aquisição de computadores é um serviço especializado...</p>`,
+    `<h2>Aula 3 - 17/07</h2><p><strong>Consultoria e Aquisição de Celulares</strong> – Comparamos 4 celulares dos alunos da sala no site <a href="https://www.tudocelular.com/compare" target="_blank">TudoCelular</a>...</p>`,
+    `<h2>Aula 4 – 04/08</h2><p><strong>Consultoria em Aquisição de Computadores</strong> - Os alunos foram orientados para escolher um computador de forma consciente...</p>`,
+    `<h2>Aula 5 – 05/08</h2><p><strong>Consultoria em Aquisição de Celular</strong> - Orientações sobre como escolher um celular de forma consciente...</p>`,
+    `<h2>Aula 6 – 11/08</h2><p><strong>Estudo sobre Criação e Funcionamento de Servidor Local</strong> - Conceitos fundamentais sobre servidores locais...</p>`,
+    `<h2>Aula 7 – 12/08</h2><p><strong>Estudo sobre Criação e Funcionamento de Servidor Local</strong> - Continuação da aula anterior...</p>`,
+    `<h2>Aula 8 – 18/08</h2><p><strong>Ergonomia da Computação para Pessoas com Deficiência</strong> - Princípios de ergonomia aplicados à inclusão...</p>`,
+    `<h2>Aula 9 – 19/08</h2><p><strong>TICs na Educação</strong> - Uso das Tecnologias da Informação e Comunicação como apoio pedagógico...</p>`,
+    `<h2>Aula 10 – 25/08</h2><p><strong>Recepcionando Amigo Cadeirante</strong> - Atividades de inclusão relacionadas à Semana Nacional da Pessoa com Deficiência...</p>`,
+    `<h2>Aula 11 – 26/08</h2><p><strong>Preparando Ambiente para Entrevista com Profissional de TI</strong> - Organização do ambiente escolar para entrevista inclusiva...</p>`,
 
-    // resetar animação sequencial com delay
-    const botoes = document.querySelectorAll('#modal-content button');
-    botoes.forEach((btn, i) => {
-      btn.style.opacity = 0;
-      btn.style.animation = 'none';
-      void btn.offsetWidth;
-      btn.style.animation = `fadeUp 0.6s ease forwards ${i * 0.5}s`;
-    });
+    // ----- Slides novos 12 a 17 -----
+    `<h2>Aula 12 – Interdisciplinaridade com Robótica</h2><p>Atividade integrando conceitos de robótica com a disciplina de Arquitetura de Computadores...</p>`,
+    `<h2>Aula 13 – Diferença Técnica entre HD e SSD / HD Purple vs HD Comum</h2><p>Resumo das diferenças técnicas entre HDs comuns e HD Purple, destacando desempenho e confiabilidade...</p>`,
+    `<h2>Aula 14 – Diferença Técnica entre HD e SSD / HD Purple vs HD Comum</h2><p>Continuação da análise, com aplicação prática e resumo no caderno...</p>`,
+    `<h2>Aula 16 – Resumo para Avaliação Global – Semana Nacional do Trânsito</h2><p>Resumo dos conteúdos trabalhados relacionados à Semana Nacional do Trânsito...</p>`,
+    `<h2>Aula 17 – Avaliação Global – Semana Nacional do Trânsito</h2><p>Realização da avaliação integrando os conceitos aprendidos sobre trânsito seguro e inclusão...</p>`
+  ];
+
+  let index = 0;
+
+  function atualizarSlide() {
+    main.style.opacity = 0;
+    setTimeout(() => {
+      container.innerHTML = `<div class="content-box fade">${slides[index]}</div>`;
+      main.style.opacity = 1;
+      btnVoltar.style.display = index === 0 ? "none" : "inline-block";
+      btnAvancar.style.display = index === slides.length - 1 ? "none" : "inline-block";
+    }, 300);
+  }
+
+  btnAvancar.addEventListener("click", () => {
+    if (index < slides.length - 1) { index++; atualizarSlide(); }
   });
+
+  btnVoltar.addEventListener("click", () => {
+    if (index > 0) { index--; atualizarSlide(); }
+  });
+
+  atualizarSlide();
 });
 
-document.querySelectorAll('#modal-content button[data-bimestre]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const bimestre = btn.getAttribute('data-bimestre');
-    if (materiaSelecionada) {
-      window.location.href = `${materiaSelecionada}${bimestre}.html`;
-    }
-  });
-});
-
-function fecharModal() {
-  modal.classList.remove('active');
-  materiaSelecionada = '';
-}
-
-// Partículas no fundo
-const canvas = document.getElementById("bgCanvas");
+// ----- Partículas no fundo -----
+const canvas = document.getElementById("bgParticles");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -254,41 +213,39 @@ class Particle {
     this.size = Math.random() * 3 + 1;
     this.speedX = Math.random() * 1 - 0.5;
     this.speedY = Math.random() * 1 - 0.5;
-    this.color = "#00ffff";
+    this.color = "#00ffff66";
   }
   update() {
     this.x += this.speedX;
     this.y += this.speedY;
-    if (this.x > canvas.width) this.x = 0;
-    if (this.x < 0) this.x = canvas.width;
-    if (this.y > canvas.height) this.y = 0;
-    if (this.y < 0) this.y = canvas.height;
+    if(this.x>canvas.width) this.x=0;
+    if(this.x<0) this.x=canvas.width;
+    if(this.y>canvas.height) this.y=0;
+    if(this.y<0) this.y=canvas.height;
   }
   draw() {
     ctx.fillStyle = this.color;
     ctx.shadowColor = this.color;
-    ctx.shadowBlur = 10;
+    ctx.shadowBlur = 8;
     ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
     ctx.fill();
   }
 }
 
-let particlesArray = [];
-for (let i = 0; i < 100; i++) particlesArray.push(new Particle());
+let particlesArray=[];
+for(let i=0;i<120;i++){particlesArray.push(new Particle());}
 
-function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  particlesArray.forEach(p => { p.update(); p.draw(); });
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particlesArray.forEach(p=>{p.update();p.draw();});
   requestAnimationFrame(animate);
 }
 animate();
 
-window.addEventListener("resize", () => {
+window.addEventListener("resize",()=>{
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-  particlesArray = [];
-  for (let i = 0; i < 100; i++) particlesArray.push(new Particle());
 });
 </script>
 
