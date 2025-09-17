@@ -6,13 +6,13 @@
 <title>Arquitetura de Computadores - Portal Técnico Escolar</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800&display=swap');
 
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-  color: #cce7ff;
+  font-family: 'Rubik', sans-serif;
+  background: linear-gradient(to right, #1e3c72, #2a5298);
+  color: #e0f0ff;
   overflow-x: hidden;
   min-height: 100vh;
   display: flex;
@@ -20,27 +20,26 @@ body {
 }
 
 header {
-  background-color: #111;
-  padding: 25px;
+  background-color: transparent;
+  padding: 30px 0;
   text-align: center;
-  box-shadow: 0 4px 10px rgba(0, 255, 255, 0.2);
 }
 
 header h1 {
-  font-size: 2.2em;
-  color: #00ffff;
+  font-size: 2.5em;
+  color: #4da8da;
   margin: 0;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 main {
   flex: 1;
-  max-width: 900px;
-  margin: 30px auto;
-  padding: 30px;
-  background-color: rgba(30,30,30,0.95);
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(0,255,255,0.1);
-  position: relative;
+  max-width: 960px;
+  margin: 20px auto;
+  padding: 40px;
+  background-color: rgba(255,255,255,0.05);
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.3);
 }
 
 .content-box {
@@ -53,59 +52,40 @@ main {
 }
 
 h2 {
-  color: #00ffff;
+  color: #4da8da;
   margin-top: 0;
+  font-size: 1.8em;
 }
 
 p {
   text-align: justify;
   line-height: 1.8;
+  font-size: 1.05em;
 }
 
 ul li::before {
   content: "✓ ";
-  color: #00ffff;
+  color: #4da8da;
   font-weight: bold;
 }
 
-.btn {
+.btn-sair {
   padding: 12px 25px;
   border: none;
   border-radius: 25px;
   font-weight: bold;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
-}
-
-.btn:hover { transform: scale(1.1); }
-
-.btn-avancar, .btn-voltar {
-  background: linear-gradient(45deg,#00ffff,#0077ff);
-  color: #000;
-  margin-left: 10px;
-  box-shadow: 0 0 10px #00ffff88;
-}
-
-.btn-avancar:hover, .btn-voltar:hover {
-  box-shadow: 0 0 25px #00ffffcc;
-}
-
-.btn-sair {
-  background: linear-gradient(45deg,#ff0000,#ff5555);
+  background: linear-gradient(45deg,#4da8da,#2a5298);
   color: #fff;
-  box-shadow: 0 0 10px #ff0000,0 0 20px #ff5555;
-  margin-right: auto;
+  box-shadow: 0 0 15px #4da8da;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  display: inline-block;
+  margin-top: 40px;
 }
 
 .btn-sair:hover {
-  box-shadow: 0 0 20px #ff0000,0 0 40px #ff5555;
-}
-
-.navegacao {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 30px;
+  transform: scale(1.05);
+  box-shadow: 0 0 30px #4da8da;
 }
 
 canvas#bgCanvas {
@@ -128,14 +108,29 @@ canvas#bgCanvas {
 </header>
 
 <main id="main-content">
-  <div class="content-box" id="slide-container"></div>
+  <div class="content-box">
+    <h2>Aula 1 - 10/07</h2>
+    <p><strong>Guia de Aprendizagem em Conjunto com os Alunos</strong></p>
+    <p>Os alunos participaram da construção do plano de aprendizagem do 3º bimestre, discutindo os objetivos do curso, os temas a serem abordados e as ferramentas disponíveis. A proposta foi promover uma aprendizagem significativa e contextualizada, com foco na evolução histórica da tecnologia digital e sua influência na sociedade.</p>
+    <p>Além disso, foram definidos critérios para análise de sistemas computacionais, estimulando o pensamento crítico e a compreensão da arquitetura de computadores como base para o funcionamento dos dispositivos modernos.</p>
 
-  <div class="navegacao">
-    <a href="index.html" class="btn btn-sair">Sair</a>
-    <div>
-      <button class="btn btn-voltar" id="btn-voltar" style="display:none;">⬅</button>
-      <button class="btn btn-avancar" id="btn-avancar">➡</button>
-    </div>
+    <h2>Aula 2 - 15/07</h2>
+    <p><strong>Consultoria e Aquisição de Computadores</strong></p>
+    <p>Os alunos aprenderam a realizar consultorias técnicas para aquisição de computadores, analisando componentes como processador, memória RAM, armazenamento e placa de vídeo. A aula enfatizou a importância de alinhar desempenho e custo-benefício conforme o perfil de uso.</p>
+    <p>Também foram abordadas estratégias para evitar gastos desnecessários, além de desenvolver habilidades de pesquisa e tomada de decisão com base em dados técnicos confiáveis.</p>
+
+    <h2>Aula 3 - 17/07</h2>
+    <p><strong>Consultoria e Aquisição de Celulares</strong></p>
+    <p>Utilizando o site <a href="https://www.tudocelular.com/compare" target="_blank" style="color:#4da8da;text-decoration:underline;">TudoCelular</a>, os alunos realizaram comparações entre modelos de celulares, considerando:</p>
+    <ul>
+      <li><strong>Hardware:</strong> Desempenho em multitarefas e jogos.</li>
+      <li><strong>Tela:</strong> Qualidade visual e tecnologia empregada.</li>
+      <li><strong>Câmera:</strong> Recursos fotográficos e de vídeo.</li>
+      <li><strong>Desempenho:</strong> Autonomia e fluidez de uso.</li>
+    </ul>
+    <p>O objetivo foi capacitar os alunos para decisões conscientes e técnicas na aquisição de dispositivos móveis, promovendo consumo responsável e integração tecnológica.</p>
+
+    <a href="index.html" class="btn-sair">Sair</a>
   </div>
 </main>
 
@@ -153,7 +148,7 @@ class Particle {
     this.size = Math.random()*3+1;
     this.speedX = Math.random()*1-0.5;
     this.speedY = Math.random()*1-0.5;
-    this.color = "#00ffff";
+    this.color = "#4da8da";
   }
   update() {
     this.x += this.speedX;
@@ -184,54 +179,6 @@ animate();
 window.addEventListener("resize",()=>{
   canvas.width=window.innerWidth;
   canvas.height=window.innerHeight;
-});
-
-// Slides
-document.addEventListener("DOMContentLoaded",()=>{
-  const container=document.getElementById("slide-container");
-  const main=document.getElementById("main-content");
-  const btnAvancar=document.getElementById("btn-avancar");
-  const btnVoltar=document.getElementById("btn-voltar");
-
-  const slides=[
-`<h2>Aula 1 - 10/07</h2>
-<p><strong>Guia de Aprendizagem em Conjunto com os Alunos</strong></p>
-<p>Nesta aula inicial, os alunos participaram da elaboração do plano de aprendizagem do 3º bimestre. Foram discutidos os objetivos do curso, a organização das atividades e os temas que seriam abordados ao longo do período. 
-O planejamento incluiu a análise do material disponível na escola, das ferramentas de informática e das competências que se esperam desenvolver nos estudantes, como pensamento crítico, análise de sistemas computacionais e tomada de decisão tecnológica.</p>
-<p>O enfoque principal foi garantir que os conteúdos fossem significativos e contextualizados, permitindo que cada estudante compreenda a importância da arquitetura de computadores no mundo atual, tanto para uso pessoal quanto profissional. Foi dada atenção especial à evolução histórica dos computadores e sua relevância na sociedade moderna.</p>`,
-
-`<h2>Aula 2 - 15/07</h2>
-<p><strong>Consultoria e Aquisição de Computadores</strong></p>
-<p>Esta aula abordou o processo de consultoria tecnológica voltada para a aquisição de computadores. Os alunos aprenderam a analisar detalhadamente componentes essenciais como processador, memória RAM, armazenamento e placa de vídeo, considerando as diferentes necessidades de uso, seja para estudos, trabalho, games ou produção de conteúdo digital.</p>
-<p>Foram apresentados critérios de comparação de preços e desempenho, estratégias para evitar gastos desnecessários, além de informações sobre marcas e modelos recomendados. O objetivo foi desenvolver habilidades de pesquisa, análise crítica e tomada de decisão baseada em dados técnicos confiáveis. Também discutiu-se o impacto de cada componente no desempenho global do sistema e na longevidade do equipamento.</p>`,
-
-`<h2>Aula 3 - 17/07</h2>
-<p><strong>Consultoria e Aquisição de Celulares</strong></p>
-<p>Os alunos realizaram uma análise comparativa de quatro modelos de celulares utilizando o site <a href="https://www.tudocelular.com/compare" target="_blank" style="color:#00ffff;text-decoration:underline;">TudoCelular</a>. Foram observados aspectos como:</p>
-<ul style="text-align:justify;line-height:1.6;">
-<li><strong>Hardware:</strong> Processador, memória e capacidade de armazenamento, avaliando desempenho em multitarefas e jogos.</li>
-<li><strong>Tela:</strong> Resolução, tamanho, tecnologia (OLED, AMOLED, LCD) e impacto na experiência visual.</li>
-<li><strong>Câmera:</strong> Qualidade de imagem, recursos de fotografia e gravação de vídeo, e desempenho em diferentes condições de iluminação.</li>
-<li><strong>Desempenho:</strong> Velocidade de execução de aplicativos, testes de benchmark e autonomia em uso contínuo.</li>
-</ul>
-<p>O objetivo foi capacitar os alunos a realizar decisões conscientes e técnicas na aquisição de dispositivos móveis, estimulando o consumo responsável e o pensamento crítico sobre tecnologia. Além disso, discutiu-se a integração desses dispositivos com sistemas computacionais mais amplos, enfatizando conectividade e compatibilidade.</p>`
-  ];
-
-  let index=0;
-  function atualizarSlide(){
-    main.style.opacity=0;
-    setTimeout(()=>{
-      container.innerHTML=`<div class="content-box">${slides[index]}</div>`;
-      main.style.opacity=1;
-      btnVoltar.style.display=index===0?"none":"inline-block";
-      btnAvancar.style.display=index===slides.length-1?"none":"inline-block";
-    },300);
-  }
-
-  btnAvancar.addEventListener("click",()=>{if(index<slides.length-1){index++;atualizarSlide();}});
-  btnVoltar.addEventListener("click",()=>{if(index>0){index--;atualizarSlide();}});
-
-  atualizarSlide();
 });
 </script>
 </body>
