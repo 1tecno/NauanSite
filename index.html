@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -9,83 +10,62 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: #0f2027;
-  color: #cce7ff;
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+  color: #f9f9f9;
   margin: 0;
-  min-height: 100vh;
+  padding: 0;
   overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
 }
 
 header {
-  background: #022c49;
-  padding: 15px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 0 30px #00ffff88 inset;
+  background-color: #111;
+  color: #00ffff;
+  padding: 25px;
+  text-align: center;
+  font-size: 2em;
+  box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3);
 }
 
-header h2 {
-  font-family: 'Orbitron', sans-serif;
-  color: #00ffff;
-  margin: 0;
-  font-weight: 700;
-}
+h1 { margin:0; }
 
 main {
-  flex-grow: 1;
-  padding: 30px 40px;
-}
-
-h1 {
-  font-family: 'Orbitron', sans-serif;
-  font-weight: 700;
-  font-size: 2.4rem;
-  color: #00ffff;
-  margin-bottom: 20px;
-  text-shadow: 0 0 15px #00ffff;
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 30px;
 }
 
 .materia-list {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  max-width: 700px;
 }
 
 .materia-item {
-  background: rgba(0, 255, 255, 0.1);
+  padding: 20px;
   border-radius: 16px;
-  padding: 20px 25px;
-  box-shadow: 0 0 30px #00ffff33 inset;
+  background: rgba(0,255,255,0.05);
   cursor: pointer;
+  box-shadow: 0 0 15px #00ffff55 inset;
   transition: 0.3s ease;
 }
-.materia-item:hover { background: rgba(0, 255, 255, 0.25); }
-
-.materia-item h3 { margin: 0; color: #00e6ff; font-weight: 600; }
+.materia-item:hover { background: rgba(0,255,255,0.2); }
+.materia-item h3 { margin:0; color:#00ffff; font-weight:600; }
 
 footer {
-  text-align: center;
-  padding: 15px 20px;
-  background: #022c49;
-  color: #00ffff88;
-  font-size: 0.9rem;
+  text-align:center;
+  padding:15px 20px;
+  background:#111;
+  color:#00ffff88;
+  font-size:0.9rem;
 }
-
-footer a {
-  color: #00ffff;
-  text-decoration: underline;
-}
+footer a { color:#00ffff; text-decoration:underline; }
 
 canvas#bgCanvas {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
   z-index: -1;
   background: transparent;
 }
@@ -103,14 +83,14 @@ canvas#bgCanvas {
   align-items:center;
   justify-content:center;
   z-index:999;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
+  opacity:0;
+  pointer-events:none;
+  transition:0.4s ease;
 }
 
 #modal-bimestres.active {
-  opacity: 1;
-  pointer-events: all;
+  opacity:1;
+  pointer-events:all;
 }
 
 #modal-content {
@@ -120,16 +100,14 @@ canvas#bgCanvas {
   box-shadow:0 0 50px #00ffffaa;
   color:#00ffff;
   text-align:center;
-  font-size: 1.3rem;
+  font-size:1.3rem;
   transform: scale(0.8);
   transition: transform 0.4s ease;
 }
-
-#modal-bimestres.active #modal-content {
-  transform: scale(1);
-}
+#modal-bimestres.active #modal-content { transform: scale(1); }
 
 #modal-content h2 { margin-bottom:30px; font-size:2rem; }
+
 #modal-content button {
   display:block;
   width:100%;
@@ -138,7 +116,7 @@ canvas#bgCanvas {
   border:none;
   border-radius:12px;
   font-weight:bold;
-  font-size: 1.1rem;
+  font-size:1.1rem;
   background:linear-gradient(45deg,#00ffff,#0077ff);
   color:#000;
   cursor:pointer;
@@ -147,6 +125,14 @@ canvas#bgCanvas {
 }
 #modal-content button:hover { transform:scale(1.05); box-shadow:0 0 25px #00ffffcc; }
 
+#modal-content .btn-cancel {
+  background: linear-gradient(45deg,#ff0000,#cc0000);
+  color:#fff;
+  margin-top:10px;
+}
+#modal-content .btn-cancel:hover {
+  background: linear-gradient(45deg,#ff3333,#ff0000);
+}
 </style>
 </head>
 <body>
@@ -154,20 +140,19 @@ canvas#bgCanvas {
 <canvas id="bgCanvas"></canvas>
 
 <header>
-  <h2>Portal Técnico Escolar</h2>
+  <h1>Portal Técnico Escolar</h1>
 </header>
 
 <main>
-  <h1>Bem-vindo(a)</h1>
   <section class="materia-list">
-    <div class="materia-item" data-materia="arquitetura"><h3>Arquitetura de Computadores</h3></div>
-    <div class="materia-item" data-materia="web"><h3>Programação Web</h3></div>
-    <div class="materia-item" data-materia="java"><h3>POO com Java</h3></div>
-    <div class="materia-item" data-materia="htmlecss"><h3>HTML e CSS</h3></div>
-    <div class="materia-item" data-materia="sistemas"><h3>Sistemas Operacionais</h3></div>
-    <div class="materia-item" data-materia="logica"><h3>Lógica de Programação</h3></div>
-    <div class="materia-item" data-materia="nocao"><h3>Noção de Robótica</h3></div>
-    <div class="materia-item" data-materia="gestao"><h3>Gestão de Tempo</h3></div>
+    <div class="materia-item" data-materia="arquitetura">Arquitetura de Computadores</div>
+    <div class="materia-item" data-materia="web">Programação Web</div>
+    <div class="materia-item" data-materia="java">POO com Java</div>
+    <div class="materia-item" data-materia="htmlecss">HTML e CSS</div>
+    <div class="materia-item" data-materia="sistemas">Sistemas Operacionais</div>
+    <div class="materia-item" data-materia="logica">Lógica de Programação</div>
+    <div class="materia-item" data-materia="nocao">Noção de Robótica</div>
+    <div class="materia-item" data-materia="gestao">Gestão de Tempo</div>
   </section>
 </main>
 
@@ -183,7 +168,7 @@ canvas#bgCanvas {
     <button data-bimestre="2">2º Bimestre</button>
     <button data-bimestre="3">3º Bimestre</button>
     <button data-bimestre="4">4º Bimestre</button>
-    <button onclick="fecharModal()">Cancelar</button>
+    <button class="btn-cancel" onclick="fecharModal()">Sair</button>
   </div>
 </div>
 
@@ -191,6 +176,7 @@ canvas#bgCanvas {
 // Modal de bimestres
 const modal = document.getElementById('modal-bimestres');
 let materiaSelecionada = '';
+
 document.querySelectorAll('.materia-item').forEach(item => {
   item.addEventListener('click', () => {
     materiaSelecionada = item.getAttribute('data-materia');
@@ -201,65 +187,31 @@ document.querySelectorAll('.materia-item').forEach(item => {
 document.querySelectorAll('#modal-content button[data-bimestre]').forEach(btn => {
   btn.addEventListener('click', () => {
     const bimestre = btn.getAttribute('data-bimestre');
-    if (materiaSelecionada) {
+    if(materiaSelecionada){
       const destino = `${materiaSelecionada}${bimestre}.html`;
       window.location.href = destino;
     }
   });
 });
 
-function fecharModal() {
-  modal.classList.remove('active');
-  materiaSelecionada = '';
-}
+function fecharModal(){ modal.classList.remove('active'); materiaSelecionada=''; }
 
-// Partículas
+// Partículas de fundo
 const canvas = document.getElementById("bgCanvas");
 const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
 
-class Particle {
-  constructor() {
-    this.x = Math.random() * canvas.width;
-    this.y = Math.random() * canvas.height;
-    this.size = Math.random() * 3 + 1;
-    this.speedX = Math.random() * 1 - 0.5;
-    this.speedY = Math.random() * 1 - 0.5;
-    this.color = "#00ffff";
-  }
-  update() {
-    this.x += this.speedX;
-    this.y += this.speedY;
-    if (this.x > canvas.width) this.x = 0;
-    if (this.x < 0) this.x = canvas.width;
-    if (this.y > canvas.height) this.y = 0;
-    if (this.y < 0) this.y = canvas.height;
-  }
-  draw() {
-    ctx.fillStyle = this.color;
-    ctx.shadowColor = this.color;
-    ctx.shadowBlur = 10;
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.fill();
-  }
+class Particle{
+  constructor(){ this.x=Math.random()*canvas.width; this.y=Math.random()*canvas.height; this.size=Math.random()*3+1; this.speedX=Math.random()*1-0.5; this.speedY=Math.random()*1-0.5; this.color="#00ffff"; }
+  update(){ this.x+=this.speedX; this.y+=this.speedY; if(this.x>canvas.width) this.x=0; if(this.x<0) this.x=canvas.width; if(this.y>canvas.height) this.y=0; if(this.y<0) this.y=canvas.height; }
+  draw(){ ctx.fillStyle=this.color; ctx.shadowColor=this.color; ctx.shadowBlur=10; ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill(); }
 }
-
-let particlesArray = [];
-for (let i = 0; i < 100; i++) { particlesArray.push(new Particle()); }
-
-function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  particlesArray.forEach(p => { p.update(); p.draw(); });
-  requestAnimationFrame(animate);
-}
+let particlesArray=[];
+for(let i=0;i<100;i++){particlesArray.push(new Particle());}
+function animate(){ ctx.clearRect(0,0,canvas.width,canvas.height); particlesArray.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animate);}
 animate();
-
-window.addEventListener("resize", () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-});
+window.addEventListener("resize",()=>{canvas.width=window.innerWidth; canvas.height=window.innerHeight;});
 </script>
 
 </body>
