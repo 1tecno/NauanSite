@@ -1,234 +1,209 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Arquitetura de Computadores - Portal Técnico Escolar</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Arquitetura de Computadores - Portal Técnico Escolar</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Poppins:wght@300;500;700&display=swap');
 
-    * { box-sizing: border-box; }
+body {
+  margin:0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+  color:#f9f9f9;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  overflow-x:hidden;
+}
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: #f9f9f9;
-      margin: 0;
-      padding: 20px;
-      overflow-x: hidden;
-    }
+header {
+  background:#111;
+  padding:20px;
+  text-align:center;
+  box-shadow:0 4px 15px rgba(0,255,255,0.2);
+}
+header h1 {
+  font-family:'Orbitron', sans-serif;
+  font-weight:600;
+  color:#00ffff;
+  text-shadow:0 0 8px #00ffff,0 0 16px #00ffff;
+}
 
-    header {
-      background-color: #111;
-      color: #00ffff;
-      padding: 25px;
-      text-align: center;
-      font-size: 2em;
-      box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3);
-    }
+main {
+  flex:1;
+  max-width:900px;
+  margin:30px auto;
+  padding:25px;
+  background:rgba(30,30,30,0.95);
+  border-radius:15px;
+  box-shadow:0 0 20px rgba(0,255,255,0.2);
+  position:relative;
+  overflow:hidden;
+}
 
-    header h1 {
-      text-shadow: 0 0 4px #00ffff, 0 0 8px #00ffff;
-      animation: neon-pulse 2s ease-in-out infinite alternate;
-    }
+.content-box {
+  animation: fadeIn 0.6s ease;
+}
 
-    @keyframes neon-pulse {
-      from { text-shadow: 0 0 4px #00ffff, 0 0 8px #00ffff; }
-      to { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; }
-    }
+@keyframes fadeIn {
+  from {opacity:0; transform: translateY(30px);}
+  to {opacity:1; transform: translateY(0);}
+}
 
-    main {
-      max-width: 800px;
-      margin: 30px auto 0;
-      padding: 30px;
-      background-color: #1e1e1e;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-      transition: opacity 0.5s ease;
-      position: relative;
-    }
+h2 {color:#00ffff; margin-top:0;}
+p {line-height:1.8; text-align:justify;}
+ul li::before {content:"✓ "; color:#00ffff; font-weight:bold;}
 
-    .content-box {
-      animation: fadeIn 0.6s ease;
-    }
+.navegacao {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:25px;
+}
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+.btn-group {display:flex; gap:12px;}
 
-    h2 { color: #00ffff; margin-top: 0; }
+.btn {
+  padding:10px 20px;
+  border:none;
+  border-radius:12px;
+  font-weight:bold;
+  cursor:pointer;
+  transition: all 0.3s ease;
+}
 
-    p { line-height: 1.8; text-align: justify; }
+.btn:hover {transform:scale(1.05);}
 
-    ul li::before {
-      content: "✓ ";
-      color: #00ffff;
-      font-weight: bold;
-    }
+.btn-avancar {background:linear-gradient(45deg,#00ffff,#0077ff); color:#000; box-shadow:0 0 10px #00ffff88;}
+.btn-voltar {background:linear-gradient(45deg,#00ffff,#0077ff); color:#000; box-shadow:0 0 10px #00ffff88;}
+.btn-sair {background:linear-gradient(45deg,#ff0000,#cc0000); color:#fff; box-shadow:0 0 10px #ff000088;}
 
-    .btn {
-      padding: 10px 20px;
-      background-color: #00ffff;
-      color: #000;
-      text-decoration: none;
-      border-radius: 30px;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-      transition: transform 0.2s ease, background-color 0.3s ease;
-    }
+@media(max-width:600px){
+  header h1{font-size:1.5em;}
+  .btn{padding:8px 14px; font-size:0.9em;}
+}
 
-    .btn:hover {
-      transform: scale(1.1);
-      background-color: #00cccc;
-    }
-
-    @media (max-width: 600px) {
-      header { font-size: 1.5em; }
-      header h1 { font-size: 1.2em; }
-      .btn { padding: 8px 16px; font-size: 0.9em; }
-    }
-
-    .navegacao {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 30px;
-    }
-
-    .btn-group { display: flex; gap: 10px; }
-
-    canvas#bgCanvas {
-      position: fixed;
-      top:0; left:0;
-      width:100%; height:100%;
-      z-index:-1;
-      background: transparent;
-    }
-  </style>
+canvas#bgCanvas {
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  z-index:-1;
+  background:transparent;
+}
+</style>
 </head>
 <body>
-  <canvas id="bgCanvas"></canvas>
 
-  <header>
-    <h1>Arquitetura de Computadores</h1>
-  </header>
+<canvas id="bgCanvas"></canvas>
 
-  <main id="main-content">
-    <div class="content-box" id="slide-container"></div>
-    <div class="navegacao">
-      <a href="index.html" class="btn">⬅ Portal</a>
-      <div class="btn-group">
-        <button class="btn" id="btn-voltar" style="display: none;">⬅</button>
-        <button class="btn" id="btn-avancar">➡</button>
-      </div>
+<header>
+  <h1>Arquitetura de Computadores</h1>
+</header>
+
+<main id="main-content">
+  <div class="content-box" id="slide-container"></div>
+  <div class="navegacao">
+    <button class="btn btn-sair" onclick="window.location.href='index.html'">Sair</button>
+    <div class="btn-group">
+      <button class="btn btn-voltar" id="btn-voltar" style="display:none;">⬅ Voltar</button>
+      <button class="btn btn-avancar" id="btn-avancar">Avançar ➡</button>
     </div>
-  </main>
+  </div>
+</main>
 
-  <script>
-    // Partículas futuristas
-    const canvas = document.getElementById("bgCanvas");
-    const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+<script>
+// Partículas
+const canvas = document.getElementById("bgCanvas");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 3 + 1;
-        this.speedX = Math.random() * 1 - 0.5;
-        this.speedY = Math.random() * 1 - 0.5;
-        this.color = "#00ffff";
-      }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if(this.x>canvas.width)this.x=0;
-        if(this.x<0)this.x=canvas.width;
-        if(this.y>canvas.height)this.y=0;
-        if(this.y<0)this.y=canvas.height;
-      }
-      draw() {
-        ctx.fillStyle = this.color;
-        ctx.shadowColor = this.color;
-        ctx.shadowBlur = 10;
-        ctx.beginPath();
-        ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
-        ctx.fill();
-      }
-    }
+class Particle {
+  constructor(){
+    this.x=Math.random()*canvas.width;
+    this.y=Math.random()*canvas.height;
+    this.size=Math.random()*3+1;
+    this.speedX=Math.random()*1-0.5;
+    this.speedY=Math.random()*1-0.5;
+    this.color="#00ffff";
+  }
+  update(){this.x+=this.speedX; this.y+=this.speedY;
+    if(this.x>canvas.width)this.x=0;
+    if(this.x<0)this.x=canvas.width;
+    if(this.y>canvas.height)this.y=0;
+    if(this.y<0)this.y=canvas.height;
+  }
+  draw(){
+    ctx.fillStyle=this.color;
+    ctx.shadowColor=this.color;
+    ctx.shadowBlur=10;
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+    ctx.fill();
+  }
+}
 
-    let particlesArray = [];
-    for(let i=0;i<120;i++){particlesArray.push(new Particle());}
-    function animateParticles(){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      particlesArray.forEach(p=>{p.update(); p.draw();});
-      requestAnimationFrame(animateParticles);
-    }
-    animateParticles();
-    window.addEventListener("resize",()=>{
-      canvas.width=window.innerWidth;
-      canvas.height=window.innerHeight;
-    });
+let particlesArray=[];
+for(let i=0;i<120;i++){particlesArray.push(new Particle());}
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particlesArray.forEach(p=>{p.update();p.draw();});
+  requestAnimationFrame(animate);
+}
+animate();
+window.addEventListener("resize",()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const container = document.getElementById("slide-container");
-      const main = document.getElementById("main-content");
-      const btnAvancar = document.getElementById("btn-avancar");
-      const btnVoltar = document.getElementById("btn-voltar");
+// Slides
+document.addEventListener("DOMContentLoaded",()=>{
+  const container=document.getElementById("slide-container");
+  const main=document.getElementById("main-content");
+  const btnAvancar=document.getElementById("btn-avancar");
+  const btnVoltar=document.getElementById("btn-voltar");
 
-      const slides = [
-        // Slides 1 a 11 (mantidos) ...
-        `<h2>Aula 12 – 01/09</h2>
-        <p style="text-align: justify;"><strong>Interdisciplinaridade com Robótica</strong></p>
-        <p style="text-align: justify;">
-        Os alunos exploraram a integração entre conceitos de computação e robótica, aplicando o aprendizado em projetos colaborativos para desenvolver habilidades de resolução de problemas e criatividade.
-        </p>`,
+  const slides=[
+    `<h2>Aula 1 - 10/07</h2><p><strong>Guia de Aprendizagem</strong> - Planejamento das aulas em conjunto com os alunos, considerando opiniões, plano de curso e recursos da escola para um aprendizado relevante.</p>`,
+    `<h2>Aula 2 - 15/07</h2><p><strong>Consultoria e Aquisição de Computadores</strong> - Orientação especializada para aquisição de equipamentos de acordo com necessidade, evitando gastos desnecessários e escolhas inadequadas.</p>`,
+    `<h2>Aula 3 - 17/07</h2><p><strong>Consultoria e Aquisição de Celulares</strong> - Comparação de 4 celulares dos alunos no site <a href="https://www.tudocelular.com/compare" target="_blank" style="color:#00ffff; text-decoration:underline;">TudoCelular</a> com análise de hardware, tela, câmera e desempenho.</p>`,
+    `<h2>Aula 4 - 04/08</h2><p><strong>Consultoria em Aquisição de Computadores</strong> - Análise de processador, memória RAM, armazenamento, placa de vídeo, sistema operacional e suporte. Incentivo ao pensamento crítico e consumo tecnológico responsável.</p>`,
+    `<h2>Aula 5 - 05/08</h2><p><strong>Consultoria em Aquisição de Celular</strong> - Orientação sobre desempenho, câmeras, bateria, custo-benefício e perfil de uso. Análise de modelos no mercado considerando necessidades, orçamento e objetivo de uso.</p>`,
+    `<h2>Aula 6 - 11/08</h2><p><strong>Estudo sobre Criação e Funcionamento de Servidor Local</strong> - Conceitos fundamentais, softwares como XAMPP e WampServer e aplicação prática para desenvolvimento de sites e testes seguros.</p>`,
+    `<h2>Aula 7 - 12/08</h2><p><strong>Estudo sobre Criação e Funcionamento de Servidor Local</strong> - Continuação do estudo sobre servidores locais, simulando ambiente completo de hospedagem.</p>`,
+    `<h2>Aula 8 - 18/08</h2><p><strong>Ergonomia da Computação para Pessoas com Deficiência</strong> - Estudo sobre adaptação de equipamentos, softwares de acessibilidade e design universal para inclusão e conforto.</p>`,
+    `<h2>Aula 9 - 19/08</h2><p><strong>TICs na Educação</strong> - Uso das Tecnologias da Informação e Comunicação como ferramentas de apoio no ensino, promovendo interatividade e autonomia.</p>`,
+    `<h2>Aula 10 - 25/08</h2><p><strong>Recepcionando Amigo Cadeirante</strong> - Atividades práticas de inclusão durante a Semana Nacional da Pessoa com Deficiência, promovendo empatia e integração.</p>`,
+    `<h2>Aula 11 - 26/08</h2><p><strong>Preparando Ambiente para Entrevista com Profissional de TI</strong> - Organização do ambiente escolar de forma acessível e inclusiva para realização de entrevistas.</p>`,
+    `<h2>Aula 12 - 01/09</h2><p><strong>Interdisciplinaridade com Robótica</strong> - Integração de conceitos de arquitetura de computadores com robótica para melhor compreensão prática.</p>`,
+    `<h2>Aula 13 - 05/09</h2><p><strong>Diferença Técnica entre HD e SSD</strong> - Comparativo entre HD comum e HD Purple, destacando desempenho, confiabilidade e aplicação.</p>`,
+    `<h2>Aula 14 - 06/09</h2><p><strong>Diferença Técnica entre HD e SSD</strong> - Continuação da análise e resumo para reforço no site e no caderno.</p>`,
+    `<h2>Aula 16 - 10/09</h2><p><strong>Resumo para Avaliação Global</strong> - Preparação do conteúdo consolidado referente à Semana Nacional do Trânsito.</p>`,
+    `<h2>Aula 17 - 11/09</h2><p><strong>Avaliação Global</strong> - Realização da avaliação integrando os conhecimentos estudados e aplicando conceitos da Semana Nacional do Trânsito.</p>`
+  ];
 
-        `<h2>Aula 13 – 03/09</h2>
-        <p style="text-align: justify;"><strong>Diferença Técnica entre HD e SSD / HD Purple vs HD Comum</strong></p>
-        <p style="text-align: justify;">
-        Comparação entre HDs tradicionais e SSDs, analisando desempenho, durabilidade, velocidade de leitura/gravação e consumo energético. Diferença entre HD Purple e HD comum destacando aplicações ideais.
-        </p>`,
+  let index=0;
 
-        `<h2>Aula 14 – 05/09</h2>
-        <p style="text-align: justify;"><strong>Diferença Técnica entre HD e SSD / HD Purple vs HD Comum</strong></p>
-        <p style="text-align: justify;">
-        Continuação com atividades práticas de comparação, análise de desempenho e registro de conclusões para o caderno, reforçando compreensão das características técnicas.
-        </p>`,
+  function atualizarSlide(){
+    main.style.opacity=0;
+    setTimeout(()=>{
+      container.innerHTML=`<div class="content-box fade">${slides[index]}</div>`;
+      main.style.opacity=1;
+      btnVoltar.style.display=index===0?"none":"inline-block";
+      btnAvancar.style.display=index===slides.length-1?"none":"inline-block";
+    },400);
+  }
 
-        `<h2>Aula 16 – 10/09</h2>
-        <p style="text-align: justify;"><strong>Resumo para Avaliação Global - Semana Nacional do Trânsito</strong></p>
-        <p style="text-align: justify;">
-        Revisão dos principais conteúdos sobre segurança viária, legislação de trânsito, comportamento responsável e prevenção de acidentes, com resumo registrado no caderno.
-        </p>`,
+  btnAvancar.addEventListener("click",()=>{
+    if(index<slides.length-1){index++; atualizarSlide();}
+  });
+  btnVoltar.addEventListener("click",()=>{
+    if(index>0){index--; atualizarSlide();}
+  });
 
-        `<h2>Aula 17 – 12/09</h2>
-        <p style="text-align: justify;"><strong>Avaliação Global - Semana Nacional do Trânsito</strong></p>
-        <p style="text-align: justify;">
-        Aplicação da avaliação global referente à Semana Nacional do Trânsito, medindo compreensão prática e teórica sobre educação no trânsito, cidadania e responsabilidade social.
-        </p>`
-      ];
+  atualizarSlide();
+});
+</script>
 
-      let index = 0;
-
-      function atualizarSlide() {
-        main.style.opacity = 0;
-        setTimeout(() => {
-          container.innerHTML = `<div class="content-box fade">${slides[index]}</div>`;
-          main.style.opacity = 1;
-          btnVoltar.style.display = index === 0 ? "none" : "inline-block";
-          btnAvancar.style.display = index === slides.length - 1 ? "none" : "inline-block";
-        }, 400); // delay suave
-      }
-
-      btnAvancar.addEventListener("click", () => { if(index<slides.length-1){ index++; atualizarSlide(); }});
-      btnVoltar.addEventListener("click", () => { if(index>0){ index--; atualizarSlide(); }});
-
-      atualizarSlide(); // inicializa
-    });
-  </script>
 </body>
 </html>
