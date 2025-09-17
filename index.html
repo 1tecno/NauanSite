@@ -67,17 +67,26 @@ h1 {
 
 .materia-item h3 { margin: 0; color: #00e6ff; font-weight: 600; }
 
+/* FOOTER futurista */
 footer {
   text-align: center;
-  padding: 15px 20px;
-  background: #022c49;
-  color: #00ffff88;
+  padding: 20px;
+  background: #011a2b;
+  color: #00ffffaa;
   font-size: 0.9rem;
+  border-top: 1px solid #00ffff44;
+  box-shadow: 0 -5px 15px #00ffff33;
+  letter-spacing: 1px;
+  text-shadow: 0 0 8px #00ffff88;
 }
-
 footer a {
   color: #00ffff;
-  text-decoration: underline;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+footer a:hover {
+  text-shadow: 0 0 12px #00ffff;
 }
 
 canvas#bgCanvas {
@@ -90,7 +99,7 @@ canvas#bgCanvas {
   background: transparent;
 }
 
-/* Modal Bimestres maior + animação fade-in/zoom */
+/* Modal */
 #modal-bimestres {
   position: fixed;
   top:0;
@@ -107,11 +116,7 @@ canvas#bgCanvas {
   pointer-events: none;
   transition: opacity 0.4s ease;
 }
-
-#modal-bimestres.active {
-  opacity: 1;
-  pointer-events: all;
-}
+#modal-bimestres.active { opacity: 1; pointer-events: all; }
 
 #modal-content {
   background: rgba(0,255,255,0.05);
@@ -124,12 +129,10 @@ canvas#bgCanvas {
   transform: scale(0.8);
   transition: transform 0.4s ease;
 }
-
-#modal-bimestres.active #modal-content {
-  transform: scale(1);
-}
+#modal-bimestres.active #modal-content { transform: scale(1); }
 
 #modal-content h2 { margin-bottom:30px; font-size:2rem; }
+
 #modal-content button {
   display:block;
   width:100%;
@@ -144,18 +147,33 @@ canvas#bgCanvas {
   cursor:pointer;
   box-shadow:0 0 15px #00ffff88;
   transition:0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.6s ease forwards;
 }
-#modal-content button:hover { transform:scale(1.05); box-shadow:0 0 25px #00ffffcc; }
+#modal-content button:nth-child(2){animation-delay:0.2s;}
+#modal-content button:nth-child(3){animation-delay:0.4s;}
+#modal-content button:nth-child(4){animation-delay:0.6s;}
+#modal-content button:nth-child(5){animation-delay:0.8s;}
+#modal-content button:nth-child(6){animation-delay:1s;}
+
+@keyframes fadeUp {
+  to { opacity:1; transform:translateY(0); }
+}
+
+@media (max-width: 600px) {
+  #modal-content {
+    padding: 30px 20px;
+    font-size: 1rem;
+  }
+}
 </style>
 </head>
 <body>
-
 <canvas id="bgCanvas"></canvas>
-
 <header>
   <h2>Portal Técnico Escolar</h2>
 </header>
-
 <main>
   <h1>Bem-vindo(a)</h1>
   <section class="materia-list">
@@ -169,15 +187,15 @@ canvas#bgCanvas {
     <div class="materia-item" data-materia="gestao"><h3>Gestão de Tempo</h3></div>
   </section>
 </main>
-
 <footer>
   &copy; 2025 Técnico Escolar - Todos os direitos reservados.<br>
-  Desenvolvido por Nauan Loures | Siga-me no Instagram também: <a href="https://www.instagram.com/nauanloures" target="_blank">@nauanloures</a>
+  Desenvolvido por Nauan Loures | Siga-me no Instagram também: 
+  <a href="https://www.instagram.com/nauanloures" target="_blank">@nauanloures</a>
 </footer>
 
-<div id="modal-bimestres">
+<div id="modal-bimestres" role="dialog" aria-modal="true" aria-labelledby="modal-title">
   <div id="modal-content">
-    <h2>Escolha o Bimestre</h2>
+    <h2 id="modal-title">Escolha o Bimestre</h2>
     <button data-bimestre="1">1º Bimestre</button>
     <button data-bimestre="2">2º Bimestre</button>
     <button data-bimestre="3">3º Bimestre</button>
@@ -187,7 +205,6 @@ canvas#bgCanvas {
 </div>
 
 <script>
-// Modal de bimestres
 const modal = document.getElementById('modal-bimestres');
 let materiaSelecionada = '';
 document.querySelectorAll('.materia-item').forEach(item => {
@@ -196,7 +213,6 @@ document.querySelectorAll('.materia-item').forEach(item => {
     modal.classList.add('active');
   });
 });
-
 document.querySelectorAll('#modal-content button[data-bimestre]').forEach(btn => {
   btn.addEventListener('click', () => {
     const bimestre = btn.getAttribute('data-bimestre');
@@ -206,18 +222,15 @@ document.querySelectorAll('#modal-content button[data-bimestre]').forEach(btn =>
     }
   });
 });
-
 function fecharModal() {
   modal.classList.remove('active');
   materiaSelecionada = '';
 }
-
-// Partículas no fundo
+// Partículas
 const canvas = document.getElementById("bgCanvas");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-
 class Particle {
   constructor() {
     this.x = Math.random() * canvas.width;
@@ -244,27 +257,25 @@ class Particle {
     ctx.fill();
   }
 }
-
 let particlesArray = [];
-for (let i = 0; i < 100; i++) {
-  particlesArray.push(new Particle());
+function initParticles() {
+  particlesArray = [];
+  for (let i = 0; i < 100; i++) {
+    particlesArray.push(new Particle());
+  }
 }
-
+initParticles();
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  particlesArray.forEach(p => {
-    p.update();
-    p.draw();
-  });
+  particlesArray.forEach(p => { p.update(); p.draw(); });
   requestAnimationFrame(animate);
 }
 animate();
-
 window.addEventListener("resize", () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+  initParticles();
 });
 </script>
-
 </body>
 </html>
