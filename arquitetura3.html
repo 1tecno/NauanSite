@@ -4,35 +4,42 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Arquitetura de Computadores - Portal Técnico Escolar</title>
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 
 body {
+  margin: 0;
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-  color: #f9f9f9;
-  margin: 0;
-  padding: 20px;
+  color: #cce7ff;
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 header {
   background-color: #111;
-  color: #00ffff;
   padding: 25px;
   text-align: center;
-  font-size: 2em;
-  box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3);
+  box-shadow: 0 4px 10px rgba(0, 255, 255, 0.2);
 }
 
-h1 { margin:0; }
+header h1 {
+  font-size: 2.2em;
+  color: #00ffff;
+  margin: 0;
+}
 
 main {
+  flex: 1;
   max-width: 900px;
-  margin: 30px auto 0;
+  margin: 30px auto;
   padding: 30px;
-  background-color: #1e1e1e;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+  background-color: rgba(30,30,30,0.95);
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0,255,255,0.1);
   position: relative;
 }
 
@@ -41,48 +48,79 @@ main {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(30px); }
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-h2 { color: #00ffff; margin-top: 0; }
-p { line-height: 1.8; text-align: justify; }
-ul li::before { content: "✓ "; color: #00ffff; font-weight: bold; }
+h2 {
+  color: #00ffff;
+  margin-top: 0;
+}
+
+p {
+  text-align: justify;
+  line-height: 1.8;
+}
+
+ul li::before {
+  content: "✓ ";
+  color: #00ffff;
+  font-weight: bold;
+}
 
 .btn {
   padding: 12px 25px;
-  border-radius: 30px;
+  border: none;
+  border-radius: 25px;
   font-weight: bold;
   cursor: pointer;
-  border: none;
-  transition: 0.3s ease;
-  background: linear-gradient(45deg,#00ffff,#0077ff);
-  color:#000;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
 }
-.btn:hover { transform: scale(1.05); background: linear-gradient(45deg,#00cccc,#0099ff); }
+
+.btn:hover { transform: scale(1.1); }
+
+.btn-avancar, .btn-voltar {
+  background: linear-gradient(45deg,#00ffff,#0077ff);
+  color: #000;
+  margin-left: 10px;
+  box-shadow: 0 0 10px #00ffff88;
+}
+
+.btn-avancar:hover, .btn-voltar:hover {
+  box-shadow: 0 0 25px #00ffffcc;
+}
 
 .btn-sair {
-  background: linear-gradient(45deg,#ff0000,#cc0000);
-  color:#fff;
+  background: linear-gradient(45deg,#ff0000,#ff5555);
+  color: #fff;
+  box-shadow: 0 0 10px #ff0000,0 0 20px #ff5555;
   margin-right: auto;
 }
-.btn-sair:hover { transform: scale(1.05); background: linear-gradient(45deg,#ff3333,#ff0000); }
 
-.navegacao { display:flex; justify-content: space-between; align-items:center; margin-top:30px; }
+.btn-sair:hover {
+  box-shadow: 0 0 20px #ff0000,0 0 40px #ff5555;
+}
+
+.navegacao {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
 
 canvas#bgCanvas {
   position: fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   z-index: -1;
   background: transparent;
 }
 </style>
 </head>
-<body>
 
+<body>
 <canvas id="bgCanvas"></canvas>
 
 <header>
@@ -94,65 +132,107 @@ canvas#bgCanvas {
 
   <div class="navegacao">
     <a href="index.html" class="btn btn-sair">Sair</a>
-    <div class="btn-group">
-      <button class="btn" id="btn-voltar" style="display:none;">⬅</button>
-      <button class="btn" id="btn-avancar">➡</button>
+    <div>
+      <button class="btn btn-voltar" id="btn-voltar" style="display:none;">⬅</button>
+      <button class="btn btn-avancar" id="btn-avancar">➡</button>
     </div>
   </div>
 </main>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const container = document.getElementById("slide-container");
-  const main = document.getElementById("main-content");
-  const btnAvancar = document.getElementById("btn-avancar");
-  const btnVoltar = document.getElementById("btn-voltar");
-
-  const slides = [
-    `<h2>Aula 1 - 10/07</h2><p><strong>Guia de Aprendizagem em Conjunto com os Alunos:</strong> Planejamento das aulas do 3º bimestre considerando opiniões dos alunos, plano de curso e recursos disponíveis, garantindo relevância e acessibilidade.</p>`,
-    `<h2>Aula 2 - 15/07</h2><p><strong>Consultoria e Aquisição de Computadores:</strong> Auxílio na escolha de equipamentos adequados, evitando gastos desnecessários e decisões inadequadas.</p>`,
-    `<h2>Aula 3 - 17/07</h2><p><strong>Consultoria e Aquisição de Celulares:</strong> Comparação de 4 celulares no site <a href="https://www.tudocelular.com/compare" target="_blank" style="color: blue;">TudoCelular</a>, analisando hardware, tela, câmera e desempenho.</p>`,
-    `<h2>Aula 12 - 26/08</h2><p><strong>Interdisciplinaridade com Robótica:</strong> Integração entre os conceitos de arquitetura de computadores e atividades práticas de robótica.</p>`,
-    `<h2>Aula 13 - 27/08</h2><p><strong>Diferença Técnica entre HD e SSD / HD Purple vs HD Comum:</strong> Estudo detalhado sobre desempenho, durabilidade e aplicação dos dispositivos de armazenamento.</p>`,
-    `<h2>Aula 16 - 30/08</h2><p><strong>Resumo para Avaliação Global - Semana Nacional do Trânsito:</strong> Revisão dos conteúdos importantes de arquitetura de computadores e tecnologia voltados para a avaliação.</p>`,
-    `<h2>Aula 17 - 31/08</h2><p><strong>Avaliação Global - Semana Nacional do Trânsito:</strong> Aplicação da avaliação prática e teórica sobre os conteúdos desenvolvidos durante o bimestre.</p>`
-  ];
-
-  let index = 0;
-
-  function atualizarSlide() {
-    main.style.opacity = 0;
-    setTimeout(() => {
-      container.innerHTML = `<div class="content-box fade">${slides[index]}</div>`;
-      main.style.opacity = 1;
-      btnVoltar.style.display = index === 0 ? "none" : "inline-block";
-      btnAvancar.style.display = index === slides.length-1 ? "none" : "inline-block";
-    }, 300);
-  }
-
-  btnAvancar.addEventListener("click", () => { if(index < slides.length-1){ index++; atualizarSlide(); } });
-  btnVoltar.addEventListener("click", () => { if(index > 0){ index--; atualizarSlide(); } });
-
-  atualizarSlide();
-});
-
-// Partículas de fundo
+// Partículas no fundo
 const canvas = document.getElementById("bgCanvas");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 class Particle {
-  constructor() { this.x=Math.random()*canvas.width; this.y=Math.random()*canvas.height; this.size=Math.random()*3+1; this.speedX=Math.random()*1-0.5; this.speedY=Math.random()*1-0.5; this.color="#00ffff"; }
-  update(){ this.x+=this.speedX; this.y+=this.speedY; if(this.x>canvas.width) this.x=0; if(this.x<0) this.x=canvas.width; if(this.y>canvas.height) this.y=0; if(this.y<0) this.y=canvas.height;}
-  draw(){ ctx.fillStyle=this.color; ctx.shadowColor=this.color; ctx.shadowBlur=10; ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill(); }
+  constructor() {
+    this.x = Math.random()*canvas.width;
+    this.y = Math.random()*canvas.height;
+    this.size = Math.random()*3+1;
+    this.speedX = Math.random()*1-0.5;
+    this.speedY = Math.random()*1-0.5;
+    this.color = "#00ffff";
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if(this.x>canvas.width) this.x=0;
+    if(this.x<0) this.x=canvas.width;
+    if(this.y>canvas.height) this.y=0;
+    if(this.y<0) this.y=canvas.height;
+  }
+  draw() {
+    ctx.fillStyle = this.color;
+    ctx.shadowColor = this.color;
+    ctx.shadowBlur = 10;
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+    ctx.fill();
+  }
 }
+
 let particlesArray=[];
 for(let i=0;i<100;i++){particlesArray.push(new Particle());}
-function animate(){ ctx.clearRect(0,0,canvas.width,canvas.height); particlesArray.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animate);}
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particlesArray.forEach(p=>{p.update();p.draw();});
+  requestAnimationFrame(animate);
+}
 animate();
-window.addEventListener("resize",()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
-</script>
+window.addEventListener("resize",()=>{
+  canvas.width=window.innerWidth;
+  canvas.height=window.innerHeight;
+});
 
+// Slides
+document.addEventListener("DOMContentLoaded",()=>{
+  const container=document.getElementById("slide-container");
+  const main=document.getElementById("main-content");
+  const btnAvancar=document.getElementById("btn-avancar");
+  const btnVoltar=document.getElementById("btn-voltar");
+
+  const slides=[
+`<h2>Aula 1 - 10/07</h2>
+<p><strong>Guia de Aprendizagem em Conjunto com os Alunos</strong></p>
+<p>Nesta aula inicial, os alunos participaram da elaboração do plano de aprendizagem do 3º bimestre. Foram discutidos os objetivos do curso, a organização das atividades e os temas que seriam abordados ao longo do período. 
+O planejamento incluiu a análise do material disponível na escola, das ferramentas de informática e das competências que se esperam desenvolver nos estudantes, como pensamento crítico, análise de sistemas computacionais e tomada de decisão tecnológica.</p>
+<p>O enfoque principal foi garantir que os conteúdos fossem significativos e contextualizados, permitindo que cada estudante compreenda a importância da arquitetura de computadores no mundo atual, tanto para uso pessoal quanto profissional. Foi dada atenção especial à evolução histórica dos computadores e sua relevância na sociedade moderna.</p>`,
+
+`<h2>Aula 2 - 15/07</h2>
+<p><strong>Consultoria e Aquisição de Computadores</strong></p>
+<p>Esta aula abordou o processo de consultoria tecnológica voltada para a aquisição de computadores. Os alunos aprenderam a analisar detalhadamente componentes essenciais como processador, memória RAM, armazenamento e placa de vídeo, considerando as diferentes necessidades de uso, seja para estudos, trabalho, games ou produção de conteúdo digital.</p>
+<p>Foram apresentados critérios de comparação de preços e desempenho, estratégias para evitar gastos desnecessários, além de informações sobre marcas e modelos recomendados. O objetivo foi desenvolver habilidades de pesquisa, análise crítica e tomada de decisão baseada em dados técnicos confiáveis. Também discutiu-se o impacto de cada componente no desempenho global do sistema e na longevidade do equipamento.</p>`,
+
+`<h2>Aula 3 - 17/07</h2>
+<p><strong>Consultoria e Aquisição de Celulares</strong></p>
+<p>Os alunos realizaram uma análise comparativa de quatro modelos de celulares utilizando o site <a href="https://www.tudocelular.com/compare" target="_blank" style="color:#00ffff;text-decoration:underline;">TudoCelular</a>. Foram observados aspectos como:</p>
+<ul style="text-align:justify;line-height:1.6;">
+<li><strong>Hardware:</strong> Processador, memória e capacidade de armazenamento, avaliando desempenho em multitarefas e jogos.</li>
+<li><strong>Tela:</strong> Resolução, tamanho, tecnologia (OLED, AMOLED, LCD) e impacto na experiência visual.</li>
+<li><strong>Câmera:</strong> Qualidade de imagem, recursos de fotografia e gravação de vídeo, e desempenho em diferentes condições de iluminação.</li>
+<li><strong>Desempenho:</strong> Velocidade de execução de aplicativos, testes de benchmark e autonomia em uso contínuo.</li>
+</ul>
+<p>O objetivo foi capacitar os alunos a realizar decisões conscientes e técnicas na aquisição de dispositivos móveis, estimulando o consumo responsável e o pensamento crítico sobre tecnologia. Além disso, discutiu-se a integração desses dispositivos com sistemas computacionais mais amplos, enfatizando conectividade e compatibilidade.</p>`
+  ];
+
+  let index=0;
+  function atualizarSlide(){
+    main.style.opacity=0;
+    setTimeout(()=>{
+      container.innerHTML=`<div class="content-box">${slides[index]}</div>`;
+      main.style.opacity=1;
+      btnVoltar.style.display=index===0?"none":"inline-block";
+      btnAvancar.style.display=index===slides.length-1?"none":"inline-block";
+    },300);
+  }
+
+  btnAvancar.addEventListener("click",()=>{if(index<slides.length-1){index++;atualizarSlide();}});
+  btnVoltar.addEventListener("click",()=>{if(index>0){index--;atualizarSlide();}});
+
+  atualizarSlide();
+});
+</script>
 </body>
 </html>
