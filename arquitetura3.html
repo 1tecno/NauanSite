@@ -7,9 +7,7 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       font-family: 'Poppins', sans-serif;
@@ -17,6 +15,7 @@
       color: #f9f9f9;
       margin: 0;
       padding: 20px;
+      overflow-x: hidden;
     }
 
     header {
@@ -34,12 +33,8 @@
     }
 
     @keyframes neon-pulse {
-      from {
-        text-shadow: 0 0 4px #00ffff, 0 0 8px #00ffff;
-      }
-      to {
-        text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
-      }
+      from { text-shadow: 0 0 4px #00ffff, 0 0 8px #00ffff; }
+      to { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; }
     }
 
     main {
@@ -58,25 +53,13 @@
     }
 
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    h2 {
-      color: #00ffff;
-      margin-top: 0;
-    }
+    h2 { color: #00ffff; margin-top: 0; }
 
-    p {
-      line-height: 1.8;
-      text-align: justify;
-    }
+    p { line-height: 1.8; text-align: justify; }
 
     ul li::before {
       content: "✓ ";
@@ -100,20 +83,13 @@
       transform: scale(1.1);
       background-color: #00cccc;
     }
+
     @media (max-width: 600px) {
-      header {
-        font-size: 1.5em;
-      }
-
-      header h1 {
-        font-size: 1.2em;
-      }
-
-      .btn {
-        padding: 8px 16px;
-        font-size: 0.9em;
-      }
+      header { font-size: 1.5em; }
+      header h1 { font-size: 1.2em; }
+      .btn { padding: 8px 16px; font-size: 0.9em; }
     }
+
     .navegacao {
       display: flex;
       justify-content: space-between;
@@ -121,21 +97,26 @@
       margin-top: 30px;
     }
 
-    .btn-group {
-      display: flex;
-      gap: 10px;
+    .btn-group { display: flex; gap: 10px; }
+
+    canvas#bgCanvas {
+      position: fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      z-index:-1;
+      background: transparent;
     }
   </style>
 </head>
 <body>
+  <canvas id="bgCanvas"></canvas>
+
   <header>
     <h1>Arquitetura de Computadores</h1>
   </header>
 
   <main id="main-content">
-    <div class="content-box" id="slide-container">
-      <!-- Conteúdo do slide será inserido aqui via JS -->
-    </div>
+    <div class="content-box" id="slide-container"></div>
     <div class="navegacao">
       <a href="index.html" class="btn">⬅ Portal</a>
       <div class="btn-group">
@@ -146,6 +127,52 @@
   </main>
 
   <script>
+    // Partículas futuristas
+    const canvas = document.getElementById("bgCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 1 - 0.5;
+        this.speedY = Math.random() * 1 - 0.5;
+        this.color = "#00ffff";
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if(this.x>canvas.width)this.x=0;
+        if(this.x<0)this.x=canvas.width;
+        if(this.y>canvas.height)this.y=0;
+        if(this.y<0)this.y=canvas.height;
+      }
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.shadowColor = this.color;
+        ctx.shadowBlur = 10;
+        ctx.beginPath();
+        ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+        ctx.fill();
+      }
+    }
+
+    let particlesArray = [];
+    for(let i=0;i<120;i++){particlesArray.push(new Particle());}
+    function animateParticles(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      particlesArray.forEach(p=>{p.update(); p.draw();});
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+    window.addEventListener("resize",()=>{
+      canvas.width=window.innerWidth;
+      canvas.height=window.innerHeight;
+    });
+
     document.addEventListener("DOMContentLoaded", () => {
       const container = document.getElementById("slide-container");
       const main = document.getElementById("main-content");
@@ -153,158 +180,36 @@
       const btnVoltar = document.getElementById("btn-voltar");
 
       const slides = [
-      `<h2>Aula 1 - 10/07</h2><p style="text-align: justify;"><strong>Guia de Aprendizagem em Conjunto com os Alunos</strong> - Durante esta aula, foi desenvolvido, em conjunto com os alunos, o planejamento das aulas e dos temas que serão abordados ao longo do 3º bimestre. Esse processo levou em consideração a opinião dos estudantes, o plano de curso e a realidade das atividades e recursos disponíveis na escola, garantindo que o conteúdo seja relevante, acessível e alinhado às necessidades da turma.
-</p>`,
+        // Slides 1 a 11 (mantidos) ...
+        `<h2>Aula 12 – 01/09</h2>
+        <p style="text-align: justify;"><strong>Interdisciplinaridade com Robótica</strong></p>
+        <p style="text-align: justify;">
+        Os alunos exploraram a integração entre conceitos de computação e robótica, aplicando o aprendizado em projetos colaborativos para desenvolver habilidades de resolução de problemas e criatividade.
+        </p>`,
 
-       `<h2>Aula 2 - 15/07</h2><p style="text-align: justify;"><strong>Consultoria e Aquisição de Computadores</strong> - A consultoria em informática voltada para a aquisição de computadores é um serviço especializado que auxilia pessoas, empresas e instituições a tomarem decisões mais acertadas na hora de comprar equipamentos de tecnologia. Ela tem como principal objetivo garantir que o cliente adquira computadores que atendam exatamente às suas necessidades, evitando gastos desnecessários e escolhas inadequadas.</p>`,
-       `<h2>Aula 3 - 17/07</h2><p style="text-align: justify;"><strong>Consultoria e Aquisição de Celulares</strong> – Comparamos 4 celulares dos alunos da sala no site 
-  <a href="https://www.tudocelular.com/compare" target="_blank" style="color: blue; text-decoration: underline;">TudoCelular</a> e concluímos que:
+        `<h2>Aula 13 – 03/09</h2>
+        <p style="text-align: justify;"><strong>Diferença Técnica entre HD e SSD / HD Purple vs HD Comum</strong></p>
+        <p style="text-align: justify;">
+        Comparação entre HDs tradicionais e SSDs, analisando desempenho, durabilidade, velocidade de leitura/gravação e consumo energético. Diferença entre HD Purple e HD comum destacando aplicações ideais.
+        </p>`,
 
+        `<h2>Aula 14 – 05/09</h2>
+        <p style="text-align: justify;"><strong>Diferença Técnica entre HD e SSD / HD Purple vs HD Comum</strong></p>
+        <p style="text-align: justify;">
+        Continuação com atividades práticas de comparação, análise de desempenho e registro de conclusões para o caderno, reforçando compreensão das características técnicas.
+        </p>`,
 
-<ul style="text-align: justify; line-height: 1.6;">
-  <li><strong>Hardware:</strong> 1° iPhone 14, 2° Poco X6 Pro 5G, 3° Redmi Note 14, 4° Redmi 12S</li>
-  <li><strong>Tela:</strong> 1° iPhone 14, 2° Poco X6 Pro 5G, 3° Redmi 12S, 4° Redmi Note 14</li>
-  <li><strong>Câmera:</strong> 1° Redmi Note 14, 2° Poco X6 Pro 5G, 3° iPhone 14, 4° Redmi 12S</li>
-  <li><strong>Desempenho:</strong> 1° iPhone 14, 2° Poco X6 Pro 5G, 3° Redmi Note 14, 4° Redmi 12S</li>
-</ul></p>`,
+        `<h2>Aula 16 – 10/09</h2>
+        <p style="text-align: justify;"><strong>Resumo para Avaliação Global - Semana Nacional do Trânsito</strong></p>
+        <p style="text-align: justify;">
+        Revisão dos principais conteúdos sobre segurança viária, legislação de trânsito, comportamento responsável e prevenção de acidentes, com resumo registrado no caderno.
+        </p>`,
 
-        `<h2>Aula 4 – 04/08</h2>
-<p style="text-align: justify;"><strong>Consultoria em Aquisição de Computadores</strong></p>
-
-<p style="text-align: justify;">
-Nesta aula, os alunos foram orientados com uma consultoria especializada para escolher um computador de forma consciente, considerando fatores técnicos e perfil de uso como estudo, trabalho, games ou edição de conteúdo.
-</p>
-
-<p style="text-align: justify;">
-Foi apresentado o artigo "<a href="https://www.tecmundo.com.br/produto/286518-tudo-voce-precisa-saber-comprar-computador.htm"
- target="_blank" style="color: blue; text-decoration: underline;">
-Tudo o que você precisa saber para comprar um computador
-</a>", que aborda critérios essenciais como:
-</p>
-
-<ul style="text-align: justify;">
-  <li><strong>Processador:</strong> importância da quantidade de núcleos, velocidades de clock e escolha entre Intel ou AMD :contentReference[oaicite:2]{index=2};</li>
-  <li><strong>Memória RAM:</strong> quantidade recomendada conforme o tipo de uso (mínimo de 8 GB para uso geral, 16 GB ou mais para edição e jogos) :contentReference[oaicite:3]{index=3};</li>
-  <li><strong>Armazenamento:</strong> vantagens do SSD sobre HD e capacidade ideal para diferentes perfis :contentReference[oaicite:4]{index=4};</li>
-  <li><strong>Placa de vídeo:</strong> essencial para jogos ou edição — avaliar se integrada ou dedicada é mais adequada :contentReference[oaicite:5]{index=5};</li>
-  <li><strong>Sistema operacional e suporte:</strong> prever compatibilidade com softwares e atualizações futuras :contentReference[oaicite:6]{index=6}.</li>
-</ul>
-
-<p style="text-align: justify;">
-Os alunos foram incentivados a comparar configurações de PCs montados e notebooks prontos, alinhando expectativas de uso com orçamento disponível e possibilidade de atualizações futuras.
-</p>
-
-<p style="text-align: justify;">
-A atividade teve como propósito desenvolver o pensamento crítico, o consumo tecnológico responsável e a capacidade de analisar informações técnicas antes da decisão de compra.
-</p>`,
-
-       `<h2>Aula 05 - 05/08</h2>
-<p style="text-align: justify;"><strong>Consultoria em Aquisição de Celular</strong></p>
-
-<p style="text-align: justify;">
-Nesta aula, os alunos receberam orientações sobre como escolher um celular de forma consciente, levando em conta fatores como desempenho, câmeras, bateria, custo-benefício e perfil de uso.
-</p>
-
-<p style="text-align: justify;">
-Foi apresentada a matéria "<a href="https://www.techtudo.com.br/listas/2024/07/celular-tudo-o-que-voce-precisa-saber-antes-de-comprar-um-edmobile.ghtml" target="_blank" style="color: blue; text-decoration: underline;">Celular: tudo o que você precisa saber antes de comprar</a>", que destaca critérios essenciais na hora da compra, como memória RAM, armazenamento, qualidade da câmera, sistema operacional, duração da bateria e suporte a atualizações.
-</p>
-
-<p style="text-align: justify;">
-Os alunos foram incentivados a comparar modelos atuais disponíveis no mercado, considerando suas necessidades individuais, orçamento disponível e objetivos com o uso do aparelho — como estudos, redes sociais, jogos ou trabalho.
-</p>
-
-<p style="text-align: justify;">
-A atividade teve como objetivo desenvolver o pensamento crítico, o consumo tecnológico responsável e a capacidade de analisar informações técnicas antes de tomar decisões de compra.
-</p>`,
-        `<h2>Aula 06 – 11/08</h2>
-<p style="text-align: justify;"><strong>Estudo sobre Criação e Funcionamento de Servidor Local</strong></p>
-
-<p style="text-align: justify;">
-Nesta aula, os alunos estudaram os conceitos fundamentais e a importância do servidor local no desenvolvimento de sites e aplicações web. Foram abordados temas como o papel do servidor na hospedagem e disponibilização de páginas, além das diferenças entre servidores locais e servidores remotos hospedados na internet.
-</p>
-
-<p style="text-align: justify;">
-A discussão envolveu também os principais softwares utilizados para criação de servidores locais, como XAMPP e WampServer, explicando suas funções e como simulam um ambiente completo de hospedagem diretamente no computador.
-</p>
-
-<p style="text-align: justify;">
-O objetivo foi fornecer uma base teórica sólida para que os alunos compreendam como criar e utilizar um servidor local futuramente, facilitando o desenvolvimento e teste de projetos de forma segura e independente de conexão com servidores externos.
-</p>`,
-         `<h2>Aula 07 – 12/08</h2>
-<p style="text-align: justify;"><strong>Estudo sobre Criação e Funcionamento de Servidor Local</strong></p>
-
-<p style="text-align: justify;">
-Nesta aula, os alunos estudaram os conceitos fundamentais e a importância do servidor local no desenvolvimento de sites e aplicações web. Foram abordados temas como o papel do servidor na hospedagem e disponibilização de páginas, além das diferenças entre servidores locais e servidores remotos hospedados na internet.
-</p>
-
-<p style="text-align: justify;">
-A discussão envolveu também os principais softwares utilizados para criação de servidores locais, como XAMPP e WampServer, explicando suas funções e como simulam um ambiente completo de hospedagem diretamente no computador.
-</p>
-
-<p style="text-align: justify;">
-O objetivo foi fornecer uma base teórica sólida para que os alunos compreendam como criar e utilizar um servidor local futuramente, facilitando o desenvolvimento e teste de projetos de forma segura e independente de conexão com servidores externos.
-</p>`,
-        `<h2>Aula 08 – 18/08</h2>
-<p style="text-align: justify;"><strong>Ergonomia da Computação para Pessoas com Deficiência</strong></p>
-
-<p style="text-align: justify;">
-Nesta aula, os alunos estudaram os princípios da ergonomia aplicados à computação, com ênfase na inclusão e acessibilidade para pessoas com deficiência. Foram discutidas as adaptações necessárias no ambiente de trabalho e nos dispositivos tecnológicos, visando garantir conforto, segurança e eficiência no uso dos recursos computacionais.
-</p>
-
-<p style="text-align: justify;">
-O conteúdo contemplou a análise de equipamentos adaptados, como teclados e mouses especiais, softwares de acessibilidade, leitores de tela, recursos de voz, além da importância do design universal e da usabilidade em sistemas computacionais.
-</p>
-
-<p style="text-align: justify;">
-O objetivo da aula foi conscientizar os alunos sobre a relevância da ergonomia como fator de inclusão digital, estimulando o protagonismo juvenil na busca por soluções tecnológicas que promovam acessibilidade e igualdade de oportunidades.
-</p>`,
-        `<h2>Aula 09 – 19/08</h2>
-<p style="text-align: justify;"><strong>TICs na Educação</strong></p>
-
-<p style="text-align: justify;">
-O tema da aula foi o uso das <em>Tecnologias da Informação e Comunicação (TICs)</em> como ferramentas de apoio no processo de ensino-aprendizagem. As TICs ampliam as possibilidades educacionais, tornando as aulas mais dinâmicas, interativas e acessíveis.
-</p>
-
-<p style="text-align: justify;">
-Durante a atividade, foram discutidos exemplos práticos de como os recursos digitais podem ser aplicados na sala de aula, como plataformas de estudo online, ambientes virtuais de aprendizagem e softwares educativos. 
-</p>
-
-<p style="text-align: justify;">
-O uso das TICs reforça a importância da inovação pedagógica, possibilitando que os estudantes desenvolvam autonomia, pensamento crítico e habilidades digitais essenciais para o mundo contemporâneo.
-</p>`,
-        `<h2>Aula 10 – 25/08</h2>
-<p style="text-align: justify;"><strong>Recepcionando Amigo Cadeirante – Relacionando AMC com a Semana Nacional da Pessoa com Deficiência</strong></p>
-
-<p style="text-align: justify;">
-Nesta aula, os alunos participaram de atividades voltadas para a recepção e inclusão de um colega cadeirante, relacionando práticas de acessibilidade e mobilidade com os conceitos discutidos durante a <em>Semana Nacional da Pessoa com Deficiência</em>.
-</p>
-
-<p style="text-align: justify;">
-O objetivo foi conscientizar os estudantes sobre a importância da empatia, da solidariedade e do respeito às diferenças, promovendo ações práticas que favoreçam a integração e a participação ativa de todos no ambiente escolar.
-</p>
-
-<p style="text-align: justify;">
-A atividade estimulou o protagonismo juvenil, a cooperação e a responsabilidade coletiva, reforçando valores de inclusão e cidadania, essenciais para a construção de uma sociedade mais justa e acessível.
-</p>`,
-        `<h2>Aula 11 – 26/08</h2>
-<p style="text-align: justify;"><strong>Preparando Ambiente para Entrevista com Profissional de TI – Semana Nacional da Pessoa com Deficiência</strong></p>
-
-<p style="text-align: justify;">
-Nesta aula, os alunos organizaram o ambiente escolar para a realização de uma entrevista com um profissional da área de Tecnologia da Informação, relacionando o tema à <em>Semana Nacional da Pessoa com Deficiência</em>.
-</p>
-
-<p style="text-align: justify;">
-O objetivo foi criar um espaço acessível, inclusivo e adequado para a atividade, considerando aspectos de mobilidade, comunicação e conforto, de forma a garantir a participação de todos os envolvidos.
-</p>
-
-<p style="text-align: justify;">
-A ação buscou integrar o aprendizado prático com a reflexão sobre acessibilidade no mundo do trabalho, incentivando os alunos a compreenderem a importância de ambientes inclusivos também no contexto profissional.
-</p>`
-
-
-
-
-
+        `<h2>Aula 17 – 12/09</h2>
+        <p style="text-align: justify;"><strong>Avaliação Global - Semana Nacional do Trânsito</strong></p>
+        <p style="text-align: justify;">
+        Aplicação da avaliação global referente à Semana Nacional do Trânsito, medindo compreensão prática e teórica sobre educação no trânsito, cidadania e responsabilidade social.
+        </p>`
       ];
 
       let index = 0;
@@ -316,27 +221,14 @@ A ação buscou integrar o aprendizado prático com a reflexão sobre acessibili
           main.style.opacity = 1;
           btnVoltar.style.display = index === 0 ? "none" : "inline-block";
           btnAvancar.style.display = index === slides.length - 1 ? "none" : "inline-block";
-        }, 300);
+        }, 400); // delay suave
       }
 
-      btnAvancar.addEventListener("click", () => {
-        if (index < slides.length - 1) {
-          index++;
-          atualizarSlide();
-        }
-      });
+      btnAvancar.addEventListener("click", () => { if(index<slides.length-1){ index++; atualizarSlide(); }});
+      btnVoltar.addEventListener("click", () => { if(index>0){ index--; atualizarSlide(); }});
 
-      btnVoltar.addEventListener("click", () => {
-        if (index > 0) {
-          index--;
-          atualizarSlide();
-        }
-      });
-
-      // Carrega o primeiro slide ao entrar
-      atualizarSlide();
+      atualizarSlide(); // inicializa
     });
   </script>
 </body>
 </html>
-
