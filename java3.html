@@ -5,115 +5,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>POO com Java - Portal Técnico Escolar</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
-
-    * {
-      box-sizing: border-box;
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800&display=swap');
 
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: #f9f9f9;
       margin: 0;
-      padding: 20px;
+      font-family: 'Rubik', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #cce7ff;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     header {
-      background-color: #111;
-      color: #00ffff;
-      padding: 25px;
       text-align: center;
-      font-size: 2em;
-      box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3);
+      padding: 40px 20px 10px;
     }
 
     header h1 {
-      text-shadow: 0 0 4px #00ffff, 0 0 8px #00ffff;
-      animation: neon-pulse 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes neon-pulse {
-      from {
-        text-shadow: 0 0 4px #00ffff, 0 0 8px #00ffff;
-      }
-      to {
-        text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
-      }
+      font-size: 2.5em;
+      color: #48b3ff;
+      margin: 0;
+      font-weight: 800;
+      text-shadow: 0 2px 5px #00000055;
     }
 
     main {
-      max-width: 800px;
-      margin: 30px auto 0;
+      flex: 1;
+      max-width: 960px;
+      margin: 20px auto;
       padding: 30px;
-      background-color: #1e1e1e;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-      transition: opacity 0.5s ease;
+      background-color: rgba(20, 20, 20, 0.85);
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.05);
       position: relative;
     }
 
-    .content-box {
-      animation: fadeIn 0.6s ease;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
     h2 {
-      color: #00ffff;
+      color: #48b3ff;
       margin-top: 0;
     }
 
     p {
-      line-height: 1.8;
       text-align: justify;
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+
+    ul {
+      padding-left: 20px;
+      line-height: 1.8;
     }
 
     ul li::before {
       content: "✓ ";
-      color: #00ffff;
+      color: #48b3ff;
       font-weight: bold;
     }
 
-    .btn {
-      padding: 10px 20px;
-      background-color: #00ffff;
-      color: #000;
-      text-decoration: none;
-      border-radius: 30px;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-      transition: transform 0.2s ease, background-color 0.3s ease;
-    }
-
-    .btn:hover {
-      transform: scale(1.1);
-      background-color: #00cccc;
-    }
-    @media (max-width: 600px) {
-      header {
-        font-size: 1.5em;
-      }
-
-      header h1 {
-        font-size: 1.2em;
-      }
-
-      .btn {
-        padding: 8px 16px;
-        font-size: 0.9em;
-      }
-    }
     .navegacao {
       display: flex;
       justify-content: space-between;
@@ -121,39 +71,142 @@
       margin-top: 30px;
     }
 
-    .btn-group {
-      display: flex;
-      gap: 10px;
+    .btn {
+      padding: 10px 25px;
+      border: none;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s ease-in-out;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+  .btn-sair {
+  background: linear-gradient(90deg, #ff4e50, #ff0000);
+  color: white;
+  box-shadow: none;
+  text-decoration: none; /* só aqui */
+}
+    
+  .btn-voltar,
+.btn-avancar {
+  background: linear-gradient(90deg, #0066ff, #0099ff);
+  color: white;
+  box-shadow: none;
+}
+
+    .content-box {
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    canvas#bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: transparent;
     }
   </style>
 </head>
 <body>
+  <canvas id="bgCanvas"></canvas>
+
   <header>
     <h1>POO com Java</h1>
   </header>
 
   <main id="main-content">
-    <div class="content-box" id="slide-container">
-      <!-- Conteúdo do slide será inserido aqui via JS -->
-    </div>
+    <div class="content-box" id="slide-container"></div>
+
     <div class="navegacao">
-      <a href="index.html" class="btn">⬅ Portal</a>
-      <div class="btn-group">
-        <button class="btn" id="btn-voltar" style="display: none;">⬅</button>
-        <button class="btn" id="btn-avancar">➡</button>
+      <a href="index.html" class="btn btn-sair">Sair</a>
+      <div>
+        <button class="btn btn-voltar" id="btn-voltar" style="display:none;">⬅</button>
+        <button class="btn btn-avancar" id="btn-avancar">➡</button>
       </div>
     </div>
   </main>
 
   <script>
+    // Fundo animado
+    const canvas = document.getElementById("bgCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = Math.random() * 1 - 0.5;
+        this.speedY = Math.random() * 1 - 0.5;
+        this.color = "#48b3ff";
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+      }
+
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    let particlesArray = [];
+    for (let i = 0; i < 80; i++) {
+      particlesArray.push(new Particle());
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particlesArray.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    // Slides com conteúdo mais completo
     document.addEventListener("DOMContentLoaded", () => {
       const container = document.getElementById("slide-container");
       const main = document.getElementById("main-content");
       const btnAvancar = document.getElementById("btn-avancar");
       const btnVoltar = document.getElementById("btn-voltar");
-
       const slides = [
-        `<h2>Aula 1 – Introdução à POO em Java</h2>
+`<h2>Aula 1 – Introdução à POO em Java</h2>
 <p style="text-align: justify;">
 Nesta primeira aula, os estudantes foram introduzidos aos conceitos fundamentais de Programação Orientada a Objetos (POO) aplicados na linguagem Java. Foram abordadas as noções de classe, objeto, atributos, métodos e encapsulamento, destacando a importância desses conceitos para a construção de softwares escaláveis e organizados.
 </p>
@@ -161,7 +214,7 @@ Nesta primeira aula, os estudantes foram introduzidos aos conceitos fundamentais
 A atividade prática consistiu na criação de classes simples que representassem entidades do cotidiano, permitindo aos alunos compreenderem a relação entre objetos e suas propriedades, além de observar como a POO promove a reutilização de código e o aumento da manutenibilidade dos sistemas desenvolvidos.
 </p>`,
 
-        `<h2>Aula 2 – Herança e Polimorfismo</h2>
+`<h2>Aula 2 – Herança e Polimorfismo</h2>
 <p style="text-align: justify;">
 Nesta aula, os conceitos de herança e polimorfismo foram explorados em profundidade. Os alunos aprenderam como classes podem herdar características de outras classes, facilitando a criação de estruturas hierárquicas e promovendo a reutilização eficiente de código.
 </p>
@@ -169,7 +222,7 @@ Nesta aula, os conceitos de herança e polimorfismo foram explorados em profundi
 O polimorfismo foi apresentado como a capacidade de objetos de classes diferentes responderem a métodos com a mesma assinatura de maneiras distintas, permitindo a implementação de sistemas flexíveis e dinâmicos. Exercícios práticos incluíram a modelagem de cenários com múltiplos tipos de objetos interagindo entre si.
 </p>`,
 
-        `<h2>Aula 3 – Encapsulamento e Modificadores de Acesso</h2>
+`<h2>Aula 3 – Encapsulamento e Modificadores de Acesso</h2>
 <p style="text-align: justify;">
 O foco desta aula foi o encapsulamento, princípio que protege os dados internos de uma classe, controlando o acesso através de métodos específicos (getters e setters). Os alunos compreenderam a importância de proteger os atributos das classes para evitar inconsistências e erros durante a execução do programa.
 </p>
@@ -177,7 +230,7 @@ O foco desta aula foi o encapsulamento, princípio que protege os dados internos
 Foram discutidos os modificadores de acesso (public, private, protected) e suas implicações na visibilidade de métodos e atributos, exemplificando boas práticas de design de software orientado a objetos e a criação de código seguro e legível.
 </p>`,
 
-        `<h2>Aula 4 – Interfaces e Classes Abstratas</h2>
+`<h2>Aula 4 – Interfaces e Classes Abstratas</h2>
 <p style="text-align: justify;">
 Nesta aula, os alunos estudaram a diferença entre classes abstratas e interfaces, compreendendo como cada uma delas pode ser utilizada para definir contratos de comportamento em sistemas orientados a objetos. Foi enfatizada a aplicação prática dessas ferramentas para garantir flexibilidade e padronização no desenvolvimento de software.
 </p>
@@ -185,7 +238,7 @@ Nesta aula, os alunos estudaram a diferença entre classes abstratas e interface
 Exercícios incluíram a implementação de interfaces para simular funcionalidades comuns a diferentes classes e a utilização de classes abstratas para centralizar comportamentos compartilhados, promovendo uma arquitetura de código mais organizada e sustentável.
 </p>`,
 
-        `<h2>Aula 5 – Projeto Prático: Sistema de Gestão</h2>
+`<h2>Aula 5 – Projeto Prático: Sistema de Gestão</h2>
 <p style="text-align: justify;">
 Nesta aula prática, os alunos iniciaram o desenvolvimento de um sistema de gestão utilizando POO em Java. Foram aplicados todos os conceitos aprendidos, incluindo criação de classes, métodos, herança, polimorfismo e encapsulamento, para modelar entidades e funcionalidades reais de um sistema administrativo.
 </p>
@@ -193,7 +246,7 @@ Nesta aula prática, os alunos iniciaram o desenvolvimento de um sistema de gest
 A atividade estimulou o pensamento crítico, a resolução de problemas complexos e a integração de múltiplos conceitos de programação, proporcionando aos alunos uma visão ampla de como sistemas orientados a objetos são planejados e implementados em projetos reais.
 </p>`,
 
-        `<h2>Aula 6 – Testes e Validação de Software</h2>
+`<h2>Aula 6 – Testes e Validação de Software</h2>
 <p style="text-align: justify;">
 Os estudantes exploraram técnicas de teste de software, aprendendo a validar funcionalidades implementadas no projeto prático. Foram discutidos testes unitários, integração e boas práticas de depuração, garantindo que cada componente do sistema funcionasse corretamente e de forma eficiente.
 </p>
@@ -201,7 +254,7 @@ Os estudantes exploraram técnicas de teste de software, aprendendo a validar fu
 A aplicação prática envolveu a execução de casos de teste para detectar erros, corrigir falhas e otimizar o desempenho do sistema, reforçando a importância da qualidade de software e da manutenção preventiva em projetos de desenvolvimento.
 </p>`,
 
-        `<h2>Aula 7 – Revisão e Otimização do Projeto</h2>
+`<h2>Aula 7 – Revisão e Otimização do Projeto</h2>
 <p style="text-align: justify;">
 Nesta aula, os alunos revisaram o projeto de sistema em desenvolvimento, identificando oportunidades de otimização e melhorias no código. A ênfase foi em refatoração, organização de classes e métodos, e aprimoramento da eficiência e legibilidade do sistema.
 </p>
@@ -209,21 +262,22 @@ Nesta aula, os alunos revisaram o projeto de sistema em desenvolvimento, identif
 A atividade permitiu consolidar os conhecimentos adquiridos ao longo do bimestre, reforçando boas práticas de design de software, pensamento analítico e capacidade de resolver problemas complexos de forma estruturada.
 </p>`,
 
-        `<h2>Aula 8 – Apresentação do Projeto Final</h2>
+`<h2>Aula 8 – Apresentação do Projeto Final</h2>
 <p style="text-align: justify;">
 Na aula final, os alunos apresentaram seus projetos de software para a turma, demonstrando todas as funcionalidades implementadas e a aplicação prática dos conceitos de POO em Java. A apresentação incluiu a exposição de desafios enfrentados, soluções adotadas e resultados obtidos.
 </p>
 <p style="text-align: justify;">
 O momento de apresentação permitiu a troca de experiências, o desenvolvimento de habilidades de comunicação técnica e a valorização do trabalho colaborativo, consolidando a aprendizagem de forma significativa e prática.
 </p>`
-      ];
+];
+
 
       let index = 0;
 
       function atualizarSlide() {
         main.style.opacity = 0;
         setTimeout(() => {
-          container.innerHTML = `<div class="content-box fade">${slides[index]}</div>`;
+          container.innerHTML = `<div class="content-box">${slides[index]}</div>`;
           main.style.opacity = 1;
           btnVoltar.style.display = index === 0 ? "none" : "inline-block";
           btnAvancar.style.display = index === slides.length - 1 ? "none" : "inline-block";
@@ -244,7 +298,6 @@ O momento de apresentação permitiu a troca de experiências, o desenvolvimento
         }
       });
 
-      // Carrega o primeiro slide ao entrar
       atualizarSlide();
     });
   </script>
