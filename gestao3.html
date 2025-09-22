@@ -5,115 +5,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gestão de Tempo - Portal Técnico Escolar</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
-
-    * {
-      box-sizing: border-box;
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800&display=swap');
 
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: #f9f9f9;
       margin: 0;
-      padding: 20px;
+      font-family: 'Rubik', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #cce7ff;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     header {
-      background-color: #111;
-      color: #00ffff;
-      padding: 25px;
       text-align: center;
-      font-size: 2em;
-      box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3);
+      padding: 40px 20px 10px;
     }
 
     header h1 {
-      text-shadow: 0 0 4px #00ffff, 0 0 8px #00ffff;
-      animation: neon-pulse 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes neon-pulse {
-      from {
-        text-shadow: 0 0 4px #00ffff, 0 0 8px #00ffff;
-      }
-      to {
-        text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
-      }
+      font-size: 2.5em;
+      color: #48b3ff;
+      margin: 0;
+      font-weight: 800;
+      text-shadow: 0 2px 5px #00000055;
     }
 
     main {
-      max-width: 800px;
-      margin: 30px auto 0;
+      flex: 1;
+      max-width: 960px;
+      margin: 20px auto;
       padding: 30px;
-      background-color: #1e1e1e;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-      transition: opacity 0.5s ease;
+      background-color: rgba(20, 20, 20, 0.85);
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.05);
       position: relative;
     }
 
-    .content-box {
-      animation: fadeIn 0.6s ease;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
     h2 {
-      color: #00ffff;
+      color: #48b3ff;
       margin-top: 0;
     }
 
     p {
-      line-height: 1.8;
       text-align: justify;
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+
+    ul {
+      padding-left: 20px;
+      line-height: 1.8;
     }
 
     ul li::before {
       content: "✓ ";
-      color: #00ffff;
+      color: #48b3ff;
       font-weight: bold;
     }
 
-    .btn {
-      padding: 10px 20px;
-      background-color: #00ffff;
-      color: #000;
-      text-decoration: none;
-      border-radius: 30px;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-      transition: transform 0.2s ease, background-color 0.3s ease;
-    }
-
-    .btn:hover {
-      transform: scale(1.1);
-      background-color: #00cccc;
-    }
-    @media (max-width: 600px) {
-      header {
-        font-size: 1.5em;
-      }
-
-      header h1 {
-        font-size: 1.2em;
-      }
-
-      .btn {
-        padding: 8px 16px;
-        font-size: 0.9em;
-      }
-    }
     .navegacao {
       display: flex;
       justify-content: space-between;
@@ -121,31 +71,113 @@
       margin-top: 30px;
     }
 
-    .btn-group {
-      display: flex;
-      gap: 10px;
+    .btn {
+      padding: 10px 25px;
+      border: none;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s ease-in-out;
+      text-decoration: none;
+      color: white;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    .btn-sair {
+      background: linear-gradient(90deg, #ff4e50, #ff0000);
+      box-shadow: none;
+    }
+
+    .btn-voltar,
+    .btn-avancar {
+      background: linear-gradient(90deg, #0066ff, #0099ff);
+      box-shadow: none;
+    }
+
+    .content-box {
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    canvas#bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: transparent;
     }
   </style>
 </head>
 <body>
+  <canvas id="bgCanvas"></canvas>
+
   <header>
     <h1>Gestão de Tempo</h1>
   </header>
 
   <main id="main-content">
-    <div class="content-box" id="slide-container">
-      <!-- Conteúdo do slide será inserido aqui via JS -->
-    </div>
+    <div class="content-box" id="slide-container"></div>
+
     <div class="navegacao">
-      <a href="index.html" class="btn">⬅ Portal</a>
-      <div class="btn-group">
-        <button class="btn" id="btn-voltar" style="display: none;">⬅</button>
-        <button class="btn" id="btn-avancar">➡</button>
+      <a href="index.html" class="btn btn-sair">Sair</a>
+      <div>
+        <button class="btn btn-voltar" id="btn-voltar" style="display:none;">⬅</button>
+        <button class="btn btn-avancar" id="btn-avancar">➡</button>
       </div>
     </div>
   </main>
 
   <script>
+    const canvas = document.getElementById("bgCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = Math.random() * 1 - 0.5;
+        this.speedY = Math.random() * 1 - 0.5;
+        this.color = "#48b3ff";
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+      }
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    let particlesArray = [];
+    for (let i = 0; i < 80; i++) particlesArray.push(new Particle());
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particlesArray.forEach(p => { p.update(); p.draw(); });
+      requestAnimationFrame(animate);
+    }
+    animate();
+    window.addEventListener("resize", () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+
     document.addEventListener("DOMContentLoaded", () => {
       const container = document.getElementById("slide-container");
       const main = document.getElementById("main-content");
@@ -153,97 +185,48 @@
       const btnVoltar = document.getElementById("btn-voltar");
 
       const slides = [
-      `<h2>Aula 1 - 10/07</h2><p style="text-align: justify;"><strong>Guia de Aprendizagem em Conjunto com os Alunos</strong> - Durante esta aula, foi desenvolvido, em conjunto com os alunos, o planejamento das aulas e dos temas que serão abordados ao longo do 3º bimestre. Esse processo levou em consideração a opinião dos estudantes, o plano de curso e a realidade das atividades e recursos disponíveis na escola, garantindo que o conteúdo seja relevante, acessível e alinhado às necessidades da turma.
-</p>`,
+        `<h2>Aula 1 - 10/07</h2>
+        <p><strong>Introdução à Gestão de Tempo</strong></p>
+        <p>Nesta aula inicial, os estudantes foram apresentados aos conceitos fundamentais da gestão eficiente do tempo, incluindo planejamento, priorização e disciplina pessoal. Discutimos a importância de organizar tarefas acadêmicas, atividades extracurriculares e responsabilidades pessoais para maximizar produtividade e reduzir o estresse.</p>
+        <p>Foram exploradas metodologias como a matriz de Eisenhower, técnicas de planejamento diário e semanal, além da definição de metas SMART. Os alunos também refletiram sobre hábitos de procrastinação e estratégias para otimizar a utilização do tempo em diferentes contextos.</p>`,
 
         `<h2>Aula 2 - 17/07</h2>
-<p style="text-align: justify;"><strong>Inserção do Guia de Aprendizagem no Site</strong></p>
+        <p><strong>Planejamento e Organização Pessoal</strong></p>
+        <p>Os estudantes aprenderam a construir cronogramas semanais e mensais, incorporando prioridades e deadlines de forma realista. A aula enfatizou a importância de revisar constantemente os planos, adaptando-os conforme imprevistos e novas demandas.</p>
+        <p>Discutimos também ferramentas digitais, como agendas online e aplicativos de produtividade, que permitem acompanhar tarefas e compromissos, possibilitando integração entre vida acadêmica, profissional e pessoal.</p>`,
 
-<p style="text-align: justify;">
-Nesta aula, foi realizada a inserção do Guia de Aprendizagem no site da turma, com o objetivo de organizar e apresentar, de forma clara e acessível, os conteúdos que serão trabalhados ao longo do bimestre.
-</p>
+        `<h2>Aula 3 - 07/08</h2>
+        <p><strong>Ferramentas Digitais e Automatização</strong></p>
+        <p>Esta aula abordou o uso de ferramentas digitais avançadas para otimização do tempo, como Google Agenda, Trello e Notion. Os alunos aprenderam a criar eventos, lembretes, checklists e fluxos de trabalho, integrando atividades diárias e projetos acadêmicos.</p>
+        <p>Enfatizou-se a importância da revisão periódica e da automação de tarefas rotineiras para reduzir sobrecarga cognitiva, aumentando eficiência e permitindo mais tempo para atividades estratégicas e de lazer.</p>`,
 
-<p style="text-align: justify;">
-O guia contém informações como os temas das aulas, as datas previstas, os objetivos de aprendizagem e as ferramentas que serão utilizadas. Sua inclusão no site permite que os alunos acompanhem o planejamento das atividades, favorecendo o engajamento, a organização dos estudos e a autonomia no processo de aprendizagem.
-</p>
+        `<h2>Aula 4 - 21/08</h2>
+        <p><strong>Gestão do Tempo em Equipe e Colaboração</strong></p>
+        <p>Os estudantes participaram de dinâmicas de grupo e simulações de projetos colaborativos, aplicando técnicas de planejamento e organização em contextos coletivos. Foram discutidas estratégias de comunicação, divisão de tarefas e cumprimento de prazos, destacando a importância do trabalho em equipe para o sucesso de projetos compartilhados.</p>
+        <p>Essa aula também abordou a gestão de reuniões, relatórios e ferramentas colaborativas que facilitam o acompanhamento do progresso e a responsabilidade individual dentro de grupos.</p>`,
 
-<p style="text-align: justify;">
-A atividade também possibilitou aos estudantes compreenderem, na prática, como conteúdos pedagógicos podem ser estruturados e publicados digitalmente, fortalecendo a integração entre tecnologia e educação.
-</p>`,
-
-       `<h2>Aula 03 – 07/08</h2>
-<p style="text-align: justify;"><strong>Uso do Google Agenda / Rotina</strong></p>
-
-<p style="text-align: justify;">
-Nesta aula, os alunos foram introduzidos ao uso do Google Agenda como ferramenta universal e compartilhada de organização pessoal e acadêmica. Por ser acessível em qualquer dispositivo conectado à internet e permitir o compartilhamento de compromissos, a plataforma facilita o planejamento colaborativo e a sincronização de atividades entre diferentes pessoas e grupos.
-</p>
-
-<p style="text-align: justify;">
-A atividade abordou a criação de eventos, configuração de lembretes, compartilhamento de agendas e integração de compromissos escolares com atividades extracurriculares, reforçando a importância do uso constante para manter uma rotina organizada e produtiva.
-</p>`,
-
-        `<h2>Aula 04 – 21/08</h2>
-<p style="text-align: justify;"><strong>Aula Esportiva na Quadra – Desenvolvimento Físico e Trabalho em Equipe</strong></p>
-
-<p style="text-align: justify;">
-Nesta aula, os alunos participaram de atividades esportivas na quadra, com foco no desenvolvimento físico, coordenação motora e hábitos de vida saudáveis. As atividades foram planejadas para integrar recreação, aprendizado e socialização.
-</p>
-
-<p style="text-align: justify;">
-O objetivo foi estimular o trabalho em equipe, a cooperação e a disciplina, promovendo o respeito às regras e a valorização da prática esportiva como instrumento de bem-estar e integração entre os estudantes.
-</p>
-
-<p style="text-align: justify;">
-A aula reforçou a importância da atividade física para o equilíbrio emocional e físico, incentivando hábitos saudáveis, engajamento coletivo e protagonismo juvenil nas práticas esportivas.
-</p>`,
-
-       `<h2>Aula 05 – 23/08</h2>
-<p style="text-align: justify;"><strong>Projeto Pipa – Atividade de Criatividade e Aerodinâmica</strong></p>
-
-<p style="text-align: justify;">
-Nesta aula, os alunos desenvolveram o <em>Projeto Pipa</em>, explorando conceitos de criatividade, aerodinâmica e trabalho manual. A atividade teve como objetivo estimular o raciocínio lógico e a aplicação prática de princípios físicos na construção de pipas funcionais.
-</p>
-
-<p style="text-align: justify;">
-Os estudantes planejaram, montaram e testaram suas pipas, observando fatores como equilíbrio, tamanho, formato e tipo de material utilizado, de modo a otimizar o voo e a estabilidade.
-</p>
-
-<p style="text-align: justify;">
-A atividade incentivou a colaboração, o protagonismo juvenil e a reflexão sobre a importância da experimentação e do planejamento na execução de projetos, reforçando a aprendizagem prática dos conteúdos estudados.
-</p>`
-
+        `<h2>Aula 5 - 23/08</h2>
+        <p><strong>Reflexão sobre Produtividade e Desenvolvimento Pessoal</strong></p>
+        <p>Na aula final, os alunos refletiram sobre hábitos de produtividade, equilíbrio entre estudo e lazer, e métodos de autoavaliação de desempenho. Foram discutidas estratégias para manter a motivação, evitar a procrastinação e cultivar hábitos que favorecem a saúde mental e o bem-estar geral.</p>
+        <p>O fechamento do módulo reforçou a importância de aplicar de forma prática os conceitos estudados, criando uma rotina personalizada, eficiente e sustentável, que suporte crescimento acadêmico, pessoal e profissional.</p>`
       ];
 
       let index = 0;
-
       function atualizarSlide() {
         main.style.opacity = 0;
         setTimeout(() => {
-          container.innerHTML = `<div class="content-box fade">${slides[index]}</div>`;
+          container.innerHTML = `<div class="content-box">${slides[index]}</div>`;
           main.style.opacity = 1;
           btnVoltar.style.display = index === 0 ? "none" : "inline-block";
           btnAvancar.style.display = index === slides.length - 1 ? "none" : "inline-block";
         }, 300);
       }
 
-      btnAvancar.addEventListener("click", () => {
-        if (index < slides.length - 1) {
-          index++;
-          atualizarSlide();
-        }
-      });
+      btnAvancar.addEventListener("click", () => { if (index < slides.length - 1) { index++; atualizarSlide(); } });
+      btnVoltar.addEventListener("click", () => { if (index > 0) { index--; atualizarSlide(); } });
 
-      btnVoltar.addEventListener("click", () => {
-        if (index > 0) {
-          index--;
-          atualizarSlide();
-        }
-      });
-
-      // Carrega o primeiro slide ao entrar
       atualizarSlide();
     });
   </script>
 </body>
 </html>
-
