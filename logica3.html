@@ -5,115 +5,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Lógica de Programação - Portal Técnico Escolar</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
-
-    * {
-      box-sizing: border-box;
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800&display=swap');
 
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: #f9f9f9;
       margin: 0;
-      padding: 20px;
+      font-family: 'Rubik', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #cce7ff;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     header {
-      background-color: #111;
-      color: #00ffff;
-      padding: 25px;
       text-align: center;
-      font-size: 2em;
-      box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3);
+      padding: 40px 20px 10px;
     }
 
     header h1 {
-      text-shadow: 0 0 4px #00ffff, 0 0 8px #00ffff;
-      animation: neon-pulse 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes neon-pulse {
-      from {
-        text-shadow: 0 0 4px #00ffff, 0 0 8px #00ffff;
-      }
-      to {
-        text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
-      }
+      font-size: 2.5em;
+      color: #48b3ff;
+      margin: 0;
+      font-weight: 800;
+      text-shadow: 0 2px 5px #00000055;
     }
 
     main {
-      max-width: 800px;
-      margin: 30px auto 0;
+      flex: 1;
+      max-width: 960px;
+      margin: 20px auto;
       padding: 30px;
-      background-color: #1e1e1e;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-      transition: opacity 0.5s ease;
+      background-color: rgba(20, 20, 20, 0.85);
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.05);
       position: relative;
     }
 
-    .content-box {
-      animation: fadeIn 0.6s ease;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
     h2 {
-      color: #00ffff;
+      color: #48b3ff;
       margin-top: 0;
     }
 
     p {
-      line-height: 1.8;
       text-align: justify;
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+
+    ul {
+      padding-left: 20px;
+      line-height: 1.8;
     }
 
     ul li::before {
       content: "✓ ";
-      color: #00ffff;
+      color: #48b3ff;
       font-weight: bold;
     }
 
-    .btn {
-      padding: 10px 20px;
-      background-color: #00ffff;
-      color: #000;
-      text-decoration: none;
-      border-radius: 30px;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-      transition: transform 0.2s ease, background-color 0.3s ease;
-    }
-
-    .btn:hover {
-      transform: scale(1.1);
-      background-color: #00cccc;
-    }
-    @media (max-width: 600px) {
-      header {
-        font-size: 1.5em;
-      }
-
-      header h1 {
-        font-size: 1.2em;
-      }
-
-      .btn {
-        padding: 8px 16px;
-        font-size: 0.9em;
-      }
-    }
     .navegacao {
       display: flex;
       justify-content: space-between;
@@ -121,31 +71,135 @@
       margin-top: 30px;
     }
 
-    .btn-group {
-      display: flex;
-      gap: 10px;
+    .btn {
+      padding: 10px 25px;
+      border: none;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s ease-in-out;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    .btn-sair {
+      background: linear-gradient(90deg, #ff4e50, #ff0000);
+      color: white;
+      box-shadow: none;
+      text-decoration: none;
+    }
+
+    .btn-voltar,
+    .btn-avancar {
+      background: linear-gradient(90deg, #0066ff, #0099ff);
+      color: white;
+      box-shadow: none;
+    }
+
+    .content-box {
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    canvas#bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: transparent;
     }
   </style>
 </head>
 <body>
+  <canvas id="bgCanvas"></canvas>
+
   <header>
-    <h1>Lógica de programação</h1>
+    <h1>Lógica de Programação</h1>
   </header>
 
   <main id="main-content">
-    <div class="content-box" id="slide-container">
-      <!-- Conteúdo do slide será inserido aqui via JS -->
-    </div>
+    <div class="content-box" id="slide-container"></div>
+
     <div class="navegacao">
-      <a href="index.html" class="btn">⬅ Portal</a>
-      <div class="btn-group">
-        <button class="btn" id="btn-voltar" style="display: none;">⬅</button>
-        <button class="btn" id="btn-avancar">➡</button>
+      <a href="index.html" class="btn btn-sair">Sair</a>
+      <div>
+        <button class="btn btn-voltar" id="btn-voltar" style="display:none;">⬅</button>
+        <button class="btn btn-avancar" id="btn-avancar">➡</button>
       </div>
     </div>
   </main>
 
   <script>
+    // Fundo animado
+    const canvas = document.getElementById("bgCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = Math.random() * 1 - 0.5;
+        this.speedY = Math.random() * 1 - 0.5;
+        this.color = "#48b3ff";
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+      }
+
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    let particlesArray = [];
+    for (let i = 0; i < 80; i++) {
+      particlesArray.push(new Particle());
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particlesArray.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    // Slides
     document.addEventListener("DOMContentLoaded", () => {
       const container = document.getElementById("slide-container");
       const main = document.getElementById("main-content");
@@ -153,10 +207,10 @@
       const btnVoltar = document.getElementById("btn-voltar");
 
       const slides = [
-      `<h2>Aula 1 - 10/07</h2><p style="text-align: justify;"><strong>Guia de Aprendizagem em Conjunto com os Alunos</strong> - Durante esta aula, foi desenvolvido, em conjunto com os alunos, o planejamento das aulas e dos temas que serão abordados ao longo do 3º bimestre. Esse processo levou em consideração a opinião dos estudantes, o plano de curso e a realidade das atividades e recursos disponíveis na escola, garantindo que o conteúdo seja relevante, acessível e alinhado às necessidades da turma.
+`<h2>Aula 1 - 10/07</h2><p style="text-align: justify;"><strong>Guia de Aprendizagem em Conjunto com os Alunos</strong> - Durante esta aula, foi desenvolvido, em conjunto com os alunos, o planejamento das aulas e dos temas que serão abordados ao longo do 3º bimestre. Esse processo levou em consideração a opinião dos estudantes, o plano de curso e a realidade das atividades e recursos disponíveis na escola, garantindo que o conteúdo seja relevante, acessível e alinhado às necessidades da turma.
 </p>`,
 
-      `<h2>Aula 2 - 17/07</h2>
+`<h2>Aula 2 - 17/07</h2>
 <p style="text-align: justify;"><strong>Introdução à Criação de Jogo – Videogame (Parte 2)</strong></p>
 
 <p style="text-align: justify;">
@@ -171,7 +225,7 @@ Os alunos exploraram aspectos fundamentais como movimentação de personagens, c
 A proposta visa estimular a criatividade, o raciocínio lógico e o interesse dos estudantes pelo universo dos games, utilizando a programação como ferramenta de construção e expressão tecnológica.
 </p>`,
 
-       `<h2>Aula 3 - 06/08</h2>
+`<h2>Aula 3 - 06/08</h2>
 <p style="text-align: justify;"><strong>Atividade com o Grupo de Protagonismo e Jogos</strong></p>
 
 <p style="text-align: justify;">
@@ -185,7 +239,8 @@ Durante a atividade, os estudantes participaram ativamente de desafios e reflex�
 <p style="text-align: justify;">
 A ação contribuiu para o desenvolvimento pessoal dos alunos e reforçou a importância da participação ativa na construção de um ambiente escolar mais engajado, participativo e respeitoso.
 </p>`,
-        `<h2>Aula 04 – 13/08</h2>
+
+`<h2>Aula 04 – 13/08</h2>
 <p style="text-align: justify;"><strong>Atividade Grupo de Protagonismo e Jogos – Semana Estadual da Juventude</strong></p>
 
 <p style="text-align: justify;">
@@ -199,7 +254,8 @@ A dinâmica promoveu a colaboração entre os colegas, incentivando a criativida
 <p style="text-align: justify;">
 O objetivo da atividade foi fortalecer a autonomia, o trabalho em equipe e a responsabilidade acadêmica, preparando os alunos para apresentar resultados efetivos durante a Semana Estadual da Juventude.
 </p>`,
-      `<h2>Aula 05 – 20/08</h2>
+
+`<h2>Aula 05 – 20/08</h2>
 <p style="text-align: justify;"><strong>Desenvolvimento do Projeto de Robótica – Semana Nacional da Pessoa com Deficiência</strong></p>
 
 <p style="text-align: justify;">
@@ -213,7 +269,8 @@ O trabalho buscou despertar a reflexão sobre como a robótica pode ser aplicada
 <p style="text-align: justify;">
 A atividade incentivou a cooperação, a criatividade e o protagonismo dos estudantes, reforçando a responsabilidade coletiva na construção de uma sociedade mais justa, inclusiva e solidária.
 </p>`,
-        `<h2>Aula 06 – 27/08</h2>
+
+`<h2>Aula 06 – 27/08</h2>
 <p style="text-align: justify;"><strong>Aula na Sala de Informática utilizando o TIC-80</strong></p>
 
 <p style="text-align: justify;">
@@ -227,8 +284,6 @@ O objetivo foi proporcionar uma experiência prática de criação de projetos i
 <p style="text-align: justify;">
 A atividade estimulou o raciocínio lógico, a resolução de problemas e o protagonismo juvenil, incentivando a integração entre tecnologia, inovação e aprendizado lúdico.
 </p>`
-
-
       ];
 
       let index = 0;
@@ -236,7 +291,7 @@ A atividade estimulou o raciocínio lógico, a resolução de problemas e o prot
       function atualizarSlide() {
         main.style.opacity = 0;
         setTimeout(() => {
-          container.innerHTML = `<div class="content-box fade">${slides[index]}</div>`;
+          container.innerHTML = `<div class="content-box">${slides[index]}</div>`;
           main.style.opacity = 1;
           btnVoltar.style.display = index === 0 ? "none" : "inline-block";
           btnAvancar.style.display = index === slides.length - 1 ? "none" : "inline-block";
@@ -257,10 +312,8 @@ A atividade estimulou o raciocínio lógico, a resolução de problemas e o prot
         }
       });
 
-      // Carrega o primeiro slide ao entrar
       atualizarSlide();
     });
   </script>
 </body>
 </html>
-
