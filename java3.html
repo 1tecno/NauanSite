@@ -8,46 +8,58 @@
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
 
     * { box-sizing: border-box; }
+
     body {
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
       color: #f9f9f9;
-      margin: 0; padding: 20px;
+      margin: 0;
+      padding: 20px;
     }
+
     header {
       background-color: #111;
       color: #00ffff;
       padding: 25px;
       text-align: center;
       font-size: 2em;
-      box-shadow: 0 4px 10px rgba(0,255,255,0.3);
+      box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3);
     }
+
     header h1 {
       text-shadow: 0 0 4px #00ffff, 0 0 8px #00ffff;
       animation: neon-pulse 2s ease-in-out infinite alternate;
     }
+
     @keyframes neon-pulse {
-      from { text-shadow: 0 0 4px #00ffff,0 0 8px #00ffff; }
-      to { text-shadow: 0 0 10px #00ffff,0 0 20px #00ffff; }
+      from { text-shadow: 0 0 4px #00ffff, 0 0 8px #00ffff; }
+      to { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; }
     }
+
     main {
       max-width: 800px;
       margin: 30px auto 0;
       padding: 30px;
       background-color: #1e1e1e;
       border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,255,255,0.2);
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
       transition: opacity 0.5s ease;
       position: relative;
     }
+
     .content-box { animation: fadeIn 0.6s ease; }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
     h2 { color: #00ffff; margin-top: 0; }
+
     p { line-height: 1.8; text-align: justify; }
+
     ul li::before { content: "✓ "; color: #00ffff; font-weight: bold; }
+
     .btn {
       padding: 10px 20px;
       background-color: #00ffff;
@@ -59,33 +71,24 @@
       cursor: pointer;
       transition: transform 0.2s ease, background-color 0.3s ease;
     }
+
     .btn:hover { transform: scale(1.1); background-color: #00cccc; }
+
     @media (max-width: 600px) {
       header { font-size: 1.5em; }
       header h1 { font-size: 1.2em; }
       .btn { padding: 8px 16px; font-size: 0.9em; }
     }
+
     .navegacao { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; }
+
     .btn-group { display: flex; gap: 10px; }
-    #download-btn {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 8px 14px;
-      border-radius: 20px;
-      background-color: #00ffff;
-      color: #000;
-      font-weight: bold;
-      text-decoration: none;
-      transition: transform 0.2s ease, background-color 0.3s ease;
-    }
-    #download-btn:hover { transform: scale(1.05); background-color: #00cccc; }
-    .resumo { background-color: #111; padding: 15px; border-radius: 12px; margin-top: 15px; }
-    .resumo h3 { color: #00ffff; margin-top: 0; }
-    .resumo ul li { color: #fff; }
   </style>
 </head>
 <body>
-  <header><h1>POO com Java</h1></header>
+  <header>
+    <h1>POO com Java</h1>
+  </header>
 
   <main id="main-content">
     <div class="content-box" id="slide-container"></div>
@@ -106,179 +109,76 @@
       const btnVoltar = document.getElementById("btn-voltar");
 
       const slides = [
-`<h2>Aula 1 - 11/07</h2>
-<p><strong>Inserção do Guia de Aprendizagem no Site</strong></p>
-<p>Nesta aula, foi feita a inserção do Guia de Aprendizagem no site, apresentando conteúdos, datas e objetivos do bimestre.</p>
-<div class="resumo">
-<h3>Resumo:</h3>
-<ul>
-<li>Organização de conteúdos em um site.</li>
-<li>Facilita acompanhamento e estudo.</li>
-<li>Integra tecnologia e educação.</li>
-</ul>
-</div>`,
+        `<h2>Aula 1 - 11/07</h2>
+<p><strong>Introdução ao Guia de Aprendizagem em POO Java</strong></p>
+<p>Durante esta aula, os estudantes foram apresentados ao Guia de Aprendizagem do curso, que organiza de forma estruturada todo o conteúdo a ser explorado ao longo do bimestre. O guia contém uma visão detalhada das competências a serem desenvolvidas, os tópicos principais de estudo, cronogramas de atividades e recursos complementares que suportam a aprendizagem prática e teórica.</p>
+<p>Este primeiro contato permitiu aos alunos compreender a importância de planejar e documentar processos pedagógicos digitalmente, promovendo maior autonomia, engajamento e disciplina no acompanhamento das aulas. A prática também estimulou a familiarização com interfaces digitais, preparando o estudante para interações tecnológicas mais avançadas no desenvolvimento de software.</p>`,
 
-`<h2>Aula 2 - 15/07</h2>
-<p><strong>Inserção do Guia de Aprendizagem no Site – Continuação</strong></p>
-<p>Os alunos revisaram o guia, conferindo conteúdos, datas e ferramentas, fortalecendo o engajamento e a autonomia.</p>
-<div class="resumo">
-<h3>Resumo:</h3>
-<ul>
-<li>Revisão do planejamento do bimestre.</li>
-<li>Entendimento de organização digital.</li>
-<li>Incentivo à autonomia dos estudantes.</li>
-</ul>
-</div>`,
+        `<h2>Aula 2 - 15/07</h2>
+<p><strong>Consolidação do Guia de Aprendizagem</strong></p>
+<p>Nesta aula, foi aprofundado o estudo do Guia de Aprendizagem, enfatizando a interpretação das metas pedagógicas e a identificação das ferramentas de programação que seriam utilizadas em cada atividade. Os alunos discutiram a sequência lógica do conteúdo, compreendendo a interdependência entre módulos teóricos e práticos do curso de POO.</p>
+<p>Além disso, foram realizadas análises críticas sobre como documentar e estruturar sistemas de aprendizado em Java, estimulando o pensamento organizacional, a capacidade de planejamento e a antecipação de possíveis desafios no desenvolvimento de software.</p>`,
 
-`<h2>Aula 3 - 16/07</h2>
-<p><strong>Fazer Upgrade no Software em Desenvolvimento</strong></p>
-<p>Alunos aplicaram melhorias no software: interface, funcionalidades e otimização de código, estimulando criatividade e pensamento crítico.</p>
-<a href="CardapioDigital.jar" target="_blank" id="download-btn">📥 Baixar Material de POO Java</a>
-<div class="resumo">
-<h3>Resumo:</h3>
-<ul>
-<li>Aplicação prática de POO.</li>
-<li>Melhorias de interface e funcionalidades.</li>
-<li>Estímulo ao trabalho colaborativo.</li>
-</ul>
-</div>`,
+        `<h2>Aula 3 - 16/07</h2>
+<p><strong>Implementação de Upgrades no Software em Desenvolvimento</strong></p>
+<p>Os estudantes iniciaram a atualização de seus projetos em desenvolvimento, aplicando técnicas de melhoria contínua para otimizar tanto a performance quanto a interface do sistema. A atividade incluiu a identificação de pontos de melhoria no código-fonte, ajustes em classes e métodos, correção de erros lógicos e aprimoramento da experiência do usuário.</p>
+<p>Foi enfatizada a importância de utilizar princípios de Programação Orientada a Objetos, como encapsulamento, herança e polimorfismo, para criar soluções modulares e escaláveis. Ao final, cada aluno realizou testes rigorosos, garantindo que as alterações implementadas mantivessem a estabilidade e a funcionalidade do software.</p>
+<p><a href="CardapioDigital.jar" target="_blank">📥 Baixar Material de POO Java</a></p>`,
 
-`<h2>Aula 4 - 18/07</h2>
-<p><strong>Festa Junina</strong></p>
-<p>Atividade cultural para socialização e valorização das tradições brasileiras.</p>
-<div class="resumo">
-<h3>Resumo:</h3>
-<ul>
-<li>Dança, comidas típicas e brincadeiras.</li>
-<li>Fortalecimento da identidade cultural.</li>
-<li>Integração social entre estudantes.</li>
-</ul>
-</div>`,
+        `<h2>Aula 4 - 18/07</h2>
+<p><strong>Festa Junina Escolar</strong></p>
+<p>Além das atividades de POO, os alunos participaram da Festa Junina da escola, proporcionando uma experiência cultural e social significativa. Foram abordados aspectos tradicionais da festa, incluindo danças típicas, trajes característicos, culinária regional e jogos educativos que estimulam a interação e a criatividade.</p>
+<p>Esta integração cultural favoreceu o desenvolvimento de competências socioemocionais, como colaboração, respeito à diversidade e valorização das tradições locais, promovendo um ambiente de aprendizado mais humanizado e motivador.</p>`,
 
-`<h2>Aula 5 - 05/08</h2>
-<p><strong>Upgrade do Software – Continuação</strong></p>
-<p>Alunos aprimoraram o software em desenvolvimento, com correções, novas funcionalidades e ajustes visuais.</p>
-<a href="CardapioDigital.jar" target="_blank" id="download-btn">📥 Baixar Material de POO Java</a>
-<div class="resumo">
-<h3>Resumo:</h3>
-<ul>
-<li>Correção de erros e otimização.</li>
-<li>Adição de novas funcionalidades.</li>
-<li>Prática avançada de POO.</li>
-</ul>
-</div>`,
+        `<h2>Aula 5 - 05/08</h2>
+<p><strong>Aplicação de Melhorias no Software – Upgrades Avançados</strong></p>
+<p>Os alunos revisaram seus projetos para implementar melhorias técnicas avançadas, incluindo otimização de código, refinamento da interface gráfica e implementação de funcionalidades adicionais. A atividade teve como objetivo consolidar o aprendizado prático, estimulando a criatividade e o raciocínio lógico na resolução de problemas complexos.</p>
+<p>Durante o processo, foram exploradas estratégias de versionamento e controle de alterações, promovendo boas práticas profissionais que preparam o estudante para cenários reais de desenvolvimento de software.</p>
+<p><a href="CardapioDigital.jar" target="_blank">📥 Baixar Material de POO Java</a></p>`,
 
-`<h2>Aula 6 - 06/08</h2>
-<p><strong>Upgrade do Software – Continuação</strong></p>
-<p>Consolidação das melhorias aplicadas anteriormente, revisando desempenho e estabilidade do sistema.</p>
-<a href="CardapioDigital.jar" target="_blank" id="download-btn">📥 Baixar Material de POO Java</a>
-<div class="resumo">
-<h3>Resumo:</h3>
-<ul>
-<li>Testes e otimização de funcionalidades.</li>
-<li>Refinamento da interface.</li>
-<li>Trabalho colaborativo e aplicação prática.</li>
-</ul>
-</div>`,
+        `<h2>Aula 6 - 06/08</h2>
+<p><strong>Refinamento e Otimização do Sistema</strong></p>
+<p>Esta aula concentrou-se em aprimorar o software desenvolvido, aplicando técnicas de refatoração de código, testes de performance e ajustes na usabilidade da interface. Os estudantes aprenderam a importância de manter um código limpo, organizado e eficiente, além de compreender o impacto das decisões de programação na experiência final do usuário.</p>
+<p>Foram reforçados conceitos fundamentais de POO, incentivando a aplicação prática de princípios como coesão e acoplamento, para construir sistemas mais robustos e de fácil manutenção.</p>
+<p><a href="CardapioDigital.jar" target="_blank">📥 Baixar Material de POO Java</a></p>`,
 
-`<h2>Aula 07 - 08/08</h2>
-<p><strong>Upload da Versão Otimizada no Site</strong></p>
-<p>Após melhorias, a nova versão do software foi publicada, garantindo acesso seguro e funcional aos usuários.</p>
-<div class="resumo">
-<h3>Resumo:</h3>
-<ul>
-<li>Manutenção contínua e controle de versões.</li>
-<li>Publicação responsável do software.</li>
-<li>Experiência de uso mais fluida.</li>
-</ul>
-</div>`,
+        `<h2>Aula 7 - 08/08</h2>
+<p><strong>Upload da Versão Atualizada do Software</strong></p>
+<p>Após a implementação de melhorias significativas, os alunos realizaram o upload da versão otimizada do software para o site do projeto. A ação garantiu que as alterações estivessem acessíveis e funcionais, permitindo testes e utilização por todos os usuários envolvidos.</p>
+<p>Esta prática reforçou conceitos de manutenção de software, gestão de versões e publicação responsável, essenciais para a atuação profissional na área de desenvolvimento de sistemas.</p>`,
 
-`<h2>Aula 08 - 12/08</h2>
-<p><strong>Preparação de Atividades para Projeto Sexta</strong></p>
-<p>Planejamento de atividades interativas para culminância do projeto, estimulando protagonismo juvenil.</p>
-<div class="resumo">
-<h3>Resumo:</h3>
-<ul>
-<li>Divisão de tarefas e cronograma de execução.</li>
-<li>Engajamento de todos os participantes.</li>
-<li>Trabalho em equipe e criatividade.</li>
-</ul>
-</div>`,
+        `<h2>Aula 8 - 12/08</h2>
+<p><strong>Preparação para Culminância do Projeto – Semana Estadual da Juventude</strong></p>
+<p>Os estudantes organizaram atividades e tarefas para a culminância do projeto durante a Semana Estadual da Juventude, com foco na integração de conhecimentos técnicos e habilidades sociais. A preparação incluiu planejamento detalhado, divisão de responsabilidades, organização de recursos e definição de cronogramas.</p>
+<p>O objetivo foi criar experiências educativas significativas que incentivassem a criatividade, o protagonismo e a colaboração entre todos os participantes, fortalecendo competências essenciais para o desenvolvimento pessoal e acadêmico.</p>`,
 
-`<h2>Aula 09 - 13/08</h2>
-<p><strong>Upload do Software Atualizado – Semana Estadual da Juventude</strong></p>
-<p>Software otimizado com melhorias aplicadas, garantindo estabilidade e funcionalidades completas.</p>
-<div class="resumo">
-<h3>Resumo:</h3>
-<ul>
-<li>Aplicação de upgrades para eficiência.</li>
-<li>Controle de versões.</li>
-<li>Publicação segura no site.</li>
-</ul>
-</div>`,
+        `<h2>Aula 9 - 13/08</h2>
+<p><strong>Aplicação de Upgrades e Testes – Evento Estadual</strong></p>
+<p>Durante a Semana Estadual da Juventude, os alunos aplicaram os últimos ajustes em seus softwares, garantindo funcionalidade plena e estabilidade. Foram realizados testes rigorosos, correção de falhas e validação das funcionalidades, reforçando a importância de processos de qualidade e revisão contínua no desenvolvimento de sistemas.</p>`,
 
-`<h2>Aula 10 - 19/08</h2>
-<p><strong>Projeto de Robótica – Semana Nacional da Pessoa com Deficiência</strong></p>
-<p>Desenvolvimento de soluções robóticas inclusivas, promovendo acessibilidade e inovação social.</p>
-<div class="resumo">
-<h3>Resumo:</h3>
-<ul>
-<li>Robótica aplicada à inclusão.</li>
-<li>Reflexão sobre acessibilidade.</li>
-<li>Protagonismo estudantil e criatividade.</li>
-</ul>
-</div>`,
+        `<h2>Aula 10 - 19/08</h2>
+<p><strong>Desenvolvimento de Projetos de Robótica Inclusiva</strong></p>
+<p>Com foco na Semana Nacional da Pessoa com Deficiência, os alunos iniciaram projetos de robótica voltados à acessibilidade. A atividade envolveu planejamento, desenvolvimento e implementação de soluções que auxiliam pessoas com diferentes necessidades, promovendo autonomia e inclusão por meio da tecnologia.</p>`,
 
-`<h2>Aula 11 - 20/08</h2>
-<p><strong>Projeto de Robótica – Continuação</strong></p>
-<p>Trabalho focado em soluções que favorecem autonomia e mobilidade de pessoas com deficiência.</p>
-<div class="resumo">
-<h3>Resumo:</h3>
-<ul>
-<li>Desenvolvimento de protótipos inclusivos.</li>
-<li>Colaboração em equipe.</li>
-<li>Promoção da responsabilidade social.</li>
-</ul>
-</div>`,
+        `<h2>Aula 11 - 20/08</h2>
+<p><strong>Continuidade no Desenvolvimento de Projetos de Robótica</strong></p>
+<p>Os estudantes avançaram nos projetos de robótica, aprimorando protótipos, ajustando códigos e validando a funcionalidade das soluções. A prática reforçou habilidades técnicas, criatividade e responsabilidade social, consolidando conceitos de engenharia assistiva e desenvolvimento inclusivo.</p>`,
 
-`<h2>Aula 12 - 22/08</h2>
-<p><strong>Projeto de Robótica – Consolidação</strong></p>
-<p>Finalização das soluções robóticas, consolidando aprendizado em POO, eletrônica e inovação social.</p>
-<div class="resumo">
-<h3>Resumo:</h3>
-<ul>
-<li>Consolidação de protótipos funcionais.</li>
-<li>Integração de conceitos de POO e eletrônica.</li>
-<li>Estimulo à criatividade e protagonismo.</li>
-</ul>
-</div>`,
+        `<h2>Aula 12 - 22/08</h2>
+<p><strong>Validação e Testes de Protótipos de Robótica</strong></p>
+<p>A aula foi dedicada à análise detalhada do desempenho dos protótipos de robótica, com testes de funcionalidade, ajustes finais e registro de resultados. Os estudantes refletiram sobre melhorias potenciais, eficiência e usabilidade, garantindo que cada solução tecnológica atendesse aos objetivos de inclusão e acessibilidade.</p>`,
 
-`<h2>Aula 13 - 26/08</h2>
+        `<h2>Aula 13 - 26/08</h2>
 <p><strong>Preparação para Entrevista com Profissional de TI</strong></p>
-<p>Organização do ambiente para atividade prática, abordando acessibilidade e inclusão no contexto profissional.</p>
-<div class="resumo">
-<h3>Resumo:</h3>
-<ul>
-<li>Preparação de espaços inclusivos.</li>
-<li>Integração entre teoria e prática.</li>
-<li>Compreensão de acessibilidade no trabalho.</li>
-</ul>
-</div>`,
+<p>Os alunos organizaram o ambiente e os materiais necessários para a realização de uma entrevista com um profissional de Tecnologia da Informação, abordando temas de acessibilidade, desenvolvimento de software e boas práticas na criação de soluções inclusivas.</p>`,
 
-`<h2>Aula 14 - 27/08</h2>
-<p><strong>Software de Movimentação Arduino – Braço Mecânico</strong></p>
-<p>Estudo do funcionamento do braço mecânico controlado por Arduino, aplicando POO e conceitos de eletrônica.</p>
-<div class="resumo">
-<h3>Resumo:</h3>
-<ul>
-<li>Movimentação automatizada de protótipo.</li>
-<li>Robótica e acessibilidade.</li>
-<li>Inovação prática e protagonismo estudantil.</li>
-</ul>
-</div>`
+        `<h2>Aula 14 - 27/08</h2>
+<p><strong>Estudo de Software de Movimentação Arduino – Braço Mecânico</strong></p>
+<p>Os estudantes exploraram o funcionamento de um braço mecânico controlado por Arduino, compreendendo a integração entre programação, eletrônica e robótica aplicada. O objetivo foi demonstrar como tecnologias assistivas podem ser implementadas para facilitar atividades cotidianas, promovendo autonomia e inovação.</p>`
       ];
 
       let index = 0;
+
       function atualizarSlide() {
         main.style.opacity = 0;
         setTimeout(() => {
@@ -289,8 +189,13 @@
         }, 300);
       }
 
-      btnAvancar.addEventListener("click", () => { if(index < slides.length - 1){ index++; atualizarSlide(); } });
-      btnVoltar.addEventListener("click", () => { if(index > 0){ index--; atualizarSlide(); } });
+      btnAvancar.addEventListener("click", () => {
+        if (index < slides.length - 1) { index++; atualizarSlide(); }
+      });
+
+      btnVoltar.addEventListener("click", () => {
+        if (index > 0) { index--; atualizarSlide(); }
+      });
 
       atualizarSlide();
     });
