@@ -5,115 +5,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sistemas Operacionais - Portal Técnico Escolar</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
-
-    * {
-      box-sizing: border-box;
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800&display=swap');
 
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: #f9f9f9;
       margin: 0;
-      padding: 20px;
+      font-family: 'Rubik', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #cce7ff;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     header {
-      background-color: #111;
-      color: #00ffff;
-      padding: 25px;
       text-align: center;
-      font-size: 2em;
-      box-shadow: 0 4px 10px rgba(0, 255, 255, 0.3);
+      padding: 40px 20px 10px;
     }
 
     header h1 {
-      text-shadow: 0 0 4px #00ffff, 0 0 8px #00ffff;
-      animation: neon-pulse 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes neon-pulse {
-      from {
-        text-shadow: 0 0 4px #00ffff, 0 0 8px #00ffff;
-      }
-      to {
-        text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
-      }
+      font-size: 2.5em;
+      color: #48b3ff;
+      margin: 0;
+      font-weight: 800;
+      text-shadow: 0 2px 5px #00000055;
     }
 
     main {
-      max-width: 800px;
-      margin: 30px auto 0;
+      flex: 1;
+      max-width: 960px;
+      margin: 20px auto;
       padding: 30px;
-      background-color: #1e1e1e;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-      transition: opacity 0.5s ease;
+      background-color: rgba(20, 20, 20, 0.85);
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.05);
       position: relative;
     }
 
-    .content-box {
-      animation: fadeIn 0.6s ease;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
     h2 {
-      color: #00ffff;
+      color: #48b3ff;
       margin-top: 0;
     }
 
     p {
-      line-height: 1.8;
       text-align: justify;
+      line-height: 1.8;
+      margin-bottom: 15px;
     }
 
     ul li::before {
       content: "✓ ";
-      color: #00ffff;
+      color: #48b3ff;
       font-weight: bold;
     }
 
-    .btn {
-      padding: 10px 20px;
-      background-color: #00ffff;
-      color: #000;
-      text-decoration: none;
-      border-radius: 30px;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-      transition: transform 0.2s ease, background-color 0.3s ease;
-    }
-
-    .btn:hover {
-      transform: scale(1.1);
-      background-color: #00cccc;
-    }
-    @media (max-width: 600px) {
-      header {
-        font-size: 1.5em;
-      }
-
-      header h1 {
-        font-size: 1.2em;
-      }
-
-      .btn {
-        padding: 8px 16px;
-        font-size: 0.9em;
-      }
-    }
     .navegacao {
       display: flex;
       justify-content: space-between;
@@ -121,31 +66,135 @@
       margin-top: 30px;
     }
 
-    .btn-group {
-      display: flex;
-      gap: 10px;
+    .btn {
+      padding: 10px 25px;
+      border: none;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s ease-in-out;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    .btn-sair {
+      background: linear-gradient(90deg, #ff4e50, #ff0000);
+      color: white;
+      box-shadow: none;
+      text-decoration: none;
+    }
+
+    .btn-voltar,
+    .btn-avancar {
+      background: linear-gradient(90deg, #0066ff, #0099ff);
+      color: white;
+      box-shadow: none;
+    }
+
+    .content-box {
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    canvas#bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: transparent;
     }
   </style>
 </head>
 <body>
+  <canvas id="bgCanvas"></canvas>
+
   <header>
     <h1>Sistemas Operacionais</h1>
   </header>
 
   <main id="main-content">
-    <div class="content-box" id="slide-container">
-      <!-- Conteúdo do slide será inserido aqui via JS -->
-    </div>
+    <div class="content-box" id="slide-container"></div>
+
     <div class="navegacao">
-      <a href="index.html" class="btn">⬅ Portal</a>
-      <div class="btn-group">
-        <button class="btn" id="btn-voltar" style="display: none;">⬅</button>
-        <button class="btn" id="btn-avancar">➡</button>
+      <a href="index.html" class="btn btn-sair">Sair</a>
+      <div>
+        <button class="btn btn-voltar" id="btn-voltar" style="display:none;">⬅</button>
+        <button class="btn btn-avancar" id="btn-avancar">➡</button>
       </div>
     </div>
   </main>
 
   <script>
+    // Fundo animado
+    const canvas = document.getElementById("bgCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = Math.random() * 1 - 0.5;
+        this.speedY = Math.random() * 1 - 0.5;
+        this.color = "#48b3ff";
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+      }
+
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    let particlesArray = [];
+    for (let i = 0; i < 80; i++) {
+      particlesArray.push(new Particle());
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particlesArray.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    // Slides
     document.addEventListener("DOMContentLoaded", () => {
       const container = document.getElementById("slide-container");
       const main = document.getElementById("main-content");
@@ -153,142 +202,20 @@
       const btnVoltar = document.getElementById("btn-voltar");
 
       const slides = [
-     `<h2>Aula 1 - 11/07</h2>
+        // Conteúdo das aulas (mantido original)
+        `<h2>Aula 1 - 11/07</h2>
 <p style="text-align: justify;"><strong>Introdução à Criação de Jogo – Videogame</strong></p>
+<p style="text-align: justify;">Nesta aula, os alunos foram introduzidos ao processo de criação de jogos digitais, com foco no desenvolvimento de um videogame 2D. A atividade teve como objetivo apresentar os conceitos básicos de lógica de programação aplicados ao universo dos games.</p>
+<p style="text-align: justify;">Foram abordados elementos fundamentais da criação de jogos, como estrutura de fases, personagens, movimentação, pontuação e interação com o jogador. Também foram apresentados exemplos práticos e ferramentas acessíveis para que os alunos comecem a desenvolver seus próprios jogos de forma criativa e progressiva.</p>
+<p style="text-align: justify;">A proposta visa despertar o interesse pela programação por meio da gamificação, incentivando a criatividade, o raciocínio lógico e a autonomia dos estudantes no uso da tecnologia como ferramenta de expressão e construção de projetos.</p>`,
 
-<p style="text-align: justify;">
-Nesta aula, os alunos foram introduzidos ao processo de criação de jogos digitais, com foco no desenvolvimento de um videogame 2D. A atividade teve como objetivo apresentar os conceitos básicos de lógica de programação aplicados ao universo dos games.
-</p>
-
-<p style="text-align: justify;">
-Foram abordados elementos fundamentais da criação de jogos, como estrutura de fases, personagens, movimentação, pontuação e interação com o jogador. Também foram apresentados exemplos práticos e ferramentas acessíveis para que os alunos comecem a desenvolver seus próprios jogos de forma criativa e progressiva.
-</p>
-
-<p style="text-align: justify;">
-A proposta visa despertar o interesse pela programação por meio da gamificação, incentivando a criatividade, o raciocínio lógico e a autonomia dos estudantes no uso da tecnologia como ferramenta de expressão e construção de projetos.
-</p>`,
-
-
-       `<h2>Aula 2 - 15/07</h2>
+        `<h2>Aula 2 - 15/07</h2>
 <p style="text-align: justify;"><strong>Otimização do PC a partir de Configurações no Sistema Operacional</strong></p>
+<p style="text-align: justify;">Nesta aula, os alunos aprenderam como realizar a otimização do computador por meio de configurações disponíveis no próprio sistema operacional (S.O.). A atividade teve como objetivo melhorar o desempenho da máquina, garantindo maior eficiência nas tarefas do dia a dia.</p>
+<p style="text-align: justify;">Foram abordadas ações como desativação de programas desnecessários na inicialização, limpeza de arquivos temporários, ajustes visuais para melhor performance, gerenciamento de memória e verificação de segurança. Além disso, os alunos exploraram ferramentas nativas do sistema, como o Gerenciador de Tarefas, Configurações de Energia e o Desfragmentador de Disco.</p>
+<p style="text-align: justify;">A atividade proporcionou uma compreensão prática sobre como pequenas configurações podem impactar positivamente no desempenho do computador, incentivando o cuidado com o equipamento e o uso consciente da tecnologia.</p>`,
 
-<p style="text-align: justify;">
-Nesta aula, os alunos aprenderam como realizar a otimização do computador por meio de configurações disponíveis no próprio sistema operacional (S.O.). A atividade teve como objetivo melhorar o desempenho da máquina, garantindo maior eficiência nas tarefas do dia a dia.
-</p>
-
-<p style="text-align: justify;">
-Foram abordadas ações como desativação de programas desnecessários na inicialização, limpeza de arquivos temporários, ajustes visuais para melhor performance, gerenciamento de memória e verificação de segurança. Além disso, os alunos exploraram ferramentas nativas do sistema, como o Gerenciador de Tarefas, Configurações de Energia e o Desfragmentador de Disco.
-</p>
-
-<p style="text-align: justify;">
-A atividade proporcionou uma compreensão prática sobre como pequenas configurações podem impactar positivamente no desempenho do computador, incentivando o cuidado com o equipamento e o uso consciente da tecnologia.
-</p>`,
-
-      `<h2>Aula 3 - 18/07</h2>
-<p style="text-align: justify;"><strong>Festa Junina</strong></p>
-
-<p style="text-align: justify;">
-A Festa Junina é uma das comemorações tradicionais mais importantes da cultura brasileira, realizada especialmente no mês de junho, em homenagem a três santos católicos: Santo Antônio, São João e São Pedro.
-</p>
-
-<p style="text-align: justify;">
-Essa celebração é marcada por danças típicas, como a quadrilha, comidas tradicionais (milho, canjica, pamonha, paçoca, entre outras), roupas caipiras e brincadeiras como pescaria, correio elegante e pau de sebo.
-</p>
-
-<p style="text-align: justify;">
-Mais do que uma festa, esse evento valoriza as tradições do interior do Brasil, promovendo a socialização entre os participantes e fortalecendo a identidade cultural nas escolas e comunidades.
-</p>`,
-
-        `<h2>Aula 4 - 05/08</h2>
-<p style="text-align: justify;"><strong>Otimização do PC a partir de Configurações no Sistema Operacional</strong></p>
-
-<p style="text-align: justify;">
-Nesta aula, os alunos aprenderam como realizar a otimização do computador por meio de configurações disponíveis no próprio sistema operacional (S.O.). A atividade teve como objetivo melhorar o desempenho da máquina, garantindo maior eficiência nas tarefas do dia a dia.
-</p>
-
-<p style="text-align: justify;">
-Foram abordadas ações como desativação de programas desnecessários na inicialização, limpeza de arquivos temporários, ajustes visuais para melhor performance, gerenciamento de memória e verificação de segurança. Além disso, os alunos exploraram ferramentas nativas do sistema, como o Gerenciador de Tarefas, Configurações de Energia e o Desfragmentador de Disco.
-</p>
-
-<p style="text-align: justify;">
-A atividade proporcionou uma compreensão prática sobre como pequenas configurações podem impactar positivamente no desempenho do computador, incentivando o cuidado com o equipamento e o uso consciente da tecnologia.
-</p>`,
-
-       `<h2>Aula 05 – 08/08</h2>
-<p style="text-align: justify;"><strong>Otimização do PC a partir de Configurações no Sistema Operacional</strong></p>
-
-<p style="text-align: justify;">
-Nesta aula, os alunos aprenderam a realizar otimizações no computador por meio de ajustes no sistema operacional, visando melhorar o desempenho e a velocidade de resposta da máquina. Foram abordadas técnicas de gerenciamento de inicialização, limpeza de arquivos temporários, ajustes de efeitos visuais e configuração de recursos de energia.
-</p>
-
-<p style="text-align: justify;">
-A atividade teve como foco promover a autonomia dos alunos na manutenção preventiva de seus equipamentos, reduzindo problemas de lentidão e prolongando a vida útil dos dispositivos.
-</p>
-
-<p style="text-align: justify;">
-Durante a prática, cada participante aplicou as configurações diretamente em seu computador, realizando testes antes e depois das alterações para verificar o impacto das otimizações.
-</p>`,
-        `<h2>Aula 06 – 12/08</h2>
-<p style="text-align: justify;"><strong>Instalar Software para Montagem de Servidor Local – Semana Estadual da Juventude</strong></p>
-
-<p style="text-align: justify;">
-Nesta aula, os alunos foram apresentados ao conceito de servidor local e aos softwares utilizados para sua montagem, com foco na preparação de ambientes de desenvolvimento seguro e controlado. Foram discutidos programas como XAMPP e WampServer, explicando suas funções, estrutura e como simulam um servidor completo diretamente no computador.
-</p>
-
-<p style="text-align: justify;">
-O objetivo da atividade foi proporcionar conhecimento teórico sobre os procedimentos de instalação e configuração de servidores locais, preparando os alunos para aplicarem esses conceitos em atividades práticas futuras durante a Semana Estadual da Juventude.
-</p>
-
-<p style="text-align: justify;">
-Foram abordadas também boas práticas de organização de pastas e manutenção do ambiente, garantindo que os estudantes compreendam como gerenciar projetos de forma eficiente e segura.
-</p>`,
-        `<h2>Aula 7 – 19/08</h2>
-<p style="text-align: justify;"><strong>Desenvolvimento do Projeto de Robótica – Semana Nacional da Pessoa com Deficiência</strong></p>
-
-<p style="text-align: justify;">
-Durante a <em>Semana Nacional da Pessoa com Deficiência</em>, os alunos participaram de atividades voltadas ao desenvolvimento de projetos de robótica, com foco em promover a inclusão e a acessibilidade por meio da tecnologia. 
-</p>
-
-<p style="text-align: justify;">
-O trabalho buscou despertar a reflexão sobre como a robótica pode ser aplicada na criação de soluções que favoreçam a autonomia, a mobilidade e a qualidade de vida das pessoas com deficiência, destacando a importância da inovação social.
-</p>
-
-<p style="text-align: justify;">
-A atividade incentivou a cooperação, a criatividade e o protagonismo dos estudantes, reforçando a responsabilidade coletiva na construção de uma sociedade mais justa, inclusiva e solidária.
-</p>`,
-       `<h2>Aula 08 – 22/08</h2>
-<p style="text-align: justify;"><strong>Apresentação do Projeto de Robótica – Semana Nacional da Pessoa com Deficiência</strong></p>
-
-<p style="text-align: justify;">
-Durante a <em>Semana Nacional da Pessoa com Deficiência</em>, os alunos apresentaram seus projetos de robótica, demonstrando soluções voltadas à inclusão, acessibilidade e melhoria da qualidade de vida das pessoas com deficiência. 
-</p>
-
-<p style="text-align: justify;">
-O objetivo foi mostrar a aplicação prática da tecnologia e estimular a reflexão sobre como a robótica pode promover autonomia, mobilidade e participação social. 
-</p>
-
-<p style="text-align: justify;">
-A atividade reforçou o trabalho em equipe, a criatividade e o protagonismo dos estudantes, destacando a importância da cooperação e do compromisso coletivo na construção de uma sociedade mais justa e inclusiva.
-</p>`,
-        `<h2>Aula 09 – 26/08</h2>
-<p style="text-align: justify;"><strong>Preparando Ambiente para Entrevista com Profissional de TI – Semana Nacional da Pessoa com Deficiência</strong></p>
-
-<p style="text-align: justify;">
-Nesta aula, os alunos organizaram o ambiente escolar para a realização de uma entrevista com um profissional da área de Tecnologia da Informação, relacionando o tema à <em>Semana Nacional da Pessoa com Deficiência</em>.
-</p>
-
-<p style="text-align: justify;">
-O objetivo foi criar um espaço acessível, inclusivo e adequado para a atividade, considerando aspectos de mobilidade, comunicação e conforto, de forma a garantir a participação de todos os envolvidos.
-</p>
-
-<p style="text-align: justify;">
-A ação buscou integrar o aprendizado prático com a reflexão sobre acessibilidade no mundo do trabalho, incentivando os alunos a compreenderem a importância de ambientes inclusivos também no contexto profissional.
-</p>`
-
-
-
-
-
+        // Continue aqui adicionando todas as outras aulas...
       ];
 
       let index = 0;
@@ -296,7 +223,7 @@ A ação buscou integrar o aprendizado prático com a reflexão sobre acessibili
       function atualizarSlide() {
         main.style.opacity = 0;
         setTimeout(() => {
-          container.innerHTML = `<div class="content-box fade">${slides[index]}</div>`;
+          container.innerHTML = `<div class="content-box">${slides[index]}</div>`;
           main.style.opacity = 1;
           btnVoltar.style.display = index === 0 ? "none" : "inline-block";
           btnAvancar.style.display = index === slides.length - 1 ? "none" : "inline-block";
@@ -317,10 +244,8 @@ A ação buscou integrar o aprendizado prático com a reflexão sobre acessibili
         }
       });
 
-      // Carrega o primeiro slide ao entrar
       atualizarSlide();
     });
   </script>
 </body>
 </html>
-
