@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Arquitetura de Computadores - Portal Técnico Escolar</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Rubik', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #cce7ff;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px 10px;
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      color: #48b3ff;
+      margin: 0;
+      font-weight: 800;
+      text-shadow: 0 2px 5px #00000055;
+    }
+
+    main {
+      flex: 1;
+      max-width: 960px;
+      margin: 20px auto;
+      padding: 30px;
+      background-color: rgba(20, 20, 20, 0.85);
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.05);
+      position: relative;
+    }
+
+    h2 {
+      color: #48b3ff;
+      margin-top: 0;
+    }
+
+    p {
+      text-align: justify;
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+
+    ul {
+      padding-left: 20px;
+      line-height: 1.8;
+    }
+
+    ul li::before {
+      content: "✓ ";
+      color: #48b3ff;
+      font-weight: bold;
+    }
+
+    .navegacao {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    .btn {
+      padding: 10px 25px;
+      border: none;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s ease-in-out;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+  .btn-sair {
+  background: linear-gradient(90deg, #ff4e50, #ff0000);
+  color: white;
+  box-shadow: none;
+  text-decoration: none; /* só aqui */
+}
+    
+  .btn-voltar,
+.btn-avancar {
+  background: linear-gradient(90deg, #0066ff, #0099ff);
+  color: white;
+  box-shadow: none;
+}
+
+    .content-box {
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    canvas#bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: transparent;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="bgCanvas"></canvas>
+
+  <header>
+    <h1>Arquitetura de Computadores</h1>
+  </header>
+
+  <main id="main-content">
+    <div class="content-box" id="slide-container"></div>
+
+    <div class="navegacao">
+      <a href="index.html" class="btn btn-sair">Sair</a>
+      <div>
+        <button class="btn btn-voltar" id="btn-voltar" style="display:none;">⬅</button>
+        <button class="btn btn-avancar" id="btn-avancar">➡</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Fundo animado
+    const canvas = document.getElementById("bgCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = Math.random() * 1 - 0.5;
+        this.speedY = Math.random() * 1 - 0.5;
+        this.color = "#48b3ff";
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+      }
+
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    let particlesArray = [];
+    for (let i = 0; i < 80; i++) {
+      particlesArray.push(new Particle());
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particlesArray.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    // Slides com conteúdo mais completo
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("slide-container");
+      const main = document.getElementById("main-content");
+      const btnAvancar = document.getElementById("btn-avancar");
+      const btnVoltar = document.getElementById("btn-voltar");
+
+      const slides = [
+        `<h2>Aula 1 – Armazenamento: SSD vs HDD</h2>
+<p><strong>Por que os SSDs estão substituindo os HDDs?</strong></p>
+<p>Os SSDs (Solid State Drives) vêm substituindo os HDDs principalmente por sua velocidade muito superior. Enquanto o HDD usa partes mecânicas e um disco giratório para acessar arquivos, o SSD utiliza memória flash, permitindo leituras e gravações quase instantâneas. Isso reduz drasticamente o tempo de inicialização do sistema, acelera a abertura de programas e melhora a fluidez geral do computador.</p>
+<p>Além disso, os SSDs são mais resistentes a impactos, consomem menos energia e geram menos calor, tornando-os a escolha padrão em máquinas modernas.</p>`,
+        `<h2>Aula 2 – Arquitetura de CPU: Pipeline</h2>
+<p><strong>Por que dividir a execução em etapas melhora o desempenho?</strong></p>
+<p>Os processadores modernos utilizam o pipeline, onde cada instrução é dividida em etapas como fetch, decode e execute. Isso permite que várias instruções sejam processadas simultaneamente, cada uma em uma fase diferente, aumentando a eficiência.</p>
+<p>Assim como uma linha de montagem, enquanto uma instrução está sendo decodificada, outra já pode estar sendo buscada e outra sendo executada. Esse paralelismo eleva significativamente o desempenho e aproveita melhor os recursos do processador.</p>`,
+        `<h2>Aula 3 – Praticando o Desafio</h2>
+<p><strong>Preparação para Apresentação de Sexta-feira</strong></p>
+<p>Nesta aula, os alunos dedicaram-se ao desenvolvimento prático do desafio semanal. O foco foi revisar conceitos já trabalhados, organizar ideias e estruturar uma apresentação clara e objetiva. O momento serviu também para aprimorar habilidades de comunicação e resolução de problemas.</p>`,
+        `<h2>Aula 4 – Desenvolvimento Java com IntelliJ IDEA</h2>
+<p><strong>Primeiros passos com o IntelliJ IDEA</strong></p>
+<p>A aula foi dedicada à criação e organização de projetos Java utilizando o IntelliJ IDEA, uma das IDEs mais modernas e completas do mercado. Os alunos aprenderam a configurar o ambiente, criar classes, compilar e executar programas.</p>
+<p>Também foram explorados recursos como autocompletar, depuração, estrutura de diretórios e gerenciamento de bibliotecas, permitindo que os estudantes compreendessem o fluxo de desenvolvimento profissional em Java.</p>`,
+        `<h2>Aula 5 – Praticando o Desafio: Continuação</h2>
+<p>Os alunos continuaram a desenvolver e revisar o desafio semanal, aprimorando o código, organização e apresentação. O objetivo foi garantir compreensão total do conteúdo e preparar um material final bem estruturado para a avaliação de sexta-feira.</p>`,
+        `<h2>Aula 6 – Hardware: Memória RAM</h2>
+<p><strong>Por que o PC fica lento ao abrir programas pesados?</strong></p>
+<p>A causa mais provável é a falta de memória RAM suficiente. Ao abrir programas pesados, o sistema precisa carregar muitos dados na memória. Quando a RAM acaba, o computador começa a utilizar o arquivo de paginação no disco, que é muito mais lento.</p>
+<p>Isso gera travamentos, lentidão para alternar janelas e demora para carregar aplicativos. O problema geralmente é resolvido aumentando a quantidade de RAM.</p>`,
+        `<h2>Aula 7 – Praticando o Desafio: Reforço Final</h2>
+<p>Neste dia, os alunos finalizaram ajustes no trabalho da semana, revisando conceitos, corrigindo erros e testando suas soluções. O foco foi consolidar o aprendizado e garantir uma apresentação sólida e coerente.</p>`,
+        `<h2>Aula 8 – Manutenção: Diagnóstico de Falha de Vídeo</h2>
+<p><strong>Primeira verificação lógica</strong></p>
+<p>Quando o computador liga mas não exibe imagem, a primeira verificação deve ser o cabo e a conexão do monitor. É fundamental testar se o cabo HDMI/VGA está firme, funcional e conectado na saída correta da placa de vídeo.</p>
+<p>Após isso, verifica-se se a placa de vídeo está bem encaixada no slot PCIe e se a memória RAM está instalada corretamente.</p>`,
+        `<h2>Aula 9 – Redes: Endereçamento IPv4</h2>
+<p><strong>Por que o IP 192.168.0.1 é tão usado?</strong></p>
+<p>Ele faz parte do bloco de endereços privados definido pelo padrão IPv4, reservado exclusivamente para redes internas. Isso significa que pode ser usado livremente em casas e empresas sem necessidade de permissão global.</p>
+<p>Além disso, é adotado como padrão por diversos roteadores, facilitando configuração, suporte técnico e compatibilidade.</p>`,
+        `<h2>Aula 10 – Componentes: Teste da Fonte ATX</h2>
+<p><strong>Como verificar se a fonte está queimada?</strong></p>
+<p>O teste mais comum é o <strong>teste do clipe de papel</strong>. Desliga-se a fonte da tomada, e no conector de 24 pinos, o fio verde (PS_ON) é ligado ao fio preto (terra) usando um clipe metálico.</p>
+<p>Depois, conecta-se o cabo de energia: se a ventoinha ligar, a fonte ao menos está iniciando. Caso não gire, a fonte provavelmente está queimada. Para teste completo, usa-se um multímetro.</p>`,
+        `<h2>Aula 11 – Arquitetura: Barramento PCI Express</h2>
+<p><strong>Papel do PCI Express em computadores modernos</strong></p>
+<p>O PCI Express é o principal barramento responsável pela conexão de dispositivos de alta velocidade, como placas de vídeo, SSDs NVMe e placas de rede avançadas. Ele fornece alta taxa de transferência, baixa latência e comunicação direta com a CPU.</p>
+<p>Seu papel é garantir que componentes críticos operem com desempenho máximo, possibilitando desde jogos e softwares profissionais até aplicações de acessibilidade digital e inclusão tecnológica.</p>`
+
+
+
+
+
+
+
+
+
+
+
+      ];
+
+      let index = 0;
+
+      function atualizarSlide() {
+        main.style.opacity = 0;
+        setTimeout(() => {
+          container.innerHTML = `<div class="content-box">${slides[index]}</div>`;
+          main.style.opacity = 1;
+          btnVoltar.style.display = index === 0 ? "none" : "inline-block";
+          btnAvancar.style.display = index === slides.length - 1 ? "none" : "inline-block";
+        }, 300);
+      }
+
+      btnAvancar.addEventListener("click", () => {
+        if (index < slides.length - 1) {
+          index++;
+          atualizarSlide();
+        }
+      });
+
+      btnVoltar.addEventListener("click", () => {
+        if (index > 0) {
+          index--;
+          atualizarSlide();
+        }
+      });
+
+      atualizarSlide();
+    });
+  </script>
+</body>
+</html>
