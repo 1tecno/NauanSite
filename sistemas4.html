@@ -1,0 +1,252 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sistemas Operacionais - Portal Técnico Escolar</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Rubik', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #cce7ff;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px 10px;
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      color: #48b3ff;
+      margin: 0;
+      font-weight: 800;
+      text-shadow: 0 2px 5px #00000055;
+    }
+
+    main {
+      flex: 1;
+      max-width: 960px;
+      margin: 20px auto;
+      padding: 30px;
+      background-color: rgba(20, 20, 20, 0.85);
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.05);
+      position: relative;
+    }
+
+    h2 {
+      color: #48b3ff;
+      margin-top: 0;
+    }
+
+    p {
+      text-align: justify;
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+
+    ul li::before {
+      content: "✓ ";
+      color: #48b3ff;
+      font-weight: bold;
+    }
+
+    .navegacao {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    .btn {
+      padding: 10px 25px;
+      border: none;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s ease-in-out;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    .btn-sair {
+      background: linear-gradient(90deg, #ff4e50, #ff0000);
+      color: white;
+      box-shadow: none;
+      text-decoration: none;
+    }
+
+    .btn-voltar,
+    .btn-avancar {
+      background: linear-gradient(90deg, #0066ff, #0099ff);
+      color: white;
+      box-shadow: none;
+    }
+
+    .content-box {
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    canvas#bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: transparent;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="bgCanvas"></canvas>
+
+  <header>
+    <h1>Sistemas Operacionais</h1>
+  </header>
+
+  <main id="main-content">
+    <div class="content-box" id="slide-container"></div>
+
+    <div class="navegacao">
+      <a href="index.html" class="btn btn-sair">Sair</a>
+      <div>
+        <button class="btn btn-voltar" id="btn-voltar" style="display:none;">⬅</button>
+        <button class="btn btn-avancar" id="btn-avancar">➡</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Fundo animado
+    const canvas = document.getElementById("bgCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = Math.random() * 1 - 0.5;
+        this.speedY = Math.random() * 1 - 0.5;
+        this.color = "#48b3ff";
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+      }
+
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    let particlesArray = [];
+    for (let i = 0; i < 80; i++) {
+      particlesArray.push(new Particle());
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particlesArray.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    // Slides
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("slide-container");
+      const main = document.getElementById("main-content");
+      const btnAvancar = document.getElementById("btn-avancar");
+      const btnVoltar = document.getElementById("btn-voltar");
+
+      const slides = [
+        // Conteúdo das aulas (mantido original)
+        `<h2>Aula 1 - 11/07</h2>
+<p style="text-align: justify;"><strong>Introdução à Criação de Jogo – Videogame</strong></p>
+<p style="text-align: justify;">Nesta aula, os alunos foram introduzidos ao processo de criação de jogos digitais, com foco no desenvolvimento de um videogame 2D. A atividade teve como objetivo apresentar os conceitos básicos de lógica de programação aplicados ao universo dos games.</p>
+<p style="text-align: justify;">Foram abordados elementos fundamentais da criação de jogos, como estrutura de fases, personagens, movimentação, pontuação e interação com o jogador. Também foram apresentados exemplos práticos e ferramentas acessíveis para que os alunos comecem a desenvolver seus próprios jogos de forma criativa e progressiva.</p>
+<p style="text-align: justify;">A proposta visa despertar o interesse pela programação por meio da gamificação, incentivando a criatividade, o raciocínio lógico e a autonomia dos estudantes no uso da tecnologia como ferramenta de expressão e construção de projetos.</p>`,
+
+        `<h2>Aula 2 - 15/07</h2>
+<p style="text-align: justify;"><strong>Otimização do PC a partir de Configurações no Sistema Operacional</strong></p>
+<p style="text-align: justify;">Nesta aula, os alunos aprenderam como realizar a otimização do computador por meio de configurações disponíveis no próprio sistema operacional (S.O.). A atividade teve como objetivo melhorar o desempenho da máquina, garantindo maior eficiência nas tarefas do dia a dia.</p>
+<p style="text-align: justify;">Foram abordadas ações como desativação de programas desnecessários na inicialização, limpeza de arquivos temporários, ajustes visuais para melhor performance, gerenciamento de memória e verificação de segurança. Além disso, os alunos exploraram ferramentas nativas do sistema, como o Gerenciador de Tarefas, Configurações de Energia e o Desfragmentador de Disco.</p>
+<p style="text-align: justify;">A atividade proporcionou uma compreensão prática sobre como pequenas configurações podem impactar positivamente no desempenho do computador, incentivando o cuidado com o equipamento e o uso consciente da tecnologia.</p>`,
+
+        // Continue aqui adicionando todas as outras aulas...
+      ];
+
+      let index = 0;
+
+      function atualizarSlide() {
+        main.style.opacity = 0;
+        setTimeout(() => {
+          container.innerHTML = `<div class="content-box">${slides[index]}</div>`;
+          main.style.opacity = 1;
+          btnVoltar.style.display = index === 0 ? "none" : "inline-block";
+          btnAvancar.style.display = index === slides.length - 1 ? "none" : "inline-block";
+        }, 300);
+      }
+
+      btnAvancar.addEventListener("click", () => {
+        if (index < slides.length - 1) {
+          index++;
+          atualizarSlide();
+        }
+      });
+
+      btnVoltar.addEventListener("click", () => {
+        if (index > 0) {
+          index--;
+          atualizarSlide();
+        }
+      });
+
+      atualizarSlide();
+    });
+  </script>
+</body>
+</html>
