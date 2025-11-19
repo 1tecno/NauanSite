@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HTML e CSS - Portal Técnico Escolar</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Rubik', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #cce7ff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px 10px;
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      color: #48b3ff;
+      margin: 0;
+      font-weight: 800;
+      text-shadow: 0 2px 5px #00000055;
+    }
+
+    main {
+      flex: 1;
+      max-width: 960px;
+      margin: 20px auto;
+      padding: 30px;
+      background-color: rgba(20, 20, 20, 0.85);
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.05);
+      position: relative;
+    }
+
+    h2 {
+      color: #48b3ff;
+      margin-top: 0;
+    }
+
+    p {
+      text-align: justify;
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+
+    ul {
+      padding-left: 20px;
+      line-height: 1.8;
+    }
+
+    ul li::before {
+      content: "✓ ";
+      color: #48b3ff;
+      font-weight: bold;
+    }
+
+    .navegacao {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    .btn {
+      padding: 10px 25px;
+      border: none;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s ease-in-out;
+      text-decoration: none;
+      color: white;
+    }
+
+    .btn-sair {
+      background: linear-gradient(90deg, #ff4e50, #ff0000);
+      box-shadow: none;
+    }
+
+    .btn-voltar,
+    .btn-avancar {
+      background: linear-gradient(90deg, #0066ff, #0099ff);
+      box-shadow: none;
+    }
+
+    .content-box {
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    canvas#bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: transparent;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="bgCanvas"></canvas>
+
+  <header>
+    <h1>HTML e CSS</h1>
+  </header>
+
+  <main id="main-content">
+    <div class="content-box" id="slide-container"></div>
+
+    <div class="navegacao">
+      <a href="index.html" class="btn btn-sair">Sair</a>
+      <div>
+        <button class="btn btn-voltar" id="btn-voltar" style="display:none;">⬅</button>
+        <button class="btn btn-avancar" id="btn-avancar">➡</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const canvas = document.getElementById("bgCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = Math.random() * 1 - 0.5;
+        this.speedY = Math.random() * 1 - 0.5;
+        this.color = "#48b3ff";
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+      }
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    let particlesArray = [];
+    for (let i = 0; i < 80; i++) particlesArray.push(new Particle());
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particlesArray.forEach(p => { p.update(); p.draw(); });
+      requestAnimationFrame(animate);
+    }
+    animate();
+    window.addEventListener("resize", () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("slide-container");
+      const main = document.getElementById("main-content");
+      const btnAvancar = document.getElementById("btn-avancar");
+      const btnVoltar = document.getElementById("btn-voltar");
+
+      const slides = [
+        `<h2>Aula 1 - 11/07</h2>
+        <p><strong>Introdução ao HTML e Estruturação de Páginas Web</strong></p>
+        <p>Nesta aula inaugural, os alunos foram apresentados aos conceitos fundamentais de HTML, incluindo a estrutura básica de uma página web, tags essenciais e a semântica de elementos. A ênfase foi na compreensão de como organizar corretamente títulos, parágrafos, listas, links e imagens, garantindo acessibilidade e clareza.</p>
+        <p>Foram abordadas práticas de boas normas de codificação, a importância da hierarquia de cabeçalhos (H1 a H6) e como a estrutura de HTML influencia a experiência do usuário e a interpretação por mecanismos de busca, reforçando o conceito de <em>web semântica</em>.</p>`,
+
+        `<h2>Aula 2 - 04/08</h2>
+        <p><strong>Fundamentos de CSS e Estilização Visual</strong></p>
+        <p>Os estudantes exploraram a linguagem CSS para estilizar elementos HTML, aprendendo a manipular cores, fontes, tamanhos, margens, paddings e posicionamento de elementos. Foi destacado como o CSS separa o conteúdo da apresentação, promovendo manutenção facilitada e consistência visual.</p>
+        <p>Exemplos práticos incluíram a aplicação de classes e IDs, seletores avançados, pseudo-classes e pseudo-elementos, permitindo que os alunos compreendessem como pequenas alterações no CSS podem transformar significativamente o layout e a aparência de uma página web.</p>
+        <p>Também foi apresentado o conceito de responsividade, com técnicas básicas de <em>media queries</em>, mostrando como criar interfaces adaptáveis a diferentes dispositivos e tamanhos de tela.</p>`,
+
+        `<h2>Aula 3 - 11/08</h2>
+        <p><strong>Integração de HTML e CSS e Prática de Desenvolvimento</strong></p>
+        <p>Durante esta aula, os alunos aplicaram os conhecimentos adquiridos em exercícios práticos de desenvolvimento de páginas web, integrando HTML e CSS para criar layouts completos, consistentes e visualmente atrativos. Foram explorados casos de uso reais, como formulários, tabelas e menus de navegação.</p>
+        <p>O objetivo foi consolidar a compreensão de como estrutura e estilo trabalham em conjunto, reforçando boas práticas de codificação e planejamento prévio do layout antes da implementação.</p>`,
+
+        `<h2>Aula 4 - 18/08</h2>
+        <p><strong>Boas Práticas de Acessibilidade e SEO</strong></p>
+        <p>Os alunos aprenderam sobre a importância de tornar páginas web acessíveis a todos os usuários, incluindo aqueles com deficiências visuais ou motoras. Foram discutidos atributos de acessibilidade, uso correto de labels em formulários, textos alternativos em imagens e contraste adequado de cores.</p>
+        <p>Além disso, a aula introduziu conceitos iniciais de SEO (Search Engine Optimization), destacando como a organização semântica e a estrutura de HTML influenciam a indexação por motores de busca, aumentando a visibilidade de websites.</p>`,
+
+        `<h2>Aula 5 - 25/08</h2>
+        <p><strong>Projeto Prático e Integração de Conteúdos</strong></p>
+        <p>Na aula final, os alunos desenvolveram projetos individuais ou em grupo, aplicando todas as técnicas aprendidas. Cada estudante criou uma página web completa, contemplando HTML estruturado, CSS estilizado e atenção à responsividade e acessibilidade.</p>
+        <p>O projeto permitiu consolidar habilidades técnicas, estimular criatividade, planejamento e capacidade de solucionar problemas de layout e design, garantindo que os alunos saiam com experiência prática aplicável em projetos futuros.</p>`,
+        `<h2>Aula 6</h2>
+<p><strong>Resumo para Avaliação Global</strong></p>
+<p>Durante esta aula, os alunos revisaram os principais conteúdos estudados ao longo do bimestre, consolidando conceitos essenciais para a Avaliação Global. O resumo contemplou os temas centrais discutidos em sala e serviu como base de estudo para a preparação individual, reforçando a importância da organização e da síntese no processo de aprendizagem.</p>`,
+
+`<h2>Aula 8</h2>
+<p><strong>Avaliação Global – Semana Nacional do Trânsito</strong></p>
+<p>Os estudantes realizaram a Avaliação Global, que além de verificar os conhecimentos adquiridos, integrou a temática da Semana Nacional do Trânsito. A prova buscou relacionar conteúdos técnicos e valores de cidadania, incentivando reflexões sobre segurança e responsabilidade no uso da tecnologia em diferentes contextos.</p>`,
+
+`<h2>Aula 9</h2>
+<p><strong>Recuperação Bimestral – Revisão para Fixação do Aprendizado</strong></p>
+<p>A aula foi destinada a uma revisão abrangente, oferecendo aos alunos a oportunidade de reforçar conceitos trabalhados ao longo do bimestre. Foram retomados pontos considerados mais desafiadores, promovendo a fixação do aprendizado e garantindo que todos tivessem condições de melhorar o desempenho acadêmico.</p>`,
+
+`<h2>Aula 10</h2>
+<p><strong>Acolhimento e Introdução ao 4ºB – Livro Guia Digital</strong></p>
+<p>Os alunos do 4ºB foram acolhidos com uma aula introdutória voltada para o planejamento do período letivo. Foi apresentado o <em>Livro Guia Digital</em>, recurso que servirá como apoio teórico e prático nas atividades futuras, oferecendo uma visão clara dos conteúdos e competências a serem desenvolvidos ao longo do bimestre.</p>`
+
+      ];
+
+      let index = 0;
+
+      function atualizarSlide() {
+        main.style.opacity = 0;
+        setTimeout(() => {
+          container.innerHTML = `<div class="content-box">${slides[index]}</div>`;
+          main.style.opacity = 1;
+          btnVoltar.style.display = index === 0 ? "none" : "inline-block";
+          btnAvancar.style.display = index === slides.length - 1 ? "none" : "inline-block";
+        }, 300);
+      }
+
+      btnAvancar.addEventListener("click", () => { if (index < slides.length - 1) { index++; atualizarSlide(); } });
+      btnVoltar.addEventListener("click", () => { if (index > 0) { index--; atualizarSlide(); } });
+
+      atualizarSlide();
+    });
+  </script>
+</body>
+</html>
