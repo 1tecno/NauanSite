@@ -1,0 +1,308 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Programação Web - Portal Técnico Escolar</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Rubik', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #cce7ff;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px 10px;
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      color: #48b3ff;
+      margin: 0;
+      font-weight: 800;
+      text-shadow: 0 2px 5px #00000055;
+    }
+
+    main {
+      flex: 1;
+      max-width: 960px;
+      margin: 20px auto;
+      padding: 30px;
+      background-color: rgba(20, 20, 20, 0.85);
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.05);
+      position: relative;
+    }
+
+    h2 {
+      color: #48b3ff;
+      margin-top: 0;
+    }
+
+    p {
+      text-align: justify;
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+
+    ul li::before {
+      content: "✓ ";
+      color: #48b3ff;
+      font-weight: bold;
+    }
+
+    .navegacao {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    .btn {
+      padding: 10px 25px;
+      border: none;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s ease-in-out;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    .btn-sair {
+      background: linear-gradient(90deg, #ff4e50, #ff0000);
+      color: white;
+      box-shadow: none;
+      text-decoration: none;
+    }
+
+    .btn-voltar,
+    .btn-avancar {
+      background: linear-gradient(90deg, #0066ff, #0099ff);
+      color: white;
+      box-shadow: none;
+    }
+
+    .content-box {
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    canvas#bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: transparent;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="bgCanvas"></canvas>
+
+  <header>
+    <h1>Programação Web</h1>
+  </header>
+
+  <main id="main-content">
+    <div class="content-box" id="slide-container"></div>
+
+    <div class="navegacao">
+      <a href="index.html" class="btn btn-sair">Sair</a>
+      <div>
+        <button class="btn btn-voltar" id="btn-voltar" style="display:none;">⬅</button>
+        <button class="btn btn-avancar" id="btn-avancar">➡</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Fundo animado
+    const canvas = document.getElementById("bgCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = Math.random() * 1 - 0.5;
+        this.speedY = Math.random() * 1 - 0.5;
+        this.color = "#48b3ff";
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+      }
+
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    let particlesArray = [];
+    for (let i = 0; i < 80; i++) {
+      particlesArray.push(new Particle());
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particlesArray.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    // Slides
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("slide-container");
+      const main = document.getElementById("main-content");
+      const btnAvancar = document.getElementById("btn-avancar");
+      const btnVoltar = document.getElementById("btn-voltar");
+
+      const slides = [
+       `<h2>Aula 1 - 11/07</h2>
+        <p><strong>Inserção do Guia de Aprendizagem no Site</strong> - Disponibilização do documento que orienta o desenvolvimento das aulas, conteúdos, métodos e avaliações.</p>`,
+
+        `<h2>Aula 2 - 14/07</h2>
+        <p><strong>Definição de JS - PHP - MySQL</strong></p>
+        <p><strong>JavaScript (JS):</strong> Linguagem de programação usada para funcionalidades interativas no navegador.</p>
+        <p><strong>PHP:</strong> Linguagem de servidor usada para sites dinâmicos e conexão com bancos de dados.</p>
+        <p><strong>MySQL:</strong> Sistema de gerenciamento de banco de dados relacional, usado para armazenar e organizar informações.</p>`,
+
+        `<h2>Aula 3 - 18/07</h2>
+        <p><strong>Festa Junina</strong> - Comemoração cultural com danças, comidas típicas e brincadeiras, valorizando tradições do interior do Brasil.</p>`,
+
+        `<h2>Aula 4 - 04/08</h2>
+        <p><strong>Esplanação dos Alunos: JavaScript, PHP e MySQL</strong> - Alunos apresentaram as funções e aplicações dessas tecnologias no desenvolvimento de sites.</p>`,
+
+        `<h2>Aula 5 – 08/08</h2>
+        <p><strong>Atualização do Site com Todas as Aulas Pendentes do 3º Bimestre</strong> - Inserção e organização de todo o conteúdo pendente, com revisão, links, imagens e vídeos.</p>`,
+
+        `<h2>Aula 06 – 18/08</h2>
+        <p><strong>Semana Estadual da Juventude</strong> - Participação em evento com foco na valorização do protagonismo jovem, cidadania, inovação e inclusão social.</p>`,
+
+        `<h2>Aula 07 – 22/08</h2>
+        <p><strong>Desenvolvimento do Projeto de Robótica</strong> - Foco na inclusão e acessibilidade por meio da tecnologia, promovendo cooperação e criatividade.</p>`,
+
+        `<h2>Aula 08 – 25/08</h2>
+        <p><strong>Acessibilidade Digital – TalkBack, VLibras e Lupa</strong> - Exploração de recursos de acessibilidade digital para promover inclusão e igualdade de oportunidades.</p>`,
+        `<h2>Aula 9</h2>
+<p><strong>Desenvolvimento de Projeto em Robótica – Semana Nacional da Pessoa com Deficiência</strong></p>
+<p>Durante esta aula, os alunos foram envolvidos em um projeto prático de robótica, com foco na inclusão e acessibilidade. A atividade buscou integrar conceitos tecnológicos ao tema da Semana Nacional da Pessoa com Deficiência, incentivando os estudantes a refletirem sobre soluções inovadoras que possam contribuir para a melhoria da qualidade de vida de pessoas com limitações físicas.</p>`,
+
+`<h2>Aula 10</h2>
+<p><strong>Acessibilidade Digital: TalkBack, VLibras e Lupa – Semana Nacional da Pessoa com Deficiência</strong></p>
+<p>A aula foi dedicada ao estudo de ferramentas de acessibilidade em dispositivos móveis e computadores. Os alunos aprenderam a configurar e utilizar recursos como o <em>TalkBack</em> (leitor de tela), o <em>VLibras</em> (tradutor automático para Libras) e a Lupa digital, entendendo a importância desses instrumentos para a inclusão digital de pessoas com deficiência visual e auditiva.</p>`,
+
+`<h2>Aula 11</h2>
+<p><strong>Atualização das Aulas no Site – Inserindo Tema do Dia do Estudante</strong></p>
+<p>Os alunos realizaram a atualização do site com os conteúdos do 3º bimestre, aplicando os conhecimentos de organização e publicação digital. Além disso, foi inserido um tema comemorativo referente ao Dia do Estudante, valorizando a importância da educação e do protagonismo discente no processo de aprendizagem.</p>`,
+
+`<h2>Aula 12</h2>
+<p><strong>Continuação da Atualização das Aulas no Site – Dia do Estudante</strong></p>
+<p>Nesta aula, os estudantes deram continuidade ao processo de atualização do site, revisando conteúdos e garantindo que todas as atividades do bimestre estivessem disponíveis. O tema do Dia do Estudante foi reforçado, destacando o papel do aluno como agente ativo no aprendizado.</p>`,
+
+`<h2>Aula 13</h2>
+<p><strong>Finalização da Atualização do Site – Dia do Estudante</strong></p>
+<p>A etapa final da atualização do site foi concluída, consolidando todos os conteúdos do 3º bimestre. O projeto ressaltou a importância do trabalho colaborativo, da manutenção de registros digitais e da valorização da data comemorativa dedicada aos estudantes.</p>`,
+
+`<h2>Aula 14</h2>
+<p><strong>Resumo para Avaliação Global – Semana Nacional do Trânsito</strong></p>
+<p>Os alunos prepararam um resumo com os principais pontos estudados ao longo do bimestre, integrando a temática da Semana Nacional do Trânsito. A atividade reforçou a consciência cidadã e a responsabilidade no uso das tecnologias em prol da segurança viária.</p>`,
+
+`<h2>Aula 16</h2>
+<p><strong>Avaliação Global</strong></p>
+<p>Nesta aula, os estudantes realizaram a Avaliação Global, consolidando os conhecimentos adquiridos durante o bimestre. O momento foi fundamental para verificar o desempenho individual e coletivo, incentivando a reflexão sobre pontos fortes e aspectos a serem aprimorados.</p>`,
+
+`<h2>Aula 17</h2>
+<p><strong>Recuperação Bimestral – Revisão para Fixação do Aprendizado (Semana Nacional do Trânsito)</strong></p>
+<p>A aula foi voltada para a revisão geral dos conteúdos, permitindo que os alunos reforçassem conceitos importantes antes da avaliação final. O tema da Semana Nacional do Trânsito foi novamente trabalhado, estimulando a integração entre cidadania e tecnologia.</p>`,
+
+`<h2>Aula 18</h2>
+<p><strong>Recuperação Bimestral – Atualização do Site</strong></p>
+<p>Os alunos revisaram conteúdos anteriores e realizaram ajustes no site, garantindo que o material estivesse completo e atualizado. A atividade serviu como parte do processo de recuperação, unindo revisão teórica e prática digital.</p>`,
+
+`<h2>Aula 19</h2>
+<p><strong>Recuperação Bimestral – Continuação da Atualização do Site</strong></p>
+<p>Na continuidade da recuperação, os estudantes focaram em finalizar a atualização do site e revisar conteúdos específicos em que apresentaram maior dificuldade. O objetivo foi garantir que todos alcançassem os critérios mínimos de aprendizagem estabelecidos.</p>`,
+
+`<h2>Aula 20</h2>
+<p><strong>Acolhimento e Introdução ao 4ºB – Livro Guia Digital</strong></p>
+<p>Esta aula foi destinada ao acolhimento dos estudantes do 4ºB, apresentando o planejamento das atividades do novo período letivo. Além disso, foi introduzido o <em>Livro Guia Digital</em>, ferramenta de apoio que servirá como referência para os conteúdos e práticas que serão desenvolvidos ao longo das próximas aulas.</p>`
+
+      ];
+
+      let index = 0;
+
+      function atualizarSlide() {
+        main.style.opacity = 0;
+        setTimeout(() => {
+          container.innerHTML = `<div class="content-box">${slides[index]}</div>`;
+          main.style.opacity = 1;
+          btnVoltar.style.display = index === 0 ? "none" : "inline-block";
+          btnAvancar.style.display = index === slides.length - 1 ? "none" : "inline-block";
+        }, 300);
+      }
+
+      btnAvancar.addEventListener("click", () => {
+        if (index < slides.length - 1) {
+          index++;
+          atualizarSlide();
+        }
+      });
+
+      btnVoltar.addEventListener("click", () => {
+        if (index > 0) {
+          index--;
+          atualizarSlide();
+        }
+      });
+
+      atualizarSlide();
+    });
+  </script>
+</body>
+</html>
