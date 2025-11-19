@@ -1,0 +1,451 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>POO com Java - Portal Técnico Escolar</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Rubik', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #cce7ff;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px 10px;
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      color: #48b3ff;
+      margin: 0;
+      font-weight: 800;
+      text-shadow: 0 2px 5px #00000055;
+    }
+
+    main {
+      flex: 1;
+      max-width: 960px;
+      margin: 20px auto;
+      padding: 30px;
+      background-color: rgba(20, 20, 20, 0.85);
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.05);
+      position: relative;
+    }
+
+    h2 {
+      color: #48b3ff;
+      margin-top: 0;
+    }
+
+    p {
+      text-align: justify;
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+
+    ul {
+      padding-left: 20px;
+      line-height: 1.8;
+    }
+
+    ul li::before {
+      content: "✓ ";
+      color: #48b3ff;
+      font-weight: bold;
+    }
+
+    .navegacao {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    .btn {
+      padding: 10px 25px;
+      border: none;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s ease-in-out;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+  .btn-sair {
+  background: linear-gradient(90deg, #ff4e50, #ff0000);
+  color: white;
+  box-shadow: none;
+  text-decoration: none; /* só aqui */
+}
+    
+  .btn-voltar,
+.btn-avancar {
+  background: linear-gradient(90deg, #0066ff, #0099ff);
+  color: white;
+  box-shadow: none;
+}
+
+    .content-box {
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    canvas#bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: transparent;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="bgCanvas"></canvas>
+
+  <header>
+    <h1>POO com Java</h1>
+  </header>
+
+  <main id="main-content">
+    <div class="content-box" id="slide-container"></div>
+
+    <div class="navegacao">
+      <a href="index.html" class="btn btn-sair">Sair</a>
+      <div>
+        <button class="btn btn-voltar" id="btn-voltar" style="display:none;">⬅</button>
+        <button class="btn btn-avancar" id="btn-avancar">➡</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Fundo animado
+    const canvas = document.getElementById("bgCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = Math.random() * 1 - 0.5;
+        this.speedY = Math.random() * 1 - 0.5;
+        this.color = "#48b3ff";
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+      }
+
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    let particlesArray = [];
+    for (let i = 0; i < 80; i++) {
+      particlesArray.push(new Particle());
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particlesArray.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    // Slides com conteúdo mais completo
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("slide-container");
+      const main = document.getElementById("main-content");
+      const btnAvancar = document.getElementById("btn-avancar");
+      const btnVoltar = document.getElementById("btn-voltar");
+      const slides = [
+`<h2>Aula 1 – Introdução à POO em Java</h2>
+<p style="text-align: justify;">
+Nesta primeira aula, os estudantes foram introduzidos aos conceitos fundamentais de Programação Orientada a Objetos (POO) aplicados na linguagem Java. Foram abordadas as noções de classe, objeto, atributos, métodos e encapsulamento, destacando a importância desses conceitos para a construção de softwares escaláveis e organizados.
+</p>
+<p style="text-align: justify;">
+A atividade prática consistiu na criação de classes simples que representassem entidades do cotidiano, permitindo aos alunos compreenderem a relação entre objetos e suas propriedades, além de observar como a POO promove a reutilização de código e o aumento da manutenibilidade dos sistemas desenvolvidos.
+</p>`,
+
+`<h2>Aula 2 – Herança e Polimorfismo</h2>
+<p style="text-align: justify;">
+Nesta aula, os conceitos de herança e polimorfismo foram explorados em profundidade. Os alunos aprenderam como classes podem herdar características de outras classes, facilitando a criação de estruturas hierárquicas e promovendo a reutilização eficiente de código.
+</p>
+<p style="text-align: justify;">
+O polimorfismo foi apresentado como a capacidade de objetos de classes diferentes responderem a métodos com a mesma assinatura de maneiras distintas, permitindo a implementação de sistemas flexíveis e dinâmicos. Exercícios práticos incluíram a modelagem de cenários com múltiplos tipos de objetos interagindo entre si.
+</p>`,
+
+`<h2>Aula 3 – Encapsulamento e Modificadores de Acesso</h2>
+<p style="text-align: justify;">
+O foco desta aula foi o encapsulamento, princípio que protege os dados internos de uma classe, controlando o acesso através de métodos específicos (getters e setters). Os alunos compreenderam a importância de proteger os atributos das classes para evitar inconsistências e erros durante a execução do programa.
+</p>
+<p style="text-align: justify;">
+Foram discutidos os modificadores de acesso (public, private, protected) e suas implicações na visibilidade de métodos e atributos, exemplificando boas práticas de design de software orientado a objetos e a criação de código seguro e legível.
+</p>`,
+
+`<h2>Aula 4 – Interfaces e Classes Abstratas</h2>
+<p style="text-align: justify;">
+Nesta aula, os alunos estudaram a diferença entre classes abstratas e interfaces, compreendendo como cada uma delas pode ser utilizada para definir contratos de comportamento em sistemas orientados a objetos. Foi enfatizada a aplicação prática dessas ferramentas para garantir flexibilidade e padronização no desenvolvimento de software.
+</p>
+<p style="text-align: justify;">
+Exercícios incluíram a implementação de interfaces para simular funcionalidades comuns a diferentes classes e a utilização de classes abstratas para centralizar comportamentos compartilhados, promovendo uma arquitetura de código mais organizada e sustentável.
+</p>`,
+
+`<h2>Aula 5 – Projeto Prático: Sistema de Gestão</h2>
+<p style="text-align: justify;">
+Nesta aula prática, os alunos iniciaram o desenvolvimento de um sistema de gestão utilizando POO em Java. Foram aplicados todos os conceitos aprendidos, incluindo criação de classes, métodos, herança, polimorfismo e encapsulamento, para modelar entidades e funcionalidades reais de um sistema administrativo.
+</p>
+<p style="text-align: justify;">
+A atividade estimulou o pensamento crítico, a resolução de problemas complexos e a integração de múltiplos conceitos de programação, proporcionando aos alunos uma visão ampla de como sistemas orientados a objetos são planejados e implementados em projetos reais.
+</p>`,
+
+`<h2>Aula 6 – Testes e Validação de Software</h2>
+<p style="text-align: justify;">
+Os estudantes exploraram técnicas de teste de software, aprendendo a validar funcionalidades implementadas no projeto prático. Foram discutidos testes unitários, integração e boas práticas de depuração, garantindo que cada componente do sistema funcionasse corretamente e de forma eficiente.
+</p>
+<p style="text-align: justify;">
+A aplicação prática envolveu a execução de casos de teste para detectar erros, corrigir falhas e otimizar o desempenho do sistema, reforçando a importância da qualidade de software e da manutenção preventiva em projetos de desenvolvimento.
+</p>`,
+
+`<h2>Aula 7 – Revisão e Otimização do Projeto</h2>
+<p style="text-align: justify;">
+Nesta aula, os alunos revisaram o projeto de sistema em desenvolvimento, identificando oportunidades de otimização e melhorias no código. A ênfase foi em refatoração, organização de classes e métodos, e aprimoramento da eficiência e legibilidade do sistema.
+</p>
+<p style="text-align: justify;">
+A atividade permitiu consolidar os conhecimentos adquiridos ao longo do bimestre, reforçando boas práticas de design de software, pensamento analítico e capacidade de resolver problemas complexos de forma estruturada.
+</p>`,
+
+`<h2>Aula 8 – Apresentação do Projeto Final</h2>
+<p style="text-align: justify;">
+Na aula final, os alunos apresentaram seus projetos de software para a turma, demonstrando todas as funcionalidades implementadas e a aplicação prática dos conceitos de POO em Java. A apresentação incluiu a exposição de desafios enfrentados, soluções adotadas e resultados obtidos.
+</p>
+<p style="text-align: justify;">
+O momento de apresentação permitiu a troca de experiências, o desenvolvimento de habilidades de comunicação técnica e a valorização do trabalho colaborativo, consolidando a aprendizagem de forma significativa e prática.
+</p>`,
+        `<h2>Aula 9</h2>
+<p><strong>Fazer Upgrade e Otimização do Software – Upload no Site – Semana Estadual da Juventude</strong></p>
+<p>Nesta sessão, os alunos aplicaram técnicas de otimização de código e ajustes de configuração para melhorar desempenho e usabilidade do software do projeto. As atividades incluíram análise de gargalos, redução de complexidade algorítmica e otimização de carregamento de recursos.</p>
+<p>Etapas práticas desenvolvidas:</p>
+<ul>
+  <li>Perfilamento do aplicativo para identificar funções críticas;</li>
+  <li>Refatoração de trechos com alto custo de CPU ou I/O;</li>
+  <li>Minificação e compressão de recursos (JS/CSS/imagens) e testes de resposta;</li>
+  <li>Criação de um pacote de deploy e procedimento de upload no site (versão, backup, deploy seguro).</li>
+</ul>
+<p>Ao final, realizou-se verificação funcional e checklist de qualidade antes do envio público da nova versão.</p>`,
+  
+`<h2>Aula 10</h2>
+<p><strong>Fazer Upgrade e Otimização do Software – Upload no Site – Continuação</strong></p>
+<p>Sessão de continuidade focada em testes de integração, correção de bugs identificados na versão anterior e documentação das alterações. Os estudantes trabalharam em pares para validar fluxos críticos e preparar notas de versão (release notes) claras para usuários e avaliadores.</p>
+<p>Atividades destacadas:</p>
+<ul>
+  <li>Testes automatizados e manuais em diferentes navegadores/dispositivos;</li>
+  <li>Registro de issues e aplicação de hotfixes;</li>
+  <li>Procedimento de versionamento semântico e marcação da release no site.</li>
+</ul>
+<p>O objetivo foi consolidar boas práticas de entrega contínua em ambiente educacional.</p>`,
+
+`<h2>Aula 11</h2>
+<p><strong>Desenvolvimento de Projeto de Robótica – Semana Nacional da Pessoa com Deficiência</strong></p>
+<p>Nesta aula houve a definição de requisitos e a divisão de tarefas para o projeto robótico, com foco em soluções assistivas. Os alunos mapearam necessidades de usuários com deficiência e estabeleceram objetivos técnicos e sociais para o protótipo.</p>
+<p>Conteúdos trabalhados:</p>
+<ul>
+  <li>Planejamento de funcionalidades (movimentação, detecção de obstáculos, interfaces acessíveis);</li>
+  <li>Seleção de componentes (sensores, motores, controladores) e justificativa técnica;</li>
+  <li>Criação de cronograma e documentação de cada módulo.</li>
+</ul>
+<p>A ênfase foi alinhar tecnologia e inclusão, garantindo que o projeto tenha impacto social mensurável.</p>`,
+
+`<h2>Aula 12</h2>
+<p><strong>Desenvolvimento de Projeto de Robótica – Implementação de Sensores e Atores</strong></p>
+<p>Implementação prática dos módulos planejados: integração de sensores ultrassônicos, sensores de toque e atuadores (motores/servos). Os alunos testaram leituras, calibraram parâmetros e implementaram algoritmos básicos de controle.</p>
+<p>Resultados esperados:</p>
+<ul>
+  <li>Leitura confiável de sensores em diferentes condições de iluminação e superfície;</li>
+  <li>Controle estável dos atuadores com segurança física;</li>
+  <li>Registro de testes e métricas de desempenho para iteração posterior.</li>
+</ul>`,
+
+`<h2>Aula 13</h2>
+<p><strong>Desenvolvimento de Projeto de Robótica – Integração e Testes Funcionais</strong></p>
+<p>Fase de integração dos módulos de hardware e software. Os grupos realizaram testes de uso real, identificaram falhas de interface e começaram a adaptar o protótipo para requisitos de acessibilidade especificados pela Semana Nacional da Pessoa com Deficiência.</p>
+<p>Foram priorizados:</p>
+<ul>
+  <li>Segurança e usabilidade do protótipo;</li>
+  <li>Log de eventos e comportamento previsível em casos de erro;</li>
+  <li>Plano de melhorias para a versão final.</li>
+</ul>`,
+
+`<h2>Aula 14</h2>
+<p><strong>Preparando Ambiente para Entrevista com Profissional de TI – Semana Nacional da Pessoa com Deficiência</strong></p>
+<p>Nesta aula os alunos organizaram o espaço para receber um entrevistado da área de TI: verificação de acessibilidade do local, testes de áudio e vídeo, disposições para tradução em Libras e adaptações de comunicação.</p>
+<p>Atividades realizadas:</p>
+<ul>
+  <li>Checklist de acessibilidade (rampas, circulação, visualização dos recursos);</li>
+  <li>Roteiro de perguntas técnicas e comportamentais preparado pelos alunos;</li>
+  <li>Simulações de condução da entrevista com ênfase em clareza e inclusão.</li>
+</ul>`,
+
+`<h2>Aula 15</h2>
+<p><strong>Software de Movimentação Arduino – Braço Mecânico – Semana Nacional da Pessoa com Deficiência</strong></p>
+<p>Os estudantes programaram o firmware de controle do braço mecânico usando Arduino, abordando PWM, calibração de servos e rotinas de segurança. A atividade teve foco em precisão de movimento e usabilidade para tarefas assistivas.</p>
+<p>Pontos técnicos cobertos:</p>
+<ul>
+  <li>Estratégias de calibração e limites físicos dos servos;</li>
+  <li>Implementação de sequências seguras de movimento;</li>
+  <li>Testes com cargas e análise de torque e estabilidade.</li>
+</ul>`,
+
+`<h2>Aula 16</h2>
+<p><strong>Fazer Upgrade e Otimização do Software – Upload no Site – Iteração 2</strong></p>
+<p>Nova rodada de melhorias com foco em feedback de usuário: otimização de performance percebida, redução de latência e correção de bugs menores identificados após a primeira release. Os alunos documentaram alterações e atualizaram o material pedagógico do projeto.</p>
+<p>Entrega:</p>
+<ul>
+  <li>Pacote preparado para upload com rollback seguro;</li>
+  <li>Testes de usabilidade com voluntários (relatórios breves).</li>
+</ul>`,
+
+`<h2>Aula 17</h2>
+<p><strong>Fazer Upgrade e Otimização do Software – Upload no Site – Iteração 3</strong></p>
+<p>Continuação das iterações de melhoria: foco em otimização de memória e redução de consumo em dispositivos embarcados. A turma aplicou profiling e implementou soluções de caching e gestão de recursos.</p>`,
+
+`<h2>Aula 18</h2>
+<p><strong>Fazer Upgrade e Otimização do Software – Upload no Site – Testes Finais</strong></p>
+<p>Sessão dedicada ao teste final de integração e homologação. Verificou-se comportamento sob carga, compatibilidade com navegadores e acessibilidade das interfaces publicadas no site.</p>`,
+
+`<h2>Aula 19</h2>
+<p><strong>Fazer Upgrade e Otimização do Software – Entrega Final</strong></p>
+<p>Consolidação das etapas de desenvolvimento e publicação. Os alunos validaram checklist de qualidade, publicaram a versão final e produziram um breve manual de uso e notas técnicas para acompanhamento.</p>`,
+
+`<h2>Aula 20</h2>
+<p><strong>Upgrade no Software</strong></p>
+<p>Atividade focada em pequenas melhorias contínuas: correções de UX, ajustes de layout responsivo, melhorias em mensagens de erro e otimização de queries de banco de dados (quando aplicável).</p>
+<p>Objetivo: manter o produto utilizável, acessível e documentado para futuros desenvolvimentos.</p>`,
+
+`<h2>Aula 21</h2>
+<p><strong>Redefinição – POO em Java</strong></p>
+<p>Revisão profunda dos conceitos de Programação Orientada a Objetos aplicada ao projeto em desenvolvimento. Os alunos reavaliaram modelagem de classes, responsabilidades e coesão entre objetos.</p>
+<p>Atividades:</p>
+<ul>
+  <li>Revisão de diagramas UML e mapeamento para classes Java;</li>
+  <li>Reestruturação de pacotes e responsabilidade única por classe (Single Responsibility);</li>
+  <li>Documentação das decisões de design.</li>
+</ul>`,
+
+`<h2>Aula 22</h2>
+<p><strong>Relembrando Encapsulamento</strong></p>
+<p>Sessão teórica-prática sobre encapsulamento: uso de modificadores de acesso (private, protected, public), getters/setters, validação de invariantes e técnicas para proteger o estado interno das classes.</p>
+<p>Exercício prático: refatorar classes existentes para promover melhor isolamento de responsabilidades e segurança de dados.</p>`,
+
+`<h2>Aula 23</h2>
+<p><strong>Resumo para Avaliação Global – Semana Nacional do Trânsito</strong></p>
+<p>Preparação do resumo que servirá de base para a Avaliação Global. O material compilou conceitos sobre segurança viária, sinalização, regras de circulação e a relação entre tecnologia e mobilidade urbana.</p>
+<p>Os alunos produziram material de estudo conciso e estruturado para consulta.</p>`,
+
+`<h2>Aula 24</h2>
+<p><strong>Avaliação Global</strong></p>
+<p>Realização da Avaliação Global cobrindo os temas do bimestre. A prova avaliou tanto conhecimentos teóricos quanto aplicações práticas (resolução de problemas, pequenas implementações e análise crítica).</p>
+<p>Após a avaliação foram feitas correções coletivas e feedbacks individuais para orientar o estudo continuado.</p>`,
+
+`<h2>Aula 25</h2>
+<p><strong>Semana Nacional do Trânsito – Recuperação: Mundo Digital</strong></p>
+<p>Atividade de recuperação temática relacionando segurança no trânsito com comportamento digital. Discutiu-se o impacto de distrações digitais, uso de aplicativos de navegação e responsabilidade do cidadão conectado.</p>`,
+
+`<h2>Aula 26</h2>
+<p><strong>Semana Nacional do Trânsito – Desenvolvimento do Software (Parte 1)</strong></p>
+<p>Início do desenvolvimento de uma aplicação de apoio à educação no trânsito: definição de requisitos, prototipagem de telas e mapeamento de fluxos principais.</p>`,
+
+`<h2>Aula 27</h2>
+<p><strong>Semana Nacional do Trânsito – Desenvolvimento do Software (Parte 2)</strong></p>
+<p>Continuação do desenvolvimento: implementação de funcionalidades básicas, integração com recursos de localização (quando aplicável) e testes iniciais com usuários.</p>`,
+
+`<h2>Aula 28</h2>
+<p><strong>Semana Nacional do Trânsito – Desenvolvimento do Software (Consolidação)</strong></p>
+<p>Refinamento das funcionalidades, correção de bugs, inclusão de elementos educativos e preparação para demonstração pública do projeto.</p>`,
+
+`<h2>Aula 29</h2>
+<p><strong>Recuperação Bimestral – Revisão para Fixação do Aprendizado</strong></p>
+<p>Última sessão de revisão com exercícios orientados, correção de atividades pendentes e estratégias personalizadas de estudo para consolidar os conceitos trabalhados ao longo do bimestre. Foram utilizados mapas mentais, listas de verificação e mini-testes práticos para aferir a aprendizagem.</p>`
+
+];
+
+
+      let index = 0;
+
+      function atualizarSlide() {
+        main.style.opacity = 0;
+        setTimeout(() => {
+          container.innerHTML = `<div class="content-box">${slides[index]}</div>`;
+          main.style.opacity = 1;
+          btnVoltar.style.display = index === 0 ? "none" : "inline-block";
+          btnAvancar.style.display = index === slides.length - 1 ? "none" : "inline-block";
+        }, 300);
+      }
+
+      btnAvancar.addEventListener("click", () => {
+        if (index < slides.length - 1) {
+          index++;
+          atualizarSlide();
+        }
+      });
+
+      btnVoltar.addEventListener("click", () => {
+        if (index > 0) {
+          index--;
+          atualizarSlide();
+        }
+      });
+
+      atualizarSlide();
+    });
+  </script>
+</body>
+</html>
