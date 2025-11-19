@@ -1,0 +1,320 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lógica de Programação - Portal Técnico Escolar</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Rubik', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #cce7ff;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px 10px;
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      color: #48b3ff;
+      margin: 0;
+      font-weight: 800;
+      text-shadow: 0 2px 5px #00000055;
+    }
+
+    main {
+      flex: 1;
+      max-width: 960px;
+      margin: 20px auto;
+      padding: 30px;
+      background-color: rgba(20, 20, 20, 0.85);
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.05);
+      position: relative;
+    }
+
+    h2 {
+      color: #48b3ff;
+      margin-top: 0;
+    }
+
+    p {
+      text-align: justify;
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+
+    ul {
+      padding-left: 20px;
+      line-height: 1.8;
+    }
+
+    ul li::before {
+      content: "✓ ";
+      color: #48b3ff;
+      font-weight: bold;
+    }
+
+    .navegacao {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    .btn {
+      padding: 10px 25px;
+      border: none;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s ease-in-out;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    .btn-sair {
+      background: linear-gradient(90deg, #ff4e50, #ff0000);
+      color: white;
+      box-shadow: none;
+      text-decoration: none;
+    }
+
+    .btn-voltar,
+    .btn-avancar {
+      background: linear-gradient(90deg, #0066ff, #0099ff);
+      color: white;
+      box-shadow: none;
+    }
+
+    .content-box {
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    canvas#bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: transparent;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="bgCanvas"></canvas>
+
+  <header>
+    <h1>Lógica de Programação</h1>
+  </header>
+
+  <main id="main-content">
+    <div class="content-box" id="slide-container"></div>
+
+    <div class="navegacao">
+      <a href="index.html" class="btn btn-sair">Sair</a>
+      <div>
+        <button class="btn btn-voltar" id="btn-voltar" style="display:none;">⬅</button>
+        <button class="btn btn-avancar" id="btn-avancar">➡</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Fundo animado
+    const canvas = document.getElementById("bgCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = Math.random() * 1 - 0.5;
+        this.speedY = Math.random() * 1 - 0.5;
+        this.color = "#48b3ff";
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+      }
+
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    let particlesArray = [];
+    for (let i = 0; i < 80; i++) {
+      particlesArray.push(new Particle());
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particlesArray.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    // Slides
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("slide-container");
+      const main = document.getElementById("main-content");
+      const btnAvancar = document.getElementById("btn-avancar");
+      const btnVoltar = document.getElementById("btn-voltar");
+
+      const slides = [
+`<h2>Aula 1 - 10/07</h2><p style="text-align: justify;"><strong>Guia de Aprendizagem em Conjunto com os Alunos</strong> - Durante esta aula, foi desenvolvido, em conjunto com os alunos, o planejamento das aulas e dos temas que serão abordados ao longo do 3º bimestre. Esse processo levou em consideração a opinião dos estudantes, o plano de curso e a realidade das atividades e recursos disponíveis na escola, garantindo que o conteúdo seja relevante, acessível e alinhado às necessidades da turma.
+</p>`,
+
+`<h2>Aula 2 - 17/07</h2>
+<p style="text-align: justify;"><strong>Introdução à Criação de Jogo – Videogame (Parte 2)</strong></p>
+
+<p style="text-align: justify;">
+Nesta aula, foi dada continuidade ao processo de introdução à criação de jogos digitais, com foco em conceitos práticos aplicados ao desenvolvimento de um videogame 2D. Esta segunda etapa teve como objetivo reforçar os conhecimentos abordados anteriormente e aprofundar o entendimento dos elementos que compõem um jogo.
+</p>
+
+<p style="text-align: justify;">
+Os alunos exploraram aspectos fundamentais como movimentação de personagens, colisões, interação com objetos, pontuação, e lógica básica de programação. Também foram apresentados exemplos de jogos simples, com análise dos seus componentes e funcionamento.
+</p>
+
+<p style="text-align: justify;">
+A proposta visa estimular a criatividade, o raciocínio lógico e o interesse dos estudantes pelo universo dos games, utilizando a programação como ferramenta de construção e expressão tecnológica.
+</p>`,
+
+`<h2>Aula 3 - 06/08</h2>
+<p style="text-align: justify;"><strong>Atividade com o Grupo de Protagonismo e Jogos</strong></p>
+
+<p style="text-align: justify;">
+Nesta aula, foi realizada uma atividade especial com a participação do Grupo de Protagonismo Juvenil, envolvendo dinâmicas e jogos educativos. A proposta teve como objetivo promover a integração entre os alunos, estimular o trabalho em equipe e desenvolver habilidades socioemocionais por meio do uso de jogos como ferramenta pedagógica.
+</p>
+
+<p style="text-align: justify;">
+Durante a atividade, os estudantes participaram ativamente de desafios e reflexões voltados à liderança, cooperação, tomada de decisão e criatividade. O uso dos jogos serviu como recurso para incentivar o protagonismo estudantil e fortalecer o vínculo entre os colegas, em um ambiente colaborativo e acolhedor.
+</p>
+
+<p style="text-align: justify;">
+A ação contribuiu para o desenvolvimento pessoal dos alunos e reforçou a importância da participação ativa na construção de um ambiente escolar mais engajado, participativo e respeitoso.
+</p>`,
+
+`<h2>Aula 04 – 13/08</h2>
+<p style="text-align: justify;"><strong>Atividade Grupo de Protagonismo e Jogos – Semana Estadual da Juventude</strong></p>
+
+<p style="text-align: justify;">
+Nesta aula, os alunos participaram de uma atividade prática com foco no protagonismo juvenil, utilizando jogos educativos e digitais como ferramenta de engajamento e recuperação de conteúdos abordados em aulas anteriores.
+</p>
+
+<p style="text-align: justify;">
+A dinâmica promoveu a colaboração entre os colegas, incentivando a criatividade, o raciocínio lógico e a resolução de problemas por meio de desafios propostos em grupo. Os estudantes também discutiram estratégias, compartilharam ideias e aplicaram conceitos aprendidos ao longo do bimestre.
+</p>
+
+<p style="text-align: justify;">
+O objetivo da atividade foi fortalecer a autonomia, o trabalho em equipe e a responsabilidade acadêmica, preparando os alunos para apresentar resultados efetivos durante a Semana Estadual da Juventude.
+</p>`,
+
+`<h2>Aula 05 – 20/08</h2>
+<p style="text-align: justify;"><strong>Desenvolvimento do Projeto de Robótica – Semana Nacional da Pessoa com Deficiência</strong></p>
+
+<p style="text-align: justify;">
+Durante a <em>Semana Nacional da Pessoa com Deficiência</em>, os alunos participaram de atividades voltadas ao desenvolvimento de projetos de robótica, com foco em promover a inclusão e a acessibilidade por meio da tecnologia. 
+</p>
+
+<p style="text-align: justify;">
+O trabalho buscou despertar a reflexão sobre como a robótica pode ser aplicada na criação de soluções que favoreçam a autonomia, a mobilidade e a qualidade de vida das pessoas com deficiência, destacando a importância da inovação social.
+</p>
+
+<p style="text-align: justify;">
+A atividade incentivou a cooperação, a criatividade e o protagonismo dos estudantes, reforçando a responsabilidade coletiva na construção de uma sociedade mais justa, inclusiva e solidária.
+</p>`,
+
+`<h2>Aula 06 – 27/08</h2>
+<p style="text-align: justify;"><strong>Aula na Sala de Informática utilizando o TIC-80</strong></p>
+
+<p style="text-align: justify;">
+Nesta aula, os alunos utilizaram o <em>TIC-80</em>, uma ferramenta de desenvolvimento de jogos retrô, para explorar conceitos de programação, lógica e criatividade digital dentro da sala de informática. 
+</p>
+
+<p style="text-align: justify;">
+O objetivo foi proporcionar uma experiência prática de criação de projetos interativos, permitindo que os estudantes programassem pequenos jogos e simulações, aplicando noções de código, design gráfico e interação.
+</p>
+
+<p style="text-align: justify;">
+A atividade estimulou o raciocínio lógico, a resolução de problemas e o protagonismo juvenil, incentivando a integração entre tecnologia, inovação e aprendizado lúdico.
+</p>`
+      ];
+
+      let index = 0;
+
+      function atualizarSlide() {
+        main.style.opacity = 0;
+        setTimeout(() => {
+          container.innerHTML = `<div class="content-box">${slides[index]}</div>`;
+          main.style.opacity = 1;
+          btnVoltar.style.display = index === 0 ? "none" : "inline-block";
+          btnAvancar.style.display = index === slides.length - 1 ? "none" : "inline-block";
+        }, 300);
+      }
+
+      btnAvancar.addEventListener("click", () => {
+        if (index < slides.length - 1) {
+          index++;
+          atualizarSlide();
+        }
+      });
+
+      btnVoltar.addEventListener("click", () => {
+        if (index > 0) {
+          index--;
+          atualizarSlide();
+        }
+      });
+
+      atualizarSlide();
+    });
+  </script>
+</body>
+</html>
