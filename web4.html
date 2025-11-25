@@ -203,75 +203,65 @@
       const btnVoltar = document.getElementById("btn-voltar");
 
       const slides = [
-       `<h2>Aula 1 - 11/07</h2>
-        <p><strong>Inserção do Guia de Aprendizagem no Site</strong> - Disponibilização do documento que orienta o desenvolvimento das aulas, conteúdos, métodos e avaliações.</p>`,
+      `<h2>1 - Preparar 4º Bimestre no Site - "Mochila"</h2>
+<p>Organização inicial do conteúdo do 4º bimestre dentro da plataforma "Mochila", estruturando as abas, páginas e matérias que serão trabalhadas nos próximos dias.</p>`,
 
-        `<h2>Aula 2 - 14/07</h2>
-        <p><strong>Definição de JS - PHP - MySQL</strong></p>
-        <p><strong>JavaScript (JS):</strong> Linguagem de programação usada para funcionalidades interativas no navegador.</p>
-        <p><strong>PHP:</strong> Linguagem de servidor usada para sites dinâmicos e conexão com bancos de dados.</p>
-        <p><strong>MySQL:</strong> Sistema de gerenciamento de banco de dados relacional, usado para armazenar e organizar informações.</p>`,
+`<h2>2 - Preparar 4º Bimestre no Site - "Mochila"</h2>
+<p>Continuação da preparação do 4º bimestre, ajustando layout, revisando textos-base e configurando os materiais que serão disponibilizados aos alunos.</p>`,
 
-        `<h2>Aula 3 - 18/07</h2>
-        <p><strong>Festa Junina</strong> - Comemoração cultural com danças, comidas típicas e brincadeiras, valorizando tradições do interior do Brasil.</p>`,
+`<h2>3 - Atualizar as Aulas da Semana no Site - "Mochila"</h2>
+<p>Atualização dos conteúdos semanais no site, adicionando novas aulas, resumos, materiais e links necessários ao estudo da turma.</p>`,
 
-        `<h2>Aula 4 - 04/08</h2>
-        <p><strong>Esplanação dos Alunos: JavaScript, PHP e MySQL</strong> - Alunos apresentaram as funções e aplicações dessas tecnologias no desenvolvimento de sites.</p>`,
+`<h2>4 - Atualizar as Aulas da Semana no Site - "Mochila"</h2>
+<p>Inclusão de novas atividades, correções e materiais complementares referentes à semana em andamento, mantendo o site sempre atualizado.</p>`,
 
-        `<h2>Aula 5 – 08/08</h2>
-        <p><strong>Atualização do Site com Todas as Aulas Pendentes do 3º Bimestre</strong> - Inserção e organização de todo o conteúdo pendente, com revisão, links, imagens e vídeos.</p>`,
+`<h2>5 - Atualizar as Aulas da Semana no Site - "Mochila"</h2>
+<p>Revisão geral das postagens da semana, garantindo que todas estejam organizadas, acessíveis e funcionando corretamente para os estudantes.</p>`,
 
-        `<h2>Aula 06 – 18/08</h2>
-        <p><strong>Semana Estadual da Juventude</strong> - Participação em evento com foco na valorização do protagonismo jovem, cidadania, inovação e inclusão social.</p>`,
+`<h2>6 - Atualizar as Aulas da Semana no Site - "Mochila"</h2>
+<p>Atualização contínua dos conteúdos publicados, com foco na consistência visual e pedagógica do ambiente virtual de aprendizagem.</p>`,
 
-        `<h2>Aula 07 – 22/08</h2>
-        <p><strong>Desenvolvimento do Projeto de Robótica</strong> - Foco na inclusão e acessibilidade por meio da tecnologia, promovendo cooperação e criatividade.</p>`,
+`<h2>7 - Atualizar as Aulas da Semana no Site - "Mochila"</h2>
+<p>Adição de novas explicações, atividades e materiais digitais conforme o planejamento semanal das disciplinas.</p>`,
 
-        `<h2>Aula 08 – 25/08</h2>
-        <p><strong>Acessibilidade Digital – TalkBack, VLibras e Lupa</strong> - Exploração de recursos de acessibilidade digital para promover inclusão e igualdade de oportunidades.</p>`,
-        `<h2>Aula 9</h2>
-<p><strong>Desenvolvimento de Projeto em Robótica – Semana Nacional da Pessoa com Deficiência</strong></p>
-<p>Durante esta aula, os alunos foram envolvidos em um projeto prático de robótica, com foco na inclusão e acessibilidade. A atividade buscou integrar conceitos tecnológicos ao tema da Semana Nacional da Pessoa com Deficiência, incentivando os estudantes a refletirem sobre soluções inovadoras que possam contribuir para a melhoria da qualidade de vida de pessoas com limitações físicas.</p>`,
+`<h2>8 - Atualizar as Aulas da Semana no Site - "Mochila"</h2>
+<p>Organização das aulas recém-publicadas, ajustando estrutura, arquivos e descrições para melhorar a navegação dos alunos.</p>`,
 
-`<h2>Aula 10</h2>
-<p><strong>Acessibilidade Digital: TalkBack, VLibras e Lupa – Semana Nacional da Pessoa com Deficiência</strong></p>
-<p>A aula foi dedicada ao estudo de ferramentas de acessibilidade em dispositivos móveis e computadores. Os alunos aprenderam a configurar e utilizar recursos como o <em>TalkBack</em> (leitor de tela), o <em>VLibras</em> (tradutor automático para Libras) e a Lupa digital, entendendo a importância desses instrumentos para a inclusão digital de pessoas com deficiência visual e auditiva.</p>`,
+`<h2>9 - Atualizar as Aulas da Semana no Site - "Mochila"</h2>
+<p>Correção de possíveis erros de postagem e inclusão dos conteúdos restantes da semana.</p>`,
 
-`<h2>Aula 11</h2>
-<p><strong>Atualização das Aulas no Site – Inserindo Tema do Dia do Estudante</strong></p>
-<p>Os alunos realizaram a atualização do site com os conteúdos do 3º bimestre, aplicando os conhecimentos de organização e publicação digital. Além disso, foi inserido um tema comemorativo referente ao Dia do Estudante, valorizando a importância da educação e do protagonismo discente no processo de aprendizagem.</p>`,
+`<h2>10 - Atualizar as Aulas da Semana no Site - "Mochila"</h2>
+<p>Atualização contínua do ambiente “Mochila”, reforçando atividades e comunicados importantes aos alunos.</p>`,
 
-`<h2>Aula 12</h2>
-<p><strong>Continuação da Atualização das Aulas no Site – Dia do Estudante</strong></p>
-<p>Nesta aula, os estudantes deram continuidade ao processo de atualização do site, revisando conteúdos e garantindo que todas as atividades do bimestre estivessem disponíveis. O tema do Dia do Estudante foi reforçado, destacando o papel do aluno como agente ativo no aprendizado.</p>`,
+`<h2>11 - Atualizar as Aulas da Semana no Site - "Mochila"</h2>
+<p>Finalização de ajustes, correção de links e adição dos últimos materiais de estudo da semana.</p>`,
 
-`<h2>Aula 13</h2>
-<p><strong>Finalização da Atualização do Site – Dia do Estudante</strong></p>
-<p>A etapa final da atualização do site foi concluída, consolidando todos os conteúdos do 3º bimestre. O projeto ressaltou a importância do trabalho colaborativo, da manutenção de registros digitais e da valorização da data comemorativa dedicada aos estudantes.</p>`,
+`<h2>12 - Atualizar as Aulas da Semana no Site - "Mochila" + Educação para a Vida</h2>
+<p>Publicação dos conteúdos semanais e integração de reflexões sobre organização pessoal e responsabilidade no uso das plataformas digitais.</p>`,
 
-`<h2>Aula 14</h2>
-<p><strong>Resumo para Avaliação Global – Semana Nacional do Trânsito</strong></p>
-<p>Os alunos prepararam um resumo com os principais pontos estudados ao longo do bimestre, integrando a temática da Semana Nacional do Trânsito. A atividade reforçou a consciência cidadã e a responsabilidade no uso das tecnologias em prol da segurança viária.</p>`,
+`<h2>13 - Atualizar as Aulas da Semana no Site - "Mochila" + Educação para a Vida</h2>
+<p>Atualização das aulas acompanhada de orientações formativas sobre postura, compromisso e autonomia nos estudos.</p>`,
 
-`<h2>Aula 16</h2>
-<p><strong>Avaliação Global</strong></p>
-<p>Nesta aula, os estudantes realizaram a Avaliação Global, consolidando os conhecimentos adquiridos durante o bimestre. O momento foi fundamental para verificar o desempenho individual e coletivo, incentivando a reflexão sobre pontos fortes e aspectos a serem aprimorados.</p>`,
+`<h2>14 - Atualizar as Aulas da Semana no Site - "Mochila" + Educação para a Vida</h2>
+<p>Integração de novos conteúdos e desenvolvimento de habilidades socioemocionais relacionadas ao uso consciente da tecnologia.</p>`,
 
-`<h2>Aula 17</h2>
-<p><strong>Recuperação Bimestral – Revisão para Fixação do Aprendizado (Semana Nacional do Trânsito)</strong></p>
-<p>A aula foi voltada para a revisão geral dos conteúdos, permitindo que os alunos reforçassem conceitos importantes antes da avaliação final. O tema da Semana Nacional do Trânsito foi novamente trabalhado, estimulando a integração entre cidadania e tecnologia.</p>`,
+<h2>15 - Revisão para Avaliação Global</h2>
+<p>Revisão ampla dos conteúdos do bimestre, reforçando pontos essenciais e preparando os alunos para a avaliação final.</p>`,
 
-`<h2>Aula 18</h2>
-<p><strong>Recuperação Bimestral – Atualização do Site</strong></p>
-<p>Os alunos revisaram conteúdos anteriores e realizaram ajustes no site, garantindo que o material estivesse completo e atualizado. A atividade serviu como parte do processo de recuperação, unindo revisão teórica e prática digital.</p>`,
+`<h2>16 - Revisão para Avaliação Global</h2>
+<p>Continuação da revisão, com exercícios e análise dos conteúdos mais importantes para garantir segurança na prova.</p>`,
 
-`<h2>Aula 19</h2>
-<p><strong>Recuperação Bimestral – Continuação da Atualização do Site</strong></p>
-<p>Na continuidade da recuperação, os estudantes focaram em finalizar a atualização do site e revisar conteúdos específicos em que apresentaram maior dificuldade. O objetivo foi garantir que todos alcançassem os critérios mínimos de aprendizagem estabelecidos.</p>`,
+`<h2>17 - Avaliação Global</h2>
+<p>Avaliação oficial do bimestre, cobrindo os temas trabalhados ao longo das aulas e atividades.</p>`,
 
-`<h2>Aula 20</h2>
-<p><strong>Acolhimento e Introdução ao 4ºB – Livro Guia Digital</strong></p>
-<p>Esta aula foi destinada ao acolhimento dos estudantes do 4ºB, apresentando o planejamento das atividades do novo período letivo. Além disso, foi introduzido o <em>Livro Guia Digital</em>, ferramenta de apoio que servirá como referência para os conteúdos e práticas que serão desenvolvidos ao longo das próximas aulas.</p>`
+`<h2>18 - Avaliação Global</h2>
+<p>Conclusão da etapa avaliativa, registrando desempenho e fechamento dos conteúdos do bimestre.</p>`,
+
+`<h2>19 - Recuperação Bimestral</h2>
+<p>Atividades específicas para recuperar conteúdos e notas do bimestre, reforçando o aprendizado.</p>`,
+
+`<h2>20 - Recuperação Final Anual</h2>
+<p>Etapa final para alunos que ainda precisam alcançar a média anual, revisando os principais conteúdos do ano letivo.</p>`
 
       ];
 
