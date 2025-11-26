@@ -207,213 +207,95 @@
       const btnAvancar = document.getElementById("btn-avancar");
       const btnVoltar = document.getElementById("btn-voltar");
       const slides = [
-`<h2>Aula 1 – Introdução à POO em Java</h2>
-<p style="text-align: justify;">
-Nesta primeira aula, os estudantes foram introduzidos aos conceitos fundamentais de Programação Orientada a Objetos (POO) aplicados na linguagem Java. Foram abordadas as noções de classe, objeto, atributos, métodos e encapsulamento, destacando a importância desses conceitos para a construção de softwares escaláveis e organizados.
-</p>
-<p style="text-align: justify;">
-A atividade prática consistiu na criação de classes simples que representassem entidades do cotidiano, permitindo aos alunos compreenderem a relação entre objetos e suas propriedades, além de observar como a POO promove a reutilização de código e o aumento da manutenibilidade dos sistemas desenvolvidos.
-</p>`,
+`<h2>1 - Desenvolvendo Software Java com IntelliJ IDEA</h2>
+<p>Introdução ao desenvolvimento de aplicações Java utilizando o ambiente IntelliJ IDEA.</p>`,
 
-`<h2>Aula 2 – Herança e Polimorfismo</h2>
-<p style="text-align: justify;">
-Nesta aula, os conceitos de herança e polimorfismo foram explorados em profundidade. Os alunos aprenderam como classes podem herdar características de outras classes, facilitando a criação de estruturas hierárquicas e promovendo a reutilização eficiente de código.
-</p>
-<p style="text-align: justify;">
-O polimorfismo foi apresentado como a capacidade de objetos de classes diferentes responderem a métodos com a mesma assinatura de maneiras distintas, permitindo a implementação de sistemas flexíveis e dinâmicos. Exercícios práticos incluíram a modelagem de cenários com múltiplos tipos de objetos interagindo entre si.
-</p>`,
+`<h2>2 - Apresentação de Desafio</h2>
+<p>Apresentação e explicação dos desafios referentes ao conteúdo estudado.</p>`,
 
-`<h2>Aula 3 – Encapsulamento e Modificadores de Acesso</h2>
-<p style="text-align: justify;">
-O foco desta aula foi o encapsulamento, princípio que protege os dados internos de uma classe, controlando o acesso através de métodos específicos (getters e setters). Os alunos compreenderam a importância de proteger os atributos das classes para evitar inconsistências e erros durante a execução do programa.
-</p>
-<p style="text-align: justify;">
-Foram discutidos os modificadores de acesso (public, private, protected) e suas implicações na visibilidade de métodos e atributos, exemplificando boas práticas de design de software orientado a objetos e a criação de código seguro e legível.
-</p>`,
+`<h2>3 - Configuração do Projeto – SDK Java</h2>
+<p>O código Java não compila se o SDK não estiver configurado no IntelliJ. <b>Tirar um print mostrando o SDK.</b></p>`,
 
-`<h2>Aula 4 – Interfaces e Classes Abstratas</h2>
-<p style="text-align: justify;">
-Nesta aula, os alunos estudaram a diferença entre classes abstratas e interfaces, compreendendo como cada uma delas pode ser utilizada para definir contratos de comportamento em sistemas orientados a objetos. Foi enfatizada a aplicação prática dessas ferramentas para garantir flexibilidade e padronização no desenvolvimento de software.
-</p>
-<p style="text-align: justify;">
-Exercícios incluíram a implementação de interfaces para simular funcionalidades comuns a diferentes classes e a utilização de classes abstratas para centralizar comportamentos compartilhados, promovendo uma arquitetura de código mais organizada e sustentável.
-</p>`,
+`<h2>4 - Configuração do Projeto – SDK Java</h2>
+<p>Repetição da atividade: demonstrar com print a configuração correta do SDK no IntelliJ IDEA.</p>`,
 
-`<h2>Aula 5 – Projeto Prático: Sistema de Gestão</h2>
-<p style="text-align: justify;">
-Nesta aula prática, os alunos iniciaram o desenvolvimento de um sistema de gestão utilizando POO em Java. Foram aplicados todos os conceitos aprendidos, incluindo criação de classes, métodos, herança, polimorfismo e encapsulamento, para modelar entidades e funcionalidades reais de um sistema administrativo.
-</p>
-<p style="text-align: justify;">
-A atividade estimulou o pensamento crítico, a resolução de problemas complexos e a integração de múltiplos conceitos de programação, proporcionando aos alunos uma visão ampla de como sistemas orientados a objetos são planejados e implementados em projetos reais.
-</p>`,
+`<h2>5 - Apresentação de Desafio</h2>
+<p>Aula destinada à apresentação dos desafios desenvolvidos em sala.</p>`,
 
-`<h2>Aula 6 – Testes e Validação de Software</h2>
-<p style="text-align: justify;">
-Os estudantes exploraram técnicas de teste de software, aprendendo a validar funcionalidades implementadas no projeto prático. Foram discutidos testes unitários, integração e boas práticas de depuração, garantindo que cada componente do sistema funcionasse corretamente e de forma eficiente.
-</p>
-<p style="text-align: justify;">
-A aplicação prática envolveu a execução de casos de teste para detectar erros, corrigir falhas e otimizar o desempenho do sistema, reforçando a importância da qualidade de software e da manutenção preventiva em projetos de desenvolvimento.
-</p>`,
+`<h2>6 - Execução – Estrutura Mínima</h2>
+<p>Para executar um programa Java é necessário ter uma classe pública com método main. <b>Tirar um print.</b></p>`,
 
-`<h2>Aula 7 – Revisão e Otimização do Projeto</h2>
-<p style="text-align: justify;">
-Nesta aula, os alunos revisaram o projeto de sistema em desenvolvimento, identificando oportunidades de otimização e melhorias no código. A ênfase foi em refatoração, organização de classes e métodos, e aprimoramento da eficiência e legibilidade do sistema.
-</p>
-<p style="text-align: justify;">
-A atividade permitiu consolidar os conhecimentos adquiridos ao longo do bimestre, reforçando boas práticas de design de software, pensamento analítico e capacidade de resolver problemas complexos de forma estruturada.
-</p>`,
+`<h2>7 - Execução – Estrutura Mínima</h2>
+<p>Repetição da atividade: apresentar um print do código contendo a classe pública com o método main.</p>`,
 
-`<h2>Aula 8 – Apresentação do Projeto Final</h2>
-<p style="text-align: justify;">
-Na aula final, os alunos apresentaram seus projetos de software para a turma, demonstrando todas as funcionalidades implementadas e a aplicação prática dos conceitos de POO em Java. A apresentação incluiu a exposição de desafios enfrentados, soluções adotadas e resultados obtidos.
-</p>
-<p style="text-align: justify;">
-O momento de apresentação permitiu a troca de experiências, o desenvolvimento de habilidades de comunicação técnica e a valorização do trabalho colaborativo, consolidando a aprendizagem de forma significativa e prática.
-</p>`,
-        `<h2>Aula 9</h2>
-<p><strong>Fazer Upgrade e Otimização do Software – Upload no Site – Semana Estadual da Juventude</strong></p>
-<p>Nesta sessão, os alunos aplicaram técnicas de otimização de código e ajustes de configuração para melhorar desempenho e usabilidade do software do projeto. As atividades incluíram análise de gargalos, redução de complexidade algorítmica e otimização de carregamento de recursos.</p>
-<p>Etapas práticas desenvolvidas:</p>
-<ul>
-  <li>Perfilamento do aplicativo para identificar funções críticas;</li>
-  <li>Refatoração de trechos com alto custo de CPU ou I/O;</li>
-  <li>Minificação e compressão de recursos (JS/CSS/imagens) e testes de resposta;</li>
-  <li>Criação de um pacote de deploy e procedimento de upload no site (versão, backup, deploy seguro).</li>
-</ul>
-<p>Ao final, realizou-se verificação funcional e checklist de qualidade antes do envio público da nova versão.</p>`,
-  
-`<h2>Aula 10</h2>
-<p><strong>Fazer Upgrade e Otimização do Software – Upload no Site – Continuação</strong></p>
-<p>Sessão de continuidade focada em testes de integração, correção de bugs identificados na versão anterior e documentação das alterações. Os estudantes trabalharam em pares para validar fluxos críticos e preparar notas de versão (release notes) claras para usuários e avaliadores.</p>
-<p>Atividades destacadas:</p>
-<ul>
-  <li>Testes automatizados e manuais em diferentes navegadores/dispositivos;</li>
-  <li>Registro de issues e aplicação de hotfixes;</li>
-  <li>Procedimento de versionamento semântico e marcação da release no site.</li>
-</ul>
-<p>O objetivo foi consolidar boas práticas de entrega contínua em ambiente educacional.</p>`,
+`<h2>8 - Apresentação de Desafio</h2>
+<p>Continuação da apresentação dos desafios.</p>`,
 
-`<h2>Aula 11</h2>
-<p><strong>Desenvolvimento de Projeto de Robótica – Semana Nacional da Pessoa com Deficiência</strong></p>
-<p>Nesta aula houve a definição de requisitos e a divisão de tarefas para o projeto robótico, com foco em soluções assistivas. Os alunos mapearam necessidades de usuários com deficiência e estabeleceram objetivos técnicos e sociais para o protótipo.</p>
-<p>Conteúdos trabalhados:</p>
-<ul>
-  <li>Planejamento de funcionalidades (movimentação, detecção de obstáculos, interfaces acessíveis);</li>
-  <li>Seleção de componentes (sensores, motores, controladores) e justificativa técnica;</li>
-  <li>Criação de cronograma e documentação de cada módulo.</li>
-</ul>
-<p>A ênfase foi alinhar tecnologia e inclusão, garantindo que o projeto tenha impacto social mensurável.</p>`,
+`<h2>9 - Produtividade – Auto-complete</h2>
+<p>O Auto-complete sugere códigos válidos no contexto, reduzindo erros. <b>Testar no IntelliJ e descrever o resultado.</b></p>`,
 
-`<h2>Aula 12</h2>
-<p><strong>Desenvolvimento de Projeto de Robótica – Implementação de Sensores e Atores</strong></p>
-<p>Implementação prática dos módulos planejados: integração de sensores ultrassônicos, sensores de toque e atuadores (motores/servos). Os alunos testaram leituras, calibraram parâmetros e implementaram algoritmos básicos de controle.</p>
-<p>Resultados esperados:</p>
-<ul>
-  <li>Leitura confiável de sensores em diferentes condições de iluminação e superfície;</li>
-  <li>Controle estável dos atuadores com segurança física;</li>
-  <li>Registro de testes e métricas de desempenho para iteração posterior.</li>
-</ul>`,
+`<h2>10 - Produtividade – Auto-complete</h2>
+<p>Repetição da atividade sobre Auto-complete: testar novamente e descrever o funcionamento.</p>`,
 
-`<h2>Aula 13</h2>
-<p><strong>Desenvolvimento de Projeto de Robótica – Integração e Testes Funcionais</strong></p>
-<p>Fase de integração dos módulos de hardware e software. Os grupos realizaram testes de uso real, identificaram falhas de interface e começaram a adaptar o protótipo para requisitos de acessibilidade especificados pela Semana Nacional da Pessoa com Deficiência.</p>
-<p>Foram priorizados:</p>
-<ul>
-  <li>Segurança e usabilidade do protótipo;</li>
-  <li>Log de eventos e comportamento previsível em casos de erro;</li>
-  <li>Plano de melhorias para a versão final.</li>
-</ul>`,
+`<h2>11 - Apresentação de Desafio</h2>
+<p>Apresentação dos desafios desenvolvidos pelos alunos.</p>`,
 
-`<h2>Aula 14</h2>
-<p><strong>Preparando Ambiente para Entrevista com Profissional de TI – Semana Nacional da Pessoa com Deficiência</strong></p>
-<p>Nesta aula os alunos organizaram o espaço para receber um entrevistado da área de TI: verificação de acessibilidade do local, testes de áudio e vídeo, disposições para tradução em Libras e adaptações de comunicação.</p>
-<p>Atividades realizadas:</p>
-<ul>
-  <li>Checklist de acessibilidade (rampas, circulação, visualização dos recursos);</li>
-  <li>Roteiro de perguntas técnicas e comportamentais preparado pelos alunos;</li>
-  <li>Simulações de condução da entrevista com ênfase em clareza e inclusão.</li>
-</ul>`,
+`<h2>12 - Debug – Breakpoints</h2>
+<p>O breakpoint interrompe o programa em um ponto específico. <b>Testar no IntelliJ e descrever o que aconteceu.</b></p>`,
 
-`<h2>Aula 15</h2>
-<p><strong>Software de Movimentação Arduino – Braço Mecânico – Semana Nacional da Pessoa com Deficiência</strong></p>
-<p>Os estudantes programaram o firmware de controle do braço mecânico usando Arduino, abordando PWM, calibração de servos e rotinas de segurança. A atividade teve foco em precisão de movimento e usabilidade para tarefas assistivas.</p>
-<p>Pontos técnicos cobertos:</p>
-<ul>
-  <li>Estratégias de calibração e limites físicos dos servos;</li>
-  <li>Implementação de sequências seguras de movimento;</li>
-  <li>Testes com cargas e análise de torque e estabilidade.</li>
-</ul>`,
+`<h2>13 - Debug – Breakpoints</h2>
+<p>Repetição da atividade: testar o modo Debug e relatar a experiência.</p>`,
 
-`<h2>Aula 16</h2>
-<p><strong>Fazer Upgrade e Otimização do Software – Upload no Site – Iteração 2</strong></p>
-<p>Nova rodada de melhorias com foco em feedback de usuário: otimização de performance percebida, redução de latência e correção de bugs menores identificados após a primeira release. Os alunos documentaram alterações e atualizaram o material pedagógico do projeto.</p>
-<p>Entrega:</p>
-<ul>
-  <li>Pacote preparado para upload com rollback seguro;</li>
-  <li>Testes de usabilidade com voluntários (relatórios breves).</li>
-</ul>`,
+`<h2>14 - Apresentação de Desafio</h2>
+<p>Momento dedicado às apresentações de trabalho.</p>`,
 
-`<h2>Aula 17</h2>
-<p><strong>Fazer Upgrade e Otimização do Software – Upload no Site – Iteração 3</strong></p>
-<p>Continuação das iterações de melhoria: foco em otimização de memória e redução de consumo em dispositivos embarcados. A turma aplicou profiling e implementou soluções de caching e gestão de recursos.</p>`,
+`<h2>15 - Dependências – Maven/Gradle</h2>
+<p>No Maven, o arquivo <b>pom.xml</b> define dependências externas e configurações do projeto. Explicar o que é esse arquivo.</p>`,
 
-`<h2>Aula 18</h2>
-<p><strong>Fazer Upgrade e Otimização do Software – Upload no Site – Testes Finais</strong></p>
-<p>Sessão dedicada ao teste final de integração e homologação. Verificou-se comportamento sob carga, compatibilidade com navegadores e acessibilidade das interfaces publicadas no site.</p>`,
+`<h2>16 - Dependências – Maven/Gradle</h2>
+<p>Repetição da atividade anterior: explicar novamente a função do arquivo pom.xml. (Educação para a Vida)</p>`,
 
-`<h2>Aula 19</h2>
-<p><strong>Fazer Upgrade e Otimização do Software – Entrega Final</strong></p>
-<p>Consolidação das etapas de desenvolvimento e publicação. Os alunos validaram checklist de qualidade, publicaram a versão final e produziram um breve manual de uso e notas técnicas para acompanhamento.</p>`,
+`<h2>17 - Apresentação de Desafio</h2>
+<p>Apresentação e explicação dos desafios.</p>`,
 
-`<h2>Aula 20</h2>
-<p><strong>Upgrade no Software</strong></p>
-<p>Atividade focada em pequenas melhorias contínuas: correções de UX, ajustes de layout responsivo, melhorias em mensagens de erro e otimização de queries de banco de dados (quando aplicável).</p>
-<p>Objetivo: manter o produto utilizável, acessível e documentado para futuros desenvolvimentos.</p>`,
+`<h2>18 - Correção – “Cannot resolve symbol”</h2>
+<p>Erro exibido quando o código tenta usar algo inexistente ou sem importação. Explicar detalhadamente.</p>`,
 
-`<h2>Aula 21</h2>
-<p><strong>Redefinição – POO em Java</strong></p>
-<p>Revisão profunda dos conceitos de Programação Orientada a Objetos aplicada ao projeto em desenvolvimento. Os alunos reavaliaram modelagem de classes, responsabilidades e coesão entre objetos.</p>
-<p>Atividades:</p>
-<ul>
-  <li>Revisão de diagramas UML e mapeamento para classes Java;</li>
-  <li>Reestruturação de pacotes e responsabilidade única por classe (Single Responsibility);</li>
-  <li>Documentação das decisões de design.</li>
-</ul>`,
+`<h2>19 - Correção – “Cannot resolve symbol”</h2>
+<p>Repetição da atividade: explicar novamente a causa desse erro. (Educação para a Vida)</p>`,
 
-`<h2>Aula 22</h2>
-<p><strong>Relembrando Encapsulamento</strong></p>
-<p>Sessão teórica-prática sobre encapsulamento: uso de modificadores de acesso (private, protected, public), getters/setters, validação de invariantes e técnicas para proteger o estado interno das classes.</p>
-<p>Exercício prático: refatorar classes existentes para promover melhor isolamento de responsabilidades e segurança de dados.</p>`,
+`<h2>20 - Apresentação de Desafio</h2>
+<p>Apresentações finais dos desafios dessa semana.</p>`,
 
-`<h2>Aula 23</h2>
-<p><strong>Resumo para Avaliação Global – Semana Nacional do Trânsito</strong></p>
-<p>Preparação do resumo que servirá de base para a Avaliação Global. O material compilou conceitos sobre segurança viária, sinalização, regras de circulação e a relação entre tecnologia e mobilidade urbana.</p>
-<p>Os alunos produziram material de estudo conciso e estruturado para consulta.</p>`,
+`<h2>21 - Organização – Estrutura de Pastas</h2>
+<p>No IntelliJ, os arquivos .java ficam em <b>/src/main/java/</b>. <b>Tirar um print mostrando o caminho.</b></p>`,
 
-`<h2>Aula 24</h2>
-<p><strong>Avaliação Global</strong></p>
-<p>Realização da Avaliação Global cobrindo os temas do bimestre. A prova avaliou tanto conhecimentos teóricos quanto aplicações práticas (resolução de problemas, pequenas implementações e análise crítica).</p>
-<p>Após a avaliação foram feitas correções coletivas e feedbacks individuais para orientar o estudo continuado.</p>`,
+`<h2>22 - Organização – Estrutura de Pastas</h2>
+<p>Repetição da atividade sobre a estrutura de pastas: enviar outro print do mesmo caminho.</p>`,
 
-`<h2>Aula 25</h2>
-<p><strong>Semana Nacional do Trânsito – Recuperação: Mundo Digital</strong></p>
-<p>Atividade de recuperação temática relacionando segurança no trânsito com comportamento digital. Discutiu-se o impacto de distrações digitais, uso de aplicativos de navegação e responsabilidade do cidadão conectado.</p>`,
+`<h2>23 - Interpretação – Console</h2>
+<p>A janela Run/Debug Console exibe toda a saída do programa, como textos e resultados da execução.</p>`,
 
-`<h2>Aula 26</h2>
-<p><strong>Semana Nacional do Trânsito – Desenvolvimento do Software (Parte 1)</strong></p>
-<p>Início do desenvolvimento de uma aplicação de apoio à educação no trânsito: definição de requisitos, prototipagem de telas e mapeamento de fluxos principais.</p>`,
+`<h2>24 - Refatoração – Rename</h2>
+<p>O recurso Rename altera nomes de forma segura em todo o projeto. <b>Testar no IntelliJ e explicar o resultado.</b></p>`,
 
-`<h2>Aula 27</h2>
-<p><strong>Semana Nacional do Trânsito – Desenvolvimento do Software (Parte 2)</strong></p>
-<p>Continuação do desenvolvimento: implementação de funcionalidades básicas, integração com recursos de localização (quando aplicável) e testes iniciais com usuários.</p>`,
+`<h2>25 - Bibliotecas – Import automático</h2>
+<p>Ao digitar ArrayList, o IntelliJ sugere “Import Class”, adicionando automaticamente a importação necessária.</p>`,
 
-`<h2>Aula 28</h2>
-<p><strong>Semana Nacional do Trânsito – Desenvolvimento do Software (Consolidação)</strong></p>
-<p>Refinamento das funcionalidades, correção de bugs, inclusão de elementos educativos e preparação para demonstração pública do projeto.</p>`,
+`<h2>26 - Revisão para Avaliação Global</h2>
+<p>Revisão geral dos conteúdos para preparação da avaliação.</p>`,
 
-`<h2>Aula 29</h2>
-<p><strong>Recuperação Bimestral – Revisão para Fixação do Aprendizado</strong></p>
-<p>Última sessão de revisão com exercícios orientados, correção de atividades pendentes e estratégias personalizadas de estudo para consolidar os conceitos trabalhados ao longo do bimestre. Foram utilizados mapas mentais, listas de verificação e mini-testes práticos para aferir a aprendizagem.</p>`
+`<h2>27 - Avaliação Global</h2>
+<p>Aplicação da avaliação referente ao conteúdo visto no bimestre.</p>`,
+
+`<h2>28 - Avaliação Global</h2>
+<p>Continuação da avaliação.</p>`,
+
+`<h2>29 - Recuperação Bimestral</h2>
+<p>Atividades de recuperação para reforçar conteúdos e recuperar notas.</p>`,
+
+`<h2>30 - Recuperação Final Anual</h2>
+<p>Atividades finais de recuperação anual envolvendo todo o conteúdo de Java e IntelliJ IDEA.</p>`
 
 ];
 
